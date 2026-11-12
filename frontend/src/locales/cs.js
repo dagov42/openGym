@@ -5872,4 +5872,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Zobraz, co používáš, sbal, co otevíráš málokdy, a zbytek skryj. Šipky mění pořadí.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0} tréninků bez posunu. Zůstaň na {1} {2} a dělej {3} opakování.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0} tréninků bez posunu. Odlehčení podle Epleyho na {1} {2} na {3} opakování.",
+  "Timer wheels": "Kolečka časovače",
+  "Seconds in steps of 1 or 5": "Sekundy po 1 nebo po 5",
 }

@@ -5872,4 +5872,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Hiện những gì bạn dùng, thu gọn những gì ít mở và ẩn phần còn lại. Các mũi tên đổi thứ tự.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Chững lại {0} buổi. Giữ {1} {2} và tập {3} lần.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Chững lại {0} buổi. Giảm tải theo Epley xuống {1} {2} với {3} lần.",
+  "Timer wheels": "Bánh xe bộ đếm giờ",
+  "Seconds in steps of 1 or 5": "Giây theo bước 1 hoặc 5",
 };

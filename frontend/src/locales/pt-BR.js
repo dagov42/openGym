@@ -4331,6 +4331,8 @@ export const PT_BR_OVERRIDES = {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Mostre o que você usa, recolha o que abre raramente e oculte o resto. As setas mudam a ordem.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Estagnado há {0} sessões. Mantenha {1} {2} e faça {3} repetições.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Estagnado há {0} sessões. Deload pelo Epley para {1} {2} com {3} repetições.",
+  "Timer wheels": "Rodas do temporizador",
+  "Seconds in steps of 1 or 5": "Segundos de 1 em 1 ou de 5 em 5",
 }
 
 export default { ...pt, ...PT_BR_OVERRIDES }

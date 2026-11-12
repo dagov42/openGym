@@ -5917,4 +5917,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "แสดงสิ่งที่คุณใช้ ย่อสิ่งที่ไม่ค่อยเปิด และซ่อนที่เหลือ ลูกศรใช้เปลี่ยนลำดับ",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "ติดอยู่ {0} ครั้งแล้ว คงน้ำหนัก {1} {2} และทำ {3} ครั้ง",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "ติดอยู่ {0} ครั้งแล้ว ลดน้ำหนักตามสูตร Epley เป็น {1} {2} ทำ {3} ครั้ง",
+  "Timer wheels": "วงล้อตัวจับเวลา",
+  "Seconds in steps of 1 or 5": "วินาทีทีละ 1 หรือ 5",
 }

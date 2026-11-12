@@ -5902,4 +5902,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Rodyk, ką naudoji, suskleisk, ką atidarai retai, o kitką paslėpk. Rodyklės keičia tvarką.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Jau {0} treniruotes be pažangos. Likite ties {1} {2} ir darykite {3} pakartojimus.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Jau {0} treniruotes be pažangos. Iškrova pagal Epley iki {1} {2}, {3} pakartojimai.",
+  "Timer wheels": "Laikmačio ratukai",
+  "Seconds in steps of 1 or 5": "Sekundės po 1 arba po 5",
 }

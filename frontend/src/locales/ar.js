@@ -5961,4 +5961,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "أظهر ما تستخدمه، واطوِ ما تفتحه نادراً، وأخفِ الباقي. الأسهم تغيّر الترتيب.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "متوقف منذ {0} جلسات. ابقَ على {1} {2} وأدِّ {3} تكرارات.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "متوقف منذ {0} جلسات. تخفيف حسب إيبلي إلى {1} {2} لـ {3} تكرارات.",
+  "Timer wheels": "عجلات المؤقت",
+  "Seconds in steps of 1 or 5": "الثواني بخطوات 1 أو 5",
 }

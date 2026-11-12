@@ -5899,4 +5899,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "顯示常用的，摺疊很少打開的，隱藏其餘的。箭頭用來調整順序。",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "已停滯 {0} 次訓練。維持 {1} {2}，做 {3} 下。",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "已停滯 {0} 次訓練。依 Epley 減量到 {1} {2}，做 {3} 下。",
+  "Timer wheels": "計時滾輪",
+  "Seconds in steps of 1 or 5": "秒數以 1 或 5 為一格",
 }

@@ -5903,4 +5903,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Покажіть те, чим користуєтеся, згорніть те, що відкриваєте рідко, і сховайте решту. Стрілки змінюють порядок.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Застій уже {0} тренувань. Залиште {1} {2} і робіть {3} повторень.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Застій уже {0} тренувань. Розвантаження за Еплі до {1} {2} на {3} повторень.",
+  "Timer wheels": "Коліщата таймера",
+  "Seconds in steps of 1 or 5": "Секунди з кроком 1 або 5",
 }

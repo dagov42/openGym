@@ -5906,4 +5906,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Affiche ce que tu utilises, replie ce que tu ouvres rarement et masque le reste. Les flèches changent l’ordre.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Bloqué depuis {0} séances. Garde {1} {2} et fais {3} répétitions.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Bloqué depuis {0} séances. Décharge selon Epley à {1} {2} pour {3} répétitions.",
+  "Timer wheels": "Roues du minuteur",
+  "Seconds in steps of 1 or 5": "Secondes par pas de 1 ou de 5",
 }

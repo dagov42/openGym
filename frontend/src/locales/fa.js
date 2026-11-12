@@ -5872,4 +5872,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "آنچه استفاده می‌کنی را نشان بده، آنچه کم باز می‌کنی را جمع کن و بقیه را پنهان کن. فلش‌ها ترتیب را عوض می‌کنند.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0} جلسه درجا زده‌اید. روی {1} {2} بمانید و {3} تکرار بزنید.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0} جلسه درجا زده‌اید. کاهش بار به روش اپلی تا {1} {2} برای {3} تکرار.",
+  "Timer wheels": "چرخ‌های تایمر",
+  "Seconds in steps of 1 or 5": "ثانیه‌ها با گام 1 یا 5",
 }

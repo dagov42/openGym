@@ -5909,4 +5909,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Mutasd, amit használsz, csukd össze, amit ritkán nyitsz meg, a többit rejtsd el. A nyilak a sorrendet változtatják.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0} edzés óta elakadtál. Maradj {1} {2}-nál, és csinálj {3} ismétlést.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0} edzés óta elakadtál. Epley szerinti tehermentesítés {1} {2}-ra, {3} ismétléssel.",
+  "Timer wheels": "Időzítő tárcsái",
+  "Seconds in steps of 1 or 5": "Másodpercek 1-es vagy 5-ös lépésekben",
 }

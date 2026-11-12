@@ -5985,4 +5985,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "যা ব্যবহার করেন তা দেখান, যা কম খোলেন তা গুটিয়ে রাখুন, বাকিটা লুকান। তীরগুলো ক্রম বদলায়।",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0} সেশন ধরে আটকে আছেন। {1} {2} রাখুন আর {3}টি রেপ করুন।",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0} সেশন ধরে আটকে আছেন। এপলি অনুযায়ী {1} {2}-এ নামিয়ে {3}টি রেপ।",
+  "Timer wheels": "টাইমারের চাকা",
+  "Seconds in steps of 1 or 5": "সেকেন্ড 1 বা 5 করে",
 }

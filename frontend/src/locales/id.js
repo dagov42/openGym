@@ -5871,4 +5871,6 @@ export default {
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Tampilkan yang kamu pakai, ciutkan yang jarang kamu buka, dan sembunyikan sisanya. Panah mengubah urutannya.",
   "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Mandek selama {0} sesi. Tetap di {1} {2} dan lakukan {3} repetisi.",
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Mandek selama {0} sesi. Deload Epley ke {1} {2} untuk {3} repetisi.",
+  "Timer wheels": "Roda timer",
+  "Seconds in steps of 1 or 5": "Detik dengan langkah 1 atau 5",
 };
