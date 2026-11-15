@@ -15,7 +15,8 @@ import { APK_VARIANTS, APK_VARIANT } from './apk-variant.js'
 
 // Which repository's releases update this build: openGym's own, unless the build names another —
 // a fork passes VITE_UPDATE_REPO=someone/openGym so its phones update from its own releases.
-export const updateRepo = (env = import.meta.env || {}) => env.VITE_UPDATE_REPO || 'DuarteSantos8/openGym'
+// (This fork defaults to itself: dagov42/openGym.)
+export const updateRepo = (env = import.meta.env || {}) => env.VITE_UPDATE_REPO || 'dagov42/openGym'
 const REPO = updateRepo()
 const LATEST_URL = `https://api.github.com/repos/${REPO}/releases/latest`
 export const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`

@@ -5,8 +5,8 @@ import { checkForUpdate, sha256, resetUpdateCheck, fetchChecksum, pickApk, APK_V
 // In the test environment vitest applies the same define, so it's available here.
 
 describe('updateRepo', () => {
-  it('is openGym\'s own repository, or the one the build names (a fork\'s)', () => {
-    expect(updateRepo({})).toBe('DuarteSantos8/openGym')
+  it('is this fork\'s repository, or the one the build names', () => {
+    expect(updateRepo({})).toBe('dagov42/openGym') // fork: updates come from its own releases
     expect(updateRepo({ VITE_UPDATE_REPO: 'someone/openGym' })).toBe('someone/openGym')
   })
 })
@@ -93,7 +93,7 @@ describe('checkForUpdate', () => {
   it('asks GitHub for the latest published release (never a draft or a beta)', async () => {
     mockFetch({ tag_name: 'v' + __APP_VERSION__, assets: [] })
     await checkForUpdate()
-    expect(globalThis.fetch.mock.calls[0][0]).toBe('https://api.github.com/repos/DuarteSantos8/openGym/releases/latest')
+    expect(globalThis.fetch.mock.calls[0][0]).toBe('https://api.github.com/repos/dagov42/openGym/releases/latest')
   })
 
   it('reports no update when the latest release matches the current version', async () => {
