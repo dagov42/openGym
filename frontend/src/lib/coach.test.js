@@ -361,7 +361,6 @@ describe('applying changes', () => {
     expect(decisionBody({ kind: 'review', proposalId: 'p3', dismissed: true, decisions: [{ id: 'c1', status: 'rejected' }] })).toEqual({ id: 'p3', dismissed: true })
     expect(decisionBody({ kind: 'review', proposalId: 'p4', decisions: [{ id: 'c1', status: 'accepted' }, { id: 'c2', status: 'rejected' }] }))
       .toEqual({ id: 'p4', accepted: ['c1'], rejected: ['c2'] })
->>>>>>> 22734ad8ebb29273c58328886aa7dbb305c5f2d5
   })
 
   it('never touches history, weigh-ins or settings', () => {
