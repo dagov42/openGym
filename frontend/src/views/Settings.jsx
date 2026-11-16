@@ -61,8 +61,9 @@ import { getMediaStatus, subscribeMediaStatus, pendingRefCount, localOnlyRefCoun
 import { limitsFrom, fmtMB, MB } from '../lib/media-limits.js'
 import { setRestAccent } from '../lib/rest-alert.js'
 import { CUSTOM, accentKey, adjustedIn, applyAccent, cleanHex, inkOn, isGrey } from '../lib/accent.js'
-import { checkForUpdate, forgetDownloadedUpdate, RELEASES_PAGE } from '../lib/update.js'
+import { layoutSheet } from '../components/PageLayout.jsx'
 import { askToUpdate } from '../components/UpdateNotice.jsx'
+import { checkForUpdate, forgetDownloadedUpdate, RELEASES_PAGE } from '../lib/update.js'
 import { APK_VARIANT, VARIANT_NAMES } from '../lib/apk-variant.js'
 import { BUILTIN_PX } from '../lib/anim-quality.js'
 import { getChannel, gymReminderBuilt } from '../lib/channel.js'
@@ -1126,6 +1127,9 @@ export default function Settings({ page = null, find = null, via = null, entryKe
         {/* Siri & Shortcuts / Assistant (components/VoiceShortcuts.jsx): the phone app only. */}
         {MOBILE && platformNow() && <Row icon="chat" iconTint="var(--purple)" title={voiceRowTitle()}
           subtitle={platformNow() === 'android' ? t('Start a workout or log your weight from the app icon.') : t('Start a workout or log your weight by voice.')} accessory="chevron" onClick={voiceShortcutsSheet} />}
+        {/* Which cards Home and Stats show, folded or in which order (components/PageLayout.jsx, #1119). */}
+        <Row icon="layout" iconTint="var(--blue)" title={t('Customize')} value={t('Home')} accessory="chevron" onClick={() => layoutSheet('home')} />
+        <Row icon="layout" iconTint="var(--blue)" title={t('Customize')} value={t('Stats')} accessory="chevron" onClick={() => layoutSheet('stats')} />
         {/* The Home summary is optional; hiding it leaves weight logging, history and Stats intact. */}
         {on('body') && <Row icon="scale" iconTint="var(--green)" title={t('Body weight')}
           subtitle={t('Show the body weight card on Home.')}>
