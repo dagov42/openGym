@@ -362,6 +362,10 @@ export function httpAdapter(spec) {
       let body = spec.compat ? applySteps(spec, build(), steps) : build();
       let triedOtherModel = false;
       let transientRetries = 0;
+      // One more try for a transport error that came after the request had been waiting a while:
+      // a phone going to the background, a NAT rebinding or a proxy dropping an idle socket cut
+      // the provider connection mid-think (#1290). A refusal that came back at once is not retried.
+      let transportRetries = 0;
       let firstRefusal = null;
       // Every request shape sent in this call, so no rung ever asks the same thing twice.
       const sent = new Set();
@@ -394,6 +398,11 @@ export function httpAdapter(spec) {
         } catch (e) {
           if (e.name === 'AbortError') return { code: -1, text: '', stderr: 'timed out', timedOut: true };
           const waited = Math.round((Date.now() - sentAt) / 1000);
+          if (waited >= 5 && transportRetries < 1 && !(signal && signal.aborted)) {
+            transportRetries++;
+            await sleep(opts.retryDelayMs != null ? opts.retryDelayMs : RETRY_DELAYS_MS[0], signal);
+            continue;
+          }
           if (Date.now() - sentAt >= WAITED_MS) return { code: 1, text: '', stderr: `the connection to ${hostOf(base)} dropped while waiting for the answer (after ${waited} s): ${trim(e.message, 200)}` };
           return { code: 1, text: '', stderr: `could not reach ${hostOf(base)}: ${trim(e.message, 200)}` };
         }
