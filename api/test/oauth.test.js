@@ -29,6 +29,16 @@ test('registration takes https and loopback redirects only, and caps the number 
   assert.equal(db.oauthClients.length, oauth.CLIENTS_MAX);
 });
 
+test('registration takes up to ten redirect_uris, so Google six fit (#1297)', () => {
+  const db = {};
+  const six = Array.from({ length: 6 }, (_, i) => `https://gemini.example/cb${i}`);
+  const ok = oauth.registerClient(db, { client_name: 'Gemini', redirect_uris: six });
+  assert.equal(ok.status, 201);
+  assert.equal(ok.body.redirect_uris.length, 6);
+  const eleven = Array.from({ length: 11 }, (_, i) => `https://gemini.example/cb${i}`);
+  assert.equal(oauth.registerClient(db, { redirect_uris: eleven }).status, 400);
+});
+
 test('authorize: unknown client or redirect is answered here, a missing S256 challenge goes back with an error', () => {
   const db = {};
   const id = oauth.registerClient(db, { client_name: 'Claude', redirect_uris: [CLAUDE] }).body.client_id;
@@ -204,10 +214,16 @@ test('CIMD: the document must name itself, list usable redirects and be a public
     [URLID]: { client_id: URLID, client_name: 'Claude Code', redirect_uris: ['http://localhost/callback', 'http://127.0.0.1/callback'], grant_types: ['authorization_code', 'refresh_token'], token_endpoint_auth_method: 'none' },
     'https://bad.example/meta': { client_id: 'https://other.example/meta', redirect_uris: [CLAUDE] },
     'https://secret.example/meta': { client_id: 'https://secret.example/meta', redirect_uris: [CLAUDE], token_endpoint_auth_method: 'client_secret_basic' },
+    // #1251: ChatGPT names private_key_jwt as its token endpoint method, but lists "none" among
+    // the methods it supports, so it is still a public client for this server.
+    'https://chatgpt.com/oauth/client.json': { client_id: 'https://chatgpt.com/oauth/client.json', client_name: 'ChatGPT', redirect_uris: ['https://chatgpt.com/connector_platform_oauth_redirect'], grant_types: ['authorization_code', 'refresh_token'], token_endpoint_auth_method: 'private_key_jwt', token_endpoint_auth_methods_supported: ['none', 'private_key_jwt'] },
+    'https://jwt.example/meta': { client_id: 'https://jwt.example/meta', redirect_uris: [CLAUDE], token_endpoint_auth_method: 'private_key_jwt', token_endpoint_auth_methods_supported: ['private_key_jwt'] },
   };
   const fetchDoc = async u => { if (!docs[u]) throw new Error('HTTP 404'); return docs[u]; };
   const r = await oauth.resolveCimd(URLID, { fetchDoc });
   assert.equal(r.ok, true);
+  assert.equal((await oauth.resolveCimd('https://chatgpt.com/oauth/client.json', { fetchDoc })).ok, true);
+  assert.equal((await oauth.resolveCimd('https://jwt.example/meta', { fetchDoc })).ok, false, 'private_key_jwt alone is not a public client');
   assert.equal((await oauth.resolveCimd('https://bad.example/meta', { fetchDoc })).ok, false);
   assert.equal((await oauth.resolveCimd('https://secret.example/meta', { fetchDoc })).ok, false);
   assert.equal((await oauth.resolveCimd('https://gone.example/meta', { fetchDoc })).ok, false);

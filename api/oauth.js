@@ -130,7 +130,9 @@ const cleanName = (v, fallback) => String(v || '').replace(/[\u0000-\u001f\u007f
 /** RFC 7591 registration. { status, body } */
 export function registerClient(db, body, now = Date.now()) {
   const uris = Array.isArray(body?.redirect_uris) ? body.redirect_uris.filter(u => typeof u === 'string') : [];
-  if (!uris.length || uris.length > 5 || !uris.every(redirectOk)) return { status: 400, body: { error: 'invalid_redirect_uri', error_description: 'redirect_uris: 1-5 https addresses (or http on localhost)' } };
+  // 10, the same cap as a client metadata document: Google's DCR sends 6 valid addresses (one
+  // per Gemini surface) and the old cap of 5 refused it (#1297).
+  if (!uris.length || uris.length > 10 || !uris.every(redirectOk)) return { status: 400, body: { error: 'invalid_redirect_uri', error_description: 'redirect_uris: 1-10 https addresses (or http on localhost)' } };
   const name = cleanName(body?.client_name, 'MCP client');
   const grants = Array.isArray(body?.grant_types) ? GRANTS.filter(g => body.grant_types.includes(g)) : ['authorization_code'];
   if (!grants.includes('authorization_code')) grants.unshift('authorization_code');
@@ -163,8 +165,14 @@ export function cimdClient(id, doc) {
   if (!doc || typeof doc !== 'object' || doc.client_id !== id) return { ok: false, error: 'the client metadata document does not name itself as its client_id' };
   const uris = Array.isArray(doc.redirect_uris) ? doc.redirect_uris.filter(u => typeof u === 'string') : [];
   if (!uris.length || uris.length > 10 || !uris.every(redirectOk)) return { ok: false, error: 'the client metadata document lists no usable redirect_uris' };
-  const method = doc.token_endpoint_auth_method || 'none';
-  if (method !== 'none') return { ok: false, error: 'only public clients (token_endpoint_auth_method none) are supported' };
+  // A document may name a method it prefers for its own token endpoint (ChatGPT's says
+  // private_key_jwt) while listing "none" among the methods it supports. With PKCE and the
+  // redirect check done here, "none" is what this server implements, so a client that supports
+  // it is a public client (#1251).
+  const declared = doc.token_endpoint_auth_method || 'none';
+  const methods = Array.isArray(doc.token_endpoint_auth_methods_supported) ? doc.token_endpoint_auth_methods_supported : [];
+  const publicClient = declared === 'none' || methods.includes('none');
+  if (!publicClient) return { ok: false, error: 'only public clients (token_endpoint_auth_method none) are supported' };
   const grants = Array.isArray(doc.grant_types) ? GRANTS.filter(g => doc.grant_types.includes(g)) : ['authorization_code'];
   let name = cleanName(doc.client_name, '');
   if (!name) { try { name = new URL(id).hostname; } catch { name = 'MCP client'; } }
