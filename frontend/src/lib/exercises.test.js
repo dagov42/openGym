@@ -184,3 +184,18 @@ describe('search with the pt and sv exercise-name packs', async () => {
     }
   })
 })
+
+// #1296: jump rope was stored as "full body", so isCardio said no and the weekly cardio total
+// ignored it. The rope exercises are cardio in the catalogue now.
+describe('rope exercises count as cardio', () => {
+  it('every jump-rope variant is cardio, and its target stays the cardiovascular system', async () => {
+    const { EXDB } = await import('./exercises-data.js')
+    const { isCardio } = await import('./exercises.js')
+    for (const id of ['2612', '3675', '3676', '3677', '3678', '3885', '4829', '5038']) {
+      const ex = EXDB.find(e => e.id === id)
+      expect(ex, id).toBeTruthy()
+      expect(ex.tg, id).toBe('cardiovascular system')
+      expect(isCardio(ex), id).toBe(true)
+    }
+  })
+})
