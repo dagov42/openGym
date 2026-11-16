@@ -5904,4 +5904,6 @@ export default {
   "Hide": "Ocultar",
   "Totals": "Totales",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Muestra lo que usas, pliega lo que abres poco y oculta el resto. Las flechas cambian el orden.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Llevas {0} sesiones sin avanzar. Mantén {1} {2} y haz {3} repeticiones.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Llevas {0} sesiones sin avanzar. Descarga según Epley a {1} {2} para {3} repeticiones.",
 }

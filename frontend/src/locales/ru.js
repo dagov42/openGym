@@ -5908,4 +5908,6 @@ export default {
   "Hide": "Скрыть",
   "Totals": "Итоги",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Покажите то, чем пользуетесь, сверните то, что открываете редко, и скройте остальное. Стрелки меняют порядок.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Застой {0} тренировок. Оставьте {1} {2} и делайте {3} повторений.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Застой {0} тренировок. Разгрузка по Эпли до {1} {2} на {3} повторений.",
 }

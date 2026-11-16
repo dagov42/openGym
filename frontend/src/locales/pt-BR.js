@@ -4329,6 +4329,8 @@ export const PT_BR_OVERRIDES = {
   "Follows the main page. Switch this on to pick the details and buttons for this type yourself.": "Segue a página principal. Ative isto para escolher você mesmo os detalhes e os botões deste tipo.",
   // Arrange your own Home and Stats (#1119)
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Mostre o que você usa, recolha o que abre raramente e oculte o resto. As setas mudam a ordem.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Estagnado há {0} sessões. Mantenha {1} {2} e faça {3} repetições.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Estagnado há {0} sessões. Deload pelo Epley para {1} {2} com {3} repetições.",
 }
 
 export default { ...pt, ...PT_BR_OVERRIDES }

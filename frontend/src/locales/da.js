@@ -5844,4 +5844,6 @@ export default {
   "Hide": "Skjul",
   "Totals": "Totaler",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Vis det, du bruger, fold det sammen, du sjældent åbner, og skjul resten. Pilene ændrer rækkefølgen.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "Gået i stå i {0} pas. Bliv på {1} {2} og tag {3} gentagelser.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Gået i stå i {0} pas. Epley-deload til {1} {2} med {3} gentagelser.",
 }

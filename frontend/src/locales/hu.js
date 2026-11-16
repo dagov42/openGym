@@ -5907,4 +5907,6 @@ export default {
   "Hide": "Elrejtés",
   "Totals": "Összesítők",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Mutasd, amit használsz, csukd össze, amit ritkán nyitsz meg, a többit rejtsd el. A nyilak a sorrendet változtatják.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0} edzés óta elakadtál. Maradj {1} {2}-nál, és csinálj {3} ismétlést.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0} edzés óta elakadtál. Epley szerinti tehermentesítés {1} {2}-ra, {3} ismétléssel.",
 }

@@ -5904,4 +5904,6 @@ export default {
   "Hide": "Gizle",
   "Totals": "Toplamlar",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "Kullandığını göster, nadiren açtığını daralt, gerisini gizle. Oklar sırayı değiştirir.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0} antrenmandır yerinde sayıyorsun. {1} {2} ile kal ve {3} tekrar yap.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0} antrenmandır yerinde sayıyorsun. Epley’e göre {1} {2}’ye deload, {3} tekrar.",
 }

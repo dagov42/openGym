@@ -5904,4 +5904,6 @@ export default {
   "Hide": "숨기기",
   "Totals": "합계",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "자주 쓰는 것은 보이고, 가끔 여는 것은 접고, 나머지는 숨기세요. 화살표로 순서를 바꿉니다.",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "{0}회 동안 정체 중이에요. {1} {2}을(를) 유지하고 {3}회로 하세요.",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "{0}회 동안 정체 중이에요. Epley 기준으로 {1} {2}까지 디로드, {3}회.",
 }

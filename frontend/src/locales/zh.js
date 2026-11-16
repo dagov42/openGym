@@ -5904,4 +5904,6 @@ export default {
   "Hide": "隐藏",
   "Totals": "总计",
   "Show what you use, collapse what you rarely open and hide the rest. The arrows change the order.": "显示常用的，折叠很少打开的，隐藏其余的。箭头用于调整顺序。",
+  "Stuck for {0} sessions. Hold {1} {2} and use {3} reps.": "已停滞 {0} 次训练。保持 {1} {2}，做 {3} 次。",
+  "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "已停滞 {0} 次训练。按 Epley 减载到 {1} {2}，做 {3} 次。",
 }
