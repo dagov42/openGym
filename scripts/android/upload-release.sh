@@ -7,8 +7,9 @@
 # named the APKs and SHA256SUMS only, and no sideloaded phone could update for a day.
 # Publish the release only after this ends with "ok". Needs gh, logged in.
 set -euo pipefail
-TAG=${1:?tag, e.g. v1.4.6}; OUT=${2:?folder with the built files}
-VER=${TAG#v}
+TAG=${1:?tag, e.g. fork-v1.4.7}; OUT=${2:?folder with the built files}
+VER=${TAG#fork-v}
+VER=${VER#v}
 cd "$(dirname "$0")/../.."
 shopt -s nullglob
 apks=("$OUT"/openGym-*"$VER".apk)

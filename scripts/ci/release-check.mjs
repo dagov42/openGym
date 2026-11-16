@@ -3,8 +3,8 @@
 // the api reports 1.4.1, or whose APK still calls itself 1.4.1, tells the in-app update check
 // the wrong thing and leaves self-hosters on a "new" version forever.
 //
-//   node scripts/ci/release-check.mjs v1.4.2   strict: errors fail (exit 1)
-//   node scripts/ci/release-check.mjs          report only: prints the table
+//   node scripts/ci/release-check.mjs fork-v1.4.7   strict: errors fail (exit 1)
+//   node scripts/ci/release-check.mjs               report only: prints the table
 //
 // Errors (with a tag): frontend + api package.json, the CHANGELOG section. Warnings: Android
 // versionName and the iOS marketing version, which the store builds may legitimately bump on
@@ -12,7 +12,7 @@
 import { appendFileSync, readFileSync } from 'node:fs'
 
 const tag = process.argv[2]
-const want = tag ? tag.replace(/^v/, '') : null
+const want = tag ? tag.replace(/^(?:fork-)?v/, '') : null
 const read = (p) => { try { return readFileSync(p, 'utf8') } catch { return '' } }
 const found = {
   'frontend/package.json': JSON.parse(read('frontend/package.json') || '{}').version,
@@ -36,7 +36,7 @@ if (want) {
 }
 const md = [`### Versions${tag ? ` for ${tag}` : ''}`, '', '| Where | Version |', '|---|---|',
   ...Object.entries(found).map(([k, v]) => `| ${k} | ${v ?? '–'} |`),
-  ...(want ? [`| CHANGELOG "## ${tag}" | ${section ? 'present' : 'MISSING'} |`] : []),
+  ...(want ? [`| CHANGELOG "## v${want}" | ${section ? 'present' : 'MISSING'} |`] : []),
   '', ...errors.map((e) => `- ❌ ${e}`), ...warnings.map((w) => `- ⚠️ ${w}`), ''].join('\n')
 console.log(md)
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, md + '\n')

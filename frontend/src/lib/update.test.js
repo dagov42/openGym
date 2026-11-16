@@ -126,6 +126,13 @@ describe('checkForUpdate', () => {
     expect(result.latestVersion).toBe('99.1.2')
   })
 
+  it('reads a fork-v tag as its version', async () => {
+    mockFetch({ tag_name: 'fork-v99.1.2', assets: [] })
+    const result = await checkForUpdate()
+    expect(result.hasUpdate).toBe(true)
+    expect(result.latestVersion).toBe('99.1.2')
+  })
+
   // What api.github.com returned for releases/latest on 2026-10-10 (v1.4.0, trimmed): the APK
   // and its checksum as release assets. The checksum file also ends in neither .apk nor
   // anything else the APK match could take.

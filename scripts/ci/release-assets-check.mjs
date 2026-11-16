@@ -3,8 +3,8 @@
 // published with its APKs and the combined SHA256SUMS but without the per-APK .sha256 files, and
 // every sideloaded phone answered "Checksum not available, so not installing" for a day.
 //
-//   node scripts/ci/release-assets-check.mjs v1.4.6            the release with this tag
-//   node scripts/ci/release-assets-check.mjs v1.4.6 --draft    also looks among the drafts
+//   node scripts/ci/release-assets-check.mjs fork-v1.4.7            the release with this tag
+//   node scripts/ci/release-assets-check.mjs fork-v1.4.7 --draft    also looks among the drafts
 //
 // Run it on the DRAFT before publishing (needs GH_TOKEN or GITHUB_TOKEN, drafts are private), and
 // release-assets.yml runs it again the moment a release is published. It fails (exit 1) when:
@@ -29,7 +29,7 @@ const OTHER = /(^|[-_.])(offline|fdroid|wear)([-_.]|$)/i
  */
 export function problems(release, texts, previous = null) {
   const out = []
-  const version = String(release.tag_name || '').replace(/^v/, '')
+  const version = String(release.tag_name || '').replace(/^(?:fork-)?v/, '')
   const names = release.assets.map((a) => a.name)
   const apks = release.assets.filter((a) => /\.apk$/i.test(a.name))
   if (!apks.length) return ['the release has no APK at all']
@@ -62,7 +62,7 @@ export function problems(release, texts, previous = null) {
   }
 
   if (previous) {
-    const before = String(previous.tag_name || '').replace(/^v/, '')
+    const before = String(previous.tag_name || '').replace(/^(?:fork-)?v/, '')
     for (const a of previous.assets) {
       const expected = a.name.split(before).join(version)
       if (!names.includes(expected)) out.push(`${expected} is missing (${previous.tag_name} had ${a.name})`)

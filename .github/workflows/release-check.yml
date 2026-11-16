@@ -6,14 +6,14 @@ name: Release check
 
 on:
   push:
-    tags: ['v*']
+    tags: ['v*', 'fork-v*']
     # Changes to the check itself, tried out on a CI branch (prints the table, checks nothing).
     branches: ['ci-*']
     paths: ['.github/workflows/release-check.yml', 'scripts/ci/release-check.mjs']
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Version to check, e.g. v1.4.2 (empty: just print the versions)'
+        description: 'Version to check, e.g. fork-v1.4.7 (empty: just print the versions)'
         required: false
 
 permissions:

@@ -33,8 +33,8 @@ export const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`
  * carries it.
  */
 function compareSemver(a, b) {
-  const pa = a.replace(/^v/, '').split('+')[0].split('.').map(Number)
-  const pb = b.replace(/^v/, '').split('+')[0].split('.').map(Number)
+  const pa = a.replace(/^(?:fork-)?v/, '').split('+')[0].split('.').map(Number)
+  const pb = b.replace(/^(?:fork-)?v/, '').split('+')[0].split('.').map(Number)
   for (let i = 0; i < 3; i++) {
     const diff = (pa[i] || 0) - (pb[i] || 0)
     if (diff > 0) return 1
@@ -49,7 +49,7 @@ function compareSemver(a, b) {
  * Returns { hasUpdate, latestVersion, apkUrl, hashUrl, apkApiUrl, hashApiUrl, apkName, sumsUrl,
  * sumsApiUrl } or throws on network failure.
  *   - hasUpdate: true if the latest release tag is newer than the running build
- *   - latestVersion: the semver string of the latest release (without "v" prefix)
+ *   - latestVersion: the semver string of the latest release (without the v or fork-v prefix)
  *   - apkUrl: direct download URL of this build's kind of .apk asset, or null
  *   - hashUrl: direct download URL of the .apk.sha256 hash file, or null
  *   - apkName: the chosen APK's file name, or null
@@ -81,7 +81,7 @@ async function fetchLatest() {
   if (res.status === 404) return { hasUpdate: false, latestVersion: __APP_VERSION__, apkUrl: null, hashUrl: null }
   if (!res.ok) throw new Error(`GitHub API ${res.status}`)
   const latest = await res.json()
-  const latestVersion = String(latest.tag_name || '').replace(/^v/, '')
+  const latestVersion = String(latest.tag_name || '').replace(/^(?:fork-)?v/, '')
   if (!latestVersion) return { hasUpdate: false, latestVersion: __APP_VERSION__, apkUrl: null, hashUrl: null }
   const hasUpdate = compareSemver(latestVersion, __APP_VERSION__) > 0
   const { apk, hash, sums } = pickApk(latest.assets || [])
