@@ -20,6 +20,36 @@
 
 ---
 
+## 2026-11-17 — 1.4.8.1: кнопка проверки обновлений
+
+Релиз `v1.4.8.1` (без префикса `fork-`), PR форка [#1](https://github.com/dagov42/openGym/pull/1).
+
+### Причина
+
+- Кнопка «Проверить обновления» не ходила в сеть: `checkForUpdate()` кэширует ответ на всю
+  сессию (`maxAge = Infinity` по умолчанию), и открытие About, и сама кнопка переиспользовали
+  кэш. Он заполнился до публикации 1.4.8, когда `/releases/latest` был `v1.4.6`.
+- `compareSemver` читал только три числа, поэтому `1.4.8.1` не отличался от `1.4.8` и не
+  предлагался как обновление.
+
+### Исправление
+
+- `Settings.jsx`: `checkNow()` вызывает `resetUpdateCheck()` перед `checkForUpdate()`, так что
+  тап по строке действительно опрашивает GitHub.
+- `update.js`: `compareSemver` сравнивает все присутствующие компоненты, включая четвёртый.
+- Версия `1.4.8.1` в frontend/api (package.json и lock-файлы) и Android (`versionCode 50`);
+  iOS `MARKETING_VERSION` и Garmin остаются `1.4.8` (3 части), iOS build `75`.
+
+### Проверка
+
+- `update.test.js` (сравнение 4 частей) и `Settings.update.test.jsx` (кнопка сбрасывает кэш) —
+  зелёные.
+- `release-check` для `v1.4.8.1`: frontend/api/Android совпадают, iOS/Garmin — warning.
+- Тег `v1.4.8.1`; GitHub release `v1.4.8.1` опубликован. APK/AAB ещё не загружены, `Release
+  files` красный до `scripts/android/upload-release.sh v1.4.8.1 <out>`.
+
+---
+
 ## 2026-11-17 — четыре фикса и тестовая гигиена на Windows
 
 Ветка `integration`, PR форка: [#1](https://github.com/dagov42/openGym/pull/1).

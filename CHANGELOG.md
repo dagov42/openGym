@@ -8,6 +8,15 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 Nothing yet.
 
+## v1.4.8.1 (2026-11-17)
+
+A small follow-up to v1.4.8. "Check for updates" now really asks GitHub again instead of repeating
+the answer the app cached when it opened, and a four-number patch like this one counts as newer
+than v1.4.8.
+
+- Fixed: tapping "Check for updates" re-checks GitHub. The answer used to be cached for the whole app session, so a release published while the app stayed open was missed.
+- Fixed: the version comparison reads the fourth number, so 1.4.8.1 is seen as newer than 1.4.8.
+
 ## v1.4.8 (2026-11-17)
 
 A stabilization release. The Coach no longer gives up on a slow answer, some iPhone photos are

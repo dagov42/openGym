@@ -8,10 +8,10 @@ own order and version policy.
 - Fork versioning: [FORK_VERSIONING.md](FORK_VERSIONING.md)
 - Specs index: `docs/superpowers/specs/2026-11-16-feature-plan-index.md`
 
-Current release: **v1.4.8**, tagged `fork-v1.4.8` and published as a GitHub release (versions
-aligned; `tests-ok` and Release check green). The APK/AAB assets are not uploaded yet, so the
-`Release files` check is red; build them on the release machine and run
-`scripts/android/upload-release.sh fork-v1.4.8 <out>` to make it green.
+Current release: **v1.4.8.1**, tagged `v1.4.8.1` (no `fork-` prefix) and published as a GitHub
+release. `tests-ok` and Release check are green; iOS/Garmin stay three-part by design and show as
+warnings. The APK/AAB assets are not uploaded yet, so the `Release files` check is red; build them
+on the release machine and run `scripts/android/upload-release.sh v1.4.8.1 <out>`.
 
 ## План фич
 
