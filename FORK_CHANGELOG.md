@@ -27,9 +27,10 @@
 `ff80dd325` (assisted), `37b902a4b` (log-workout), `c21149be6` (release 1.4.8).
 
 Релиз: версия **1.4.8** во всех местах, тег `fork-v1.4.8` на `c21149be6`; `tests-ok` и
-Release check зелёные. Создан draft GitHub release `v1.4.8 (fork)` с notes из `CHANGELOG.md`;
-APK/AAB, `upload-release.sh` и `release-assets-check` выполняются на релизной машине, и только
-после них релиз публикуется (до этого in-app updater версию не видит).
+Release check зелёные. GitHub release `v1.4.8 (fork)` опубликован с notes из `CHANGELOG.md`.
+Ассеты ещё не загружены: `Release files` красный, APK/AAB нужно собрать на релизной машине и
+залить `scripts/android/upload-release.sh fork-v1.4.8 <out>`; после этого проверка станет
+зелёной.
 
 Форк развивается самостоятельно: PR в апстрим отдельно не ведутся (открытые пробные
 PR #1339–#1342 закрыты), все фиксы остаются в `integration`.
