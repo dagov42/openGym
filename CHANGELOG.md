@@ -8,6 +8,18 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 Nothing yet.
 
+## v1.4.8 (2026-11-17)
+
+A stabilization release. The Coach no longer gives up on a slow answer, some iPhone photos are
+accepted again, assisted machines count progress the right way round, and a workout logged from
+text keeps the meaning it had.
+
+- Coach: when the connection drops after a long wait, the request is tried once more before the job fails. A phone in the background or a network that rebinds no longer loses a long answer (#1290).
+- Fixed: some iPhone library photos were refused with "That file type isn't supported". 10-bit HEIC, HEVC sequences and AV1/avci files now sniff correctly, and avci keeps its own image/avci type (#1268).
+- Assisted machines: the cable assisted inverse leg curl and its kind now know the machine assists the lift, so less help counts as the harder set in volume, records and progression (#1222).
+- Fixed: a workout logged from a description keeps its rep rows as reps. If the exercise is later classified as cardio, those rows do not become zero-minute cardio, and the .fit export stays clean.
+- For forks: the test suite is green on Windows again. Vitest pins NODE_ENV, a CRLF checkout no longer fails the byte-for-byte checks, and tests that need POSIX semantics skip themselves with a comment.
+
 ## v1.4.7 (2026-11-16)
 
 A corrected release of v1.4.6: every component reports the same version again, the Garmin app
