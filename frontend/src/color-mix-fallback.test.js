@@ -7,7 +7,7 @@
 // sources and on what lightningcss (Vite's CSS minifier, same targets) makes of them, since a
 // fallback the minifier drops is no fallback.
 import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, relative, resolve } from 'node:path'
+import { join, relative, resolve, sep } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { transform } from 'lightningcss'
 
@@ -83,7 +83,8 @@ const TARGETS = { safari: v(15), chrome: v(100), firefox: v(100), edge: v(100) }
 describe('color-mix() has a fallback for Safari before 16.2', () => {
   const files = cssFiles(SRC)
   it('finds the CSS', () => {
-    expect(files.map(f => relative(SRC, f))).toEqual(expect.arrayContaining(['index.css', 'coach.css', 'admin.css', 'views/FocusView.css']))
+    // CSS paths are written with forward slashes; relative() is not POSIX on Windows.
+    expect(files.map(f => relative(SRC, f).split(sep).join('/'))).toEqual(expect.arrayContaining(['index.css', 'coach.css', 'admin.css', 'views/FocusView.css']))
   })
   for (const file of files) {
     const css = readFileSync(file, 'utf8')

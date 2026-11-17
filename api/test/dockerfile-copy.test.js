@@ -54,7 +54,8 @@ test('every local module and folder server.js reaches, at any depth, is copied i
   while (queue.length) {
     const file = queue.shift();
     for (const spec of relImports(read(file))) {
-      const rel = path.relative(API, path.resolve(API, path.dirname(file), spec));
+      // Dockerfile entries and COPY arguments are POSIX paths; path.relative is not on Windows.
+      const rel = path.relative(API, path.resolve(API, path.dirname(file), spec)).split(path.sep).join('/');
       if (rel.startsWith('..')) { outside.push(`${file} -> ${spec}`); continue; }
       if (seen.has(rel) || !fs.existsSync(path.join(API, rel))) continue;
       seen.add(rel);
@@ -64,7 +65,8 @@ test('every local module and folder server.js reaches, at any depth, is copied i
   assert.ok(seen.has('oidc/config.js') && seen.has('coach/jobs.js'), 'the walk reaches into the folders');
   assert.deepEqual(outside, [], 'the image only holds api/, so nothing may import from outside it');
   const missing = [...seen].filter(f => {
-    const top = f.split(path.sep)[0];
+    // `seen` holds POSIX keys (see `rel` above), so the top-level folder is the first '/'.
+    const top = f.split('/')[0];
     return top === f ? !files.has(f) : !dirs.has(top);
   });
   assert.deepEqual(missing, [], `copy these in api/Dockerfile: ${missing.join(', ')}`);

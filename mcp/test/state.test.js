@@ -79,10 +79,10 @@ describe('a read failure is not "you never signed in"', () => {
     expect(err.message).toMatch(/cannot read state-alex\.json: EISDIR/)
   })
 
-  // Root reads a mode-000 file anyway (the GitLab CI container runs as root), so the failure this
-  // needs cannot be made there.
+  // Root reads a mode-000 file anyway (the GitLab CI container runs as root), and Windows does not
+  // apply POSIX modes at all, so the failure this needs cannot be made there.
   const asRoot = typeof process.getuid === 'function' && process.getuid() === 0
-  test.skipIf(asRoot)('a permission failure names the file, not the server\'s path', async () => {
+  test.skipIf(asRoot || process.platform === 'win32')('a permission failure names the file, not the server\'s path', async () => {
     const dir = mk({ 'db.json': DB, 'state-alex.json': '{}' })
     fs.chmodSync(path.join(dir, 'state-alex.json'), 0o000)
     const { getState } = await load(dir)

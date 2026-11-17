@@ -139,7 +139,7 @@ test('a profile full of passkeys still gets back in: the one used longest ago ma
   assert.ok(h.audit().some(e => e.ev === 'auth.recovery.ok' && /replaced Key 0/.test(e.msg || '')));
 });
 
-test('recover.js asks the running server for the owner’s code, by name or by id', async t => {
+test('recover.js asks the running server for the owner’s code, by name or by id', { skip: process.platform === 'win32' ? 'no AF_UNIX admin socket on Windows' : false }, async t => {
   const fresh = softPasskey();
   const h = await startServer(t, { users: [OWNER, ADMIN, ANA, user('u9', 'Ana')] });
   const r = await h.cli('Olga');
@@ -163,7 +163,7 @@ test('recover.js asks the running server for the owner’s code, by name or by i
   assert.equal((await h.cli()).code, 2);
 });
 
-test('the admin socket is private, and recover.js says so when no server runs', async t => {
+test('the admin socket is private, and recover.js says so when no server runs', { skip: process.platform === 'win32' ? 'no AF_UNIX admin socket on Windows' : false }, async t => {
   const h = await startServer(t, { users: [OWNER] });
   const { socketDir, socketPath } = await import('../admin-socket.js');
   const dir = socketDir(h.env);

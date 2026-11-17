@@ -53,6 +53,10 @@ test('a writable data directory answers 200, and says so', async t => {
 });
 
 test('a data directory the server cannot write to is 503, not healthy', async t => {
+  if (process.platform === 'win32') {
+    t.skip('Windows does not deny writes through a 0500 directory');
+    return;
+  }
   if (typeof process.getuid === 'function' && process.getuid() === 0) {
     t.skip('running as root: a mode that denies writes does not deny them to root');
     return;

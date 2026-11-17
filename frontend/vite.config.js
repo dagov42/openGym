@@ -7,6 +7,12 @@ import react from '@vitejs/plugin-react'
 import { lazyAssets, stampSw } from './scripts/sw-stamp.mjs'
 import { mobileViewport } from './src/lib/viewport-zoom.js'
 
+// Vitest loads this same config. Pin NODE_ENV before Vite resolves the config, not only in
+// `test.env` below: the shell may export NODE_ENV=production, and Vite reads it while it computes
+// `import.meta.env.DEV`/`PROD` and decides how to treat node: builtins — a test.env value arrives
+// after both. Production builds (`vite build`) never set VITEST, so they are unaffected.
+if (process.env.VITEST) process.env.NODE_ENV = 'test'
+
 const backend = process.env.API_TARGET || 'http://127.0.0.1:3000'
 // The API refuses a state-changing request that a browser sent from anywhere other than its own
 // ORIGIN (the CSRF guard in api/server.js). The dev server is on a different port, so the page's
@@ -126,6 +132,7 @@ export default defineConfig({
   // unlowered and one regex lookbehind kept 1.4.2 on its splash there. What the transpiler cannot
   // lower, scripts/check-bundle-syntax.mjs catches (its test builds the bundle).
   build: { chunkSizeWarningLimit: 1500, target: ['safari15', 'chrome100', 'firefox100', 'edge100'] },
-  // Gives happy-dom tests a working localStorage on Node 24+ (#733).
-  test: { setupFiles: ['./src/test-setup.js'] }
+  // Gives happy-dom tests a working localStorage on Node 24+ (#733). NODE_ENV=test makes React
+  // export act: a shell that exports production otherwise fails every component test.
+  test: { setupFiles: ['./src/test-setup.js'], env: { NODE_ENV: 'test' } }
 })

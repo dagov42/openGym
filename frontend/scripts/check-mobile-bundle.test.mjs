@@ -4,7 +4,7 @@
 import { describe, expect, it } from 'vitest'
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { join, sep } from 'node:path'
 import { checkMobileBundle } from './check-mobile-bundle.mjs'
 
 const MOBILE_HTML = '<head><meta name="opengym-flavor" content="mobile"><script type="module" crossorigin src="./assets/index-BKpgfSzf.js"></script><link rel="stylesheet" href="./assets/index-x.css"></head>'
@@ -27,7 +27,10 @@ const copy = (prefix, html, { sw = 'const CACHE = "og-1a2b3c"' } = {}) => ({
 })
 const check = files => {
   const dir = tree(files)
-  try { return checkMobileBundle(dir).map(p => p.replace(dir + '/', '')) }
+  // Messages carry the tree's own path; compare them as POSIX so the fixtures read the same on
+  // every OS (the script's output keeps the platform's separators for the person reading it).
+  const posix = p => p.split(sep).join('/')
+  try { return checkMobileBundle(dir).map(p => posix(p).replace(posix(dir) + '/', '')) }
   finally { rmSync(dir, { recursive: true, force: true }) }
 }
 

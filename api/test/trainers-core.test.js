@@ -197,7 +197,8 @@ test('share log: append only, looks folded per day, newest first, retention, ano
   assert.equal(log.all('m').find(e => e.ev === 'grant.create').actor.name, 'Lea', 'the member keeps their own name');
   t += 31 * 86400000; log.append('m', { ev: 'grant.end' });
   assert.equal(log.all('m').length, 1, 'older than keepDays went');
-  assert.equal(fs.statSync(path.join(dir, 'm.json')).mode & 0o777, 0o600);
+  // Windows has no POSIX modes; the retention and the read-back above carry the test.
+  if (process.platform !== 'win32') assert.equal(fs.statSync(path.join(dir, 'm.json')).mode & 0o777, 0o600);
   log.remove('m');
   assert.equal(fs.existsSync(path.join(dir, 'm.json')), false);
   assert.equal(log.all('m').length, 0);

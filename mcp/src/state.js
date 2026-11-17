@@ -122,6 +122,13 @@ export function init() {
       _state = undefined
       _loadedMtime = 0
     })
+    // An error event (the file's folder removed under it, a Windows FSEvent failure) is reported
+    // asynchronously, and an unhandled 'error' event takes the whole process down. Watching is
+    // best-effort, so a failure is treated like a change: the next read goes to disk.
+    _watcher.on('error', () => {
+      _state = undefined
+      _loadedMtime = 0
+    })
     // Unref'd, or the watcher alone holds the event loop open and the process outlives the
     // client that spawned it — "exits when the LLM client disconnects" stops being true the
     // moment there is a state file to watch. Most clients kill the child anyway, but one that

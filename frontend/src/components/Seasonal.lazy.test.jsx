@@ -4,7 +4,7 @@
 import React, { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { join, relative, sep } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
@@ -38,8 +38,11 @@ const files = (dir, out = []) => {
 describe('no theme code in the main bundle', () => {
   it.each(['halloween', 'christmas'])('only components/Seasonal.jsx names a theme module, and only through import() (%s)', id => {
     const re = new RegExp('seasonal/' + id + '|seasonal/advent-doors')
-    const naming = files(SRC).filter(f => !f.includes(join('src', 'seasonal') + '/')).filter(f => re.test(readFileSync(f, 'utf8')))
-    expect(naming.map(f => relative(SRC, f))).toEqual([join('components', 'Seasonal.jsx')])
+    // The theme folder's own files live there on every OS; compare with sep so the exclusion and
+    // the expected path do not depend on path.join's separators.
+    const themeDir = join(SRC, 'seasonal') + sep
+    const naming = files(SRC).filter(f => !f.startsWith(themeDir)).filter(f => re.test(readFileSync(f, 'utf8')))
+    expect(naming.map(f => relative(SRC, f).split(sep).join('/'))).toEqual(['components/Seasonal.jsx'])
     const text = readFileSync(join(SRC, 'components', 'Seasonal.jsx'), 'utf8')
     expect(text).not.toMatch(new RegExp('^\\s*import[^(]*seasonal/' + id, 'm'))
     expect(text).toContain(`import('../seasonal/${id}.jsx')`)
