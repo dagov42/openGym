@@ -37,14 +37,15 @@
 - `Settings.jsx`: `checkNow()` вызывает `resetUpdateCheck()` перед `checkForUpdate()`, так что
   тап по строке действительно опрашивает GitHub.
 - `update.js`: `compareSemver` сравнивает все присутствующие компоненты, включая четвёртый.
-- Версия `1.4.8.1` в frontend/api (package.json и lock-файлы) и Android (`versionCode 50`);
-  iOS `MARKETING_VERSION` и Garmin остаются `1.4.8` (3 части), iOS build `75`.
+- Версия `1.4.8.1` везде: frontend/api (package.json и lock-файлы), Android (`versionCode 50`),
+  iOS `MARKETING_VERSION`, Garmin `manifest.xml`; iOS build `75`.
 
 ### Проверка
 
 - `update.test.js` (сравнение 4 частей) и `Settings.update.test.jsx` (кнопка сбрасывает кэш) —
   зелёные.
-- `release-check` для `v1.4.8.1`: frontend/api/Android совпадают, iOS/Garmin — warning.
+- `release-check` для `v1.4.8.1`: все версии совпадают. Первый прогон CI поймал расхождение
+  Garmin-версии (`garmin/check.mjs`), исправлено следующим коммитом.
 - Тег `v1.4.8.1`; GitHub release `v1.4.8.1` опубликован. APK/AAB ещё не загружены, `Release
   files` красный до `scripts/android/upload-release.sh v1.4.8.1 <out>`.
 
