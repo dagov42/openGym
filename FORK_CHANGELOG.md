@@ -20,6 +20,57 @@
 
 ---
 
+## 2026-11-17 — четыре фикса и тестовая гигиена на Windows
+
+Ветка `integration`, PR форка: [#1](https://github.com/dagov42/openGym/pull/1).
+Коммиты: `c1d03bee9` (гигиена тестов), `e7879871b` (Coach), `1302639e8` (media),
+`ff80dd325` (assisted), `37b902a4b` (log-workout).
+
+Форк развивается самостоятельно: PR в апстрим отдельно не ведутся (открытые пробные
+PR #1339–#1342 закрыты), все фиксы остаются в `integration`.
+
+### Причина / что было сломано
+
+- **Windows-тесты.** Оболочка экспортирует `NODE_ENV=production`, из-за чего React не
+  отдаёт `act`, `import.meta.env.DEV` ложен, а `import('node:fs')` в happy-dom падает с
+  `No such built-in module: node:`. Плюс устаревший CRLF-чекаут ломал сверки «байт в байт»,
+  а проверки путей/POSIX-прав падали на Windows.
+- **Coach (#1290).** Повтор запроса после обрыва срабатывал только до получения ответа;
+  если соединение рвалось при чтении, когда ещё ничего не пришло (`got === 0`), job падал
+  без повтора.
+- **HEIC (#1268).** Бренды `avci`/`hevc` и бренды в верхнем регистре не распознавались, а
+  `avci` подменялся на `image/avif`.
+- **Assisted (#1222).** `build.mjs` терял поле `assisted`, поэтому `isAssisted('3235')`
+  (cable assisted inverse leg curl, оборудование `cable`) возвращал `false`.
+- **log_workout.** Reps-запись сохранялась без явного `mode`, и после переклассификации
+  упражнения в cardio (скакалка, #1296) старые reps-строки читались как cardio с нулём минут.
+
+### Исправление
+
+1. `NODE_ENV=test` выставляется до разрешения Vite-конфига (`VITEST`), пути сравниваются
+   как POSIX, POSIX-права проверяются под `win32`-гардом, а тесты, которым нужен POSIX или
+   `sh`, помечены `skipIf(win32)` с комментарием. Политика LF — в `.gitattributes`.
+   Подробности и список скипов: `docs/dev/WINDOWS_TESTS.md`.
+2. Ретрай вынесен в общий `retryAfterDrop`: второй catch при `got === 0` делает тот же
+   единственный повтор, бюджет и дедлайн общие (повтор получает остаток таймаута).
+3. Полный список брендов ISO/IEC 23008-12, HEIF сравнивается без учёта регистра,
+   `avci` → `image/avci`.
+4. `build.mjs` пишет `assisted: 1`, `assistedShape` доверяет явному флагу, `3235.json`
+   получил `"assisted": true`, `exercises-data.js` пересобран.
+5. `log-workout.js` пишет `mode: 'reps'` рядом с уже существующим `mode: 'time'`.
+
+### Проверка (CI и локально)
+
+- Локально: frontend — 10 237 тестов, 0 стабильных падений, 11 skip (1 известный флейк
+  `GymReminder` под нагрузкой); api — 1 100 тестов, 0 падений, 5 skip; mcp — 172 теста,
+  0 падений, 1 skip. Целевые тесты четырёх фиксов: 422 frontend + 65 api — зелёные.
+  `node scripts/catalogue/build.mjs --check` — up to date.
+- CI GitHub Actions на `37b902a4b`: `frontend`, `api`, `mcp`, `catalogue`, `images`,
+  `report`, `tests-ok`, `gate`, `changes` — success; `cla` — failure (бот CLA в форке не
+  валидирует коммиты); android/routines/device-archive/simulator/ui-tests — skipped.
+
+---
+
 ## 2026-11-16 — синхронизация с upstream и перенос багфиксов
 
 Базовая точка: `0b8eaa1f0` (v1.4.6 форка). Итог: `020f09731`.
