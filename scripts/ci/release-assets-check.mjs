@@ -26,15 +26,18 @@ const OTHER = /(^|[-_.])(offline|fdroid|wear)([-_.]|$)/i
 /**
  * The problems of a release as a list of sentences; empty means fine. `texts` maps an asset name
  * to its content (the .sha256 files and SHA256SUMS). `previous` is the release before it, or null.
+ * `requiredKinds` is the APK kinds this repository ships: upstream builds Standard, Plus and HD;
+ * a fork may have only ever shipped Standard, and demanding the other two would keep the check
+ * red without anything being wrong with the update path.
  */
-export function problems(release, texts, previous = null) {
+export function problems(release, texts, previous = null, requiredKinds = ['standard', 'plus', 'hd']) {
   const out = []
   const version = String(release.tag_name || '').replace(/^(?:fork-)?v/, '')
   const names = release.assets.map((a) => a.name)
   const apks = release.assets.filter((a) => /\.apk$/i.test(a.name))
   if (!apks.length) return ['the release has no APK at all']
 
-  for (const kind of ['standard', 'plus', 'hd']) {
+  for (const kind of requiredKinds) {
     if (!apks.some((a) => !OTHER.test(a.name) && kindOf(a.name) === kind)) out.push(`no ${kind} APK: phones on that kind cannot update`)
   }
 
@@ -71,6 +74,21 @@ export function problems(release, texts, previous = null) {
   return out
 }
 
+/**
+ * The APK kinds this repository has actually shipped, from the most recent earlier release that
+ * had APKs. Before the first such release every kind is required, which is the upstream default.
+ */
+export function requiredKindsFor(releases, tag) {
+  const kindsOf = (r) => [...new Set(r.assets
+    .filter((a) => /\.apk$/i.test(a.name) && !OTHER.test(a.name))
+    .map((a) => kindOf(a.name)))]
+  const earlier = releases
+    .filter((r) => r && r.tag_name !== tag && !r.draft && !r.prerelease)
+    .sort((a, b) => Date.parse(b.published_at || 0) - Date.parse(a.published_at || 0))
+  const withApks = earlier.find((r) => kindsOf(r).length)
+  return withApks ? kindsOf(withApks) : ['standard', 'plus', 'hd']
+}
+
 async function gh(path, accept = 'application/vnd.github+json') {
   const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN
   const res = await fetch(path.startsWith('http') ? path : `https://api.github.com/repos/${REPO}${path}`, {
@@ -92,8 +110,9 @@ async function main() {
   for (const a of release.assets) {
     if (a.name === 'SHA256SUMS' || /\.sha256$/.test(a.name)) texts[a.name] = await gh(a.url, 'application/octet-stream')
   }
-  const found = problems(release, texts, previous)
-  const head = `${tag}${release.draft ? ' (draft)' : ''}: ${release.assets.length} files, compared with ${previous?.tag_name || 'nothing'}`
+  const requiredKinds = requiredKindsFor(all, tag)
+  const found = problems(release, texts, previous, requiredKinds)
+  const head = `${tag}${release.draft ? ' (draft)' : ''}: ${release.assets.length} files, ${requiredKinds.join('/')} required, compared with ${previous?.tag_name || 'nothing'}`
   const lines = found.length ? found.map((p) => `- ${p}`) : ['- every APK has its checksum, and nothing the last release had is missing']
   console.log([head, ...lines].join('\n'))
   if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Release files\n${head}\n${lines.join('\n')}\n`)
