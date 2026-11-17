@@ -63,7 +63,7 @@ import { setRestAccent } from '../lib/rest-alert.js'
 import { CUSTOM, accentKey, adjustedIn, applyAccent, cleanHex, inkOn, isGrey } from '../lib/accent.js'
 import { layoutSheet } from '../components/PageLayout.jsx'
 import { askToUpdate } from '../components/UpdateNotice.jsx'
-import { checkForUpdate, forgetDownloadedUpdate, RELEASES_PAGE } from '../lib/update.js'
+import { checkForUpdate, forgetDownloadedUpdate, resetUpdateCheck, RELEASES_PAGE } from '../lib/update.js'
 import { APK_VARIANT, VARIANT_NAMES } from '../lib/apk-variant.js'
 import { BUILTIN_PX } from '../lib/anim-quality.js'
 import { getChannel, gymReminderBuilt } from '../lib/channel.js'
@@ -319,6 +319,9 @@ export default function Settings({ page = null, find = null, via = null, entryKe
   const checkNow = async () => {
     if (checking) return
     setChecking(true)
+    // Tapping the row means "ask again": drop the answer cached when About opened, or a release
+    // published while the app stayed open would be missed for the rest of the session.
+    resetUpdateCheck()
     try {
       const info = await checkForUpdate()
       setUpdateInfo(info)

@@ -24,6 +24,7 @@ const mocks = vi.hoisted(() => {
     signOut: vi.fn(), signOutAll: vi.fn(), resetDemo: vi.fn(), disconnectServer: vi.fn(),
   })
   state.checkForUpdate = vi.fn(() => Promise.resolve({ hasUpdate: true, latestVersion: '9.9.9', apkUrl: 'https://x/opengym.apk', hashUrl: null }))
+  state.resetUpdateCheck = vi.fn()
   state.confirmSheet = vi.fn()
   state.forget = vi.fn()
   return state
@@ -53,6 +54,7 @@ vi.mock('../lib/mobile.js', () => ({
 }))
 vi.mock('../lib/update.js', () => ({
   checkForUpdate: (...a) => mocks.checkForUpdate(...a),
+  resetUpdateCheck: (...a) => mocks.resetUpdateCheck(...a),
   downloadAndInstall: vi.fn(),
   forgetDownloadedUpdate: (...a) => mocks.forget(...a),
 }))
@@ -75,6 +77,7 @@ beforeEach(() => {
   mocks.android = false
   mocks.channel = 'sideload'
   mocks.checkForUpdate.mockClear()
+  mocks.resetUpdateCheck.mockClear()
   mocks.confirmSheet.mockClear()
   mocks.forget.mockClear()
   host = document.createElement('div')
@@ -143,6 +146,7 @@ describe('Settings — in-app update check', () => {
     expect(updateRow()).toBeUndefined()
     expect(checkRow()).toBeTruthy()
     await act(async () => { checkRow().click(); await Promise.resolve() })
+    expect(mocks.resetUpdateCheck).toHaveBeenCalledTimes(1)
     expect(mocks.checkForUpdate).toHaveBeenCalledTimes(2)
     await act(async () => { await Promise.resolve() })
     expect(updateRow()).toBeTruthy()   // the second (default) answer had 9.9.9 — the row now offers it

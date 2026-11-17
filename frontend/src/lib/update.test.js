@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { checkForUpdate, sha256, resetUpdateCheck, fetchChecksum, pickApk, APK_VARIANT, apkKind, updateRepo } from './update.js'
+import { checkForUpdate, compareSemver, sha256, resetUpdateCheck, fetchChecksum, pickApk, APK_VARIANT, apkKind, updateRepo } from './update.js'
 
 // __APP_VERSION__ is defined at build time by vite.config.js (reads package.json).
 // In the test environment vitest applies the same define, so it's available here.
@@ -8,6 +8,15 @@ describe('updateRepo', () => {
   it('is this fork\'s repository, or the one the build names', () => {
     expect(updateRepo({})).toBe('dagov42/openGym') // fork: updates come from its own releases
     expect(updateRepo({ VITE_UPDATE_REPO: 'someone/openGym' })).toBe('someone/openGym')
+  })
+})
+
+describe('compareSemver', () => {
+  it('compares a fourth patch-revision component', () => {
+    expect(compareSemver('1.4.8.1', '1.4.8')).toBe(1)
+    expect(compareSemver('1.4.8', '1.4.8.1')).toBe(-1)
+    expect(compareSemver('1.4.8.2', '1.4.8.1')).toBe(1)
+    expect(compareSemver('fork-v1.4.8.1', 'v1.4.8.1')).toBe(0)
   })
 })
 
@@ -248,25 +257,30 @@ describe('semver comparison (via checkForUpdate behavior)', () => {
   // installed side is __APP_VERSION__, a build-time define: run the suite with APP_BUILD set
   // and every case in this block reads it with metadata too.
   const BUILD = '+2026-09-18.2'
-  const [MAJOR, MINOR, PATCH_N] = __APP_VERSION__.split('+')[0].split('.').map(Number)
-  const tagged = (maj, min, patch) => 'v' + [maj, min, patch].join('.') + BUILD
+  // The running version as it is (a fourth patch revision may be present now), and one more on
+  // its last number: the block must not assume three components.
+  const BASE = __APP_VERSION__.split('+')[0]
+  const BASE_PARTS = BASE.split('.').map(Number)
+  const [MAJOR, MINOR] = BASE_PARTS
+  const oneMore = (() => { const p = [...BASE_PARTS]; p[p.length - 1] += 1; return p.join('.') })()
+  const tagged = v => 'v' + v + BUILD
 
   it('judges a tag that carries build metadata on its numbers alone', async () => {
-    mockRelease(tagged(MAJOR, MINOR, PATCH_N + 1))
+    mockRelease(tagged(oneMore))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
 
     resetUpdateCheck()
-    mockRelease(tagged(MAJOR, MINOR, PATCH_N))
+    mockRelease(tagged(BASE))
     const same = await checkForUpdate()
     expect(same.hasUpdate).toBe(false)                                   // the running release
-    expect(same.latestVersion).toBe(__APP_VERSION__.split('+')[0] + BUILD)   // echoed as it came
+    expect(same.latestVersion).toBe(BASE + BUILD)                        // echoed as it came
 
     resetUpdateCheck()
-    mockRelease(tagged(MAJOR, Math.max(0, MINOR - 1), 0))
+    mockRelease(tagged([MAJOR, Math.max(0, MINOR - 1), 0].join('.')))
     expect((await checkForUpdate()).hasUpdate).toBe(false)
 
     resetUpdateCheck()
-    mockRelease(tagged(MAJOR + 1, 0, 0))
+    mockRelease(tagged([MAJOR + 1, 0, 0].join('.')))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
   })
 
