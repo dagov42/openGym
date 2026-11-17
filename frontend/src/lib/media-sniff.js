@@ -95,7 +95,9 @@ export function sniffKind(bytes) {
     // Brands are case-sensitive in ISO BMFF, but a vendor writing MIF1/HEIC in capitals is still
     // a HEIF still; MP4 brands above keep their exact spelling.
     const heif = brand.toLowerCase()
-    if (HEIF_BRANDS.has(heif)) return { mime: heif.startsWith('avi') ? 'image/avif' : 'image/heic', kind: 'image', category: 'still', input: true }
+    // avci is AV1 Image; it keeps its own type instead of being labelled image/avif, while
+    // avif/avis stay AVIF and every other HEIF brand is HEIC.
+    if (HEIF_BRANDS.has(heif)) return { mime: heif === 'avci' ? 'image/avci' : heif.startsWith('avi') ? 'image/avif' : 'image/heic', kind: 'image', category: 'still', input: true }
     return null
   }
   if (at(b, 0, [0x1a, 0x45, 0xdf, 0xa3])) {

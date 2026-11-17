@@ -38,6 +38,8 @@ describe('sniffKind', () => {
     }
     expect(sniffKind(ftyp('MIF1'))).toMatchObject({ mime: 'image/heic', input: true })
     expect(sniffKind(ftyp('AVIF'))).toMatchObject({ mime: 'image/avif', input: true })
+    // AV1 Image is its own type, not image/avif.
+    expect(sniffKind(ftyp('avci'))).toMatchObject({ mime: 'image/avci', input: true })
   })
 
   it('refuses SVG, HTML, PDF, ZIP, BMP, TIFF, ICO, M4A and Matroska', () => {
