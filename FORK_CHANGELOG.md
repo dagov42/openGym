@@ -58,7 +58,7 @@
 `ff80dd325` (assisted), `37b902a4b` (log-workout), `c21149be6` (release 1.4.8).
 
 Релиз: версия **1.4.8** во всех местах, тег `fork-v1.4.8` на `c21149be6`; `tests-ok` и
-Release check зелёные. GitHub release `v1.4.8 (fork)` опубликован с notes из `CHANGELOG.md`.
+Release check зелёные. GitHub release `v1.4.8` опубликован с notes из `CHANGELOG.md`.
 Ассеты ещё не загружены: `Release files` красный, APK/AAB нужно собрать на релизной машине и
 залить `scripts/android/upload-release.sh fork-v1.4.8 <out>`; после этого проверка станет
 зелёной.
