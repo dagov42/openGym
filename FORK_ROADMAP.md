@@ -8,9 +8,10 @@ own order and version policy.
 - Fork versioning: [FORK_VERSIONING.md](FORK_VERSIONING.md)
 - Specs index: `docs/superpowers/specs/2026-11-16-feature-plan-index.md`
 
-Current release: **v1.4.7**, tagged `fork-v1.4.7` (versions aligned, tests-ok and Release check
-green). The GitHub release and its APKs are still to be built and uploaded on the release machine;
-until then the in-app updater does not see it.
+Current release: **v1.4.8**, tagged `fork-v1.4.8` (versions aligned; `tests-ok` and Release
+check green). A draft GitHub release carries the notes. The APK/AAB build, `upload-release.sh`
+and `release-assets-check` still run on the release machine; only after them is the release
+published, and until then the in-app updater does not see it.
 
 ## План фич
 

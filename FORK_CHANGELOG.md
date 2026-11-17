@@ -24,7 +24,12 @@
 
 Ветка `integration`, PR форка: [#1](https://github.com/dagov42/openGym/pull/1).
 Коммиты: `c1d03bee9` (гигиена тестов), `e7879871b` (Coach), `1302639e8` (media),
-`ff80dd325` (assisted), `37b902a4b` (log-workout).
+`ff80dd325` (assisted), `37b902a4b` (log-workout), `c21149be6` (release 1.4.8).
+
+Релиз: версия **1.4.8** во всех местах, тег `fork-v1.4.8` на `c21149be6`; `tests-ok` и
+Release check зелёные. Создан draft GitHub release `v1.4.8 (fork)` с notes из `CHANGELOG.md`;
+APK/AAB, `upload-release.sh` и `release-assets-check` выполняются на релизной машине, и только
+после них релиз публикуется (до этого in-app updater версию не видит).
 
 Форк развивается самостоятельно: PR в апстрим отдельно не ведутся (открытые пробные
 PR #1339–#1342 закрыты), все фиксы остаются в `integration`.
