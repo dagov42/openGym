@@ -10,6 +10,7 @@ const java = readFileSync(new URL('SaveFilePlugin.java', androidPath), 'utf8')
 const activity = readFileSync(new URL('MainActivity.java', androidPath), 'utf8')
 const swift = readFileSync(new URL('SaveFilePlugin.swift', iosPath), 'utf8')
 const mainVc = readFileSync(new URL('MainViewController.swift', iosPath), 'utf8')
+const project = readFileSync(new URL('../App.xcodeproj/project.pbxproj', iosPath), 'utf8')
 const manifest = readFileSync(new URL('../../android/app/src/main/AndroidManifest.xml', import.meta.url), 'utf8')
 
 describe('Android SaveFilePlugin', () => {
@@ -38,5 +39,6 @@ describe('iOS SaveFilePlugin', () => {
     expect(swift).toContain('pending?.resolve(["saved": true])')
     expect(swift).toContain('pending?.resolve(["cancelled": true])')
     expect(mainVc).toContain('registerPluginInstance(SaveFilePlugin())')
+    expect(project).toContain('SaveFilePlugin.swift in Sources')
   })
 })
