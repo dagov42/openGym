@@ -2,7 +2,7 @@
 
 Status: index for the fork's planned work ([`FORK_ROADMAP.md`](../../../FORK_ROADMAP.md) → "План фич"). The
 fork-operations spec (test hygiene, `fork-status`, sync checklist) landed on 2026-11-17; the other specs are
-not implemented. Eight specs are agreed and ready for an implementation plan; the rest are candidates or tasks
+not implemented. Nine specs are agreed and ready for an implementation plan; the rest are candidates or tasks
 with a proposed design and explicit open questions. A candidate is not a promise: read its "Open questions"
 before starting, and get the same sign-off the agreed ones got.
 
@@ -43,6 +43,7 @@ improvements done while the larger one runs).
 | [`2026-11-16-native-backlog-design.md`](2026-11-16-native-backlog-design.md) | Triage of the device-dependent issues (#1255, #1294/#1295, #1264, #1263) | Task | 14 |
 | [`2026-11-17-apk-variants-design.md`](2026-11-17-apk-variants-design.md) | Release Standard, Plus and HD APKs, then switch between them in Settings | **Agreed** | 15 |
 | [`2026-11-18-finish-exercise-design.md`](2026-11-18-finish-exercise-design.md) | Collapse a finished exercise so the card swipe can no longer reach its sets | **Done 2026-11-18** | 16 |
+| [`2026-11-18-replace-in-routine-design.md`](2026-11-18-replace-in-routine-design.md) | Replace the routine's exercise, not just today's, from the swap sheet | **Agreed** | 17 |
 
 ## Decisions already made (do not re-open without a reason)
 
@@ -72,6 +73,12 @@ improvements done while the larger one runs).
   enabled once every set is ticked; while folded the row says Show the sets. The fold is per workout in
   app memory and survives leaving and returning, not a reload; the List's one-line summary is reused.
   Not in the editor, not in List/Compact.
+
+- **Replace in routine:** from the session's swap sheet, one action changes today's entry and the
+  routine's slot; the sheet opens on the slot's replacement plan (sets, reps, weight, rule, rest, note,
+  warm-ups carried over), and an edited value goes to both. The slot keeps its position and its superset
+  group (`sg`, `sgName`, `sgRest`, `sgCircuit`). Not added to the slot's backups, no undo, and nothing in
+  history or the saved-workout editor is written; no new `S` field.
 
 ## How to use a candidate spec
 
