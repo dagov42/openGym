@@ -1,7 +1,8 @@
 # Recent routines in the start picker
 
-Status: agreed 2026-11-16 (the lifter's calls: routines only; the exercise picker already has "Chosen" by
-frequency, so no second exercise chip). Nothing implemented yet.
+Status: implemented 2026-11-18 (`lib/recent-routines.js`, `StartSheets.jsx` StartPicker; tests:
+`recent-routines.test.js`, `StartSheets.test.jsx`). The lifter's calls stand: routines only; the
+exercise picker already has "Chosen" by frequency, so no second exercise chip.
 
 ## Why
 

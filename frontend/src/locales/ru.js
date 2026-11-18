@@ -5938,4 +5938,5 @@ export default {
   "Circuits, AMRAP, EMOM and Tabata": "Круги, AMRAP, EMOM и Табата",
   "The live widget on the Lock Screen and the Home Screen": "Живой виджет на экране блокировки и главном экране",
   "Recent routines at the top of the start picker": "Недавние рутины в начале выбора тренировки",
+  "Recent": "Недавние",
 }

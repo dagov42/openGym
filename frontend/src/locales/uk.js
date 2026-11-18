@@ -5933,4 +5933,6 @@ export default {
   "Circuits, AMRAP, EMOM and Tabata": "Circuits, AMRAP, EMOM and Tabata",
   "The live widget on the Lock Screen and the Home Screen": "The live widget on the Lock Screen and the Home Screen",
   "Recent routines at the top of the start picker": "Recent routines at the top of the start picker",
+  // English fallback pending translation
+  "Recent": "Recent",
 }

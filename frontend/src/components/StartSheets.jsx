@@ -14,6 +14,7 @@ import { exOr } from '../lib/exercises.js'
 import { speedUnitOf } from '../lib/speed.js'
 import { glyphOf } from '../lib/glyphs.js'
 import { leftoversBefore } from '../lib/leftovers.js'
+import { recentRoutines } from '../lib/recent-routines.js'
 import { Button, Row } from './ui.jsx'
 import MiniBodyMap from './MiniBodyMap.jsx'
 
@@ -62,8 +63,11 @@ function StartPicker({ close }) {
   const today = todayISO()
   const sessions = daySessionsStatus(st, today).filter(x => x.routines.length)
   const planned = new Set(sessions.flatMap(x => x.ids))
+  // The routines actually trained lately, above the rest; today's plan is already the big row.
+  const recent = useMemo(() => recentRoutines(st, { exclude: [...planned] }), [st])
+  const recentIds = new Set(recent.map(r => r.id))
   // Starred routines first (lib/routine-favs.js, #327), each half in Plan's order.
-  const others = favRoutinesFirst((st.routines || []).filter(r => !planned.has(r.id)))
+  const others = favRoutinesFirst((st.routines || []).filter(r => !planned.has(r.id) && !recentIds.has(r.id)))
   const go = ids => { close(); startOrPreview(ids) }
   const nameOf = s => deriveSessionName(s.routines.map(r => r.name))
   const firstOpen = sessions.find(x => !x.done)
@@ -86,6 +90,13 @@ function StartPicker({ close }) {
           subtitle={s.done ? t('Done today. Again?') : exCount(s.routines.reduce((n, r) => n + (r.ex || []).length, 0))}
           accessory="chevron" className={!s.done && i === sessions.findIndex(x => !x.done) ? 'start-first' : ''}
           onClick={() => go(s.ids)} />)}
+      </div>
+    </>}
+    {recent.length > 0 && <>
+      <h4 className="sec">{t('Recent')}</h4>
+      <div className="list menu-list start-recent" style={{ marginBottom: 14 }}>
+        {recent.map(r => <Row key={r.id} icon={glyphOf(r.emoji)} title={isFavRoutine(r) ? <><Icon name="starFill" className="fav-star" />{r.name}</> : r.name}
+          subtitle={exCount((r.ex || []).length)} accessory="chevron" onClick={() => go([r.id])} />)}
       </div>
     </>}
     {others.length > 0 && <>

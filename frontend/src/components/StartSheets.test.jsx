@@ -71,6 +71,32 @@ describe('the start picker (#930)', () => {
       expect(onStart).toHaveBeenCalledTimes(1)
     } finally { vi.useRealTimers() }
   })
+
+  it('puts recently trained routines above the rest, with no duplicate row', () => {
+    const now = Date.now()
+    const S = useStore.getState().S
+    S.workouts = [
+      { id: 'rw1', d: todayISO(), start: now - 3600e3, routineIds: ['pull'], entries: [] },
+      { id: 'rw2', d: new Date(now - 864e5).toISOString().slice(0, 10), start: now - 864e5, routineIds: ['mob'], entries: [] },
+    ]
+    act(() => useStore.setState({ S }))
+    startPickerSheet(); renderTop()
+    expect(rowTitles('.start-recent')).toEqual(['Pull', 'Morning mobility'])
+    expect(rowTitles('.start-today')).toEqual(['Push'])
+    expect([...host.querySelectorAll('.menu-list .lrow-t')].map(e => e.textContent))
+      .toEqual(['Push', 'Pull', 'Morning mobility', 'Freestyle workout (pick as you go)'])
+    click('Pull')
+    expect(started).toEqual([['pull']])
+  })
+
+  it('shows no Recent section for a profile with only one recent routine', () => {
+    const S = useStore.getState().S
+    S.workouts = [{ id: 'rw1', d: todayISO(), start: Date.now(), routineIds: ['pull'], entries: [] }]
+    act(() => useStore.setState({ S }))
+    startPickerSheet(); renderTop()
+    expect(host.querySelector('.start-recent')).toBeNull()
+    expect(rowTitles('.menu-list')).toContain('Pull')
+  })
 })
 
 describe('the preview (#976)', () => {
