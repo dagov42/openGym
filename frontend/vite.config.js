@@ -143,8 +143,9 @@ export default defineConfig({
       // Generated catalogue data is not hand-written logic; its size would drown the number.
       exclude: ['src/lib/**/*.test.js', 'src/lib/exercises-data.js', 'src/lib/hevy-id-map.js'],
       // A floor on the pure helpers, not on every view. Baselines on 2026-11-18 after the
-      // history-search / recent-routines / what's-new / save-as / background-update / shortcuts tests:
-      // statements 91.65%, branches 83.93%, functions 92.25%, lines 95.28%.
+      // history-search / recent-routines / what's-new / save-as / background-update / shortcuts /
+      // session-length tests:
+      // statements 91.64%, branches 83.90%, functions 92.27%, lines 95.27%.
       thresholds: { statements: 88, branches: 80, functions: 87, lines: 92 }
     }
   }

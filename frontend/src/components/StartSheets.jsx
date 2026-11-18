@@ -15,6 +15,7 @@ import { speedUnitOf } from '../lib/speed.js'
 import { glyphOf } from '../lib/glyphs.js'
 import { leftoversBefore } from '../lib/leftovers.js'
 import { recentRoutines } from '../lib/recent-routines.js'
+import { sessionLength, uiMinutes } from '../lib/session-length.js'
 import { Button, Row } from './ui.jsx'
 import MiniBodyMap from './MiniBodyMap.jsx'
 
@@ -132,6 +133,8 @@ function Preview({ ids, close }) {
   const st = useStore(s => s.S)
   const built = useMemo(() => buildCombinedEntries(st, ids), [st, ids])
   const name = built.routines.length ? deriveSessionName(built.routines.map(r => r.name)) : t('Freestyle')
+  const length = sessionLength(st, built.routineIds)
+  const lengthMin = length ? uiMinutes(length.minutes) : null
   const speedUnit = speedUnitOf(st)
   const start = () => { close(); startFlow(built.routineIds) }
   const other = () => { close(); startPickerSheet() }
@@ -139,7 +142,9 @@ function Preview({ ids, close }) {
     <div className="row between" style={{ gap: 12, marginBottom: 4 }}>
       <div style={{ minWidth: 0 }}>
         <h3 style={{ marginBottom: 2 }}>{name}</h3>
-        <div className="muted small">{exCount(built.entries.length)}</div>
+        <div className="muted small" aria-label={lengthMin == null ? undefined : tn('about {0} minute', 'about {0} minutes', lengthMin)}>
+          {[exCount(built.entries.length), lengthMin == null ? null : t('≈{0} min', lengthMin)].filter(Boolean).join(' · ')}
+        </div>
       </div>
       <MiniBodyMap routines={built.routines} body={st.body} />
     </div>

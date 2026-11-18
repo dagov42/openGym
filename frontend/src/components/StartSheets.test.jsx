@@ -108,6 +108,7 @@ describe('the preview (#976)', () => {
     expect(started).toHaveLength(1)
     renderTop()
     expect(host.querySelector('h3').textContent).toBe('Push')
+    expect(host.textContent).toMatch(/≈\d+ min/)
     const items = [...host.querySelectorAll('.preview-list li')]
     expect(items).toHaveLength(1)
     expect(items[0].querySelector('.lrow-s').textContent).toMatch(/^3 sets · /)

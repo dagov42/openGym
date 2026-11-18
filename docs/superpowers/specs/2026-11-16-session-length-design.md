@@ -1,7 +1,8 @@
 # Session length estimate
 
-Status: agreed 2026-11-16 (the lifter's calls: a passive label only; history first, plan until there is
-history; Plan rows and the start preview, not Home or print). Nothing implemented yet.
+Status: implemented 2026-11-18 (`lib/session-length.js`, Plan's routine/day subtitles and the start
+preview; tests: `session-length.test.js`). The lifter's calls stand: a passive label only; history
+first, plan until there is history; Plan rows and the start preview, not Home or print.
 
 ## Why
 

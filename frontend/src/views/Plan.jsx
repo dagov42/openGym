@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
 import { useUI } from '../store/useUI.js'
 import { DAYN, DAYS, weekOrder, weekStartOf, uid, exCount, routineCount, todayISO, fmtDate } from '../lib/format.js'
-import { t } from '../lib/i18n.js'
+import { t, tn } from '../lib/i18n.js'
 import { nameIn, said } from '../lib/a11y-name.js'
 import {
   dayAssignSheet, starterPlanSheet, confirmSheet, menuSheet,
@@ -36,6 +36,7 @@ import { groupRoutines, folderOpen, setFolderOpen, folderOf } from '../lib/routi
 import { isFavRoutine } from '../lib/routine-favs.js'
 import { routineFromWorkoutSheet } from '../components/RoutineFromWorkout.jsx'
 import { routineSources } from '../lib/session-routines.js'
+import { sessionLength, uiMinutes } from '../lib/session-length.js'
 
 // Plan has two views (v1.3.11): Schedule (how you train, and when) and Routines (what you
 // train). The last one you looked at comes back: a per-device convenience, never synced, so it
@@ -135,6 +136,19 @@ export function undoTakeOut({ id, at, label, snap, mark, marks }) {
 
 // The flash a row lands with when a swipe brought it (a duplicate, an undo): one per new value.
 let flashSeq = 0
+
+const lengthMinutesFor = (S, ids) => {
+  const length = sessionLength(S, ids)
+  return length ? uiMinutes(length.minutes) : null
+}
+const lengthTextFor = (S, ids) => {
+  const n = lengthMinutesFor(S, ids)
+  return n == null ? null : t('≈{0} min', n)
+}
+const lengthAriaFor = (S, ids) => {
+  const n = lengthMinutesFor(S, ids)
+  return n == null ? null : tn('about {0} minute', 'about {0} minutes', n)
+}
 
 export default function Plan() {
   const nav = useNavigate()
@@ -298,12 +312,12 @@ function Schedule({ S, update, nav, mode }) {
   // One weekday: what is on it at a glance, and a tap to change it (dayAssignSheet picks one
   // routine, several for a combined day, or a rest day).
   const dayRow = (d, rs = dayRoutines(d)) => {
-    return <div key={d} className="item plan-day" data-day={d} aria-label={t(DAYN[d])} {...tappable(() => dayAssignSheet(d))}>
+    return <div key={d} className="item plan-day" data-day={d} aria-label={t(DAYN[d]) + (rs.length && lengthAriaFor(S, rs.map(r => r.id)) ? ' · ' + lengthAriaFor(S, rs.map(r => r.id)) : '')} {...tappable(() => dayAssignSheet(d))}>
       <span className={'plan-day-n' + (d === todayDow ? ' today' : '')} aria-hidden="true">{t(DAYS[d])}</span>
       <span className={'lrow-i' + (rs.length ? '' : ' rest')}><Icon name={rs.length ? glyphOf(rs[0].emoji) : 'moon'} /></span>
       <div className="grow">
         <div className="tt">{rs.length ? deriveSessionName(rs.map(r => r.name)) : t('Rest day')}</div>
-        <div className="ss">{rs.length === 1 ? exCount(rs[0].ex.length) : rs.length ? routineCount(rs.length) : t('Tap to plan something')}</div>
+        <div className="ss">{rs.length ? [rs.length === 1 ? exCount(rs[0].ex.length) : routineCount(rs.length), lengthTextFor(S, rs.map(r => r.id))].filter(Boolean).join(' · ') : t('Tap to plan something')}</div>
       </div>
       {rs.length > 0 && <MiniBodyMap routines={rs} body={S.body} tour="plan-body" />}
       <Icon name="chevronRight" className="chev" />
@@ -472,7 +486,7 @@ function Routines({ S, update, nav }) {
   const order = weekOrder(weekStartOf(S))
   const daysOf = id => order.filter(d => [].concat(S.week[d] || []).includes(id)).map(d => t(DAYS[d]))
   // A routine a trainer assigned or changed says who (docs/TRAINERS.md, `_by`).
-  const sub = r => [exCount(r.ex.length), daysOf(r.id).join(', '), r._by?.kind === 'trainer' && r._by.name ? t('from {0}', r._by.name) : null, edit ? folderOf(r) : null].filter(Boolean).join(' · ')
+  const sub = r => [exCount(r.ex.length), lengthTextFor(S, [r.id]), daysOf(r.id).join(', '), r._by?.kind === 'trainer' && r._by.name ? t('from {0}', r._by.name) : null, edit ? folderOf(r) : null].filter(Boolean).join(' · ')
 
   return <>
     <div className="row between plan-sec-h plan-routines-bar">

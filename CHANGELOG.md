@@ -19,6 +19,8 @@ A small updater fix and keyboard shortcuts.
 - The installer still verifies the release checksum before opening.
 - Press `?` for the keyboard shortcuts, `/` to search the current screen, and `?` or the Settings
   row to see the workout keys. Escape still closes a sheet.
+- Plan and the start preview show a rough session length: the median of the last five exact
+  sessions, or a plan estimate until two exist. No new stored field; it follows the history.
 
 ## v1.4.9 (2026-11-18)
 

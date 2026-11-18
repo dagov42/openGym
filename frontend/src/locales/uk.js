@@ -5959,4 +5959,8 @@ export default {
   "Show this list": "Show this list",
   "Space, Enter, arrows, Escape, / and ?": "Space, Enter, arrows, Escape, / and ?",
   "Tick the next set": "Tick the next set",
+  // English fallback pending translation
+  "≈{0} min": "≈{0} min",
+  "about {0} minute": "about {0} minute",
+  "about {0} minutes": { one: "about {0} minutes", few: "about {0} minutes", many: "about {0} minutes", other: "about {0} minutes" },
 }
