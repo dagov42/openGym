@@ -160,7 +160,7 @@ jobs:
           npx vitest run
           --reporter=default --reporter=json --outputFile.json=test-results.json
           --reporter=junit --outputFile.junit=junit.xml
-          --coverage --coverage.provider=v8 --coverage.include='src/**'
+          --coverage --coverage.provider=v8
           --coverage.reporter=json-summary --coverage.reporter=text-summary
       # A broken import or bad JSX fails the build long before any test covers it.
       - name: Web build
