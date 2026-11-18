@@ -160,22 +160,27 @@ test('the poll really is reading through the stat cache', async t => {
 // observe — so they are pinned here, at the only place that can see them: the source.
 test('the three hot-path state reads all go through readStateCached', () => {
   const src = fs.readFileSync(path.join(API, 'server.js'), 'utf8');
-  // Every route is one `'METHOD /path': async (req, res) => {` entry in the routes object, so a
-  // handler runs from its key to the start of the next one.
-  const handler = key => {
-    const at = src.indexOf(`'${key}':`);
+  const push = fs.readFileSync(path.join(API, 'push-routes.js'), 'utf8');
+  // Every route is one `'METHOD /path': async (req, res) => {` entry in a routes object, so a
+  // handler runs from its key to the start of the next one. The push routes moved to their own
+  // file (push-routes.js); the data routes still live in server.js.
+  const handler = (key, text) => {
+    const at = text.indexOf(`'${key}':`);
     assert.notEqual(at, -1, `route ${key} is gone — this test needs rewriting`);
-    const end = src.indexOf("\n  '", at + 1);
-    return src.slice(at, end === -1 ? undefined : end);
+    const end = text.indexOf("\n  '", at + 1);
+    return text.slice(at, end === -1 ? undefined : end);
   };
-  for (const key of ['GET /api/data/rev', 'POST /api/push/test', 'POST /api/push/rest-timer']) {
-    const body = handler(key);
+  for (const key of ['POST /api/push/test', 'POST /api/push/rest-timer']) {
+    const body = handler(key, push);
     assert.match(body, /readStateCached\(user\.id\)/, `${key} should read through the cache`);
     assert.doesNotMatch(body, /readState\(user\.id\)/, `${key} parses the whole document again`);
   }
+  const rev = handler('GET /api/data/rev', src);
+  assert.match(rev, /readStateCached\(user\.id\)/, 'GET /api/data/rev should read through the cache');
+  assert.doesNotMatch(rev, /readState\(user\.id\)/, 'GET /api/data/rev parses the whole document again');
   // GET /api/data hands out the document itself and PUT compares against it — both want the real
   // thing, uncached.
   // (readStateStrict: a file that cannot be read is a 503, not an empty profile.)
-  assert.match(handler('GET /api/data'), /readStateStrict\(user\.id\)/);
-  assert.match(handler('PUT /api/data'), /readStateStrict\(user\.id\)/);
+  assert.match(handler('GET /api/data', src), /readStateStrict\(user\.id\)/);
+  assert.match(handler('PUT /api/data', src), /readStateStrict\(user\.id\)/);
 });

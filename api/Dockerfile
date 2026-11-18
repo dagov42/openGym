@@ -1,9 +1,9 @@
-# Two targets from one file.
+﻿# Two targets from one file.
 #
-#   default (built when no --target is given) — what every instance has always got. No AI
+#   default (built when no --target is given) вЂ” what every instance has always got. No AI
 #           runtime, no AI dependency: `npm ci --omit=optional` skips the Agent SDK and its
 #           platform runtime entirely, so an owner who never wanted the Coach carries none of it.
-#   coach                                     — the same image plus the Claude Agent SDK.
+#   coach                                     вЂ” the same image plus the Claude Agent SDK.
 #
 # Build the opt-in one with:  docker build --pull --target coach ./api
 # or through compose with:    API_TARGET=coach docker compose up --build
@@ -20,7 +20,7 @@ ARG BUILD_DATE=unknown
 
 LABEL maintainer="Duarte Santos https://github.com/DuarteSantos8" \
     org.opencontainers.image.title="opengym-api" \
-    org.opencontainers.image.description="Backend for Self-hosted gym & body-weight tracker — plan routines, log workouts (supersets & cardio too), track your weight and progress, passkey login. Your data, your server." \
+    org.opencontainers.image.description="Backend for Self-hosted gym & body-weight tracker вЂ” plan routines, log workouts (supersets & cardio too), track your weight and progress, passkey login. Your data, your server." \
     org.opencontainers.image.source="https://github.com/DuarteSantos8/openGym" \
     org.opencontainers.image.url="https://opengym.ch" \
     org.opencontainers.image.documentation="https://github.com/DuarteSantos8/openGym#readme" \
@@ -41,7 +41,7 @@ RUN apk upgrade --no-cache
 #
 # Not optional, and not only for the real providers: canDropPrivileges() fails closed on Linux,
 # so in an image without this user *every* job is refused with "no `coach` user exists in this
-# image" — including the fixture provider that exists precisely so the loop can be walked before
+# image" вЂ” including the fixture provider that exists precisely so the loop can be walked before
 # an account is connected. It costs one line and no bytes worth measuring.
 RUN adduser -D -H -s /sbin/nologin coach
 
@@ -53,7 +53,7 @@ RUN npm ci --omit=dev --omit=optional && npm cache clean --force
 
 # Every module server.js imports from the api root has to be named here: the image carries nothing
 # else, and one that is missing only shows at boot, as ERR_MODULE_NOT_FOUND.
-COPY server.js push-messages.js nudge.js nudge-copy.js wrapped.js wrapped-copy.js checkin-reminder.js checkin-copy.js verify-error.js password.js rate-limit.js passkeys-store.js device-link.js watch-relay.js watch-routes.js media.js queue.js sync-stamps.js durable.js admin-socket.js recover.js net-guard.js permissions.js consent.js share-log.js tokens.js oauth.js budgets.js role-claims.js origin.js ./
+COPY server.js push-messages.js nudge.js nudge-copy.js wrapped.js wrapped-copy.js checkin-reminder.js checkin-copy.js verify-error.js password.js rate-limit.js passkeys-store.js device-link.js watch-relay.js watch-routes.js push-routes.js media.js queue.js sync-stamps.js durable.js admin-socket.js recover.js net-guard.js permissions.js consent.js share-log.js tokens.js oauth.js budgets.js role-claims.js origin.js ./
 COPY coach ./coach
 COPY library ./library
 COPY oidc ./oidc
@@ -82,14 +82,14 @@ FROM base AS coach
 RUN npm ci --omit=dev && npm cache clean --force
 
 # Codex ships as a CLI rather than a library, so it is installed rather than resolved, and
-# bubblewrap is its sandbox — a Codex requirement, which is why neither appears in the default
+# bubblewrap is its sandbox вЂ” a Codex requirement, which is why neither appears in the default
 # target or anywhere in this tree until now.
 RUN apk add --no-cache bubblewrap \
  && npm install -g @openai/codex@0.160.0 \
  && npm cache clean --force
 
 # Where Codex keeps its refreshable login cache. Deliberately a sibling of /data rather than a
-# path inside it: docs/SELF_HOSTING tells owners to back up with `tar czf … data/`, and a live
+# path inside it: docs/SELF_HOSTING tells owners to back up with `tar czf вЂ¦ data/`, and a live
 # refresh token has no business riding along in every archive that instruction produces. Owned
 # by `coach` because the job that writes it has already dropped to that user.
 RUN mkdir -p /coach-auth && chown coach:coach /coach-auth && chmod 700 /coach-auth
@@ -100,6 +100,7 @@ VOLUME ["/coach-auth"]
 FROM base AS default
 # npm itself is only a build-time tool here: the server is started with `node server.js` and
 # nothing in it spawns npm. Its bundled dependency tree (tar, brace-expansion, ...) is where
-# every vulnerability the image scan ever reported lived — none of them was in a package the
+# every vulnerability the image scan ever reported lived вЂ” none of them was in a package the
 # app uses. Gone from the published image; the coach target keeps npm for the Codex CLI.
 RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+
