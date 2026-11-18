@@ -318,9 +318,8 @@ export async function shareExport(json, filename) {
 // The same for a binary export — the backup with photos and videos (lib/backup-media.js). The
 // file crosses the native bridge as base64 in 3 MB pieces, never as one string the size of the
 // whole zip, which could be a few hundred MB.
-export async function shareExportBlob(blob, filename) {
+async function writeBlobToCache(blob, filename) {
   const { Filesystem, Directory } = await import('@capacitor/filesystem')
-  const { Share } = await import('@capacitor/share')
   const { toBase64 } = await import('./media-store-fs.js')
   const CHUNK = 3 * 1024 * 1024
   for (let o = 0; o < blob.size || o === 0; o += CHUNK) {
@@ -330,7 +329,34 @@ export async function shareExportBlob(blob, filename) {
     if (!blob.size) break
   }
   const { uri } = await Filesystem.getUri({ path: filename, directory: Directory.Cache })
+  return uri
+}
+
+export async function shareExportBlob(blob, filename) {
+  const { Share } = await import('@capacitor/share')
+  const uri = await writeBlobToCache(blob, filename)
   await Share.share({ title: filename, url: uri })
+}
+
+// "Save to device": the system's own save dialog (Android's document picker, iOS's Files
+// picker), so the person chooses the folder and the name. The file lives in the cache first;
+// the native SaveFile plugin copies it to the place the system dialog returned.
+async function invokeSaveFile(uri, filename, mime) {
+  const { registerPlugin } = await import('@capacitor/core')
+  const SaveFile = registerPlugin('SaveFile')
+  const r = await SaveFile.save({ path: uri, filename, mime })
+  return r?.cancelled ? 'cancelled' : 'saved'
+}
+
+export async function saveExport(text, filename, mime = 'application/json') {
+  const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem')
+  const w = await Filesystem.writeFile({ path: filename, directory: Directory.Cache, data: text, encoding: Encoding.UTF8 })
+  return invokeSaveFile(w.uri, filename, mime)
+}
+
+export async function saveExportBlob(blob, filename, mime = 'application/octet-stream') {
+  const uri = await writeBlobToCache(blob, filename)
+  return invokeSaveFile(uri, filename, mime)
 }
 
 // The same picture straight into Photos / the gallery (SaveImagePlugin on iOS and Android), so

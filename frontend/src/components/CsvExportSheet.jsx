@@ -9,6 +9,7 @@ import { todayISO, fmtDate } from '../lib/format.js'
 import { reportRange } from '../lib/report.js'
 import { workoutsCSV, bodyCSV, csvCounts } from '../lib/export-csv.js'
 import { MOBILE, shareExport } from '../lib/mobile.js'
+import { exportChoiceSheet } from './ExportChoiceSheet.jsx'
 import { Button, Segmented, Row } from './ui.jsx'
 import DateField from './DateField.jsx'
 
@@ -35,6 +36,7 @@ export function CsvExportSheet({ close }) {
     const text = kind === 'body' ? bodyCSV(st, r) : workoutsCSV(st, r)
     const name = 'opengym-' + (kind === 'body' ? 'body' : 'workouts') + '-' + today + '.csv'
     close()
+    if (MOBILE) { exportChoiceSheet({ text, filename: name, mime: 'text/csv' }); return }
     try { await saveCSV(text, name); toast?.(t('CSV exported')) } catch (e) { /* share sheet dismissed */ }
   }
   return <>

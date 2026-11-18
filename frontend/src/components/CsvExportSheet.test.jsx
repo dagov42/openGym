@@ -7,7 +7,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
-const mocks = vi.hoisted(() => ({ S: null, share: vi.fn(async () => {}), toast: vi.fn() }))
+const mocks = vi.hoisted(() => ({ S: null, share: vi.fn(async () => {}), toast: vi.fn(), choice: vi.fn() }))
+vi.mock('./ExportChoiceSheet.jsx', () => ({ exportChoiceSheet: (...a) => mocks.choice(...a) }))
 vi.mock('../store/useStore.js', () => {
   const snap = () => ({ S: mocks.S })
   const useStore = selector => (selector ? selector(snap()) : snap())
@@ -30,7 +31,7 @@ const iso = n => { const d = new Date(); d.setHours(12); d.setDate(d.getDate() -
 const wk = (id, n) => ({ id, d: iso(n), start: new Date(iso(n) + 'T18:00:00').getTime(), entries: [{ id: '0025', sets: [{ w: 60, r: 5, done: true }, { w: 60, r: 5, done: true }] }] })
 
 beforeEach(() => {
-  mocks.share.mockClear(); mocks.toast.mockClear()
+  mocks.share.mockClear(); mocks.toast.mockClear(); mocks.choice.mockClear()
   mocks.S = { unit: 'kg', workouts: [wk('a', 2), wk('b', 200)], bodyweight: [{ d: iso(1), w: 80 }] }
   close = vi.fn()
   host = document.createElement('div')
@@ -67,22 +68,23 @@ describe('CsvExportSheet', () => {
     expect(count('body')).toBe('1 weigh-in')
   })
 
-  it('shares the workouts file on the phone, named by the day', async () => {
+  it('leaves the workouts file to the phone save-or-share choice, named by the day', async () => {
     act(() => button('4 weeks').click())
     act(() => button('Workouts (CSV)').click())
     await flush()
     expect(close).toHaveBeenCalled()
-    const [text, name] = mocks.share.mock.calls[0]
-    expect(name).toBe('opengym-workouts-' + todayISO() + '.csv')
+    const [{ text, filename, mime }] = mocks.choice.mock.calls[0]
+    expect(filename).toBe('opengym-workouts-' + todayISO() + '.csv')
     expect(text.trim().split('\r\n')).toHaveLength(3)
-    expect(mocks.toast).toHaveBeenCalledWith('CSV exported')
+    expect(mime).toBe('text/csv')
+    expect(mocks.share).not.toHaveBeenCalled()
   })
 
-  it('shares body weight as its own file', async () => {
+  it('leaves body weight as its own file to the same choice', async () => {
     act(() => button('Body weight & measurements (CSV)').click())
     await flush()
-    const [text, name] = mocks.share.mock.calls[0]
-    expect(name).toBe('opengym-body-' + todayISO() + '.csv')
+    const [{ text, filename }] = mocks.choice.mock.calls[0]
+    expect(filename).toBe('opengym-body-' + todayISO() + '.csv')
     expect(text).toContain('weight_kg')
   })
 })

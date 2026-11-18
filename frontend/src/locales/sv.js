@@ -5985,4 +5985,11 @@ export default {
   "Recent routines at the top of the start picker": "Recent routines at the top of the start picker",
   // English fallback pending translation
   "Recent": "Recent",
+  // English fallback pending translation
+  "Save or share": "Save or share",
+  "Save to device": "Save to device",
+  "Choose a folder and file name": "Choose a folder and file name",
+  "Send it to another app": "Send it to another app",
+  "Saved to device": "Saved to device",
+  "Couldn’t save the file": "Couldn’t save the file",
 }

@@ -8,7 +8,8 @@ import { useStore } from '../store/useStore.js'
 import { useUI } from '../store/useUI.js'
 import { t, baseLang } from '../lib/i18n.js'
 import { fmtDate } from '../lib/format.js'
-import { MOBILE, shareExport } from '../lib/mobile.js'
+import { MOBILE } from '../lib/mobile.js'
+import { exportChoiceSheet } from '../components/ExportChoiceSheet.jsx'
 import { CATEGORY_IDS, TRAINER_DEFAULTS, leadScopes, sharesNothing } from '../lib/sharing-scopes.js'
 import {
   getSharing, checkCode, connectTrainer, declineCode, updateGrant, disconnectGrant, leaveGym, sharingLog, sharingExport,
@@ -214,7 +215,7 @@ export default function MyTrainerPage() {
   })
   const download = () => sharingExport().then(r => {
     const json = JSON.stringify(r, null, 2), name = 'opengym-sharing.json'
-    if (MOBILE) return shareExport(json, name)
+    if (MOBILE) return exportChoiceSheet({ text: json, filename: name, mime: 'application/json' })
     const a = document.createElement('a')
     a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }))
     a.download = name

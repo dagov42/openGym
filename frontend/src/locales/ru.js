@@ -5939,4 +5939,10 @@ export default {
   "The live widget on the Lock Screen and the Home Screen": "Живой виджет на экране блокировки и главном экране",
   "Recent routines at the top of the start picker": "Недавние рутины в начале выбора тренировки",
   "Recent": "Недавние",
+  "Save or share": "Сохранить или отправить",
+  "Save to device": "Сохранить на устройство",
+  "Choose a folder and file name": "Выберите папку и имя файла",
+  "Send it to another app": "Отправить в другое приложение",
+  "Saved to device": "Сохранено на устройство",
+  "Couldn’t save the file": "Не удалось сохранить файл",
 }

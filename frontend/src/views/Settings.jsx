@@ -49,7 +49,7 @@ import { t, tn, LANGS, INSTR_LANGS, EXERCISE_NAME_LANGS, baseLang, dateLocale } 
 import { nameIn, said } from '../lib/a11y-name.js'
 import { effectiveLang } from '../lib/default-lang.js'
 import { DEMO, REPO } from '../lib/demo.js'
-import { MOBILE, isAndroid, shareExport, shareExportBlob, syncReminder } from '../lib/mobile.js'
+import { MOBILE, isAndroid, syncReminder } from '../lib/mobile.js'
 import { NUDGE_COPY, NUDGE_TONES, toneOf } from '../lib/nudge.js'
 import { referencedFiles } from '../lib/media-refs.js'
 import { mediaStore } from '../lib/media-store.js'
@@ -104,6 +104,7 @@ import { isOn, presetOf } from '../lib/modules.js'
 import { presetCopy } from '../lib/modules-copy.js'
 import { reportSheet } from '../components/ReportSheet.jsx'
 import { csvExportSheet } from '../components/CsvExportSheet.jsx'
+import { exportChoiceSheet } from '../components/ExportChoiceSheet.jsx'
 import GymReminderPage, { GymEditPage, GymFindPage } from './GymReminder.jsx'
 import { readGymConfig } from '../lib/gym-reminder.js'
 import { THEMES, shownThemes, inSeason, seasonChoice, activeSeason } from '../lib/seasonal.js'
@@ -349,9 +350,10 @@ export default function Settings({ page = null, find = null, via = null, entryKe
   const doExport = async () => {
     const json = JSON.stringify(useStore.getState().S, null, 2)
     const name = 'opengym-backup-' + todayISO() + '.json'
-    // WKWebView can't download blob URLs — the native build hands the file to the share sheet.
+    // WKWebView can't download blob URLs. On a phone the file either goes to the place the
+    // person picks in the system save dialog, or through the share sheet.
     if (MOBILE) {
-      try { await shareExport(json, name); toast(t('Backup exported')) } catch (e) { /* share sheet dismissed */ }
+      exportChoiceSheet({ text: json, filename: name, mime: 'application/json' })
       return
     }
     const blob = new Blob([json], { type: 'application/json' })
@@ -371,7 +373,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
     const name = 'opengym-backup-' + todayISO() + '.zip'
     if (out.missing) toast(tn('{0} file could not be included', '{0} files could not be included', out.missing))
     if (MOBILE) {
-      try { await shareExportBlob(out.blob, name); if (!out.missing) toast(t('Backup exported')) } catch (e) { /* share sheet dismissed */ }
+      exportChoiceSheet({ blob: out.blob, filename: name, mime: 'application/zip' })
       return
     }
     const a = document.createElement('a'); a.href = URL.createObjectURL(out.blob); a.download = name; a.click()

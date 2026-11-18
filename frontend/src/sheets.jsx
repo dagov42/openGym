@@ -92,7 +92,8 @@ import { policyFor, profileRule, defaultIncrement, POLICIES_FOR, POLICY_NAME, PO
 import { normalizeRepRange } from './lib/rep-range.js'
 import { isBackoff, backoffWeights } from './lib/backoff.js'
 import { isPyramid, normalizePyramid, normalizePyramidRest, normalizePyramidWeight, pyramidFromFlat, flatFromPyramid, pyramidLabel, PYRAMID_MAX, MAX_PYRAMID_SETS, PYRAMID_PRESETS } from './lib/pyramid.js'
-import { MOBILE, shareExport, shareExportBlob, nativePlatform } from './lib/mobile.js'
+import { MOBILE, nativePlatform } from './lib/mobile.js'
+import { exportChoiceSheet } from './components/ExportChoiceSheet.jsx'
 import { loadHealth } from './lib/health-sync.js'
 import { speedUnitOf, toSpeed, fromSpeed } from './lib/speed.js'
 import { clampIncline, inclineFits, INCLINE_MAX, INCLINE_STEP, clampLevel, levelFits, LEVEL_MAX } from './lib/incline.js'
@@ -3209,7 +3210,7 @@ export async function exportPlanFile() {
   const bundle = buildPlanBundle(st, user?.name ? t('{0}’s plan', user.name) : '')
   const json = JSON.stringify(bundle, null, 2)
   const name = 'opengym-plan-' + todayISO() + '.json'
-  if (MOBILE) { try { await shareExport(json, name) } catch (e) { /* dismissed */ } return }
+  if (MOBILE) { exportChoiceSheet({ text: json, filename: name, mime: 'application/json' }); return }
   const blob = new Blob([json], { type: 'application/json' })
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href)
   toast(t('Plan file saved. Send it to a friend!'))
@@ -3221,7 +3222,7 @@ export async function exportProgrammeFile(id) {
   if (!bundle) return
   const json = JSON.stringify(bundle, null, 2)
   const name = 'opengym-programme-' + todayISO() + '.json'
-  if (MOBILE) { try { await shareExport(json, name) } catch (e) { /* dismissed */ } return }
+  if (MOBILE) { exportChoiceSheet({ text: json, filename: name, mime: 'application/json' }); return }
   const blob = new Blob([json], { type: 'application/json' })
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href)
   toast(t('Programme file saved. Send it to a friend!'))
@@ -3769,7 +3770,7 @@ export const shareWorkoutSheet = w => ui().openSheet(close => <ShareWorkout w={w
 // The .fit file goes out the way a backup does: the share sheet in the phone app (Files, Drive,
 // Garmin Connect itself), a download in the browser.
 async function saveFitFile(blob, name) {
-  if (MOBILE) { try { await shareExportBlob(blob, name) } catch (e) { /* share sheet dismissed */ } return }
+  if (MOBILE) { exportChoiceSheet({ blob, filename: name, mime: 'application/fit' }); return }
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href)
   toast(t('Saved. Garmin Connect can take it from here.'))
 }
