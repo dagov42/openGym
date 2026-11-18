@@ -73,6 +73,7 @@ import { canMoveActiveWorkoutUnit, moveActiveWorkoutUnit, canMoveActiveWorkoutEn
 import { nextOpenSet, workoutKeyAction } from '../lib/workout-keys.js'
 import { MUSCLE_NAME } from '../lib/muscles.js'
 import FocusView from './FocusView.jsx'
+import { closeOpenRow } from '../lib/use-swipe-row.js'
 import { startOrPreview } from '../components/StartSheets.jsx'
 import { isPaused, canPause, pauseWorkout, resumeWorkout } from '../lib/workout-pause.js'
 import { SeasonDeco } from '../components/Seasonal.jsx'
@@ -1361,6 +1362,32 @@ function ActiveWorkout() {
     if (open) keys.add(key); else keys.delete(key)
     return { len: A.entries.length, keys }
   })
+  const [, setFoldTick] = useState(0)
+  const folded = foldedUnits.get(A.id) || EMPTY_FOLDED
+  const setFolded = (key, on) => {
+    const keys = new Set(foldedUnits.get(A.id) || [])
+    if (on) keys.add(key); else keys.delete(key)
+    if (keys.size) foldedUnits.set(A.id, keys)
+    else foldedUnits.delete(A.id)
+    setFoldTick(n => n + 1)
+  }
+  const unitKey = unit.join('-')
+  const unitReady = unit.length > 0 && finished(unit)
+  const isFolded = folded.has(unitKey)
+  const foldCurrentUnit = () => {
+    if (!unitReady || !unit.length) return
+    closeOpenRow()
+    setUI({ swipeHint: null, setFlash: null })
+    setFolded(unitKey, true)
+  }
+  // One summary for the List and for a folded Cards/Focus card, so the two cannot drift.
+  const unitSummary = (u, onOpen) => <button type="button" className="wl-summary" aria-expanded="false" title={t('Show the sets')}
+    onClick={onOpen}>
+    {u.map(idx => <span key={idx} className="row between" style={{ gap: 8 }}>
+      <span className={exerciseNameClass(exOr(A.entries[idx].id))} style={{ fontWeight: 600 }}>{exerciseNameFor(exOr(A.entries[idx].id))}</span>
+      <span className="tag acc nocap"><Icon name="check" />{t('{0} sets', A.entries[idx].sets.length)}</span>
+    </span>)}
+  </button>
   const wc = workoutControls(S)
   // Superset flow: center the actionable row when completing a set moves to the partner or
   // back to the first exercise of the next round. Entry-bound maps keep repeated exercise IDs
@@ -2788,13 +2815,7 @@ function ActiveWorkout() {
             {!isCollapsed && <CircuitCard unit={u} />}
             {/* One line per exercise, and the line is the way back in: a tap opens the sets again
                 to fix a number, without making it the current exercise. */}
-            {isCollapsed ? <button type="button" className="wl-summary" aria-expanded="false" title={t('Show the sets')}
-              onClick={() => setUnitOpen(u.join('-'), true)}>
-              {u.map(idx => <span key={idx} className="row between" style={{ gap: 8 }}>
-                <span className={exerciseNameClass(exOr(A.entries[idx].id))} style={{ fontWeight: 600 }}>{exerciseNameFor(exOr(A.entries[idx].id))}</span>
-                <span className="tag acc nocap"><Icon name="check" />{t('{0} sets', A.entries[idx].sets.length)}</span>
-              </span>)}
-            </button> : multi ? (
+            {isCollapsed ? unitSummary(u, () => setUnitOpen(u.join('-'), true)) : multi ? (
               <div className="ss-card">
                 <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
                   <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(u)}</span>
@@ -2852,7 +2873,7 @@ function ActiveWorkout() {
             onPairNext={adjacent[0] < A.entries.length - 1 ? () => pairAt(adjacent[0], adjacent[0] + 1) : null}
             {...blockProps(adjacent[0])} />
         }}>
-      {focusMode ? (
+      {isFolded ? unitSummary(unit, () => setFolded(unitKey, false)) : focusMode ? (
         <FocusView entryIdx={cur} unit={unit}
           onSelectEntry={selectFocusEntry} onAdvanceUnit={advanceFocusUnit} pointerEpoch={focusPointerEpoch.current}
           onPairPrev={onPairPrev} onPairNext={onPairNext} onUnpair={() => unpairAt(cur)}
@@ -2894,6 +2915,15 @@ function ActiveWorkout() {
         <Icon name="plusCircle" className="wk-end-i" />
         <span className="lrow-m"><span className="lrow-t">{t('Add exercise')}</span></span>
       </button>
+      {!listMode && !editing && A.entries.length > 0 &&
+        <button type="button" className="lrow tap wk-end-row" disabled={!isFolded && !unitReady}
+          aria-expanded={isFolded} onClick={() => (isFolded ? setFolded(unitKey, false) : foldCurrentUnit())}>
+          <Icon name={isFolded ? 'chevronDown' : 'checkCircle'} className="wk-end-i" />
+          <span className="lrow-m">
+            <span className="lrow-t">{isFolded ? t('Show the sets') : t('Collapse sets')}</span>
+            {!isFolded && !unitReady && <span className="lrow-s">{t('Tick every set first')}</span>}
+          </span>
+        </button>}
       <button type="button" className={'lrow tap wk-end-row' + (A.note ? ' has-note' : '')} onClick={sessionNoteSheet}>
         <Icon name="note" className="wk-end-i" />
         <span className="lrow-m">
@@ -2945,6 +2975,13 @@ let lastTouchAt = 0
 if (typeof document !== 'undefined') document.addEventListener('pointerdown', () => { lastTouchAt = Date.now() }, true)
 // Test seam: a fresh launch, nobody has touched anything yet.
 export function _resetHintQuiet() { lastTouchAt = 0 }
+
+// Cards/Focus: a unit the person folded. This is UI state, not profile data, and it lives
+// outside the component so leaving the workout screen and coming back keeps the same cards
+// folded. A reload starts fresh, like the List's openedState.
+const foldedUnits = new Map()
+const EMPTY_FOLDED = new Set()
+export function _resetFoldedUnits() { foldedUnits.clear() }
 
 export default function Workout() {
   const active = useStore(s => s.S.active)

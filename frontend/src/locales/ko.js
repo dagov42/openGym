@@ -5966,4 +5966,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "세트 접기",
+  "Tick every set first": "먼저 모든 세트를 체크하세요",
 }

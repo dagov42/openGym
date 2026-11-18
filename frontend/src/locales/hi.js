@@ -5966,4 +5966,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "सेट संक्षिप्त करें",
+  "Tick every set first": "पहले सभी सेट टिक करें",
 }

@@ -6045,4 +6045,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "সেট গুটিয়ে নিন",
+  "Tick every set first": "প্রথমে সব সেট টিক দিন",
 }

@@ -5932,4 +5932,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "جمع کردن ست",
+  "Tick every set first": "ابتدا همه ستها را علامت بزنید",
 }

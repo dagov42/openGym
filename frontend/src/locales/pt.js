@@ -5966,4 +5966,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "Recolher série",
+  "Tick every set first": "Marque todas as séries primeiro",
 }

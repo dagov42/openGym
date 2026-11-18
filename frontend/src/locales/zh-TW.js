@@ -5959,4 +5959,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "收合組數",
+  "Tick every set first": "先勾選所有組數",
 }

@@ -5931,4 +5931,6 @@ export default {
   "≈{0} min": "≈{0} min",
   "about {0} minute": "about {0} minute",
   "about {0} minutes": "about {0} minutes",
+  "Collapse sets": "Ringkas set",
+  "Tick every set first": "Centang semua set dulu",
 };
