@@ -5980,4 +5980,15 @@ export default {
   "What changed in this version": "What changed in this version",
   "What's new": "What's new",
   "What’s new in {0}": "What’s new in {0}",
+  // English fallback pending translation
+  "Check for updates asks GitHub again instead of repeating the cached answer": "Check for updates asks GitHub again instead of repeating the cached answer",
+  "A four-number patch like 1.4.8.1 is correctly newer than 1.4.8": "A four-number patch like 1.4.8.1 is correctly newer than 1.4.8",
+  "The Coach retries a long answer once after a dropped connection": "The Coach retries a long answer once after a dropped connection",
+  "Some iPhone photos are accepted again": "Some iPhone photos are accepted again",
+  "Assisted machines count progress the right way round": "Assisted machines count progress the right way round",
+  "A workout logged from text keeps the meaning it had": "A workout logged from text keeps the meaning it had",
+  "Programmes: routines as a block of weeks": "Programmes: routines as a block of weeks",
+  "Circuits, AMRAP, EMOM and Tabata": "Circuits, AMRAP, EMOM and Tabata",
+  "The live widget on the Lock Screen and the Home Screen": "The live widget on the Lock Screen and the Home Screen",
+  "Recent routines at the top of the start picker": "Recent routines at the top of the start picker",
 }
