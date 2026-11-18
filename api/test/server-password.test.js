@@ -379,12 +379,16 @@ for (const [label, stored] of [['current', () => pwHash], ['older parameters', (
     const next = 'a much better passphrase';
     const attempts = [];
     let change, changed = false;
-    // Stop once the change has answered. A sign-in with the old password sent after that is a real
-    // wrong password, and the sixth of those would pause the name for the new one below too.
+    // Stop once the change has started. A sign-in with the old password sent after that is a
+    // real wrong password, and the sixth of those would pause the name for the new one below too.
+    // Four attempts are enough to straddle the change; more must not be started after it begins.
     for (let i = 0; i < 30 && !changed; i++) {
       attempts.push(login(h, 'Ana', GOOD, `198.51.100.${10 + i}`));
-      if (i === 3) change = h.req('POST', '/api/account/password', { body: { next, current: GOOD }, cookie: owner, ip: '203.0.113.200' })
-        .finally(() => { changed = true; });
+      if (i === 3) {
+        change = h.req('POST', '/api/account/password', { body: { next, current: GOOD }, cookie: owner, ip: '203.0.113.200' })
+          .finally(() => { changed = true; });
+        break;
+      }
       await new Promise(r => setTimeout(r, 20));
     }
     const done = await change;
@@ -396,11 +400,7 @@ for (const [label, stored] of [['current', () => pwHash], ['older parameters', (
     for (const cookie of cookies) if ((await h.req('GET', '/api/me', { cookie })).status === 200) alive.push(cookie);
     assert.equal(alive.length, 0, `${alive.length} of ${cookies.length} sessions signed with the old password survived the change`);
     assert.equal((await h.req('GET', '/api/me', { cookie: done.cookie })).status, 200, "the owner's own session carries on");
-    // The late old-password attempts can still have spent the name's allowance by the time they
-    // answer, so this sanity check may meet the same pause. Whether the new password is right is
-    // covered by the tests around this one; what matters here is that no old session survived.
-    const fresh = await login(h, 'Ana', next, '203.0.113.201');
-    assert.ok([200, 429].includes(fresh.status), `new-password login answered ${fresh.status}`);
+    assert.equal((await login(h, 'Ana', next, '203.0.113.201')).status, 200);
   });
 }
 
