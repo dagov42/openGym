@@ -703,11 +703,12 @@ describe('the gate has something real to read', () => {
     // into it — not the spelling of the expression that does it.
     const { readFileSync } = await import('node:fs')
     const src = readFileSync(new URL('../store/useStore.js', import.meta.url), 'utf8')
+    const session = readFileSync(new URL('../store/actions/session.js', import.meta.url), 'utf8')
     expect(src).toMatch(/\bconfig:\s*null\b/)
-    expect(src).toMatch(/set\(\s*\{\s*config[:\s]/)
-    expect(src).toMatch(/api\(['"]\/api\/config['"]\)/)
+    expect(session).toMatch(/set\(\s*\{\s*config[:\s]/)
+    expect(session).toMatch(/api\(['"]\/api\/config['"]\)/)
     // and boot() must actually reach it, however it is spelled
-    expect(src).toMatch(/loadConfig\(\)|config:\s*await api\(/)
+    expect(src + session).toMatch(/loadConfig\(\)|config:\s*await api\(/)
   })
 
   it('a configured instance with a signed-in user opens the gate', () => {

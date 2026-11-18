@@ -15,6 +15,7 @@ import { refillIfComplete } from '../lib/rotation.js'
 import { liftLegacy } from '../lib/sync-legacy.js'
 import { mergeStates, localExtras, stampChange, highestStamp, stampRestore, stampReplace, inUnitOf, keepReset, resetIdsOf, mergeResetIds, entryKey } from '../lib/sync-merge.js'
 import { dataActions } from './actions/data.js'
+import { sessionActions } from './actions/session.js'
 import { pendingRefCount, settleMedia, loadPending } from '../lib/media-owed.js'
 import { keptHashes } from '../lib/media-refs.js'
 import { mediaStore, mediaStoreInUse } from '../lib/media-store.js'
@@ -408,8 +409,7 @@ export const useStore = create((set, get) => {
   let pushing = null       // the PUT in flight, so a second push waits for it instead of racing it
   let pushAgain = false    // a push asked for while one was in flight — run once more after it
   let pulling = null       // the GET in flight, so two resume signals make one request
-  let configFetch = null   // the /api/config in flight, so two callers make one request
-  let pushPending = false  // a change made before boot's pull — pushed once boot is through
+    let pushPending = false  // a change made before boot's pull — pushed once boot is through
   let forceNext = false    // the next push replaces the server copy outright (reset)
   // A backup import's replace: pushed against the revision the import's check read (importRead),
   // so a change another device synced while the confirm was open is merged in, not wiped.
@@ -1520,12 +1520,12 @@ export const useStore = create((set, get) => {
        hangs off it via coachAvailable(), so an unconfigured instance renders exactly what it
        always did, and a configured one is the only place any of it appears. */
     config: null,
+    ...sessionActions({ get, set, setSync }),
     needsMobileOnboarding: false,   // mobile build only — set true by boot() on a genuine first launch
     // Mobile build only: the first-start permission steps (views/PermissionSteps.jsx) are due.
     // Set when that first launch's choice is made; never persisted, the steps keep their own
     // once-per-device record (lib/onboarding-perms.js).
     permSteps: false,
-    finishPermSteps() { set({ permSteps: false }) },
     // The tour's practice workout (see `sandbox` above). `mut` prepares the stand-in copy; what
     // the screens then change in it lasts until leaveTourSandbox, and not a moment longer.
     tourSandbox: false,
@@ -1556,9 +1556,6 @@ export const useStore = create((set, get) => {
     // Mobile build only: how the Coach runs on this phone — { mode: 'off'|'server'|'byok',
     // provider, model, baseUrl } from lib/coach-device.js. Never the key, never a proposal.
     coachLocal: null,
-    async setCoachLocal(patch) {
-      set({ coachLocal: coachDeviceSettings(await saveCoachDevice(patch)) })
-    },
 
     // Mutate a draft of S via producer fn, then persist + schedule sync. Every routine the change
     // touched carries the time of it, for a conflict to keep the version edited last.
@@ -1717,35 +1714,7 @@ export const useStore = create((set, get) => {
       persist(keepReset(get().S, clone(S)), push)
     },
 
-    isGuest: () => localStorage.getItem('gym_guest') === '1',
-    // Choosing to go on without a server ends whatever was said about the last one.
-    setGuest(v) {
-      if (v) localStorage.setItem('gym_guest', '1'); else localStorage.removeItem('gym_guest')
-      set({})
-      if (v) setSync({ auth: false, offline: false, lastError: null })
-    },
 
-    // Public config from /api/config (invite_only, allow_guest). null until the first successful
-    // fetch — the login screen and boot both read it, so it is fetched once and cached here
-    // rather than by each screen that happens to need it.
-    config: null,
-    async loadConfig() {
-      if (get().config) return get().config
-      return get().refreshConfig()
-    },
-    // Always asks. The cached copy is right for one boot, but an admin can switch the Coach on
-    // while a paired phone sits on the setup screen — that screen wants today's answer.
-    // Two callers that ask at once get one request: signing in re-asks (setUser) and the pairing
-    // flow awaits a refresh of its own immediately after, and there is one answer to have.
-    async refreshConfig() {
-      if (configFetch) return configFetch
-      configFetch = (async () => {
-        try { const c = await api('/api/config'); rememberDefaultLang(c); set({ config: c }); return c }
-        catch { return null }
-        finally { configFetch = null }
-      })()
-      return configFetch
-    },
 
     // `adopt` (a sign-in, a pairing — { alwaysAsk } for a device link): adoptProfile follows and
     // decides what becomes of this copy; until it has, nothing is pulled or pushed (ADOPT_KEY).
