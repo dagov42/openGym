@@ -55,6 +55,8 @@ import { usesBands, withBandEx, setBandsOf, toggleSetBand, bandText } from './li
 import { BandChips } from './components/Bands.jsx'
 import { Button, Slider, Switch, Segmented, SelectRow, Row, TextField, NumberField, MultiSelectRow } from './components/ui.jsx'
 import WeightInput from './components/WeightInput.jsx'
+import { bwTooHeavy } from './components/weightLimits.js'
+export { goalSheet } from './components/GoalSheet.jsx'
 import { glyphOf, GLYPH_GROUPS, DEFAULT_GLYPH } from './lib/glyphs.js'
 import BodyMap from './components/BodyMap.jsx'
 import MuscleExplorer from './components/MuscleExplorer.jsx'
@@ -357,14 +359,6 @@ export const starterPlanSheet = () => ui().openSheet(close => <StarterPlanChoose
 // Fixed range, not a moving window — a window that resizes itself mid-drag (the previous
 // attempt) makes the thumb's position unpredictable: every time it grows, everything already
 // placed on it shifts toward one side. A static range never has that problem, at the cost of
-// A typed body weight may sit past the slider (a 320 kg lifter is real), but not past any
-// person: 9999 saved, drew the chart from -0 to 10,000 and set a goal 9,922 kg away.
-const bwMax = unit => (unit === 'lb' ? 1500 : 700)
-const bwTooHeavy = (n, unit) => {
-  if (n <= bwMax(unit)) return false
-  toast(t('That looks too heavy. Keep it at {0} or less.', fmtNum(bwMax(unit)) + ' ' + unit))
-  return true
-}
 
 /* ============================ body weight ============================ */
 // A weigh-in has a time (#859): a day can hold several, and the profile's daily value
@@ -915,26 +909,6 @@ export function bwDeltaColor(delta, currentW) {
   const up = S().targetW > currentW
   return (delta > 0) === up ? 'var(--acc-ink)' : 'var(--red-ink)'
 }
-function GoalSheet({ close }) {
-  const st = S()
-  const bw = lastBW(st)
-  const [v, setV] = useState(st.targetW || (bw ? bw.w : 70))
-  return <>
-    <h3>{t('Target weight')}</h3>
-    <div className="muted small">{t('Your goal is drawn as a line through the weight charts, and gains/losses are colored by whether they move toward it.')}</div>
-    <WeightInput value={v} setValue={setV} unit={st.unit} />
-    <div style={{ height: 14 }} />
-    <Button variant="primary" onClick={() => {
-      const n = Math.round((v || 0) * 10) / 10
-      if (!n || n <= 0) { toast(t('Enter a valid weight')); return }
-      if (bwTooHeavy(n, st.unit)) return
-      update(s => { s.targetW = n }); close()
-      const b = lastBW(S()); toast(t('Goal set: {0}', fmtNum(n) + ' ' + st.unit) + (b ? ' (' + t('{0} to go', fmtNum(Math.abs(n - b.w))) + ')' : ''))
-    }}>{t('Save goal')}</Button>
-    {st.targetW && <><div style={{ height: 8 }} /><Button variant="danger" onClick={() => { update(s => { s.targetW = null }); close(); toast(t('Goal removed')) }}>{t('Remove goal')}</Button></>}
-  </>
-}
-export const goalSheet = () => ui().openSheet(close => <GoalSheet close={close} />)
 
 /* ============================ per gym (#988) ============================ */
 // Numbers kept per gym for one exercise (lib/gym-split.js): the same cable row is 15 kg at one gym
