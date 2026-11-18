@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "verify": "node scripts/verify.mjs"
+  },
   "devDependencies": {
     "js-yaml": "^4.1.0"
   }

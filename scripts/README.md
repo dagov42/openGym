@@ -3,6 +3,13 @@
 Build and release helpers. Each script explains itself at the top; this page says which one you
 want. Run them from the repository root with Node 22 unless noted.
 
+## One command for the checks CI runs
+
+`node scripts/verify.mjs` runs the static checks and the frontend, api and mcp suites in CI order
+(checks first). `--checks-only` skips the suites for a quick release pass; `--tag vX.Y.Z` adds
+`ci/release-check.mjs`. The root dependency (`js-yaml`, for the API docs check) comes from
+`npm ci` in the repository root once; the npm script is `npm run verify`.
+
 ## Run by CI (keep them working)
 
 | Script | What it does |
@@ -28,6 +35,12 @@ want. Run them from the repository root with Node 22 unless noted.
 
 Frontend-only helpers (locale checks, bundle size, the service worker stamp) live in
 `frontend/scripts/`, and the API's in `api/scripts/`.
+
+## Fork maintenance
+
+| Script | When |
+|---|---|
+| `fork/upstream-status.mjs` | Before a sync with upstream: upstream commits the fork lacks, merged upstream PRs touching locally changed files, local-only commits and likely conflicts. Read-only; `--fetch` refreshes the upstream ref first. The human checklist is `docs/dev/FORK_SYNC.md`; tests are `node --test scripts/fork/upstream-status.test.mjs` |
 
 ## Release machine only
 
