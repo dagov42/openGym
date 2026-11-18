@@ -201,9 +201,10 @@ describe('leaving the server', () => {
     expect(sheet.textContent).toContain('Not on your server yet: 2 changes')
     expect(sheet.textContent).toContain('keeps a copy of these changes on this device')
 
+    const before = mocks.sheets.length
     await act(async () => { buttonByText(sheet, 'Export backup (JSON)').click() })
-    expect(mocks.shareExport).toHaveBeenCalledTimes(1)     // the phone exports through the share sheet
-    expect(mocks.shareExport.mock.calls[0][1]).toMatch(/^opengym-backup-\d{4}-\d{2}-\d{2}\.json$/)
+    expect(mocks.sheets).toHaveLength(before + 1)     // the phone asks save-or-share
+    expect(mocks.shareExport).not.toHaveBeenCalled()
 
     mocks.disconnectServer.mockResolvedValueOnce({ owed: true, count: 2, stashed: true })
     await act(async () => { buttonByText(sheet, 'Disconnect anyway').click() })
