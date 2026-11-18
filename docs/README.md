@@ -67,6 +67,7 @@ Design notes for specific features, kept next to the code they describe:
 | [Fatigue and sets](dev/FATIGUE_SETS_MODEL.md) | How hard sets feed the fatigue map and its recovery time per muscle |
 | [Sister apps](dev/SISTER_APPS.md) | openNutrition and openRunning: the read-only link, activities (runs, matches) and the pairing contract |
 | [i18n policy](dev/I18N_POLICY.md) | Feature vs translation PRs, placeholders, pt-BR inheritance and the advisory unused report |
+| [Testing](dev/TESTING.md) | The suites, the src/lib coverage floor and the known slow test |
 
 ## Still stuck?
 

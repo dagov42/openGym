@@ -134,5 +134,17 @@ export default defineConfig({
   build: { chunkSizeWarningLimit: 1500, target: ['safari15', 'chrome100', 'firefox100', 'edge100'] },
   // Gives happy-dom tests a working localStorage on Node 24+ (#733). NODE_ENV=test makes React
   // export act: a shell that exports production otherwise fails every component test.
-  test: { setupFiles: ['./src/test-setup.js'], env: { NODE_ENV: 'test' } }
+  test: {
+    setupFiles: ['./src/test-setup.js'],
+    env: { NODE_ENV: 'test' },
+    coverage: {
+      provider: 'v8',
+      include: ['src/lib/**/*.js'],
+      // Generated catalogue data is not hand-written logic; its size would drown the number.
+      exclude: ['src/lib/**/*.test.js', 'src/lib/exercises-data.js', 'src/lib/hevy-id-map.js'],
+      // A floor on the pure helpers, not on every view. Baselines on 2026-11-18:
+      // statements 89.08%, branches 81.37%, functions 88.31%, lines 93.04%.
+      thresholds: { statements: 88, branches: 80, functions: 87, lines: 92 }
+    }
+  }
 })
