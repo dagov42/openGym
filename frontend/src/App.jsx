@@ -27,6 +27,7 @@ import { stepPlaces } from './lib/progression.js'
 import { applyOrientation } from './lib/orientation.js'
 import { initBackButton } from './lib/back.js'
 import { initUpdateNotice } from './components/UpdateNotice.jsx'
+import { initWhatsNew } from './components/WhatsNewSheet.jsx'
 import { installEdgeSwipeBack, BACK_PREVIEW_EVENT } from './lib/edge-swipe-back.js'
 import { pageMotion } from './lib/page-motion.js'
 import { startWatchSync, bindWatchAppActions, patchSetIn, watchStatus, watchClaimed, onWatchClaim, markDiscarded, notePhoneOpen, ensureWatchSet } from './lib/watch-sync.js'
@@ -514,6 +515,8 @@ export default function App() {
   }, [])
   // The sideloaded APK: a newer release offers itself once when the app opens (lib/update-notice.js)
   useEffect(() => { initUpdateNotice() }, [])
+  // A first idle moment after an app update: the What's new sheet, once per version.
+  useEffect(() => { initWhatsNew() }, [])
   // iOS: swipe from the left edge for the page's own back button (lib/edge-swipe-back.js)
   useEffect(() => installEdgeSwipeBack(), [])
   // iPhone app with an Apple Watch, Android with Wear OS: the running workout goes to the watch,

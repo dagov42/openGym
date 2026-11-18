@@ -60,6 +60,8 @@ import { setRestAccent } from '../lib/rest-alert.js'
 import { CUSTOM, accentKey, adjustedIn, applyAccent, cleanHex, inkOn, isGrey } from '../lib/accent.js'
 import { layoutSheet } from '../components/PageLayout.jsx'
 import { askToUpdate } from '../components/UpdateNotice.jsx'
+import { openWhatsNew } from '../components/WhatsNewSheet.jsx'
+import { itemsFor, normalizeVersion, readSeen } from '../lib/whats-new.js'
 import { checkForUpdate, forgetDownloadedUpdate, resetUpdateCheck, RELEASES_PAGE } from '../lib/update.js'
 import { getChannel, gymReminderBuilt } from '../lib/channel.js'
 import { forgetCoach } from '../lib/coach-api.js'
@@ -240,6 +242,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
 
   // --- update check state ---
   const [updateInfo, setUpdateInfo] = useState(null) // { hasUpdate, latestVersion, apkUrl, hashUrl } | null
+  const [whatsSeen, setWhatsSeen] = useState(() => readSeen())
   const [android, setAndroid] = useState(() => MOBILE && platformNow() === 'android')
   const [ios, setIos] = useState(() => MOBILE && platformNow() === 'ios')   // the iPhone app: Settings → Apple Watch
   const [selfUpdate, setSelfUpdate] = useState(false)   // the sideloaded APK, which updates itself
@@ -273,6 +276,12 @@ export default function Settings({ page = null, find = null, via = null, entryKe
       if (own && page === 'about') checkForUpdate().then(info => { setUpdateInfo(info); if (!info?.hasUpdate) forgetDownloadedUpdate() }).catch(() => {})
     })
   }, [page])
+
+  // The What's new dot clears as soon as the sheet closes, without waiting for a re-route.
+  useEffect(() => {
+    if (typeof useUI.subscribe !== 'function') return
+    return useUI.subscribe(() => setWhatsSeen(readSeen()))
+  }, [])
 
   // A search hit: scroll its row (or button) into view and flash it once. A row that shows only
   // once the page has heard back from the server (web push, the passkey list) is waited for a
@@ -1278,6 +1287,15 @@ export default function Settings({ page = null, find = null, via = null, entryKe
           : <Row icon="download" iconTint="var(--green)" title={t('Get the Android app')}
               subtitle={t('Download the APK from opengym.ch')} accessory="chevron"
               onClick={() => window.open('https://opengym.ch/#download', '_blank', 'noopener')} />}
+      </Section>
+      <Section>
+        <Row icon="sparkles" iconTint="var(--yellow)" title={t("What's new")}
+          subtitle={itemsFor(__APP_VERSION__) ? t('What changed in this version') : t('No notes for this build')}
+          accessory="chevron"
+          value={itemsFor(__APP_VERSION__) && whatsSeen !== normalizeVersion(__APP_VERSION__)
+            ? <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--acc)', display: 'inline-block' }} />
+            : null}
+          onClick={() => openWhatsNew()} />
       </Section>
       {/* The F-Droid build has no Wear OS link (it would need Google Play services, which F-Droid
           leaves out): said here rather than having a watch that silently never connects. */}

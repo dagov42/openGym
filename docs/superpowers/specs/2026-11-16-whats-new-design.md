@@ -1,7 +1,9 @@
 # What's new after an update
 
-Status: agreed 2026-11-16 (the lifter's calls: an automatic sheet once per version with 3–5 short items and a
-changelog link, plus a permanent Settings row). Nothing implemented yet.
+Status: implemented 2026-11-18 (`lib/whats-new.js`, `components/WhatsNewSheet.jsx`, the App idle
+trigger and the Settings → About row; tests: `whats-new.test.js`, `WhatsNewSheet.test.jsx`).
+The lifter's calls stand: an automatic sheet once per version with 3–5 short items and a
+changelog link, plus a permanent Settings row.
 
 ## Why
 
