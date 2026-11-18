@@ -5961,4 +5961,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "收合組數",
   "Tick every set first": "先勾選所有組數",
+  "Replace in routine": "在訓練中替換",
 }

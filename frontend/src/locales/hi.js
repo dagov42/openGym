@@ -5968,4 +5968,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "सेट संक्षिप्त करें",
   "Tick every set first": "पहले सभी सेट टिक करें",
+  "Replace in routine": "रूटीन में बदलें",
 }

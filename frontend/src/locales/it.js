@@ -5978,4 +5978,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Comprimi serie",
   "Tick every set first": "Prima spunta tutte le serie",
+  "Replace in routine": "Sostituisci nella routine",
 }

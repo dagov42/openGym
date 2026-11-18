@@ -148,6 +148,26 @@ function dropSelfBackup(out) {
   return out
 }
 
+/**
+ * The slot with a different exercise and a confirmed config. Identity and the superset group
+ * come from the slot; every plan field comes from `cfg`, including its omissions (a cleared note
+ * stays absent). `cfg` may carry stale group keys from a stored target; those are stripped so a
+ * replacement cannot leave the group or change its name, rest or circuit flag.
+ */
+export function replaceSlotWithConfig(slot, id, cfg) {
+  const old = slot || {}
+  const group = old.sg
+    ? {
+        sg: old.sg,
+        ...(old.sgName ? { sgName: old.sgName } : {}),
+        ...(old.sgRest != null ? { sgRest: old.sgRest } : {}),
+        ...(old.sgCircuit ? { sgCircuit: old.sgCircuit } : {}),
+      }
+    : {}
+  const { id: _id, sg: _sg, sgName: _sgName, sgRest: _sgRest, sgCircuit: _sgCircuit, ...rest } = cfg || {}
+  return { ...group, ...rest, id }
+}
+
 export function replaceSlotExercise(slot, id, S, rid) {
   const old = slot || {}
   if (old.id === id) return { ...old }

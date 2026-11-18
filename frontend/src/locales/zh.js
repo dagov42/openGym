@@ -5968,4 +5968,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "收起组数",
   "Tick every set first": "先勾选所有组数",
+  "Replace in routine": "在训练中替换",
 }

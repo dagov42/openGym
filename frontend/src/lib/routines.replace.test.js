@@ -1,7 +1,7 @@
 // Replace an exercise in a routine (#110): the slot keeps what was set up for it, only the
 // exercise changes — and the new exercise does not inherit the old one's progress.
 import { describe, it, expect } from 'vitest'
-import { replaceSlotExercise } from './routines.js'
+import { replaceSlotExercise, replaceSlotWithConfig } from './routines.js'
 import { buildCombinedEntries } from './session-merge.js'
 import { buildCompletedWorkout } from './finish-workout.js'
 import { lastEntryFor } from './history.js'
@@ -15,8 +15,36 @@ const BIKE = '2138'       // stationary bike, cardio
 const ASSISTED_PULL_UP = '0015' // assisted pull-up, a leverage machine: the weight is help
 const PULLDOWN = '0150'   // lat pulldown, cable
 
-describe('replaceSlotExercise', () => {
-  it('keeps the slot\'s sets, reps, weight, rule, rest, warm-ups, note and superset', () => {
+describe('replaceSlotWithConfig', () => {
+  const slot = {
+    id: BENCH, sg: 'g1', sgName: 'Push pair', sgRest: 75, sgCircuit: true,
+    sets: 4, reps: 8, weight: 60, note: 'old note', restSec: 120,
+  }
+
+  it('takes the confirmed config, the new id, and keeps the whole superset group', () => {
+    const cfg = { id: DB_BENCH, sets: 3, reps: 10, weight: 24, mode: 'reps' }
+    expect(replaceSlotWithConfig(slot, DB_BENCH, cfg)).toEqual({
+      sg: 'g1', sgName: 'Push pair', sgRest: 75, sgCircuit: true,
+      sets: 3, reps: 10, weight: 24, mode: 'reps', id: DB_BENCH,
+    })
+  })
+
+  it('does not resurrect a field the user cleared, and strips stale group keys from cfg', () => {
+    const cfg = { id: DB_BENCH, sets: 3, reps: 10, weight: 24, sg: 'other', sgName: 'Stale' }
+    const next = replaceSlotWithConfig(slot, DB_BENCH, cfg)
+    expect(next.note).toBeUndefined()
+    expect(next.restSec).toBeUndefined()
+    expect(next.sg).toBe('g1')
+    expect(next.sgName).toBe('Push pair')
+  })
+
+  it('a slot outside a group gets no group keys', () => {
+    expect(replaceSlotWithConfig({ id: BENCH, sets: 3 }, DB_BENCH, { id: DB_BENCH, sets: 2 }))
+      .toEqual({ sets: 2, id: DB_BENCH })
+  })
+})
+
+describe('replaceSlotExercise', () => {  it('keeps the slot\'s sets, reps, weight, rule, rest, warm-ups, note and superset', () => {
     const slot = {
       id: BENCH, sg: 'sgA', sets: 4, mode: 'reps', reps: 8, repsMin: 6, weight: 60, prog: 'double', inc: 1.25,
       deloadFactor: 0.85, note: 'pause on the chest', warmupSets: 2, restSec: 150,

@@ -5934,4 +5934,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Thu gọn hiệp",
   "Tick every set first": "Đánh dấu tất cả hiệp trước",
+  "Replace in routine": "Thay trong giáo án",
 };

@@ -23,6 +23,9 @@ A small updater fix and keyboard shortcuts.
   sessions, or a plan estimate until two exist. No new stored field; it follows the history.
 - Cards and Focus: Collapse sets folds a finished exercise to its one-line summary. The sets stay
   ticked; the fold survives leaving and returning to the workout, and Show the sets unfolds it.
+- Swap exercise can also replace the routine's slot: Replace in routine changes today's entry and
+  the plan, keeping the slot's numbers, superset group and position. No history or saved-workout
+  editor is touched.
 
 ## v1.4.9 (2026-11-18)
 

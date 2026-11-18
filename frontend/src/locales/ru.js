@@ -5965,4 +5965,5 @@ export default {
   "about {0} minutes": { one: "около {0} минуты", few: "около {0} минут", many: "около {0} минут" },
   "Collapse sets": "Свернуть подходы",
   "Tick every set first": "Сначала отметьте все подходы",
+  "Replace in routine": "Заменить в программе",
 }

@@ -5968,4 +5968,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Réduire la série",
   "Tick every set first": "Cochez d’abord toutes les séries",
+  "Replace in routine": "Remplacer dans la routine",
 }

@@ -5908,4 +5908,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Skjul sæt",
   "Tick every set first": "Sæt flueben ved alle sæt først",
+  "Replace in routine": "Erstat i rutinen",
 }

@@ -5971,4 +5971,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Sorozat összecsukása",
   "Tick every set first": "Előbb pipáld ki az összes sorozatot",
+  "Replace in routine": "Csere a rutinban",
 }

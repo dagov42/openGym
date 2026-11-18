@@ -5933,4 +5933,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Ringkas set",
   "Tick every set first": "Centang semua set dulu",
+  "Replace in routine": "Ganti di rutin",
 };

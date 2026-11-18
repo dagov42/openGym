@@ -6023,4 +6023,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "طي المجموعة",
   "Tick every set first": "علّم كل المجموعات أولاً",
+  "Replace in routine": "استبدال في البرنامج",
 }

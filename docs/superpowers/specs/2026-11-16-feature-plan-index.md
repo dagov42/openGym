@@ -43,7 +43,7 @@ improvements done while the larger one runs).
 | [`2026-11-16-native-backlog-design.md`](2026-11-16-native-backlog-design.md) | Triage of the device-dependent issues (#1255, #1294/#1295, #1264, #1263) | Task | 14 |
 | [`2026-11-17-apk-variants-design.md`](2026-11-17-apk-variants-design.md) | Release Standard, Plus and HD APKs, then switch between them in Settings | **Agreed** | 15 |
 | [`2026-11-18-finish-exercise-design.md`](2026-11-18-finish-exercise-design.md) | Collapse a finished exercise so the card swipe can no longer reach its sets | **Done 2026-11-18** | 16 |
-| [`2026-11-18-replace-in-routine-design.md`](2026-11-18-replace-in-routine-design.md) | Replace the routine's exercise, not just today's, from the swap sheet | **Agreed** | 17 |
+| [`2026-11-18-replace-in-routine-design.md`](2026-11-18-replace-in-routine-design.md) | Replace the routine's exercise, not just today's, from the swap sheet | **Done 2026-11-18** | 17 |
 
 ## Decisions already made (do not re-open without a reason)
 

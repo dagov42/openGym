@@ -22,7 +22,7 @@ import { shareRoutineSheet } from '../components/RoutineShare.jsx'
 import SwipeRow from '../components/SwipeRow.jsx'
 import { RoutineFolderRow } from '../components/RoutineFolder.jsx'
 import { workoutControls } from '../lib/workout-controls.js'
-import { copyRoutine, deleteRoutine, replaceSlotExercise } from '../lib/routines.js'
+import { copyRoutine, deleteRoutine, replaceSlotExercise, replaceSlotWithConfig } from '../lib/routines.js'
 import { markEntryUndone } from '../lib/sync-merge.js'
 import { speedUnitOf } from '../lib/speed.js'
 import { POLICIES_FOR, POLICY_NAME, POLICY_DESC, profileRule } from '../lib/progression.js'
@@ -420,7 +420,7 @@ export default function RoutineEdit() {
       if (quick && ex.id === openedOn) { picker.close(); return }
       if (quick) { commit(ex, current => replaceSlotExercise(current, ex.id, live, id)); return }
       const next = replaceSlotExercise(slot, ex.id, live, id)
-      exConfigSheet(ex, next, cfg => commit(ex, current => ({ id: ex.id, sg: current.sg, ...cfg })), null, r, null, null, t('Replace'), { backups: true })
+      exConfigSheet(ex, next, cfg => commit(ex, current => replaceSlotWithConfig(current, ex.id, cfg)), null, r, null, null, t('Replace'), { backups: true })
     }, { title: t('Replace exercise'), like: openedOn, backups: r.ex[i]?.subs })
   }
   // This routine on paper (#282): the print step (sheets.jsx printPlanSheet, "With pictures"

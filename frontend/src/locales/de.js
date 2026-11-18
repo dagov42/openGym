@@ -5988,4 +5988,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Satz einklappen",
   "Tick every set first": "Zuerst alle Sätze abhaken",
+  "Replace in routine": "In Routine ersetzen",
 }

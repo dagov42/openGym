@@ -37,7 +37,7 @@ import Stepper from './components/Stepper.jsx'
 import DateField from './components/DateField.jsx'
 import { durationSheet } from './components/DurationWheel.jsx'
 import { cleanBackups, cleanBackupConfigs, withBackups, MAX_BACKUPS, backupSlotConfig } from './lib/routine-backups.js'
-import { replaceSlotExercise } from './lib/routines.js'
+import { replaceSlotExercise, replaceSlotWithConfig, routineSlotIndex } from './lib/routines.js'
 import KitChips from './components/KitChips.jsx'
 import { normalizeAliases } from './lib/exercise-aliases.js'
 import ExerciseAliasesEditor, { ExerciseAliasesField, ExerciseAliasesLink } from './components/ExerciseAliases.jsx'
@@ -2067,20 +2067,35 @@ export const exercisePicker = (onPick, { title, like, actionIcon, backups, askCo
 // `opts.askCoach`: offered at the top of the picker when the Coach can answer (#1003).
 export function swapActiveWorkoutExercise(index, { askCoach } = {}) {
   const active = S().active
-  if (!active?.entries?.[index]) return
+  const current = active?.entries?.[index]
+  if (!current) return
+  const routine = current.rid ? (S().routines || []).find(r => r.id === current.rid) : null
+  const at = routine ? routineSlotIndex(routine, active.entries, index) : -1
+  const eligible = !!routine && at >= 0 && !active.editingWorkoutId && !active.backfill
+  const slot = eligible ? routine.ex[at] : null
 
   // The "+" on a picker row commits with the default config, exactly as it does in the add
   // flows; tapping the row still opens the config sheet first.
-  // Worded for the session, not the routine: a swap changes today's workout only.
   // One of the slot's planned backups opens at its plan (its own, #978, else the slot's), the way
-  // the ⋯ menu's one-tap swap does; anything else at its defaults.
+  // the ⋯ menu's one-tap swap does; a planned exercise opens at the slot's replacement config,
+  // so its numbers and rule stay the routine's. A freestyle entry keeps the old seed.
   const asBackup = ex => {
     const cur = S().active?.entries?.[index]
     return cur && (cur.target?.subs || []).includes(ex.id)
       ? backupSlotConfig({ ...plannedConfigOf(cur), id: cur.id }, ex.id, S(), cur.rid, id => !!EXIDX[id])
       : null
   }
-  const picker = exercisePicker((ex, quick) => quick ? swapTo(ex, asBackup(ex) || pickedExerciseConfig(ex.id, undefined, S())) : exConfigSheet(ex, null, cfg => swapTo(ex, cfg), null, null, asBackup(ex), null, t('Use in this workout'), { freestyle: (S().routines || []).some(r => r.id === active.entries[index].rid) ? false : 'add' }), { title: t('Swap exercise'), like: active.entries[index].id, backups: active.entries[index].target?.subs, askCoach })
+  const seedFor = ex => asBackup(ex) || (eligible ? replaceSlotExercise(slot, ex.id, S(), current.rid) : null)
+  const replaceInRoutine = eligible ? (ex, cfg) => {
+    picker.close()
+    commitActiveSwap(index, ex, cfg, { replaceInRoutine: true })
+  } : null
+  const picker = exercisePicker((ex, quick) => quick
+    ? swapTo(ex, asBackup(ex) || pickedExerciseConfig(ex.id, undefined, S()))
+    : exConfigSheet(ex, null, cfg => swapTo(ex, cfg), null, eligible ? routine : null, seedFor(ex), null, t('Use in this workout'), {
+        freestyle: (S().routines || []).some(r => r.id === active.entries[index].rid) ? false : 'add',
+        ...(replaceInRoutine ? { onReplaceInRoutine: cfg => replaceInRoutine(ex, cfg) } : {}),
+      }), { title: t('Swap exercise'), like: current.id, backups: current.target?.subs, askCoach })
   function swapTo(ex, cfg) {
     // The picker is a chooser here, not a stack you keep adding from: one swap, then back to
     // the workout. (The add flow deliberately leaves it open.)
@@ -2102,13 +2117,19 @@ export function swapActiveWorkoutToBackup(index, backupId) {
   commitActiveSwap(index, ex, cfg)
 }
 
-function commitActiveSwap(index, ex, cfg) {
+function commitActiveSwap(index, ex, cfg, opts = {}) {
   const st = S()
   const current = st.active?.entries?.[index]
   if (!current) return
   // A swap is an in-place substitution — routine identity is unchanged, so the replacement
   // keeps the slot's own `rid` and reads its prescription from that routine (not a
   // session-wide one). A slot with no `rid` is freestyle.
+  const activeId = st.active?.id
+  const oldId = current.id
+  const routineId = current.rid || null
+  const routine = routineId ? st.routines.find(r => r.id === routineId) : null
+  const at = routine ? routineSlotIndex(routine, st.active.entries, index) : -1
+  const oldSlot = at >= 0 ? routine.ex[at] : null
   const slotRoutine = current.rid ? st.routines.find(r => r.id === current.rid) : null
   // Same rows the add flow builds (buildSessionEntry).
   const built = buildSessionEntry(st, ex.id, cfg, slotRoutine, current)
@@ -2129,7 +2150,21 @@ function commitActiveSwap(index, ex, cfg) {
     // occurrence can be replaced or a new entry shifts those indexes.
     ui().stopWork()
     let swapped = null
-    update(state => { swapped = swapActiveExercise(state.active, index, replacement, options) }, true)
+    let routineWritten = null
+    update(state => {
+      const live = state.active
+      const before = live?.entries?.[index]
+      // A sync or another tab may have replaced the occurrence, or the session may have ended,
+      // while a confirmation was open. Neither the swap nor the routine write may land then.
+      if (!before || before.id !== oldId || live?.id !== activeId) return
+      swapped = swapActiveExercise(live, index, replacement, options)
+      if (!opts.replaceInRoutine || !swapped || swapped.needsConfirmation) return
+      // The slot is the one the sheet opened on; a rename/reorder/delete meanwhile fails closed.
+      const target = (state.routines || []).find(r => r.id === routineId)
+      if (!target || target.ex[at]?.id !== oldId) return
+      target.ex[at] = replaceSlotWithConfig(oldSlot, ex.id, cfg)
+      routineWritten = target.name
+    }, true)
     // The rest keeps running through a swap (Discord, tharun_01: the countdown and Skip went
     // away until the next set). Only its pointer follows the entries: an insert shifts the
     // ones after it, and a rest whose own set was just replaced in place no longer has that row.
@@ -2141,6 +2176,7 @@ function commitActiveSwap(index, ex, cfg) {
         useUI.setState({ timer: kept })
       }
     }
+    if (routineWritten) useUI.getState().toast(t('{0} is in {1} from next time.', exerciseNameText(ex), routineWritten))
   }
   const logged = (current.sets || []).some(set => set.done === true)
   if (!logged) { apply(); return }
@@ -2463,7 +2499,7 @@ function BackupsSheet({ ex, slot, routine, subs: initial, configs: initialConfig
 // anyway (lib/log-workout.js LOG_LIMITS). Typing more settles on the limit when the field is left.
 const PLAN_MAX_SETS = 50
 const PLAN_MAX_REPS = 1000
-function ExConfig({ ex, existing, onSave, onDelete, onReplace, close, routine, initial, saveLabel, backupsEditable, freestyle, autosave }) {
+function ExConfig({ ex, existing, onSave, onDelete, onReplace, close, routine, initial, saveLabel, backupsEditable, freestyle, autosave, onReplaceInRoutine }) {
   // Shown and typed in the exercise's own weight unit when it has one (#657, lib/ex-unit.js); the
   // config it opened with and the one it saves are in the profile's.
   const live = useStore(s => s.S)
@@ -3090,6 +3126,11 @@ function ExConfig({ ex, existing, onSave, onDelete, onReplace, close, routine, i
         Replace (#110) seeds this sheet with the slot it replaces, and saving puts the exercise
         into that slot. */}
     <Button variant="primary" disabled={progressionStepInvalid} onClick={autosave ? close : () => save()}>{autosave ? t('Done') : saveLabel || (existing ? t('Save') : t('Add to routine'))}</Button>
+    {onReplaceInRoutine && <>
+      <div style={{ height: 8 }} />
+      <Button icon="swap" disabled={progressionStepInvalid}
+        onClick={() => save(out => { close(); onReplaceInRoutine(storedOf(out)) })}>{t('Replace in routine')}</Button>
+    </>}
     {isCustomEx(ex) && <><div style={{ height: 8 }} /><Button icon="pencil" onClick={() => { close(); customExSheet(ex) }}>{t('Edit or delete this exercise')}</Button></>}
     {/* The routine editor's counterpart to a workout's Swap (#110): another exercise in this
         slot, with the slot's sets, reps, weight, rule and note kept (lib/routines.js). What was
@@ -3100,7 +3141,7 @@ function ExConfig({ ex, existing, onSave, onDelete, onReplace, close, routine, i
 }
 // `opts.backups`: the routine editor's sheet, where the slot's planned substitutes are picked.
 // `opts.autosave`: the live workout's sheet, which keeps its changes however it closes (#1079).
-export const exConfigSheet = (ex, existing, onSave, onDelete, routine, initial, onReplace, saveLabel, opts = {}) => ui().openSheet(close => <ExConfig ex={ex} existing={existing} initial={initial} onSave={onSave} onDelete={onDelete} onReplace={onReplace} routine={routine} saveLabel={saveLabel} backupsEditable={!!opts.backups} freestyle={opts.freestyle === 'add' || opts.freestyle === 'edit' ? opts.freestyle : false} autosave={!!opts.autosave} close={close} />)
+export const exConfigSheet = (ex, existing, onSave, onDelete, routine, initial, onReplace, saveLabel, opts = {}) => ui().openSheet(close => <ExConfig ex={ex} existing={existing} initial={initial} onSave={onSave} onDelete={onDelete} onReplace={onReplace} routine={routine} saveLabel={saveLabel} backupsEditable={!!opts.backups} freestyle={opts.freestyle === 'add' || opts.freestyle === 'edit' ? opts.freestyle : false} autosave={!!opts.autosave} onReplaceInRoutine={opts.onReplaceInRoutine} close={close} />)
 
 /* ============================ glyph picker ============================ */
 // Grouped by what the glyph means for a training day, so picking one is a scan

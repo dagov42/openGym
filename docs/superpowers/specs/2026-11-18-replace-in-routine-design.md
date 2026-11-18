@@ -1,8 +1,9 @@
 # Replace an exercise in the routine from a session swap
 
-Status: agreed 2026-11-18, not implemented. The lifter's calls stand: the button replaces both today's
+Status: implemented 2026-11-18. The lifter's calls stand: the button replaces both today's
 session and the routine's slot, the routine is not given an extra backup and there is no undo, and
-nothing in history or in a saved workout being edited is touched.
+nothing in history or in a saved workout being edited is touched. `Replace in routine` is translated
+in all 25 locale packs.
 
 ## Why
 
@@ -47,8 +48,8 @@ picker or a second sheet.
 - A **Replace in routine** path from a freestyle session (no `rid`), from the picker's quick `+`
   (which skips the sheet), or after a today-only swap in the same session (the entry no longer
   matches the slot).
-- Editing locale packs in the feature PR: the new label ships in English only, per the index's
-  "Strings and locales" rule; the Russian pack gets «Заменить в программе» later.
+- Per-locale wording beyond the existing `routine` translations; the label is translated in every
+  pack, but no other locale rule changes.
 
 ## Decisions
 
@@ -170,31 +171,25 @@ that flow changes; it is the same helper the session uses.
 ## Tests
 
 - `lib/routines.replace.test.js` (extend): `replaceSlotWithConfig` changes the id, keeps `sg`,
-  `sgName`, `sgRest` and `sgCircuit`, lets `cfg` override the plan, and does not resurrect keys the
-  user cleared (a cleared note stays absent).
-- `views/RoutineEdit` coverage: replacing an exercise inside a superset keeps the group's name, rest
-  and circuit flags.
-- `sheets.swap.test.jsx` (extend or add `sheets.swap-routine.test.jsx`):
-  - the button is present for a planned exercise and absent for freestyle, the editor and a backfill;
-  - a planned swap's sheet opens on the slot's replacement config (`replaceSlotExercise`), a
-    freestyle swap keeps the old seed;
-  - pressing it changes both `S.active.entries[index].id` and the routine slot's `id`, with the
-    slot's sets/reps/weight/rule (and the edited values when the sheet was edited);
-  - cancelling the logged-sets confirmation leaves the routine untouched;
-  - a slot changed before the commit leaves the routine untouched while today's swap still lands;
-  - the toast names the new exercise and the routine;
-  - a slot in a superset keeps its group and group metadata.
-- No locale test is extended: the new label ships in English and falls back for other packs until the
-  translation PR, per the index's rule.
+  `sgName`, `sgRest` and `sgCircuit`, lets `cfg` override the plan, strips stale group keys from
+  `cfg`, and does not resurrect keys the user cleared (a cleared note stays absent).
+- `sheets.swap-routine.test.jsx`: the button is present for a planned exercise and absent for
+  freestyle, the editor and a backfill; a planned swap's sheet opens on the slot's replacement config;
+  pressing it changes both entries and the routine slot with its sets/reps/weight/rule and group
+  metadata; an edited note is cleared from both; cancelling logged-set confirmation leaves the routine
+  untouched; a slot changed before the commit leaves the routine untouched while today's swap lands;
+  the toast names the new exercise and routine.
+- Locale packs: `Replace in routine` is added to every pack, not left as English fallback.
 
 ## Where the logic lives
 
 - `frontend/src/lib/routines.js`: `replaceSlotWithConfig`, tests beside it.
-- `frontend/src/sheets.jsx`: the `ExConfig` secondary button, `opts.onReplaceInRoutine`,
-  `swapActiveWorkoutExercise`'s eligibility, seed and callback, and `commitActiveSwap`'s routine write.
+- `frontend/src/sheets.jsx`: the `ExConfig` secondary button (disabled while the progression step is
+  invalid), `opts.onReplaceInRoutine`, `swapActiveWorkoutExercise`'s eligibility, seed and callback,
+  and `commitActiveSwap`'s guarded routine write.
 - `frontend/src/views/RoutineEdit.jsx`: `replace()` uses the helper.
-- `frontend/src/sheets.swap.test.jsx` (and the routine replace tests): the coverage above.
-- No `S` field, no API, no sync change beyond the routine edit itself.
+- `frontend/src/sheets.swap-routine.test.jsx` and `lib/routines.replace.test.js`: the coverage above.
+- No `S` field, no API, no sync change beyond the routine edit itself; the label is in all 25 packs.
 
 ## Open questions
 

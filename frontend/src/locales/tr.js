@@ -5968,4 +5968,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Seti daralt",
   "Tick every set first": "Önce tüm setleri işaretle",
+  "Replace in routine": "Rutinde değiştir",
 }

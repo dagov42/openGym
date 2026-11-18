@@ -5934,4 +5934,5 @@ export default {
   "about {0} minutes": { one: "about {0} minutes", few: "about {0} minutes", many: "about {0} minutes", other: "about {0} minutes" },
   "Collapse sets": "Sbalit sadu",
   "Tick every set first": "Nejprve označte všechny sady",
+  "Replace in routine": "Nahradit v rutině",
 }

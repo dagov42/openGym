@@ -5968,4 +5968,5 @@ export default {
   "about {0} minutes": { one: "about {0} minutes", few: "about {0} minutes", many: "about {0} minutes", other: "about {0} minutes" },
   "Collapse sets": "Zwiń serię",
   "Tick every set first": "Najpierw odhacz wszystkie serie",
+  "Replace in routine": "Zamień w rutynie",
 }

@@ -6015,4 +6015,5 @@ export default {
   "about {0} minutes": "about {0} minutes",
   "Collapse sets": "Fäll ihop setet",
   "Tick every set first": "Markera alla set först",
+  "Replace in routine": "Ersätt i rutinen",
 }

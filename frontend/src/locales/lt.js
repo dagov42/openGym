@@ -5964,4 +5964,5 @@ export default {
   "about {0} minutes": { one: "about {0} minutes", few: "about {0} minutes", many: "about {0} minutes", other: "about {0} minutes" },
   "Collapse sets": "Sutraukti seriją",
   "Tick every set first": "Pirmiausia pažymėkite visas serijas",
+  "Replace in routine": "Pakeisti rutinoje",
 }
