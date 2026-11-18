@@ -9,17 +9,16 @@ import { DEMO, DEMO_SEEDED } from '../lib/demo.js'
 import { rememberDefaultLang } from '../lib/default-lang.js'
 import { guestAllowed } from '../lib/guest.js'
 import { stateJson } from '../lib/state-json.js'
-import { MOBILE, initReminderSync, nativeLoad, nativeSave, onAppActive, readJsonFile, syncReminder, writeAutoBackup, writeJsonFile } from '../lib/mobile.js'
+import { MOBILE, initReminderSync, nativeLoad, nativeSave, onAppActive, readJsonFile, syncReminder, writeJsonFile } from '../lib/mobile.js'
 import { initHealthSync, syncHealth, readHealth } from '../lib/health-sync.js'
 import { refillIfComplete } from '../lib/rotation.js'
 import { liftLegacy } from '../lib/sync-legacy.js'
 import { mergeStates, localExtras, stampChange, highestStamp, stampRestore, stampReplace, inUnitOf, keepReset, resetIdsOf, mergeResetIds, entryKey } from '../lib/sync-merge.js'
-import { convertStateUnit } from '../lib/units.js'
+import { dataActions } from './actions/data.js'
 import { pendingRefCount, settleMedia, loadPending } from '../lib/media-owed.js'
 import { keptHashes } from '../lib/media-refs.js'
 import { mediaStore, mediaStoreInUse } from '../lib/media-store.js'
 import { countChanges, syncFingerprint } from '../lib/sync-changes.js'
-import { saveWorkoutEdit, deleteEditedWorkout } from '../lib/session-edit.js'
 import { appBase } from '../lib/app-base.js'
 import { linkTokenFromSearch, stripLinkFromUrl } from '../lib/device-link.js'
 import { loadRemote, chooseLocal, forgetRemote, connect, connectWithProvider, normalizeServerUrl, renewToken } from '../lib/remote.js'
@@ -1599,36 +1598,7 @@ export const useStore = create((set, get) => {
         backupTm = setTimeout(() => { backupTm = null; get().autoBackupNow() }, AUTO_BACKUP_SOON_MS)
       }
     },
-    // An edit of a saved workout (lib/session-edit.js) is saved or dropped like any other change:
-    // the store's own sync takes it to the server, and a conflict on the way is settled by
-    // mergeStates like one between two devices. A save that cannot happen throws before anything
-    // is written, and the editor stays open with the edits.
-    saveHistoryEdit() {
-      let saved = null
-      get().update(S => { saved = saveWorkoutEdit(S) })
-      return saved
-    },
-    discardHistoryEdit() { get().update(S => { S.active = null }) },
-    // An edit that took out every set deletes the workout rather than saving it empty.
-    deleteHistoryEdit() {
-      let removed = false
-      get().update(S => { removed = deleteEditedWorkout(S) })
-      return removed
-    },
-    // Settings → unit. `convert` walks every stored weight into the new unit (lib/units.js); off,
-    // only the label changes. Either way the choice is stamped (`unitSet`), so a merge with a
-    // copy still in the old unit brings that copy over rather than mixing the two (lib/sync-merge.js),
-    // and a conversion goes to the server at once, as an ordinary conditional push: another device
-    // still logging in the old unit meets it on its very next push, and a copy it pushed first is
-    // converted before it is merged in.
-    setUnit(to, { convert = true } = {}) {
-      const S0 = get().S
-      if ((S0.unit || 'kg') === to) return null
-      const S = clone(convert ? convertStateUnit(S0, to) : { ...S0, unit: to })
-      S.unitSet = { at: Math.max(Date.now(), highestStamp(S0) + 1), convert }
-      persist(S, true)
-      return convert && get().ready ? get().pushState() : null
-    },
+    ...dataActions({ get, persist, clone }),
     // Settings → Reset everything: a new profile (restartedState), stamped with when (`resetAt`).
     // Pushed as a replace, and the stamp is what makes it hold: a device that has not seen the
     // reset and still pushes a change of its own gets the 409, and its merge keeps only what that
@@ -1745,14 +1715,6 @@ export const useStore = create((set, get) => {
     replaceState(S, push = false, { baseRev = null, baseWid } = {}) {
       if (push) { if (baseRev != null) replaceRev = { rev: baseRev, wid: baseWid }; else forceNext = true }
       persist(keepReset(get().S, clone(S)), push)
-    },
-
-    // Fires after the moments where losing local data would actually hurt — a workout just
-    // logged, a routine just edited — not on every keystroke. No-op off mobile or with the
-    // setting off; the private file mirror (nativePersist, above) already covers every change.
-    autoBackupNow() {
-      const S = get().S
-      if (MOBILE && S.autoBackup) writeAutoBackup(S)
     },
 
     isGuest: () => localStorage.getItem('gym_guest') === '1',
