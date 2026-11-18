@@ -40,6 +40,14 @@ export function fmtChatTimestamp(at, now = Date.now()) {
   const time = d.toLocaleTimeString(dateLocale(), { hour: '2-digit', minute: '2-digit' })
   return day === isoOf(new Date(now)) ? time : fmtDate(day) + ' · ' + time
 }
+/** A `YYYY-MM` month as the date filter labels it ("November 2026"); other input comes back as is. */
+export function fmtMonth(ym) {
+  const m = /^(\d{4})-(\d{2})$/.exec(String(ym ?? ''))
+  if (!m) return ym
+  const month = +m[2]
+  if (month < 1 || month > 12) return ym
+  return formatter(Intl.DateTimeFormat, dateLocale(), { month: 'long', year: 'numeric' }).format(new Date(+m[1], month - 1, 15))
+}
 // A span of days, e.g. an import's first and last workout. The year is shown when the span
 // crosses one or lies outside the current year: "3 Feb – 21 Dec" over two years read as one.
 export function fmtDateRange(from, to, long, now = new Date()) {

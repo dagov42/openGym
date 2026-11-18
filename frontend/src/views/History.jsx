@@ -1,29 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
 import { t, tn } from '../lib/i18n.js'
-import { WorkoutRow, DayNoteRow, workoutDetailSheet, logPastWorkoutSheet } from '../sheets.jsx'
-import { Button } from '../components/ui.jsx'
+import { WorkoutRow, DayNoteRow, workoutDetailSheet, logPastWorkoutSheet, menuSheet } from '../sheets.jsx'
+import { Button, SearchField } from '../components/ui.jsx'
 import Icon from '../components/Icon.jsx'
 import EmptyState from '../components/EmptyState.jsx'
-import { dayNoteOf } from '../lib/day-notes.js'
+import { historyRows } from '../lib/history-rows.js'
+import { buildHistoryIndex, filterHistoryIndex, monthsOf } from '../lib/history-search.js'
+import { fmtMonth } from '../lib/format.js'
 import { reportSheet } from '../components/ReportSheet.jsx'
-import { recoverySessionsOf } from '../lib/recovery-sessions.js'
 import { recoverySheet, RecoveryRow } from '../components/RecoverySheet.jsx'
-import { activitiesOf } from '../lib/activities.js'
 import { ActivityRow } from '../components/ActivitySheet.jsx'
 
-// Newest first: every workout, and in between them the days off you left a note on (#261) and the
-// recovery sessions (sauna, ice bath, lib/recovery-sessions.js). A note on a day that has a workout
-// too stays in the day sheet; the workout speaks for that day. A recovery session is always its own row,
-// and so is an activity (a run, a match: lib/activities.js).
-export function historyRows(S) {
-  const trained = new Set((S.workouts || []).map(w => w?.d))
-  const notes = Object.keys(S.dayNotes || {}).filter(d => !trained.has(d)).map(d => ({ d, note: dayNoteOf(S, d) })).filter(x => x.note)
-  const rows = [...(S.workouts || []).map(w => ({ d: w.d, w })), ...notes, ...recoverySessionsOf(S).map(r => ({ d: r.d, rec: r })), ...activitiesOf(S).map(a => ({ d: a.d, act: a }))]
-  // Stable, so workouts keep the order they are stored in (by day, then start) within a day.
-  return rows.map((r, i) => [r, i]).sort((a, b) => (a[0].d < b[0].d ? 1 : a[0].d > b[0].d ? -1 : b[1] - a[1])).map(([r]) => r)
-}
+export { historyRows }
 
 // The list grows as it is scrolled: the first PAGE rows, then PAGE more whenever its end comes
 // within a screen or so. A 400-workout history rendered every row (some 1500 components) on each
@@ -32,14 +22,50 @@ export function historyRows(S) {
 export const HISTORY_PAGE = 60
 let grownTo = HISTORY_PAGE
 
+const TYPE_CHIPS = [
+  ['all', 'All'],
+  ['workout', 'Workouts'],
+  ['note', 'Notes'],
+  ['recovery', 'Recovery'],
+  ['activity', 'Activities'],
+]
+
 export default function History() {
   const nav = useNavigate()
   const S = useStore(s => s.S)
-  const rows = historyRows(S)
+  const rows = useMemo(() => historyRows(S), [S])
+  const [query, setQuery] = useState('')
+  const [type, setType] = useState('all')
+  const [month, setMonth] = useState(null)
+  const [pr, setPr] = useState(false)
+  const active = !!query.trim() || type !== 'all' || !!month || pr
   const [shown, setShown] = useState(() => Math.max(HISTORY_PAGE, grownTo))
   const end = useRef(null)
-  const more = rows.length > shown
-  useEffect(() => { grownTo = Math.max(grownTo, shown) }, [shown])
+
+  // The index is built only while something is filtered; a query change filters that index again
+  // instead of walking every workout and set once per keystroke.
+  const index = useMemo(() => (active ? buildHistoryIndex(S, rows) : null), [S, rows, active])
+  const filtered = useMemo(
+    () => (index ? filterHistoryIndex(index, { query, type, month, pr }) : null),
+    [index, query, type, month, pr],
+  )
+  const listRows = filtered ? filtered.map(e => e.row) : rows
+  const months = useMemo(() => monthsOf(rows), [rows])
+  const more = listRows.length > shown
+
+  // A filter change starts the filtered list at one page and returns to the top. Clearing it puts
+  // the full list back at the depth it had grown to, not at 60 again.
+  const mounted = useRef(false)
+  useEffect(() => {
+    if (!mounted.current) { mounted.current = true; return }
+    if (active) {
+      setShown(HISTORY_PAGE)
+      try { window.scrollTo(0, 0) } catch { /* no window in a test shell */ }
+    } else setShown(Math.max(HISTORY_PAGE, grownTo))
+  }, [active, query, type, month, pr])
+
+  useEffect(() => { if (!active) grownTo = Math.max(grownTo, shown) }, [shown, active])
+
   useEffect(() => {
     if (!more) return
     const IO = typeof window !== 'undefined' ? window.IntersectionObserver : undefined
@@ -49,23 +75,57 @@ export default function History() {
     if (end.current) io.observe(end.current)
     return () => io.disconnect()
   }, [more, shown])
+
+  const clearAll = () => { setQuery(''); setType('all'); setMonth(null); setPr(false) }
+  const chooseMonth = () => menuSheet({
+    title: t('Month'),
+    items: [
+      { label: t('All months'), on: !month, onClick: () => setMonth(null) },
+      ...months.map(m => ({ label: m.label, on: month === m.ym, onClick: () => setMonth(m.ym) })),
+    ],
+  })
+
   return <>
     <div className="hdr"><button className="iconbtn" data-back="/stats" data-tour="history-back" onClick={() => nav('/stats')} aria-label={t('Stats')}><Icon name="chevronLeft" /></button>
       <div style={{ flex: 1, marginInlineStart: 12 }}><h1>{t('History')}</h1><div className="sub">{tn('{0} workout', '{0} workouts', S.workouts.length)}</div></div>
       {/* A sauna, an ice bath (components/RecoverySheet.jsx): logged from here, listed below with the workouts. */}
       {rows.length > 0 && <button className="iconbtn" onClick={() => recoverySheet()} aria-label={t('Log recovery')} title={t('Log recovery')} style={{ marginInlineEnd: 8 }}><Icon name="sparkles" /></button>}
       {S.workouts.length > 0 && <button className="iconbtn" onClick={reportSheet} aria-label={t('Performance report')} title={t('Performance report')}><Icon name="note" /></button>}</div>
+
+    {rows.length > 0 && <>
+      <SearchField value={query} onChange={e => setQuery(e.target.value)} onClear={() => setQuery('')} clearLabel={t('Clear search')}
+        placeholder={t('Search workouts, exercises and notes')} aria-label={t('Search history')}
+        type="search" enterKeyHint="search" autoCorrect="off" autoCapitalize="none"
+        onKeyDown={e => { if (e.key === 'Escape') setQuery('') }} />
+      <div className="chips" style={{ flexWrap: 'nowrap', overflowX: 'auto', margin: '8px 0 10px', paddingBottom: 2 }}>
+        {TYPE_CHIPS.map(([id, label]) => <button key={id} type="button" className={'chip nocap' + (type === id ? ' on' : '')}
+          aria-pressed={type === id} onClick={() => setType(id)}>{t(label)}</button>)}
+        <button type="button" className={'chip nocap' + (month ? ' on' : '')} aria-pressed={!!month} onClick={chooseMonth}>
+          <Icon name="calendar" /> {month ? fmtMonth(month) : t('All months')}
+        </button>
+        <button type="button" className={'chip nocap' + (pr ? ' on' : '')} aria-pressed={pr} onClick={() => setPr(v => !v)}>
+          <Icon name="trophy" /> {t('PRs')}
+        </button>
+      </div>
+    </>}
+
     {rows.length > 0 && <Button icon="plus" data-tour="history-add" onClick={logPastWorkoutSheet} style={{ marginBottom: 12 }}>{t('Log a past workout')}</Button>}
-    {rows.length ? <><div className="list">{(more ? rows.slice(0, shown) : rows).map((r, i) => r.w
-      ? <WorkoutRow key={r.w.id} w={r.w} tour={i === 0 ? 'history-row' : undefined} onClick={() => workoutDetailSheet(r.w)} />
-      : r.rec ? <RecoveryRow key={'rec-' + r.rec.id} r={r.rec} />
-      : r.act ? <ActivityRow key={'act-' + r.act.id} a={r.act} />
-      : <DayNoteRow key={'note-' + r.d} iso={r.d} note={r.note} />)}</div>
-      {more && <div ref={end} aria-hidden="true" style={{ height: 1 }} />}</>
-      : <EmptyState icon="history" text={t('No workouts yet. Your first one will land here.')}>
-        <Button variant="tinted" icon="plus" data-tour="history-add" onClick={logPastWorkoutSheet}>{t('Log a past workout')}</Button>
-        <div style={{ height: 8 }} />
-        <Button variant="ghost" icon="sparkles" onClick={() => recoverySheet()}>{t('Log recovery')}</Button>
-      </EmptyState>}
+    {active && <div className="small muted" aria-live="polite" style={{ margin: '0 2px 8px' }}>{tn('{0} match', '{0} matches', listRows.length)}</div>}
+    {rows.length === 0
+      ? <EmptyState icon="history" text={t('No workouts yet. Your first one will land here.')}>
+          <Button variant="tinted" icon="plus" data-tour="history-add" onClick={logPastWorkoutSheet}>{t('Log a past workout')}</Button>
+          <div style={{ height: 8 }} />
+          <Button variant="ghost" icon="sparkles" onClick={() => recoverySheet()}>{t('Log recovery')}</Button>
+        </EmptyState>
+      : listRows.length === 0
+        ? <EmptyState icon="magnifier" text={query.trim() ? t('No matches for “{0}”', query.trim()) : t('No matches')}>
+            <Button variant="tinted" icon="xmark" onClick={clearAll}>{t('Clear all')}</Button>
+          </EmptyState>
+        : <><div className="list">{(more ? listRows.slice(0, shown) : listRows).map((r, i) => r.w
+            ? <WorkoutRow key={r.w.id} w={r.w} tour={i === 0 ? 'history-row' : undefined} onClick={() => workoutDetailSheet(r.w)} />
+            : r.rec ? <RecoveryRow key={'rec-' + r.rec.id} r={r.rec} />
+            : r.act ? <ActivityRow key={'act-' + r.act.id} a={r.act} />
+            : <DayNoteRow key={'note-' + r.d} iso={r.d} note={r.note} />)}</div>
+            {more && <div ref={end} aria-hidden="true" style={{ height: 1 }} />}</>}
   </>
 }

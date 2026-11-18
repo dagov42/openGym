@@ -1,8 +1,10 @@
 # History search
 
-Status: agreed 2026-11-16 (the lifter's calls: deep search through workout, exercise and set notes; filters
+Status: implemented 2026-11-18 (`lib/history-rows.js`, `lib/history-search.js`, `fmtMonth`,
+`History.jsx`; tests: `history-search.test.js`, `History.search.test.jsx`, `format-month.test.js`).
+The lifter's calls stand: deep search through workout, exercise and set notes; filters
 are type, month and PR only; routine and gym are found through the text; the month filters the list rather
-than scrolling to it). Nothing implemented yet.
+than scrolling to it.
 
 ## Why
 

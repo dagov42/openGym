@@ -129,7 +129,7 @@ export function TextArea({ className = '', ...rest }) {
   return <textarea className={'field area ' + className} {...rest} />
 }
 
-export const SearchField = forwardRef(function SearchField({ value, onChange, onClear, ...rest }, ref) {
+export const SearchField = forwardRef(function SearchField({ value, onChange, onClear, clearLabel, ...rest }, ref) {
   return (
     <div className="searchf">
       <Icon name="magnifier" className="lead" />
@@ -137,7 +137,7 @@ export const SearchField = forwardRef(function SearchField({ value, onChange, on
       {!!value && (
         /* type="button": inside a form the first button is what Enter presses, and that must be
            the form's own Search, not this (the gym map's search cleared itself on Enter). */
-        <button type="button" className="clear" onClick={onClear} aria-label={t('Clear')}>
+        <button type="button" className="clear" onClick={onClear} aria-label={clearLabel || t('Clear')}>
           <Icon name="xmark" />
         </button>
       )}
