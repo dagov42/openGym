@@ -8,6 +8,21 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 Nothing yet.
 
+## v1.4.9 (2026-11-18)
+
+A feature release: finding an old session is easier, the app explains what changed after an update,
+the Start picker puts the routines you actually train first, and exports can be saved to a folder
+you choose on Android and iPhone.
+
+- History: search workout, exercise and set notes, with filters for type, month and PRs. The full
+  list keeps its scroll depth when the filters are cleared.
+- What's new: a short sheet once after an app update, plus a permanent row in Settings, About.
+- Start: up to five recently trained routines sit above Other routines, with no duplicate rows.
+- Export: Save to device opens the system folder and file picker on Android and iOS. Sharing the
+  file stays available in the same sheet.
+- For forks: local `npm test` now measures and enforces the same `src/lib` coverage floor as CI, and
+  the password-change race test no longer flakes when concurrent sign-ins meet the rate limit.
+
 ## v1.4.8.1 (2026-11-17)
 
 A small follow-up to v1.4.8. "Check for updates" now really asks GitHub again instead of repeating

@@ -1,7 +1,7 @@
 # Схема версий форка
 
-Статус: принято 2026-11-16, вариант A. Новые теги форка — `fork-vX.Y.Z`; текущий `v1.4.7`
-перетегирован в `fork-v1.4.7`. Новых тегов `vX.Y.Z` форк больше не создаёт.
+Статус: принято 2026-11-16, вариант A. Новые теги форка — `vX.Y.Z` (и `vX.Y.Z.N` для патч-ревизии);
+текущий `v1.4.9`. Теги `fork-v*` остаются историческими: новых не создаём.
 
 > Обновление 2026-11-17: владелец форка вернул имена без `fork-`. Новые теги и релизы снова
 > называются `vX.Y.Z` (и `vX.Y.Z.N` для патч-ревизии), без `(fork)` в названии. Все места,
@@ -32,10 +32,10 @@
 
 | Кто | Тег | Пример |
 |---|---|---|
-| Upstream | `vX.Y.Z` | `v1.4.6` |
-| Форк, всё новое | `fork-vX.Y.Z` | `fork-v1.4.7` |
+| Upstream | `vX.Y.Z` | `v1.4.5` |
+| Форк, всё новое | `vX.Y.Z` | `v1.4.9` |
 
-- `v1.4.0`…`v1.4.7` форка остаются как legacy. Новые теги `vX.Y.Z` форк больше не создаёт.
+- `v1.4.0`…`v1.4.9` форка и его `fork-v*` остаются как legacy. Новые теги `fork-vX.Y.Z` не создаём.
 - Upstream-теги не тянем в то же пространство имён: см. «Коллизии» ниже.
 
 ### 2. Маркетинговая версия (её видят стор, updater и пользователь)
@@ -72,11 +72,11 @@ git tag --list 'v*' 'fork-v*' --sort=-v:refname | head
 
 ### 3. Имена релиза и артефактов
 
-- Git-тег: `fork-vX.Y.Z`.
-- Название GitHub release: `vX.Y.Z (fork)`.
+- Git-тег: `vX.Y.Z`.
+- Название GitHub release: `openGym X.Y.Z` (как у upstream).
 - APK/AAB: `openGym-X.Y.Z.apk`, `openGym-Plus-X.Y.Z.apk`, `openGym-HD-X.Y.Z.apk`,
   `openGym-Offline-X.Y.Z.apk`, `openGym-X.Y.Z.aab` — без префикса `fork-`.
-- Docker: `X.Y.Z`, `X.Y`, `latest` — из тега срезается `fork-v`.
+- Docker: `X.Y.Z`, `X.Y`, `latest` — из тега срезается `v` (или исторический `fork-v`).
 - Release notes: секция `## vX.Y.Z` из `CHANGELOG.md`, слово в слово.
 
 ### 4. Build numbers
@@ -124,9 +124,9 @@ git tag --list 'v*' 'fork-v*' --sort=-v:refname | head
 ### 8. Порядок выпуска
 
 1. Версии и секция `## vX.Y.Z` в `CHANGELOG.md`.
-2. `node scripts/ci/release-check.mjs fork-vX.Y.Z` — локально зелёный.
+2. `node scripts/ci/release-check.mjs vX.Y.Z` — локально зелёный.
 3. Push коммита в `main` (или `ci-*` на том же коммите) → `tests-ok` зелёный.
-4. Тег `fork-vX.Y.Z` на проверенный коммит → Release check зелёный.
+4. Тег `vX.Y.Z` на проверенный коммит → Release check зелёный.
 5. Сборка APK/AAB на release-машине; draft release; `upload-release.sh`; `release-assets-check` ok.
 6. Публикация релиза. Только после этого in-app updater увидит версию.
 7. Docker images публикуются workflow по событию `release: published`.
