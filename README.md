@@ -8,26 +8,26 @@
 </picture>
 </p>
 
-<a href="https://discord.gg/e62jY6fwVb"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fe62jY6fwVb%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&suffix=%20members&label=Discord&logo=discord&logoColor=white&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Discord"></a>
-<a href="https://github.com/DuarteSantos8/openGym/stargazers"><img src="https://img.shields.io/github/stars/DuarteSantos8/openGym?logo=github&logoColor=white&label=stars&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Stars"></a>
-<a href="https://github.com/DuarteSantos8/openGym/releases"><img src="https://img.shields.io/github/v/release/DuarteSantos8/openGym?label=release&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Release"></a>
-<a href="https://github.com/DuarteSantos8/openGym/releases"><img src="https://img.shields.io/github/downloads/DuarteSantos8/openGym/total?label=downloads&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Downloads"></a>
-<a href="https://github.com/DuarteSantos8/openGym/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/DuarteSantos8/openGym/test.yml?branch=main&label=tests&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Tests"></a>
+<a href="https://github.com/dagov42/openGym/stargazers"><img src="https://img.shields.io/github/stars/dagov42/openGym?logo=github&logoColor=white&label=stars&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Stars"></a>
+<a href="https://github.com/dagov42/openGym/releases"><img src="https://img.shields.io/github/v/release/dagov42/openGym?label=release&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Release"></a>
+<a href="https://github.com/dagov42/openGym/releases"><img src="https://img.shields.io/github/downloads/dagov42/openGym/total?label=downloads&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Downloads"></a>
+<a href="https://github.com/dagov42/openGym/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/dagov42/openGym/test.yml?branch=main&label=tests&style=flat-square&labelColor=0c0e12&color=a3e635" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-a3e635?style=flat-square&labelColor=0c0e12&color=a3e635" alt="AGPL-3.0"></a>
 
-<a href="https://apps.apple.com/app/id6822275400"><img src="website/app-store-badge.svg" alt="Download on the App Store" height="40"></a>
-<a href="https://github.com/DuarteSantos8/openGym/releases/latest"><img src="assets/readme/badge-android.svg" alt="Download the Android APK" height="40"></a>
+<a href="https://github.com/dagov42/openGym/releases/latest"><img src="assets/readme/badge-android.svg" alt="Download the Android APK" height="40"></a>
 <a href="docs/SELF_HOSTING.md"><img src="assets/readme/badge-selfhost.svg" alt="Self-host with Docker" height="40"></a>
 
-<a href="https://trendshift.io/repositories/88268?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-88268" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/88268" alt="DuarteSantos8%2FopenGym | Trendshift" width="250" height="55"/></a>
-<a href="https://trendshift.io/repositories/88268?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-88268" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/88268/weekly?language=JavaScript" alt="DuarteSantos8%2FopenGym | Trendshift" width="250" height="55"/></a>
-
-[Website](https://opengym.ch) · [Live demo](https://opengym.ch/demo/) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
-
-<a href="https://buymeacoffee.com/duartesantos"><img src="assets/readme/badge-coffee.svg" alt="Buy me a coffee" height="40"></a>
-<a href="https://ko-fi.com/opengym"><img src="assets/readme/badge-kofi.svg" alt="Support openGym on Ko-fi" height="40"></a>
+[Releases](https://github.com/dagov42/openGym/releases) · [Fork roadmap](FORK_ROADMAP.md) · [Changelog](CHANGELOG.md) · [Self-hosting](docs/SELF_HOSTING.md)
 
 </div>
+
+> **This is a fork.** `dagov42/openGym` is a personal fork of
+> [DuarteSantos8/openGym](https://github.com/DuarteSantos8/openGym), built and released by its
+> maintainer. Releases here are the fork's own APKs, not the upstream store apps. Upstream remains
+> the original project and keeps its own website, stores, community spaces and sponsors.
+>
+> This fork does not collect donations, sponsorship or payments. It has no paid tier and no paid
+> support.
 
 ## Why openGym
 
@@ -39,8 +39,8 @@ sign-in, works offline, syncs between your phone and your laptop.
 No account on someone else's server, no subscription, no ads, no telemetry. One
 `docker compose up` and it's running.
 
-The [in-browser demo](https://opengym.ch/demo/) is the real app with example data,
-if you want to try it before installing anything.
+The upstream project has a public demo at <https://opengym.ch/demo/>; this fork does not host a
+separate one. Run it locally from the quick start below to try it.
 
 ## Features
 
@@ -109,18 +109,15 @@ if you want to try it before installing anything.
 - 26 languages, including right-to-left Arabic and Persian, and Traditional Chinese. Exercise names and
   instructions are translated for most of them.
 
-**On the phone and the wrist**
+**On the phone**
 
-- Apps for iPhone, iPad and Android that work on their own (no server, no account) or connected to
-  yours. Rest timer in the notification shade, reminders, and Health Connect or Apple Health in both
-  directions: workouts go out, weigh-ins and heart rate per set come back in.
+- The Android app from this fork works on its own (no server, no account) or connected to yours.
+  Rest timer in the notification shade, reminders, and Health Connect in both directions:
+  workouts go out, weigh-ins and heart rate per set come back in.
 - A gym reminder, off by default: walk into one of your gyms and the phone nudges you to hit
   Start. Once a day at most, never after you trained, and your gyms stay on the phone.
-- An Apple Watch app: tick off sets with the Digital Crown, RPE or RIR right on the wrist, a
-  full-screen rest countdown, heart rate per set, a Lock button against stray crown presses, and
-  complications. No watch? AirPods Pro 3 do the heart rate on iOS 26.
-- Widgets and a Live Activity on the iPhone: log a set, skip the rest or jump to the next exercise
-  from the Lock Screen without opening the app.
+- The codebase also carries the upstream iPhone, iPad, Apple Watch, widget and Wear OS work, but this
+  fork publishes no iOS, watch or store builds. Those come from upstream, not from here.
 
 **Only what you use**
 
@@ -147,7 +144,7 @@ The full list of what changed release by release is in the [changelog](CHANGELOG
 You need [Docker](https://docs.docker.com/get-docker/) with Compose.
 
 ```bash
-git clone https://github.com/DuarteSantos8/openGym
+git clone https://github.com/dagov42/openGym
 cd openGym
 cp .env.example .env
 docker compose pull      # prebuilt images, amd64 + arm64 (skip this to build from source)
@@ -163,10 +160,10 @@ Traefik and nginx, and there are separate guides for
 [HTTPS on a LAN](docs/SELF_HOSTING_HTTPS.md), [a Mac with Tailscale](docs/SELF_HOSTING_MAC.md) and [Kubernetes](docs/SELF_HOSTING_KUBERNETES.md).
 
 > [!NOTE]
-> Images are published from the same tag to `ghcr.io/duartesantos8/opengym-{api,web}`
-> (what `docker-compose.yml` pulls) and `registry.gitlab.com/duartesantos8/opengym/{api,web}`. Swap
-> the `image:` lines if you prefer GitLab's registry, or run `docker compose up -d --build` to build
-> locally. Either way you don't need Node on the host.
+> Images are published from this fork's release tags to
+> `ghcr.io/dagov42/opengym-{api,web}` (what `docker-compose.yml` pulls). Run
+> `docker compose up -d --build` to build locally without a registry. Either way you don't need
+> Node on the host.
 
 <details>
 <summary><b>Configuration reference</b> (all through <code>.env</code>)</summary>
@@ -207,19 +204,19 @@ variable. The [self-hosting guide](docs/SELF_HOSTING.md) covers every option in 
 
 ## Phone app
 
-The same codebase builds the phone apps with Capacitor. Use them on their own (everything stays on
-the phone, no account) or connect them to your server and sync.
+The same codebase builds the phone apps with Capacitor. This fork publishes **Android APKs only**;
+it has no App Store, Google Play, F-Droid or watch release of its own.
 
 | | Get it |
 |---|---|
-| **iPhone and iPad**, with the **Apple Watch** app | The [App Store](https://apps.apple.com/app/id6822275400), in every App Store country |
-| **Android** | The signed APK from the [latest release](https://github.com/DuarteSantos8/openGym/releases/latest) or [opengym.ch](https://opengym.ch), in three sizes: **Standard** (`openGym-X.Y.Z.apk`, animations at 180 px, about 315 MB), **Plus** (`openGym-Plus-X.Y.Z.apk`, 240 px, about 424 MB) and **HD** (`openGym-HD-X.Y.Z.apk`, 360 px, about 760 MB). It updates itself and stays the kind you picked |
-| **Google Play** | In closed testing: Google wants 12 testers for 14 days before it lets everyone in. Join the [tester group](https://groups.google.com/g/opengym-testers/about), then [opt in](https://play.google.com/apps/testing/ch.duartesantos.opengym). It installs right over the APK and keeps your data |
-| **Wear OS watch** (beta) | Rides along with the Google Play test: once Google's watch review is done, "openGym Beta" shows up in the Play Store on your Galaxy Watch, Pixel Watch and friends. Details: [docs/WEAR_OS.md](docs/WEAR_OS.md) |
+| **Android** | The signed **Standard** APK (`openGym-X.Y.Z.apk`, animations at 180 px, about 229 MB) from the [fork's latest release](https://github.com/dagov42/openGym/releases/latest). It updates itself. There is no Plus or HD APK in this fork. |
+| **iPhone, iPad, Apple Watch, Wear OS, Google Play, F-Droid** | Not published by this fork. The [upstream project](https://github.com/DuarteSantos8/openGym) maintains its own store releases; those are not this fork's builds. |
 
-Every APK sits next to its `.sha256`. The APK and the Play app share one signing key, so you can
-switch between them (or between Standard, Plus and HD) without losing data. Details, building it
-yourself and connecting to your server: [docs/MOBILE.md](docs/MOBILE.md).
+Every APK sits next to its `.sha256`, and the release also carries `SHA256SUMS` with a GPG
+signature. The fork signs its APK with its own Android key, **not the upstream key**: a phone on an
+older upstream APK has to back up, uninstall that app, and install this one, because Android will
+not replace a differently signed package. Details, building it yourself and connecting to your
+server: [docs/MOBILE.md](docs/MOBILE.md).
 
 ## How it works
 
@@ -242,8 +239,7 @@ frontend, sync, the exercise media and the watch.
 
 The training logic (progression rules, 1RM, how a logged session is read back) lives in pure
 functions under `frontend/src/lib/` with tests beside them. The HTTP API is documented as an
-OpenAPI spec in [`api/openapi.yaml`](api/openapi.yaml), browsable at
-[opengym.ch/api.html](https://opengym.ch/api.html).
+OpenAPI spec in [`api/openapi.yaml`](api/openapi.yaml).
 
 ### How sync works
 
@@ -286,7 +282,7 @@ The [documentation index](docs/README.md) sorts every guide by who it's for. The
 |---|---|
 | Get a quick answer | [FAQ](docs/FAQ.md) |
 | Set up my own instance | [Self-hosting](docs/SELF_HOSTING.md) |
-| Use the Android or iPhone app | [Phone app](docs/MOBILE.md) |
+| Use the Android app | [Phone app](docs/MOBILE.md) |
 | Bring my history from another app | [Importing data](docs/DATA_IMPORTS.md) |
 | Turn on the AI coach | [AI coach](docs/AI_COACH.md) |
 | Contribute code | [Contributing](CONTRIBUTING.md) |
@@ -294,44 +290,33 @@ The [documentation index](docs/README.md) sorts every guide by who it's for. The
 
 ## Roadmap
 
-A release roughly every one to two weeks, each one whatever has passed testing by then. The full
-plan is in [ROADMAP.md](ROADMAP.md), and the issues sit in the
-[GitHub milestones](https://github.com/DuarteSantos8/openGym/milestones).
+The fork's plan is in [FORK_ROADMAP.md](FORK_ROADMAP.md); its releases are on the
+[fork's releases page](https://github.com/dagov42/openGym/releases). Upstream's own roadmap is not
+this fork's plan.
 
 | Release | When | Theme |
 |---|---|---|
-| v1.4.0 | released Oct 2026 | A new exercise database with 5,632 exercises, plus two rounds of community work |
-| v1.4.1 | released Oct 2026 | Bug fixes for v1.4.0 |
-| v1.4.2 | released Oct 2026 | The App Store, the Apple Watch, widgets, three APK sizes |
-| v1.4.3 | released Oct 2026 | The Halloween and community release: gym reminder, health data read back, watch upgrades, CSV export |
-| v1.4.4 | released Nov 2026 | Programmes, a fresh look, Modules, a tour with tutorials, AirPods heart rate, kg or lb per exercise, the Google Play closed test and a Wear OS beta |
-| v1.4.5 | released Nov 2026 | The watch redesign on all three watches with one shared rest timer, Garmin in its store, circuits, a live widget, a Coach that acts, trainers and gyms, OIDC, a community library |
-| v1.4.6 | Dec 2026 | Google Play for everyone, F-Droid, Wear OS out of beta, set marks and calories from the watch, routine folders, the fixes waiting in review |
-| later | dates are guesses | The rest of the progression engine, accounts, skins, more integrations, database storage |
+| v1.4.6 | Nov 2026 | Fork release based on this codebase; Android key changed after it |
+| v1.4.8.1 | 17 Nov 2026 | Update check refresh and four-part version comparison |
+| v1.4.9 | 18 Nov 2026 | History search, What's new, recent routines, Save to device |
+| v1.4.10 | next | Background update download, keyboard shortcuts, session length, Collapse sets |
 
 ## Community
 
-- **[Discord](https://discord.gg/e62jY6fwVb)** for release announcements, self-hosting help and
-  quick back-and-forth. Usually the fastest way to get an answer.
-- **[Discussions](https://github.com/DuarteSantos8/openGym/discussions)** for questions and ideas
-  you want the next person to find by searching.
-- **[Issues](https://github.com/DuarteSantos8/openGym/issues)** for reproducible bugs and agreed-on
-  work. Login trouble is almost always an `RP_ID`/`ORIGIN` mismatch; the
+- **[Issues in this fork](https://github.com/dagov42/openGym/issues)** for reproducible bugs and
+  fork-specific requests. Login trouble is almost always an `RP_ID`/`ORIGIN` mismatch; the
   [self-hosting guide](docs/SELF_HOSTING.md) covers it.
-- **[Pull requests](https://github.com/DuarteSantos8/openGym/pulls)** are welcome; start with
+- **[Pull requests in this fork](https://github.com/dagov42/openGym/pulls)** are welcome; start with
   [CONTRIBUTING.md](CONTRIBUTING.md).
-
-<a href="https://github.com/DuarteSantos8/openGym/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=DuarteSantos8/openGym&max=60" alt="Contributors">
-</a>
+- The upstream [Discord, Discussions and Issues](https://github.com/DuarteSantos8/openGym) belong to
+  upstream, not to this fork. Use them for the original project or for upstream releases.
 
 ### Where the code lives
 
-GitHub is the home of the project. [gitlab.com/DuarteSantos8/opengym](https://gitlab.com/DuarteSantos8/opengym)
-is a mirror, updated by a GitHub Actions workflow on every push to `main` and every release tag. It
-exists because its CI builds the multi-arch images and the SBOMs for its registry (the APKs are
-built and signed on the release machine and attached to the GitHub release). Nothing is merged there by hand. In the changelog, `!NN` refers to a GitLab merge request
-from the weeks in August and September 2026 when the project lived there.
+This fork lives on GitHub at [dagov42/openGym](https://github.com/dagov42/openGym). Its history comes
+from [DuarteSantos8/openGym](https://github.com/DuarteSantos8/openGym); upstream remains the original
+project. The fork's releases are built and signed here, and its changelog is [CHANGELOG.md](CHANGELOG.md);
+the detailed fork history is [FORK_CHANGELOG.md](FORK_CHANGELOG.md).
 
 ## How openGym is built
 
@@ -355,30 +340,6 @@ What that does and doesn't mean:
 Community pull requests are written by their authors, with whatever tools they like, and reviewed
 the same way.
 
-## Sponsors
-
-**[ElfHosted](https://store.elfhosted.com/product/opengym/?utm_source=opengym&utm_medium=github&utm_campaign=opengym-sponsor)** sponsors openGym. If you'd rather not run a server, ElfHosted
-runs your own private openGym for you, and your data stays yours. There's no Docker or HTTPS to set up, the AI coach is included with no API key needed, and updates and daily backups are handled for you. Try it with a $1, 7-day trial.
-
-Sponsoring keeps the lights on. It buys no say in what openGym does: nothing is held back for
-sponsors, and nothing ever will be.
-
-## Support
-
-openGym is free and stays free: AGPL, no paid tier, nothing held back for sponsors. If it replaced a
-paid tracker for you and you'd like to chip in, there's Buy Me a Coffee, Ko-fi and GitHub Sponsors
-(the app has the same three under Settings → About & updates, and on the iPhone a shortcut to
-leaving an App Store review). A star, a bug report or a pull request helps just as much.
-
-<a href="https://buymeacoffee.com/duartesantos" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
-</a>
-<a href="https://ko-fi.com/opengym" target="_blank"><img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support openGym on Ko-fi" height="60"></a>
-
-[GitHub Sponsors](https://github.com/sponsors/DuarteSantos8)
-
-[![Star History Chart](https://api.star-history.com/svg?repos=duartesantos8/opengym&type=Date)](https://star-history.com/#DuarteSantos8/openGym&Date)
-
 ## License
 
 **openGym's own code** is licensed under the [GNU AGPL v3.0](LICENSE). You can self-host, use,
@@ -393,7 +354,12 @@ version's source under the same license.
 > from gymvisual.com. The exercise text in `catalogue/` is openGym's and open to contributions.
 
 **Contributing:** pull requests are signed off once with the [Contributor License Agreement](CLA.md):
-you keep the copyright in your work, openGym may use and relicense it (so the app can stay in the
-App Store and Google Play long term), and every version released under the AGPL stays AGPL.
+you keep the copyright in your work, openGym may use and relicense it, and every version released
+under the AGPL stays AGPL.
+
+**This fork** keeps the upstream AGPL license and notices. Copyright in the original code remains
+with the upstream authors; the fork's own changes are maintained by `dagov42`. The exercise-media
+licence above is unchanged: no larger media is added to this repository, and this fork publishes no
+Plus or HD APK.
 
 Full third-party notices, including the body-diagram geometry, are in [NOTICE.md](NOTICE.md).
