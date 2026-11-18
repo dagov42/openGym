@@ -30,7 +30,11 @@ export function rowHaystack(S, row) {
     }
     parts.push(workoutGymLabel(S, w))
     for (const e of w.entries || []) {
-      const ex = (S.customEx || []).find(c => c.id === e.id) || exOr(e.id) || e.ex || null
+      const custom = (S.customEx || []).find(c => c.id === e.id)
+      const catalogue = exOr(e.id)
+      // exOr answers a placeholder for an unknown id; the entry's own exercise (a deleted
+      // custom one, or an old imported record) may still carry the name it had.
+      const ex = custom || (catalogue && !catalogue.missing ? catalogue : null) || e.ex || catalogue || null
       parts.push(ex ? exerciseNameFor(ex) : '', ex?.n, e.n, e.note)
       for (const s of e.sets || []) parts.push(s.note)
     }

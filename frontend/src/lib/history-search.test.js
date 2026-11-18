@@ -46,6 +46,16 @@ describe('rowHaystack', () => {
     expect(act).toContain('morning run')
     expect(act).toContain('rain')
     expect(act).toContain('run')
+    // An unknown sport still gets the fallback label, and a missing title gets the sport's.
+    expect(rowHaystack(S, { d: '2026-11-04', act: { sport: 'curling', note: 'Broom' } })).toContain('other sport')
+  })
+
+  it('reads the singular routineId and an entry that only carries its own exercise object', () => {
+    const old = { ...S, workouts: [{ id: 'old', d: '2026-11-01', routineId: 'r1', entries: [{ id: 'gone', ex: { n: 'Legacy move' }, note: 'Entry', sets: [{}] }] }] }
+    const hay = rowHaystack(old, { d: '2026-11-01', w: old.workouts[0] })
+    expect(hay).toContain('push day')
+    expect(hay).toContain('legacy move')
+    expect(hay).toContain('entry')
   })
 })
 
@@ -67,10 +77,16 @@ describe('filterHistoryIndex', () => {
     expect(filterHistoryIndex(index, { month: '2026-11' })).toHaveLength(4)
     expect(filterHistoryIndex(index, { month: '2026-10' })).toHaveLength(0)
     expect(filterHistoryIndex(index, { pr: true }).map(e => e.row.w?.id)).toEqual(['w1'])
+    // A row with no kind is not a workout, a note, recovery or an activity.
+    const odd = [{ row: { d: '2026-11-06' }, hay: '' }]
+    expect(filterHistoryIndex(odd, { type: 'workout' })).toHaveLength(0)
+    expect(filterHistoryIndex(odd, { month: '2026-11' })).toHaveLength(1)
   })
 
   it('lists the months that actually have rows, newest first', () => {
     expect(monthsOf(index).map(m => m.ym)).toEqual(['2026-11'])
     expect(monthsOf(index)[0].label).toBe('November 2026')
+    // Rows without a date contribute no month; duplicate months are one.
+    expect(monthsOf([{ d: null }, { d: '2026-01' }, { d: '2026-01' }]).map(m => m.ym)).toEqual(['2026-01'])
   })
 })

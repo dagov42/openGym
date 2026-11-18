@@ -5,20 +5,22 @@ The suites and the coverage floor, so a green run means the same thing on a lapt
 ## Suites
 
 ```bash
-cd frontend && npm test      # vitest + native localization check
+cd frontend && npm test      # vitest with coverage + native localization check
+cd frontend && npm run test:unit       # the same tests, without coverage
 cd api && npm test           # node --test
 cd mcp && npm test
 ```
 
-`npm test` in `frontend/` runs the component/lib/views tests and then
-`scripts/check-native-localizations.mjs`. The shared checks (locales, catalogue, coach assets, API
-docs, Garmin) are in `node scripts/verify.mjs --checks-only`; the full `node scripts/verify.mjs`
-adds the three suites.
+`npm test` in `frontend/` runs the component/lib/views tests under coverage, enforces the floor
+below, and then runs `scripts/check-native-localizations.mjs`. Use `npm run test:unit` for the
+quick loop while developing. The shared checks (locales, catalogue, coach assets, API docs,
+Garmin) are in `node scripts/verify.mjs --checks-only`; the full `node scripts/verify.mjs` adds
+the three suites.
 
 ## Coverage
 
 ```bash
-cd frontend && npm run test:coverage
+cd frontend && npm run test:coverage   # same as npm test's coverage step
 ```
 
 Coverage is measured for `src/lib` only: `vite.config.js` includes `src/lib/**/*.js` and excludes
@@ -30,10 +32,10 @@ The floor was set on 2026-11-18 from a clean run:
 
 | Metric | Baseline | Floor |
 |---|---:|---:|
-| Statements | 89.08% | 88% |
-| Branches | 81.37% | 80% |
-| Functions | 88.31% | 87% |
-| Lines | 93.04% | 92% |
+| Statements | 91.64% | 88% |
+| Branches | 83.92% | 80% |
+| Functions | 92.24% | 87% |
+| Lines | 95.28% | 92% |
 
 The floor is intentionally a little below the baseline: it catches a real regression, not a
 rounding difference between Node/V8 versions. Raise it when the baseline moves up; do not lower it
