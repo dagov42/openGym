@@ -158,8 +158,8 @@ export function HealthConnectCard({ S, toast, android, page = false }) {
         <Switch checked={!!h.readVitals} disabled={busy} onChange={v => (v
           ? confirmSheet({ title: t('Read your vitals?'),
             message: ios
-              ? t('openGym asks Apple Health for your sleep, resting heart rate, heart rate variability and steps. Allow the ones you like. They stay on this phone, in openGymвЂ™s own file, and never go to a server.')
-              : t('openGym asks Health Connect for your sleep, resting heart rate, heart rate variability and steps. Allow the ones you like. They stay on this phone, in openGymвЂ™s own file, and never go to a server.'),
+              ? t('openGym asks Apple Health for your sleep, resting heart rate, heart rate variability and steps. Allow the ones you like. They stay on this phone, in openGym’s own file, and never go to a server.')
+              : t('openGym asks Health Connect for your sleep, resting heart rate, heart rate variability and steps. Allow the ones you like. They stay on this phone, in openGym’s own file, and never go to a server.'),
             confirmText: t('Continue'), onConfirm: () => toggleRead('vitals')(true) })
           : toggleRead('vitals')(false))} />
       </Row>

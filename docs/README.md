@@ -66,6 +66,7 @@ Design notes for specific features, kept next to the code they describe:
 | [Combine routines](dev/COMBINE_ROUTINES.md) | Spec for running more than one routine in a session |
 | [Fatigue and sets](dev/FATIGUE_SETS_MODEL.md) | How hard sets feed the fatigue map and its recovery time per muscle |
 | [Sister apps](dev/SISTER_APPS.md) | openNutrition and openRunning: the read-only link, activities (runs, matches) and the pairing contract |
+| [i18n policy](dev/I18N_POLICY.md) | Feature vs translation PRs, placeholders, pt-BR inheritance and the advisory unused report |
 
 ## Still stuck?
 
