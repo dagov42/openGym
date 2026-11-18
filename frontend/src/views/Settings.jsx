@@ -64,8 +64,6 @@ import { CUSTOM, accentKey, adjustedIn, applyAccent, cleanHex, inkOn, isGrey } f
 import { layoutSheet } from '../components/PageLayout.jsx'
 import { askToUpdate } from '../components/UpdateNotice.jsx'
 import { checkForUpdate, forgetDownloadedUpdate, resetUpdateCheck, RELEASES_PAGE } from '../lib/update.js'
-import { APK_VARIANT, VARIANT_NAMES } from '../lib/apk-variant.js'
-import { BUILTIN_PX } from '../lib/anim-quality.js'
 import { getChannel, gymReminderBuilt } from '../lib/channel.js'
 import { forgetCoach } from '../lib/coach-api.js'
 import { coachAvailable } from '../lib/coach.js'
@@ -1262,10 +1260,11 @@ export default function Settings({ page = null, find = null, via = null, entryKe
           with its server, so the row points at the APK for the phone instead. iOS and the Google
           Play build are updated by their store. */}
       <Section footer={MOBILE ? (selfUpdate ? t('Releases are checked on GitHub. The download is verified against its checksum before the installer opens.') : offline ? t('openGym Offline never checks for updates, it can’t. New versions come from wherever you got this one.') : fdroid ? t('F-Droid installs the updates for this build.') : null) : t('The web app updates together with your server. The Android app installs its own updates from here.')}>
-        {/* The sideloaded APK comes in three kinds that differ only in the animations built in
-            (lib/apk-variant.js): which one this is, so nobody has to guess from the file size. */}
-        <Row icon="info" iconTint="var(--grey)" title={t('Version')} value={'v' + __APP_VERSION__}
-          subtitle={MOBILE && selfUpdate ? t('{0} APK, animations at {1} px', VARIANT_NAMES[APK_VARIANT], BUILTIN_PX) : offline ? t('openGym Offline, no internet permission') : undefined} />
+        {/* On the sideloaded Android build the version is in the update row below ("You have
+            v..."), so a separate row would only repeat it and drag the APK kind along. Elsewhere
+            that row does not exist and the version needs its own line. */}
+        {!(MOBILE && selfUpdate) && <Row icon="info" iconTint="var(--grey)" title={t('Version')} value={'v' + __APP_VERSION__}
+          subtitle={offline ? t('openGym Offline, no internet permission') : undefined} />}
         {MOBILE
           ? selfUpdate && <Row icon="download" iconTint="var(--green)"
               title={updateInfo?.hasUpdate ? t('Update to openGym v{0}', updateInfo.latestVersion) : t('Check for updates')}

@@ -175,17 +175,21 @@ describe('Settings — in-app update check', () => {
 })
 
 const versionRow = () => [...host.querySelectorAll('.lrow')].find(r => r.textContent.includes('Version'))
-describe('Settings → About: which APK this is', () => {
-  it('the sideloaded APK names its kind and the animation size built in', async () => {
+describe('Settings → About: the version', () => {
+  it('the sideloaded Android build shows it in the update row, not a separate row with the APK kind', async () => {
     mocks.MOBILE = true
     mocks.android = true
     await mount()
-    expect(versionRow().textContent).toContain('Standard APK, animations at 180 px')
+    expect(versionRow()).toBeUndefined()
+    expect(host.textContent).not.toContain('APK, animations at')
+    const haveRow = [...host.querySelectorAll('.lrow')].find(r => r.textContent.includes('You have v'))
+    expect(haveRow?.textContent).toContain(`You have v${__APP_VERSION__}`)
   })
 
-  it('not on the web, iOS or the Google Play build', async () => {
+  it('web, iOS and the Google Play build keep the Version row, without an APK kind', async () => {
     await mount()
-    expect(versionRow().textContent).not.toContain('APK,')
+    expect(versionRow()).toBeTruthy()
+    expect(versionRow().textContent).not.toContain('APK')
     for (const [android, channel] of [[false, 'sideload'], [true, 'play']]) {
       act(() => root.unmount())
       root = createRoot(host)
@@ -193,7 +197,8 @@ describe('Settings → About: which APK this is', () => {
       mocks.android = android
       mocks.channel = channel
       await mount()
-      expect(versionRow().textContent).not.toContain('APK,')
+      expect(versionRow()).toBeTruthy()
+      expect(versionRow().textContent).not.toContain('APK')
     }
   })
 })
