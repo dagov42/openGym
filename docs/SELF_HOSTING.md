@@ -729,7 +729,7 @@ them. Spell them out (here for QNAP; use your share's path):
 name: opengym
 services:
   api:
-    image: ghcr.io/duartesantos8/opengym-api:latest
+    image: ghcr.io/dagov42/opengym-api:latest
     restart: unless-stopped
     env_file: /share/Container/opengym/.env
     environment:
@@ -739,7 +739,7 @@ services:
     volumes:
       - /share/Container/opengym/data:/data
   web:
-    image: ghcr.io/duartesantos8/opengym-web:latest
+    image: ghcr.io/dagov42/opengym-web:latest
     restart: unless-stopped
     depends_on: [api]
     ports:
