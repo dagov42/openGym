@@ -11,6 +11,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ROOT_ROUTE_MODULES, readRouteModule } from './route-sources.js';
 
 const API = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ROOT = path.join(API, '..');
@@ -38,19 +39,14 @@ function specOperations(yaml) {
 
 test('every route the server registers is in openapi.yaml, and nothing else is', () => {
   const routes = new Set([
-    ...routeKeys(read(path.join(API, 'server.js'))),
+    ...ROOT_ROUTE_MODULES.flatMap(f => routeKeys(readRouteModule(f))),
     ...routeKeys(read(path.join(API, 'library', 'routes.js'))),
     ...routeKeys(read(path.join(API, 'library', 'moderation.js'))),
     ...routeKeys(read(path.join(API, 'coach', 'routes.js'))),
     ...routeKeys(read(path.join(API, 'integrations', 'routes.js'))),
     ...routeKeys(read(path.join(API, 'oidc', 'routes.js'))),
     ...routeKeys(read(path.join(API, 'trainers', 'routes.js'))),
-    ...routeKeys(read(path.join(API, 'trainers', 'dashboard-routes.js'))),
-    ...routeKeys(read(path.join(API, 'watch-routes.js'))),
-    ...routeKeys(read(path.join(API, 'push-routes.js'))),
-    ...routeKeys(read(path.join(API, 'admin-routes.js'))),
-    ...routeKeys(read(path.join(API, 'admin-user-routes.js'))),
-    ...routeKeys(read(path.join(API, 'calendar-routes.js')))
+    ...routeKeys(read(path.join(API, 'trainers', 'dashboard-routes.js')))
   ]);
   const ops = new Set(specOperations(spec));
   assert.ok(routes.size > 40, `only found ${routes.size} routes вЂ” the route table moved`);

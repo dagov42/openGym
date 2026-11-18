@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
-import { readFileSync } from 'node:fs'
 import { auditCat, auditLabel, auditReason, auditLine, auditAct, fmtWhen } from './audit.js'
+import { routeSource } from '../../../api/test/route-sources.js'
 
 // Every event name and reason code the server can emit, read off api/server.js itself rather
 // than kept as a second list here: the hand-kept copy silently missed the three pairing events
 // for several releases, and the dashboard printed 'auth.pair.create' at the operator (QA C18).
 // If a new one is added there without a label here, the first test fails rather than the
 // dashboard quietly printing a dotted identifier at a person.
-const SERVER = ['server.js', 'admin-routes.js', 'calendar-routes.js', 'watch-routes.js', 'push-routes.js']
-  .map(f => readFileSync(new URL('../../../api/' + f, import.meta.url), 'utf8')).join('\n')
+const SERVER = routeSource()
 // Every quoted auth./admin./media. name, not only `audit(req, '…'`: a name with a hyphen
 // ('admin.first-user') or one picked by a ternary slipped past that pattern and reached the
 // dashboard raw.

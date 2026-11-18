@@ -27,6 +27,7 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { boundPort } from './helpers.mjs';
+import { readRouteModule } from './route-sources.js';
 
 const API = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SECRET = crypto.randomBytes(32).toString('hex');
@@ -159,8 +160,8 @@ test('the poll really is reading through the stat cache', async t => {
 // The other two sites want `lang` for a push payload, which nothing outside the push service can
 // observe — so they are pinned here, at the only place that can see them: the source.
 test('the three hot-path state reads all go through readStateCached', () => {
-  const src = fs.readFileSync(path.join(API, 'server.js'), 'utf8');
-  const push = fs.readFileSync(path.join(API, 'push-routes.js'), 'utf8');
+  const src = readRouteModule('server.js');
+  const push = readRouteModule('push-routes.js');
   // Every route is one `'METHOD /path': async (req, res) => {` entry in a routes object, so a
   // handler runs from its key to the start of the next one. The push routes moved to their own
   // file (push-routes.js); the data routes still live in server.js.
