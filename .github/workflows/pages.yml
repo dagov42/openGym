@@ -31,6 +31,9 @@ concurrency:
 
 jobs:
   build:
+    # The demo is published from the upstream repository only; a fork has no Pages site, and
+    # configure-pages failed there on every push (the "build" check went red, not the app).
+    if: github.repository == 'DuarteSantos8/openGym'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
