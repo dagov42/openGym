@@ -24,7 +24,7 @@ vi.mock('@capacitor/app', () => ({
   },
 }))
 
-import { downloadAndInstall, whenInForeground, forgetDownloadedUpdate } from './update.js'
+import { downloadAndInstall, downloadUpdate, installDownloadedUpdate, whenInForeground, forgetDownloadedUpdate } from './update.js'
 
 const HASH = 'a'.repeat(64)
 const tick = async (n = 10) => { for (let i = 0; i < n; i++) await Promise.resolve() }
@@ -40,6 +40,35 @@ beforeEach(() => {
   })
   m.downloadFile = vi.fn(async () => { m.calls.push('download'); m.cached = true })
   m.deleteFile = vi.fn(async () => {})
+})
+
+describe('separate download and install', () => {
+  it('downloads without opening the installer, so the progress can be hidden', async () => {
+    await downloadUpdate('https://x/a.apk', HASH)
+    expect(m.calls).toEqual(['download'])
+    expect(m.installApk).not.toHaveBeenCalled()
+  })
+
+  it('installs the downloaded APK when the person asks, after waiting for the app to be in front', async () => {
+    m.cached = true
+    m.installApk = vi.fn(async a => { m.calls.push('install') })
+    m.active = false
+    let done = false
+    const run = installDownloadedUpdate(HASH).then(() => { done = true })
+    await vi.waitFor(() => expect(m.appListeners).toHaveLength(1))
+    await tick()
+    expect(done).toBe(false)
+    comeBack()
+    await run
+    expect(m.installApk).toHaveBeenCalledWith({ fileName: 'opengym-update.apk', sha256: HASH })
+  })
+
+  it('still refuses a missing checksum before doing anything', async () => {
+    await expect(downloadUpdate('https://x/a.apk', null)).rejects.toThrow(/checksum/)
+    await expect(installDownloadedUpdate(null)).rejects.toThrow(/checksum/)
+    expect(m.downloadFile).not.toHaveBeenCalled()
+    expect(m.installApk).not.toHaveBeenCalled()
+  })
 })
 
 describe('downloadAndInstall (Android)', () => {

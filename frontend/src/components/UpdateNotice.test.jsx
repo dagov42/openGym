@@ -9,7 +9,13 @@ const store = get => { const u = () => get(); u.getState = get; u.subscribe = fn
 vi.mock('../lib/i18n.js', () => ({ t: (s, ...a) => a.reduce((out, v, i) => out.replace(`{${i}}`, v), s) }))
 vi.mock('../lib/mobile.js', () => ({ MOBILE: true, isAndroid: async () => true }))
 vi.mock('../lib/channel.js', () => ({ getChannel: async () => 'sideload' }))
-vi.mock('../lib/update.js', () => ({ checkForUpdate: (...a) => m.check(...a), downloadAndInstall: vi.fn(), fetchChecksum: vi.fn() }))
+vi.mock('../lib/update.js', () => ({
+  checkForUpdate: (...a) => m.check(...a),
+  downloadUpdate: vi.fn(),
+  installDownloadedUpdate: vi.fn(),
+  downloadAndInstall: vi.fn(),
+  fetchChecksum: vi.fn(),
+}))
 vi.mock('../store/useStore.js', () => ({ useStore: store(() => ({ S: m.S })) }))
 vi.mock('../store/useUI.js', () => ({ useUI: store(() => ({ sheets: m.sheets, toast: vi.fn(), openSheet: vi.fn() })) }))
 vi.mock('../sheets.jsx', () => ({ confirmSheet: (...a) => m.confirm(...a) }))

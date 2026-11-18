@@ -4,15 +4,16 @@ import { useState, forwardRef } from 'react'
 import { t } from '../lib/i18n.js'
 import { MOBILE, isAndroid } from '../lib/mobile.js'
 import { getChannel } from '../lib/channel.js'
-import { checkForUpdate, downloadAndInstall, fetchChecksum } from '../lib/update.js'
+import { checkForUpdate, downloadUpdate, installDownloadedUpdate, fetchChecksum } from '../lib/update.js'
 import { offerNow, readSeen, writeSeen } from '../lib/update-notice.js'
 import { useStore } from '../store/useStore.js'
 import { useUI } from '../store/useUI.js'
 import { confirmSheet } from '../sheets.jsx'
+import Icon from './Icon.jsx'
 
-// Download progress sheet — receives a ref callback that exposes a (received, total) setter.
-// Uses forwardRef so the caller can push byte counts in without re-rendering what is underneath.
-const DownloadProgress = forwardRef(function DownloadProgress(_, ref) {
+// Download progress sheet. It can be hidden: the download carries on, and when it is ready the
+// page asks before opening the installer. Receives a ref callback that exposes a byte setter.
+export const DownloadProgress = forwardRef(function DownloadProgress({ onHide }, ref) {
   const [pct, setPct] = useState(0)
   const [text, setText] = useState(t('Starting download…'))
   // Expose a setter the caller can invoke directly
@@ -27,38 +28,69 @@ const DownloadProgress = forwardRef(function DownloadProgress(_, ref) {
   })
   return (
     <div style={{ textAlign: 'center', padding: '8px 0' }}>
-      <h3>{t('Downloading update…')}</h3>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+        <h3 style={{ margin: 0 }}>{t('Downloading update…')}</h3>
+        <button type="button" className="iconbtn" onClick={onHide} aria-label={t('Hide')} title={t('Hide')}><Icon name="xmark" /></button>
+      </div>
       <div style={{ margin: '16px 0', height: 6, borderRadius: 3, background: 'var(--fill-3)', overflow: 'hidden' }}>
         <div style={{ height: '100%', width: pct + '%', background: 'var(--acc)', borderRadius: 3, transition: 'width .2s' }} />
       </div>
       <div className="muted small">{text}</div>
+      <div className="muted small" style={{ marginTop: 8 }}>{t('You can hide this and keep using the app. The download carries on.')}</div>
     </div>
   )
 })
 
-/** Downloads `info`'s APK with a progress sheet, checks it against the release's checksum and
- *  opens the installer. */
+/** Ask before opening the installer, so a finished background download never interrupts a set. */
+function askInstallDownloaded(info, expectedHash) {
+  const install = () => installDownloadedUpdate(expectedHash)
+    .catch(e => useUI.getState().toast(t('Update failed: {0}', e.message)))
+  const busy = () => !!useStore.getState().S?.active || useUI.getState().sheets.length > 0
+  if (busy()) {
+    useUI.getState().toast(t('Update downloaded. Install it when you are ready.'), {
+      action: t('Install'), onAction: install, ms: 20000,
+    })
+    return
+  }
+  confirmSheet({
+    title: t('Update downloaded'),
+    message: t('Install openGym {0} now?', info.latestVersion),
+    confirmText: t('Install'),
+    cancelText: t('Later'),
+    onConfirm: install,
+  })
+}
+
+/** Downloads `info`'s APK, checks it against the release's checksum and asks before installing. */
 export async function installUpdate(info) {
   // Started by hand (About) or from the offer: either way this version has been offered.
   if (info?.latestVersion) writeSeen(info.latestVersion)
   let closeProgress = null
   let setProgress = null
-  useUI.getState().openSheet(close => {
+  const hide = () => {
+    setProgress = null
+    if (closeProgress) closeProgress()
+    closeProgress = null
+  }
+  const opened = useUI.getState().openSheet(close => {
     closeProgress = close
-    return <DownloadProgress ref={fn => { setProgress = fn }} />
-  }, { locked: true })
+    return <DownloadProgress ref={fn => { setProgress = fn }} onHide={hide} />
+  }, { locked: false })
+  // Real sheets return their close handle too; the render callback sets it once the sheet mounts.
+  closeProgress = opened?.close || closeProgress
   try {
     // The release always publishes the checksum next to the APK. Without it the file is
-    // not installed — a sideloaded binary is exactly the thing that should be verified.
+    // not installed: a sideloaded binary is exactly the thing that should be verified.
     let expectedHash = null
     try { expectedHash = await fetchChecksum(info.hashUrl, info.hashApiUrl, info.sumsUrl, info.sumsApiUrl, info.apkName) } catch (e) { /* reported below */ }
     if (!/^[0-9a-f]{64}$/i.test(expectedHash || '')) throw new Error(t('Checksum not available, so not installing'))
-    await downloadAndInstall(info.apkUrl, expectedHash, (received, total) => {
+    await downloadUpdate(info.apkUrl, expectedHash, (received, total) => {
       if (setProgress) setProgress(received, total)
     }, info.apkApiUrl)
-    if (closeProgress) closeProgress()
+    hide()
+    askInstallDownloaded(info, expectedHash)
   } catch (e) {
-    if (closeProgress) closeProgress()
+    hide()
     useUI.getState().toast(t('Update failed: {0}', e.message))
   }
 }
@@ -67,8 +99,8 @@ export async function installUpdate(info) {
 export function askToUpdate(info, { notNow = false } = {}) {
   confirmSheet({
     title: t('Update to {0}?', info.latestVersion),
-    message: t('The latest version will be downloaded and the installer will open.'),
-    confirmText: t('Download & Install'),
+    message: t('The latest version will be downloaded. You can keep using the app while it downloads, then choose when to install it.'),
+    confirmText: t('Download'),
     ...(notNow ? { cancelText: t('Not now') } : {}),
     onConfirm: () => installUpdate(info),
   })

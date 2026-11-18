@@ -5945,4 +5945,11 @@ export default {
   "Send it to another app": "Send it to another app",
   "Saved to device": "Saved to device",
   "Couldn’t save the file": "Couldn’t save the file",
+  // English fallback pending translation
+  "Install": "Install",
+  "Install openGym {0} now?": "Install openGym {0} now?",
+  "The latest version will be downloaded. You can keep using the app while it downloads, then choose when to install it.": "The latest version will be downloaded. You can keep using the app while it downloads, then choose when to install it.",
+  "Update downloaded": "Update downloaded",
+  "Update downloaded. Install it when you are ready.": "Update downloaded. Install it when you are ready.",
+  "You can hide this and keep using the app. The download carries on.": "You can hide this and keep using the app. The download carries on.",
 }

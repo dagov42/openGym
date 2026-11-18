@@ -241,6 +241,26 @@ export async function downloadAndInstall(url, expectedHash, onProgress = null, a
     await Install.installApk({ fileName: UPDATE_FILE, sha256 })
     return
   } catch { /* nothing usable in the cache yet: download it */ }
+  await downloadUpdate(url, sha256, onProgress, apiUrl)
+  try { await installDownloadedUpdate(sha256) } catch (e) {
+    // A bad copy from github.com is replaced from the API link once, as before.
+    if (!apiUrl) throw e
+    await downloadUpdate(apiUrl, sha256, onProgress, null)
+    await installDownloadedUpdate(sha256)
+  }
+}
+
+/**
+ * Downloads the APK into the cache and stops there; the caller can hide its progress and ask
+ * before opening the installer. `installDownloadedUpdate` verifies it and opens the installer,
+ * once the app is back in front. Kept separate so a 300 MB download no longer blocks the app.
+ */
+export async function downloadUpdate(url, expectedHash, onProgress = null, apiUrl = null) {
+  if (!MOBILE) {
+    window.open(RELEASES_PAGE, '_blank', 'noopener')
+    return
+  }
+  if (!/^[0-9a-f]{64}$/i.test(expectedHash || '')) throw new Error('no checksum to verify the download against')
   const { Filesystem, Directory } = await import('@capacitor/filesystem')
   const download = async (from, headers) => {
     const listener = onProgress
@@ -253,20 +273,20 @@ export async function downloadAndInstall(url, expectedHash, onProgress = null, a
       await listener?.remove()
     }
   }
-  // One fallback to the API link, when the download fails or the installer refuses its file
-  let fromApi = false
   try { await download(url) } catch (e) {
     if (!apiUrl) throw e
     await download(apiUrl, API_ASSET)
-    fromApi = true
   }
+}
+
+/** Hands the downloaded APK to the installer. Waits until the app is in front, as Android asks. */
+export async function installDownloadedUpdate(expectedHash) {
+  if (!MOBILE) return
+  if (!/^[0-9a-f]{64}$/i.test(expectedHash || '')) throw new Error('no checksum to verify the download against')
+  const sha256 = expectedHash.toLowerCase()
+  const { Install } = await installPlugin()
   await whenInForeground()
-  try { await Install.installApk({ fileName: UPDATE_FILE, sha256 }) } catch (e) {
-    if (!apiUrl || fromApi) throw e
-    await download(apiUrl, API_ASSET)
-    await whenInForeground()
-    await Install.installApk({ fileName: UPDATE_FILE, sha256 })
-  }
+  await Install.installApk({ fileName: UPDATE_FILE, sha256 })
 }
 
 /**

@@ -5945,4 +5945,10 @@ export default {
   "Send it to another app": "Отправить в другое приложение",
   "Saved to device": "Сохранено на устройство",
   "Couldn’t save the file": "Не удалось сохранить файл",
+  "Install": "Установить",
+  "Install openGym {0} now?": "Установить openGym {0} сейчас?",
+  "The latest version will be downloaded. You can keep using the app while it downloads, then choose when to install it.": "Новая версия скачается в фоне. Можно продолжать пользоваться приложением, а установить её, когда удобно.",
+  "Update downloaded": "Обновление скачано",
+  "Update downloaded. Install it when you are ready.": "Обновление скачано. Установите, когда будет удобно.",
+  "You can hide this and keep using the app. The download carries on.": "Это окно можно скрыть и продолжать заниматься. Загрузка продолжится.",
 }
