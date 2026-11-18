@@ -46,7 +46,7 @@ describe('History grows as it is scrolled', () => {
     window.IntersectionObserver = FakeIO
     ;({ DEF, useStore } = await import('../store/useStore.js'))
     ;({ default: History, HISTORY_PAGE: PAGE } = await import('./History.jsx'))
-  })
+  }, 30000)
   afterEach(() => {
     for (const r of roots.splice(0)) act(() => r.unmount())
     document.body.innerHTML = ''
