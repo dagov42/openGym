@@ -1195,6 +1195,7 @@ export default {
   'Controls': 'Sterowanie',
   'Undo the last Coach changes': 'Cofnij ostatnie zmiany Trenera',
   '{0} days a week': { one: '{0} dzień w tygodniu', few: '{0} dni w tygodniu', many: '{0} dni w tygodniu' },
+  "{0} day a week": "{0} dzień w tygodniu",
   '{0} min': '{0} min',
   '{0}h {1}m': '{0} godz. {1} min',
   'The Coach is on': 'Trener włączony',

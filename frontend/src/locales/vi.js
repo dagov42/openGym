@@ -1230,6 +1230,7 @@ export default {
   'Controls': 'Điều khiển',
   'Undo the last Coach changes': 'Hoàn tác các thay đổi gần nhất của Coach',
   '{0} days a week': '{0} ngày/tuần',
+  "{0} day a week": "{0} ngày/tuần",
   '{0} min': '{0} phút',
   '{0}h {1}m': '{0}h {1}p',
   'The Coach is on': 'Coach đang bật',

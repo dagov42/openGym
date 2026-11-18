@@ -1152,6 +1152,7 @@ export default {
   'Controls': 'أدوات التحكم',
   'Undo the last Coach changes': 'التراجع عن آخر تغييرات المدرب',
   '{0} days a week': '{0} أيام في الأسبوع',
+  "{0} day a week": "{0} يوم في الأسبوع",
   '{0} min': '{0} دقيقة',
   '{0}h {1}m': '{0} ساعة {1} دقيقة',
   'The Coach is on': 'المدرب يعمل',

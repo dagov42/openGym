@@ -1195,6 +1195,7 @@ export default {
   'Controls': 'Denetimler',
   'Undo the last Coach changes': 'Son Koç değişikliklerini geri al',
   '{0} days a week': 'haftada {0} gün',
+  "{0} day a week": "haftada {0} gün",
   '{0} min': '{0} dk',
   '{0}h {1}m': '{0} sa {1} dk',
   'The Coach is on': 'Koç açık',

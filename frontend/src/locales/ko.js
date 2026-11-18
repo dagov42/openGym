@@ -1195,6 +1195,7 @@ export default {
   'Controls': '제어',
   'Undo the last Coach changes': '코치의 마지막 변경 되돌리기',
   '{0} days a week': '주 {0}일',
+  "{0} day a week": "주 {0}일",
   '{0} min': '{0}분',
   '{0}h {1}m': '{0}시간 {1}분',
   'The Coach is on': '코치 켜짐',

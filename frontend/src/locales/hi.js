@@ -1195,6 +1195,7 @@ export default {
   'Controls': 'नियंत्रण',
   'Undo the last Coach changes': 'कोच के पिछले बदलाव पलटें',
   '{0} days a week': 'हफ़्ते में {0} दिन',
+  "{0} day a week": "हफ़्ते में {0} दिन",
   '{0} min': '{0} मिनट',
   '{0}h {1}m': '{0} घंटे {1} मिनट',
   'The Coach is on': 'कोच चालू है',

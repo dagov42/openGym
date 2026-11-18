@@ -1231,6 +1231,7 @@ export default {
   "Controls": "Valdymas",
   "Undo the last Coach changes": "Atšaukti paskutinius Trenerio pakeitimus",
   "{0} days a week": { one: "{0} diena per savaitę", few: "{0} dienos per savaitę", many: "{0} dienos per savaitę", other: "{0} dienų per savaitę" },
+  "{0} day a week": "{0} diena per savaitę",
   "{0} min": "{0} min",
   "{0}h {1}m": "{0} val. {1} min.",
   "The Coach is on": "Treneris įjungtas",

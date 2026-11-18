@@ -4333,6 +4333,7 @@ export const PT_BR_OVERRIDES = {
   "Stuck for {0} sessions. Epley deload to {1} {2} for {3} reps.": "Estagnado há {0} sessões. Deload pelo Epley para {1} {2} com {3} repetições.",
   "Timer wheels": "Rodas do temporizador",
   "Seconds in steps of 1 or 5": "Segundos de 1 em 1 ou de 5 em 5",
+  "{0} day a week": "{0} dia por semana",
 }
 
 export default { ...pt, ...PT_BR_OVERRIDES }

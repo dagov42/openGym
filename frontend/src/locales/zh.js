@@ -1195,6 +1195,7 @@ export default {
   'Controls': '控制',
   'Undo the last Coach changes': '撤销教练上次的更改',
   '{0} days a week': '每周 {0} 天',
+  "{0} day a week": "每周 {0} 天",
   '{0} min': '{0} 分钟',
   '{0}h {1}m': '{0} 小时 {1} 分钟',
   'The Coach is on': '教练已开启',

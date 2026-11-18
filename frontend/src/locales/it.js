@@ -1199,6 +1199,7 @@ export default {
   'Controls': 'Controlli',
   'Undo the last Coach changes': 'Annulla le ultime modifiche del Coach',
   '{0} days a week': '{0} giorni a settimana',
+  "{0} day a week": "{0} giorno a settimana",
   '{0} min': '{0} min',
   '{0}h {1}m': '{0} h {1} min',
   'The Coach is on': 'Coach attivo',

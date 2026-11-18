@@ -1355,6 +1355,7 @@ export default {
   'Controls': 'Vezérlés',
   'Undo the last Coach changes': 'Az Edző legutóbbi módosításainak visszavonása',
   '{0} days a week': 'Heti {0} nap',
+  "{0} day a week": "Heti {0} nap",
   '{0} min': '{0} perc',
   '{0}h {1}m': '{0} ó {1} perc',
   'The Coach is on': 'Az Edző be van kapcsolva',

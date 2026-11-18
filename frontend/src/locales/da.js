@@ -1265,6 +1265,7 @@ export default {
   "Controls": "Styring",
   "Undo the last Coach changes": "Fortryd coachens seneste ændringer",
   "{0} days a week": "{0} dage om ugen",
+  "{0} day a week": "{0} dag om ugen",
   "{0} min": "{0} min",
   "{0}h {1}m": "{0} t {1} m",
   "The Coach is on": "Coachen er slået til",

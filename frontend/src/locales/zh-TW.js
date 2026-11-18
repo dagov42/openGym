@@ -1187,6 +1187,7 @@ export default {
   'Controls': '控制項',
   'Undo the last Coach changes': '復原教練上次的修改',
   '{0} days a week': '每週 {0} 天',
+  "{0} day a week": "每週 {0} 天",
   '{0} min': '{0} 分鐘',
   '{0}h {1}m': '{0} 小時 {1} 分鐘',
   'The Coach is on': 'AI 教練功能已啟用',

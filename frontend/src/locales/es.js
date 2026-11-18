@@ -1195,6 +1195,7 @@ export default {
   'Controls': 'Controles',
   'Undo the last Coach changes': 'Deshacer los últimos cambios del Entrenador',
   '{0} days a week': '{0} días a la semana',
+  "{0} day a week": "{0} día a la semana",
   '{0} min': '{0} min',
   '{0}h {1}m': '{0} h {1} min',
   'The Coach is on': 'Entrenador activado',

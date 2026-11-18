@@ -1131,6 +1131,7 @@ export default {
   "Controls": "کنترل‌ها",
   "Undo the last Coach changes": "آخرین تغییرات مربی را لغو کنید",
   "{0} days a week": "{0} روز در هفته",
+  "{0} day a week": "{0} روز در هفته",
   "{0} min": "{0} دقیقه",
   "{0}h {1}m": "{0} ساعت و {1} دقیقه",
   "The Coach is on": "مربی روشن است",

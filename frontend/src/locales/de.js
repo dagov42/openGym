@@ -1213,6 +1213,7 @@ export default {
   'Controls': 'Steuerung',
   'Undo the last Coach changes': 'Letzte Coach-Änderungen rückgängig machen',
   '{0} days a week': '{0} Tage pro Woche',
+  "{0} day a week": "{0} Tag pro Woche",
   '{0} min': '{0} Min.',
   '{0}h {1}m': '{0} Std. {1} Min.',
   'The Coach is on': 'Coach ist an',

@@ -1270,6 +1270,7 @@ export default {
   "Controls": "Kontrol",
   "Undo the last Coach changes": "Batalkan perubahan terakhir dari Pelatih",
   "{0} days a week": "{0} hari dalam seminggu",
+  "{0} day a week": "{0} hari dalam seminggu",
   "{0} min": "{0} mnt",
   "{0}h {1}m": "{0}j {1}m",
   "The Coach is on": "Pelatih AI aktif",

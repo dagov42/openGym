@@ -1214,6 +1214,7 @@ export default {
   'Controls': 'Kontroller',
   'Undo the last Coach changes': 'Ångra coachens senaste ändringar',
   '{0} days a week': '{0} dagar i veckan',
+  "{0} day a week": "{0} dag i veckan",
   '{0} min': '{0} min',
   '{0}h {1}m': '{0} h {1} min',
   'The Coach is on': 'Coachen är på',

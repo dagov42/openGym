@@ -1277,6 +1277,7 @@ export default {
   'Controls': 'নিয়ন্ত্রণ',
   'Undo the last Coach changes': 'কোচের শেষ পরিবর্তনগুলো ফিরিয়ে নিন',
   '{0} days a week': 'সপ্তাহে {0} দিন',
+  "{0} day a week": "সপ্তাহে {0} দিন",
   '{0} min': '{0} মিনিট',
   '{0}h {1}m': '{0} ঘ. {1} মি.',
   'The Coach is on': 'কোচ চালু আছে',

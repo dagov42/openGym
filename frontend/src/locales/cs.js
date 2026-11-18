@@ -1230,6 +1230,7 @@ export default {
   'Controls': 'Ovládání',
   'Undo the last Coach changes': 'Vrátit poslední změny od Trenéra',
   '{0} days a week': { one: '{0} den v týdnu', few: '{0} dny v týdnu', many: '{0} dne v týdnu', other: '{0} dní v týdnu' },
+  "{0} day a week": "{0} den v týdnu",
   '{0} min': '{0} min',
   '{0}h {1}m': '{0} h {1} min',
   'The Coach is on': 'Trenér je zapnutý',
