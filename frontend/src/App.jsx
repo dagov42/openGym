@@ -25,6 +25,8 @@ import { setSystemAccent, setSystemBarsLight } from './lib/system-bars.js'
 import { applyProfileSteps, profileStep } from './lib/weight-step.js'
 import { stepPlaces } from './lib/progression.js'
 import { applyOrientation } from './lib/orientation.js'
+import { appKeyAction, isTextField } from './lib/app-keys.js'
+import { shortcutsSheet } from './components/ShortcutsSheet.jsx'
 import { initBackButton } from './lib/back.js'
 import { initUpdateNotice } from './components/UpdateNotice.jsx'
 import { initWhatsNew } from './components/WhatsNewSheet.jsx'
@@ -515,6 +517,28 @@ export default function App() {
   }, [])
   // The sideloaded APK: a newer release offers itself once when the app opens (lib/update-notice.js)
   useEffect(() => { initUpdateNotice() }, [])
+  // ? opens the shortcut list, / focuses the current screen's search. The workout's own keys
+  // stay in views/Workout.jsx; this listener only sees the two app-wide keys.
+  useEffect(() => {
+    const onKey = event => {
+      const search = document.querySelector('[data-search]')
+      const action = appKeyAction(event, {
+        inField: isTextField(event.target),
+        sheetOpen: useUI.getState().sheets.length > 0,
+        hasSearch: !!search,
+      })
+      if (action === 'help') {
+        event.preventDefault()
+        shortcutsSheet()
+      } else if (action === 'search' && search) {
+        event.preventDefault()
+        search.focus()
+        if (typeof search.select === 'function') search.select()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
   // A first idle moment after an app update: the What's new sheet, once per version.
   useEffect(() => { initWhatsNew() }, [])
   // iOS: swipe from the left edge for the page's own back button (lib/edge-swipe-back.js)

@@ -5949,4 +5949,14 @@ export default {
   "Update downloaded": "Update downloaded",
   "Update downloaded. Install it when you are ready.": "Update downloaded. Install it when you are ready.",
   "You can hide this and keep using the app. The download carries on.": "You can hide this and keep using the app. The download carries on.",
+  // English fallback pending translation
+  "App": "App",
+  "Close a sheet": "Close a sheet",
+  "Keyboard shortcuts": "Keyboard shortcuts",
+  "On a phone with a keyboard, the same keys work.": "On a phone with a keyboard, the same keys work.",
+  "Previous or next exercise": "Previous or next exercise",
+  "Search this screen": "Search this screen",
+  "Show this list": "Show this list",
+  "Space, Enter, arrows, Escape, / and ?": "Space, Enter, arrows, Escape, / and ?",
+  "Tick the next set": "Tick the next set",
 }

@@ -61,6 +61,7 @@ import { CUSTOM, accentKey, adjustedIn, applyAccent, cleanHex, inkOn, isGrey } f
 import { layoutSheet } from '../components/PageLayout.jsx'
 import { askToUpdate } from '../components/UpdateNotice.jsx'
 import { openWhatsNew } from '../components/WhatsNewSheet.jsx'
+import { shortcutsSheet } from '../components/ShortcutsSheet.jsx'
 import { itemsFor, normalizeVersion, readSeen } from '../lib/whats-new.js'
 import { checkForUpdate, forgetDownloadedUpdate, resetUpdateCheck, RELEASES_PAGE } from '../lib/update.js'
 import { getChannel, gymReminderBuilt } from '../lib/channel.js'
@@ -1298,6 +1299,8 @@ export default function Settings({ page = null, find = null, via = null, entryKe
             ? <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--acc)', display: 'inline-block' }} />
             : null}
           onClick={() => openWhatsNew()} />
+        <Row icon="key" iconTint="var(--yellow)" title={t('Keyboard shortcuts')} subtitle={t('Space, Enter, arrows, Escape, / and ?')}
+          accessory="chevron" onClick={shortcutsSheet} />
       </Section>
       {/* The F-Droid build has no Wear OS link (it would need Google Play services, which F-Droid
           leaves out): said here rather than having a watch that silently never connects. */}

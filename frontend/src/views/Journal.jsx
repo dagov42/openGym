@@ -237,7 +237,7 @@ export default function Journal() {
         <div className="sub">{tn('{0} note', '{0} notes', all.length)}</div></div>
     </div>
 
-    <SearchField value={f.q || ''} placeholder={t('Search your notes')} aria-label={t('Search your notes')}
+    <SearchField value={f.q || ''} placeholder={t('Search your notes')} aria-label={t('Search your notes')} data-search
       onChange={e => setFilter({ ...f, q: e.target.value })} onClear={() => setFilter({ ...f, q: '' })} />
 
     {(folders.length > 0 || unsaved) && <div className="chips jn-folders" role="toolbar" aria-label={t('Folders')}>

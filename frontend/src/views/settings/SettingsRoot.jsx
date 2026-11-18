@@ -47,7 +47,7 @@ export default function SettingsRoot({ ctx, preview, open, user, sync, home, go,
     <h1 className="sp-root-title">{t('Settings')}</h1>
     <div className="sp-search">
       <SearchField value={q} onChange={e => set(e.target.value)} onClear={() => set('')}
-        placeholder={t('Search…')} aria-label={t('Search settings')} inputMode="search" enterKeyHint="search" autoComplete="off" />
+        placeholder={t('Search…')} aria-label={t('Search settings')} data-search inputMode="search" enterKeyHint="search" autoComplete="off" />
     </div>
     {hits ? (hits.length ? <Section title={tn('{0} result', '{0} results', hits.length)}>
       {hits.slice(0, 40).map(h => (

@@ -5951,4 +5951,13 @@ export default {
   "Update downloaded": "Обновление скачано",
   "Update downloaded. Install it when you are ready.": "Обновление скачано. Установите, когда будет удобно.",
   "You can hide this and keep using the app. The download carries on.": "Это окно можно скрыть и продолжать заниматься. Загрузка продолжится.",
+  "App": "Приложение",
+  "Close a sheet": "Закрыть окно",
+  "Keyboard shortcuts": "Горячие клавиши",
+  "On a phone with a keyboard, the same keys work.": "С клавиатурой на телефоне работают те же клавиши.",
+  "Previous or next exercise": "Предыдущее или следующее упражнение",
+  "Search this screen": "Поиск на этом экране",
+  "Show this list": "Показать этот список",
+  "Space, Enter, arrows, Escape, / and ?": "Пробел, Enter, стрелки, Escape, / и ?",
+  "Tick the next set": "Отметить следующий подход",
 }

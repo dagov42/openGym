@@ -334,6 +334,7 @@ export const SEARCH = [
   // About & updates
   { page: 'about', title: 'Check for updates', net: true, icon: 'download', tint: 'var(--green)', kw: 'update apk android version', when: c => c.mobile && c.android },
   { page: 'about', title: "What's new", icon: 'sparkles', tint: 'var(--yellow)', kw: 'whats new changelog release notes update changes' },
+  { page: 'about', title: 'Keyboard shortcuts', icon: 'key', tint: 'var(--yellow)', kw: 'keyboard shortcuts keys space enter arrows escape search help' },
   { page: 'about', title: 'Get the Android app', icon: 'download', tint: 'var(--green)', kw: 'apk android download app', when: c => !c.mobile },
   { page: 'about', title: 'Show the tour again', icon: 'lightbulb', tint: 'var(--yellow)', kw: 'tour tutorials intro introduction tutorial walkthrough guide help onboarding how to start' },
   { page: 'about', title: 'Build your first plan', icon: 'calendar', tint: 'var(--yellow)', kw: 'tutorial guide routine plan create first help how to' },

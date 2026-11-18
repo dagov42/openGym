@@ -10,13 +10,15 @@ Nothing yet.
 
 ## v1.4.10 (2026-11-18)
 
-A small updater fix: the download no longer blocks the app, and the installer waits for you.
+A small updater fix and keyboard shortcuts.
 
 - The update progress sheet can be hidden. The APK keeps downloading in the background while you
   train, and the app asks Install or Later when it is ready.
 - During a workout the finished download leaves a non-blocking toast with an Install action instead
   of opening a sheet over the set.
 - The installer still verifies the release checksum before opening.
+- Press `?` for the keyboard shortcuts, `/` to search the current screen, and `?` or the Settings
+  row to see the workout keys. Escape still closes a sheet.
 
 ## v1.4.9 (2026-11-18)
 

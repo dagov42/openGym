@@ -72,6 +72,7 @@ describe('History search', () => {
     install()
     const host = mount(History)
     expect(rows(host)).toBe(5)
+    expect(input(host).hasAttribute('data-search')).toBe(true)
     type(input(host), 'bench')
     expect(rows(host)).toBe(1)
     expect(host.querySelector('[aria-live="polite"]').textContent).toBe('1 match')

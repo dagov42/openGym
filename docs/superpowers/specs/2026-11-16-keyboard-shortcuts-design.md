@@ -1,8 +1,10 @@
 # Keyboard shortcuts and the help sheet
 
-Status: agreed 2026-11-16 (the lifter's calls: the minimum — `?` for the list, the existing workout keys,
-Escape for a sheet, `/` for the current screen's search; no single-letter navigation). Nothing implemented
-yet.
+Status: implemented 2026-11-18 (`lib/app-keys.js`, `components/ShortcutsSheet.jsx`, the App key
+listener, `data-search` on the screen searches, and the Settings → About row; tests:
+`app-keys.test.js`, `ShortcutsSheet.test.jsx`). The lifter's calls stand: the minimum, `?` for the
+list, the existing workout keys, Escape for a sheet, `/` for the current screen's search, no
+single-letter navigation.
 
 ## Why
 

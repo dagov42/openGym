@@ -95,7 +95,7 @@ export default function History() {
     {rows.length > 0 && <>
       <SearchField value={query} onChange={e => setQuery(e.target.value)} onClear={() => setQuery('')} clearLabel={t('Clear search')}
         placeholder={t('Search workouts, exercises and notes')} aria-label={t('Search history')}
-        type="search" enterKeyHint="search" autoCorrect="off" autoCapitalize="none"
+        data-search type="search" enterKeyHint="search" autoCorrect="off" autoCapitalize="none"
         onKeyDown={e => { if (e.key === 'Escape') setQuery('') }} />
       <div className="chips" style={{ flexWrap: 'nowrap', overflowX: 'auto', margin: '8px 0 10px', paddingBottom: 2 }}>
         {TYPE_CHIPS.map(([id, label]) => <button key={id} type="button" className={'chip nocap' + (type === id ? ' on' : '')}
