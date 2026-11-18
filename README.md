@@ -106,7 +106,7 @@ separate one. Run it locally from the quick start below to try it.
   everything as one JSON file, or your workouts and body data as a spreadsheet (CSV).
 - Share a plan as a small file or print it as a PDF.
 - Optional admin dashboard with invite-only signup and an activity log.
-- 26 languages, including right-to-left Arabic and Persian, and Traditional Chinese. Exercise names and
+- 25 languages, including right-to-left Arabic and Persian, and Traditional Chinese. Exercise names and
   instructions are translated for most of them.
 
 **On the phone**
