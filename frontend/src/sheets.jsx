@@ -54,6 +54,7 @@ import { useNfcSupported, nfcExerciseSheet } from './components/Nfc.jsx'
 import { usesBands, withBandEx, setBandsOf, toggleSetBand, bandText } from './lib/bands.js'
 import { BandChips } from './components/Bands.jsx'
 import { Button, Slider, Switch, Segmented, SelectRow, Row, TextField, NumberField, MultiSelectRow } from './components/ui.jsx'
+import WeightInput from './components/WeightInput.jsx'
 import { glyphOf, GLYPH_GROUPS, DEFAULT_GLYPH } from './lib/glyphs.js'
 import BodyMap from './components/BodyMap.jsx'
 import MuscleExplorer from './components/MuscleExplorer.jsx'
@@ -356,13 +357,6 @@ export const starterPlanSheet = () => ui().openSheet(close => <StarterPlanChoose
 // Fixed range, not a moving window — a window that resizes itself mid-drag (the previous
 // attempt) makes the thumb's position unpredictable: every time it grows, everything already
 // placed on it shifts toward one side. A static range never has that problem, at the cost of
-// coarser precision per pixel — the +/- buttons, and typing straight into the read-out, cover
-// exact values.
-// The ceiling follows the profile's unit: 300 covers a body weight or a working weight in
-// kg, but as pounds it cut off at 136 kg — below plenty of people's body weight, and well
-// below an everyday squat.
-const W_LO = 1
-const wHi = unit => (unit === 'lb' ? 660 : 300)
 // A typed body weight may sit past the slider (a 320 kg lifter is real), but not past any
 // person: 9999 saved, drew the chart from -0 to 10,000 and set a goal 9,922 kg away.
 const bwMax = unit => (unit === 'lb' ? 1500 : 700)
@@ -370,32 +364,6 @@ const bwTooHeavy = (n, unit) => {
   if (n <= bwMax(unit)) return false
   toast(t('That looks too heavy. Keep it at {0} or less.', fmtNum(bwMax(unit)) + ' ' + unit))
   return true
-}
-function WeightInput({ value, setValue, unit }) {
-  const W_HI = wHi(unit)
-  const clamp = x => Math.max(W_LO, Math.min(W_HI, Math.round((x || 0) * 10) / 10))
-  const sv = Math.max(W_LO, Math.min(W_HI, value))
-  const onSlide = v => setValue(clamp(v))
-  const onType = v => setValue(v)
-
-  return <>
-    <div className="bwstep">
-      <button className="bw-pm" onClick={() => onSlide(value - 0.1)} aria-label={t('Decrease by {0}', fmtNum(0.1))}><Icon name="minus" /></button>
-      <label className="bw-read">
-        <NumberField fit value={value} onChange={onType} aria-label={t('Weight ({0})', unit)} enterKeyHint="done"
-          onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }} />
-        <span className="u"> {unit}</span>
-      </label>
-      <button className="bw-pm" onClick={() => onSlide(value + 0.1)} aria-label={t('Increase by {0}', fmtNum(0.1))}><Icon name="plus" /></button>
-    </div>
-    <div className="chips fit" style={{ justifyContent: 'center', margin: '8px 0' }}>
-      <button className="chip" onClick={() => onSlide(value - 1)}>−1</button>
-      <button className="chip" onClick={() => onSlide(value - 0.5)}>−{fmtNum(0.5)}</button>
-      <button className="chip" onClick={() => onSlide(value + 0.5)}>+{fmtNum(0.5)}</button>
-      <button className="chip" onClick={() => onSlide(value + 1)}>+1</button>
-    </div>
-    <Slider value={sv} min={W_LO} max={W_HI} step={0.5} onChange={onSlide} ariaLabel={t('Weight ({0})', unit)} />
-  </>
 }
 
 /* ============================ body weight ============================ */
