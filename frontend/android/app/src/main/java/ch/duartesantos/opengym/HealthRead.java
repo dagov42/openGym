@@ -79,17 +79,6 @@ final class HealthRead {
         return new Body(kind, t, v, m.getId(), m.getDataOrigin().getPackageName(), m.getClientRecordId());
     }
 
-    /** The JS names of the write permissions, as the manifest declares them. */
-    static String writePermission(String name) {
-        switch (name) {
-            case "exercise": return "android.permission.health.WRITE_EXERCISE";
-            case "weight": return "android.permission.health.WRITE_WEIGHT";
-            case "calories": return "android.permission.health.WRITE_ACTIVE_CALORIES_BURNED";
-            case "heartRate": return "android.permission.health.WRITE_HEART_RATE";
-            default: return null;
-        }
-    }
-
     /** The JS names of the read permissions, as the manifest declares them. */
     static String readPermission(String name) {
         switch (name) {
@@ -164,6 +153,7 @@ final class HealthRead {
             case "exercise": return "android.permission.health.WRITE_EXERCISE";
             case "weight": return "android.permission.health.WRITE_WEIGHT";
             case "calories": return "android.permission.health.WRITE_ACTIVE_CALORIES_BURNED";
+            case "heartRate": return "android.permission.health.WRITE_HEART_RATE";
             default: return null;
         }
     }
