@@ -25,6 +25,19 @@ describe('upcomingSets', () => {
     expect(up.map(x => [x.entryIdx, x.setIdx])).toEqual([[0, 0], [1, 0], [0, 1], [1, 1]])
     expect(up.map(x => x.restAfter > 0)).toEqual([false, true, false, true])
   })
+  it('takes a three- and a four-member superset in round order, resting after the whole round', () => {
+    const three = L.upcomingSets(S({ id: 'a', cur: 0, entries: [
+      entry('0025', [set()], { sg: 'g' }), entry('0043', [set()], { sg: 'g' }), entry('0001', [set()], { sg: 'g' }),
+    ] }))
+    expect(three.map(x => [x.entryIdx, x.setIdx])).toEqual([[0, 0], [1, 0], [2, 0]])
+    expect(three.map(x => x.restAfter > 0)).toEqual([false, false, true])
+    const four = L.upcomingSets(S({ id: 'a', cur: 0, entries: [
+      entry('0025', [set()], { sg: 'g' }), entry('0043', [set()], { sg: 'g' }),
+      entry('0001', [set()], { sg: 'g' }), entry('0007', [set()], { sg: 'g' }),
+    ] }))
+    expect(four.map(x => [x.entryIdx, x.setIdx])).toEqual([[0, 0], [1, 0], [2, 0], [3, 0]])
+    expect(four.map(x => x.restAfter > 0)).toEqual([false, false, false, true])
+  })
   it('is empty without a workout', () => {
     expect(L.upcomingSets(S(null))).toEqual([])
   })
