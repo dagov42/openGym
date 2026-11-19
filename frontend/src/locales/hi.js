@@ -5973,4 +5973,8 @@ export default {
   "Add next exercise to this superset": "इस सुपरसेट में अगला व्यायाम जोड़ें",
   "Remove from superset": "सुपरसेट से हटाएँ",
   "A superset holds up to {0} exercises": "सुपरसेट में अधिकतम {0} व्यायाम होते हैं",
+  "Weight changes": "वज़न में बदलाव",
+  "Weight changes apply to the following sets": "वज़न के बदलाव अगले सेटों पर लागू होते हैं",
+  "Off: a new weight stays on the set you edit.": "बंद: नया वज़न सिर्फ़ उसी सेट में रहता है जिसे आप बदलते हैं।",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "यह सिर्फ़ चालू वर्कआउट को बदलता है। रूटीन का तय वज़न व्यायाम सेटिंग्स में बदला जाता है।",
 }

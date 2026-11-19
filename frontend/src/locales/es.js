@@ -5973,4 +5973,8 @@ export default {
   "Add next exercise to this superset": "Añadir el siguiente ejercicio a esta superserie",
   "Remove from superset": "Quitar de la superserie",
   "A superset holds up to {0} exercises": "Una superserie admite hasta {0} ejercicios",
+  "Weight changes": "Cambios de peso",
+  "Weight changes apply to the following sets": "Los cambios de peso se aplican a las series siguientes",
+  "Off: a new weight stays on the set you edit.": "Desactivado: el nuevo peso se queda solo en la serie que editas.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Solo cambia el entrenamiento en curso. El peso planificado de la rutina se edita en los ajustes del ejercicio.",
 }

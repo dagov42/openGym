@@ -1,7 +1,8 @@
 # One working set's weight without the cascade
 
-Status: candidate, designed 2026-11-16 (issue #1166). Open questions at the end must be answered before an
-implementation plan. Nothing implemented.
+Status: implemented 2026-11-19. The v1 switch is in Settings → Workout → Fine-tuning, on by
+default; only the boolean false turns the cascade off. The phase 2 toast was not built; the four new
+labels are translated in all 25 locale packs.
 
 ## Why
 
@@ -46,11 +47,32 @@ same result. The switch is the smaller promise and matches the issue's wording.
 ## Where the logic lives
 
 - `frontend/src/lib/history.js` `cascadeWeight` is unchanged; the caller decides whether to call it.
-- `frontend/src/views/Workout.jsx` `setField` (`:1589`): read `S.weightCascade !== false` before the
-  `cascadeWeight` call. The edited row is marked `WEIGHT_ORIGIN_MANUAL` in both cases, so a later edit still
-  behaves like a manual exception.
-- A tiny pure helper (or just the boolean) so the tests can read the decision without a view.
+  `weightCascadeOn(S)` is the one small pure helper, tested beside it.
+- `frontend/src/views/Workout.jsx` `setField` and the per-side `setSide`: read `weightCascadeOn(S)`
+  before the `cascadeWeight` call. The edited row is marked `WEIGHT_ORIGIN_MANUAL` in both cases, so a
+  later edit still behaves like a manual exception.
+- `frontend/src/views/Settings.jsx`: the Fine-tuning switch writes `S.weightCascade`.
+- `frontend/src/store/useStore.js`: `DEF.weightCascade = true`; absent profiles stay on.
 - No change to `buildWorkSets`, back-off seeding or the watch's weight path.
+
+## Strings
+
+- English source strings through `t()`; the labels are translated in all 25 packs, no English-only
+  fallback remains. The setting is stored as a boolean, never as a translated string; a hostile
+  `"false"` stays on (see edge cases).
+
+## Sync, tokens, merge
+
+- `S.weightCascade` is a plain setting, not an owned merge or a per-key map: `stampEdits` records it in
+  `S.edited.weightCascade` and `applyEdits` takes the copy that changed it last, whole. No new `OWN_MERGE`,
+  `PER_KEY` or `STAMPED_MAPS` entry; both sync implementations (`frontend/src/lib/sync-merge.js` and
+  `api/sync-stamps.js`) already handle it.
+- Tokens: no `KEY_CATEGORY` entry, so it stays a setting — any token that reads anything may see it, and no
+  token may write it. It is not in `NEVER`; a boolean carries nothing personal.
+- Merge/backup: the value rides in `S` automatically; a backup round-trip keeps it, and a restore that stamps
+  settings follows the same "last change wins" rule. Sync applies the same `false`-only reading as the loader:
+  only the boolean `false` turns the cascade off.
+- No new route, and `api/openapi.yaml` describes the state document generically.
 
 ## Edge cases
 
@@ -68,17 +90,21 @@ same result. The switch is the smaller promise and matches the issue's wording.
 
 ## Tests
 
-- Current cascade cases still pass with the switch absent or on.
-- Switch off: one set's weight changes, the following rows keep their values, the edited row is manual, a
-  second edit of that row still does not propagate.
-- Per-side, warm-up, back-off and done-row cases with the switch off.
-- Settings row persists and syncs; a backup round-trip keeps it.
-- The phase 2 toast, if built: the action restores the exact previous rows.
+- `lib/history.test.js`: `weightCascadeOn` reads only the boolean false; the existing cascade cases
+  still pass with the switch absent or on.
+- `views/Workout.weight-cascade.test.jsx`: switch off, one set's weight changes, the following rows
+  keep their values, the edited row is manual; default on still carries the edit.
+- `views/settings-pages.test.jsx`: the Fine-tuning row is present, on by default, and writes
+  `S.weightCascade = false`.
+- `lib/sync-merge.test.js`: `weightCascade` is one stamped setting and the last change wins whole.
+- Per-side, warm-up, back-off and done-row rules remain the existing `cascadeWeight` tests; the
+  switch only decides whether that pure function is called.
+- The phase 2 toast was not built.
 
 ## Open questions
 
-1. **Switch vs per-edit action:** the switch first (proposed) or the toast first? Proposal: the switch; it is
-   the smallest change and covers the issue. The toast is a nice follow-up.
-2. **Default:** on (proposed, preserves today) or off (the issue's preference, but it changes everyone's
-   behaviour). Proposal: on.
-3. **Where in Settings:** "During a workout", next to the workout-controls switches (proposed).
+Resolved for this implementation:
+
+1. **Switch vs per-edit action:** the switch, as proposed. The toast stays a future follow-up.
+2. **Default:** on, so nobody's existing habit changes silently.
+3. **Where in Settings:** Fine-tuning under During a workout, next to the workout-controls switches.

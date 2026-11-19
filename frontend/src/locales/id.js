@@ -5938,4 +5938,8 @@ export default {
   "Add next exercise to this superset": "Tambahkan latihan berikutnya ke superset ini",
   "Remove from superset": "Hapus dari superset",
   "A superset holds up to {0} exercises": "Superset berisi maksimal {0} latihan",
+  "Weight changes": "Perubahan beban",
+  "Weight changes apply to the following sets": "Perubahan beban berlaku untuk set berikutnya",
+  "Off: a new weight stays on the set you edit.": "Mati: beban baru hanya tersimpan pada set yang diedit.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Ini hanya mengubah latihan yang sedang berjalan. Beban rencana rutin diedit di pengaturan latihan.",
 };

@@ -826,6 +826,13 @@ export default function Settings({ page = null, find = null, via = null, entryKe
             <Switch checked={wc.exerciseButtons} onChange={v => setWc('exerciseButtons', v)} />
           </Row>
         </Section>
+        <Section title={t('Weight changes')} footer={t('This only changes a live workout. The routine’s planned weight is edited in the exercise settings.')}>
+          <Row icon="scale" iconTint="var(--orange)" title={t('Weight changes apply to the following sets')}
+            subtitle={t('Off: a new weight stays on the set you edit.')}>
+            <Switch aria-label={t('Weight changes apply to the following sets')} checked={S.weightCascade !== false}
+              onChange={v => update(s => { s.weightCascade = v })} />
+          </Row>
+        </Section>
       </>
     },
 

@@ -5993,4 +5993,8 @@ export default {
   "Add next exercise to this superset": "Nächste Übung zu diesem Superset hinzufügen",
   "Remove from superset": "Aus dem Superset entfernen",
   "A superset holds up to {0} exercises": "Ein Superset fasst bis zu {0} Übungen",
+  "Weight changes": "Gewichtsänderungen",
+  "Weight changes apply to the following sets": "Gewichtsänderungen gelten für die folgenden Sätze",
+  "Off: a new weight stays on the set you edit.": "Aus: Ein neues Gewicht bleibt nur im bearbeiteten Satz.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Das betrifft nur eine laufende Einheit. Das geplante Gewicht der Routine wird in den Übungseinstellungen bearbeitet.",
 }

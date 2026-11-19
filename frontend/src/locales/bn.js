@@ -6052,4 +6052,8 @@ export default {
   "Add next exercise to this superset": "এই সুপারসেটে পরের ব্যায়াম যোগ করুন",
   "Remove from superset": "সুপারসেট থেকে সরান",
   "A superset holds up to {0} exercises": "একটি সুপারসেটে সর্বোচ্চ {0}টি ব্যায়াম থাকে",
+  "Weight changes": "ওজনের পরিবর্তন",
+  "Weight changes apply to the following sets": "ওজনের পরিবর্তন পরের সেটগুলোতে প্রযোজ্য",
+  "Off: a new weight stays on the set you edit.": "বন্ধ: নতুন ওজন শুধু আপনি যে সেটটি সম্পাদনা করছেন সেটিতেই থাকে।",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "এটি শুধু চলমান ওয়ার্কআউটে প্রযোজ্য। রুটিনের পরিকল্পিত ওজন ব্যায়ামের সেটিংসে সম্পাদনা করা হয়।",
 }

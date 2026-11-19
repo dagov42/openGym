@@ -5969,4 +5969,8 @@ export default {
   "Add next exercise to this superset": "Pridėti kitą pratimą į šį supersetą",
   "Remove from superset": "Pašalinti iš superseto",
   "A superset holds up to {0} exercises": "Supersete gali būti iki {0} pratimų",
+  "Weight changes": "Svorio pakeitimai",
+  "Weight changes apply to the following sets": "Svorio pakeitimai taikomi kitiems setams",
+  "Off: a new weight stays on the set you edit.": "Išjungta: naujas svoris lieka tik redaguotame sete.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Tai keičia tik vykstančią treniruotę. Suplanuotas rutinos svoris keičiamas pratimo nustatymuose.",
 }

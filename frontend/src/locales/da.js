@@ -5913,4 +5913,8 @@ export default {
   "Add next exercise to this superset": "Tilføj næste øvelse til dette supersæt",
   "Remove from superset": "Fjern fra supersæt",
   "A superset holds up to {0} exercises": "Et supersæt rummer højst {0} øvelser",
+  "Weight changes": "Vægtændringer",
+  "Weight changes apply to the following sets": "Vægtændringer gælder for de følgende sæt",
+  "Off: a new weight stays on the set you edit.": "Fra: en ny vægt bliver kun på det sæt, du redigerer.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Det ændrer kun en igangværende træning. Rutinens planlagte vægt redigeres i øvelsesindstillingerne.",
 }

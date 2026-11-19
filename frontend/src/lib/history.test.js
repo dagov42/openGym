@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { nextTrainingDay, modeOf, isTimed, fmtSec, setLabel, defaultConfig, pickedExerciseConfig, lastLoggedShape, buildSets, freestyleConfig, exLine, workoutVolume, bestWeightFor, bestWeightForEntry, completedRepsOf, metricRowsForEntry, effortOf, stepEffort, capEffort, isBw, isPerSide, sideReps, repStep, cascadeWeight, insertWarmupRow, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, workSetsDone, setsDone, setsDoneActive, setUnits, doneUnits, setUnitsTotal, pairAdjacent, unpairSuperset, supersetUnits, sessionSections, applyIntensifierPlan, pinnedNoteFor, exNoteFor, effectiveRoutineIds, effectiveRoutines, effectiveRoutineId, effectiveRoutine, lastEntryFor, entryExcluded, entryRoutineId, setsRepsOf, newExDefaultsOf, NEW_EX_DEFAULTS, MAX_SUPERSET, mergedSupersetSize, canPairSuperset, dissolveSuperset } from './history.js'
+import { nextTrainingDay, modeOf, isTimed, fmtSec, setLabel, defaultConfig, pickedExerciseConfig, lastLoggedShape, buildSets, freestyleConfig, exLine, workoutVolume, bestWeightFor, bestWeightForEntry, completedRepsOf, metricRowsForEntry, effortOf, stepEffort, capEffort, isBw, isPerSide, sideReps, repStep, cascadeWeight, weightCascadeOn, insertWarmupRow, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, workSetsDone, setsDone, setsDoneActive, setUnits, doneUnits, setUnitsTotal, pairAdjacent, unpairSuperset, supersetUnits, sessionSections, applyIntensifierPlan, pinnedNoteFor, exNoteFor, effectiveRoutineIds, effectiveRoutines, effectiveRoutineId, effectiveRoutine, lastEntryFor, entryExcluded, entryRoutineId, setsRepsOf, newExDefaultsOf, NEW_EX_DEFAULTS, MAX_SUPERSET, mergedSupersetSize, canPairSuperset, dissolveSuperset } from './history.js'
 import { makeSideSet, setSideField, toggleSide, WEIGHT_ORIGIN_MANUAL } from './workout-model.js'
 import { EXDB } from './exercises.js'
 import { todayISO, isoOf } from './format.js'
@@ -959,8 +959,7 @@ describe('workoutVolume', () => {
   })
 })
 
-describe('superset editing', () => {
-  it('pairs adjacent entries without mutating the source and keeps the display units contiguous', () => {
+describe('superset editing', () => {  it('pairs adjacent entries without mutating the source and keeps the display units contiguous', () => {
     const entries = [{ id: 'a' }, { id: 'b' }, { id: 'c' }]
     const paired = pairAdjacent(entries, 1, 2, 'sg-new')
 
@@ -1086,6 +1085,14 @@ describe('sessionSections', () => {
 
 
 describe('session row helpers', () => {
+  it('reads the weight-cascade switch only as the boolean false', () => {
+    expect(weightCascadeOn(undefined)).toBe(true)
+    expect(weightCascadeOn({})).toBe(true)
+    expect(weightCascadeOn({ weightCascade: true })).toBe(true)
+    expect(weightCascadeOn({ weightCascade: false })).toBe(false)
+    expect(weightCascadeOn({ weightCascade: 'false' })).toBe(true)
+  })
+
   it('cascadeWeight propagates to same-flag undone rows and never rewrites done sets', () => {
     const rows = [
       { warmup: true, w: 20, done: true },

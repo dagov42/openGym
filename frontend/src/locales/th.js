@@ -5984,4 +5984,8 @@ export default {
   "Add next exercise to this superset": "เพิ่มท่าออกกำลังกายถัดไปในซุปเปอร์เซ็ตนี้",
   "Remove from superset": "นำออกจากซุปเปอร์เซ็ต",
   "A superset holds up to {0} exercises": "ซุปเปอร์เซ็ตมีได้สูงสุด {0} ท่าออกกำลังกาย",
+  "Weight changes": "การเปลี่ยนน้ำหนัก",
+  "Weight changes apply to the following sets": "การเปลี่ยนน้ำหนักมีผลกับเซ็ตถัดไป",
+  "Off: a new weight stays on the set you edit.": "ปิด: น้ำหนักใหม่จะอยู่เฉพาะเซ็ตที่คุณแก้ไข",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "สิ่งนี้เปลี่ยนเฉพาะการออกกำลังกายที่กำลังทำอยู่ น้ำหนักที่วางแผนไว้ของรูทีนแก้ไขได้ในการตั้งค่าท่าออกกำลังกาย",
 }

@@ -5973,4 +5973,8 @@ export default {
   "Add next exercise to this superset": "Bu süper sete sonraki egzersizi ekle",
   "Remove from superset": "Süper setten çıkar",
   "A superset holds up to {0} exercises": "Bir süper set en fazla {0} egzersiz içerir",
+  "Weight changes": "Ağırlık değişiklikleri",
+  "Weight changes apply to the following sets": "Ağırlık değişiklikleri sonraki setlere uygulanır",
+  "Off: a new weight stays on the set you edit.": "Kapalı: yeni ağırlık yalnızca düzenlediğiniz sette kalır.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Bu yalnızca devam eden antrenmanı değiştirir. Rutinin planlanan ağırlığı egzersiz ayarlarında düzenlenir.",
 }

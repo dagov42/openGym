@@ -11,7 +11,7 @@ import { bestsFor, lastRowFor, oddValues } from '../lib/typo-check.js'
 import { usesBar } from '../lib/bar.js'
 import { loadKindFor, baseWeightFor, inventoryFor, rowLoad, sameLoad, plateDelta, dropGrid } from '../lib/plates.js'
 import { plateText } from '../lib/plate-text.js'
-import { effectiveRoutines, effectiveRoutineIds, lastEntryFor, bestWeightFor, bestWeightForEntry, freestyleConfig, pickedExerciseConfig, setsDoneActive, setUnitsTotal, supersetUnits, unitOf, setLabel, modeOf, isBw, isPerSide, repStep, EFFORT, effortOf, stepEffort, capEffort, cascadeWeight, liveReramp, insertWarmupRow, barFloor, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, copyRowAt, copySpanAt, insertRowAt, pairAdjacent, unpairSuperset, cleanupSg, applyIntensifierPlan, pinnedNoteFor, exNoteFor, setsRepsOf, sessionVolume, MAX_SUPERSET, canPairSuperset, dissolveSuperset } from '../lib/history.js'
+import { effectiveRoutines, effectiveRoutineIds, lastEntryFor, bestWeightFor, bestWeightForEntry, freestyleConfig, pickedExerciseConfig, setsDoneActive, setUnitsTotal, supersetUnits, unitOf, setLabel, modeOf, isBw, isPerSide, repStep, EFFORT, effortOf, stepEffort, capEffort, cascadeWeight, weightCascadeOn, liveReramp, insertWarmupRow, barFloor, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, copyRowAt, copySpanAt, insertRowAt, pairAdjacent, unpairSuperset, cleanupSg, applyIntensifierPlan, pinnedNoteFor, exNoteFor, setsRepsOf, sessionVolume, MAX_SUPERSET, canPairSuperset, dissolveSuperset } from '../lib/history.js'
 import { cleanNum, fmtNum, fmtPlate, fmtVol, fmtWeight, exerciseNameText, fmtDate, fmtDaysAgo, todayISO, exCount, DAYN } from '../lib/format.js'
 import { speedUnitOf, toSpeed, fromSpeed } from '../lib/speed.js'
 import { byDistance, withCardioBy, distUnitOf, distLabel, toDist, fromDist, distanceKmOf, settleSpeed } from '../lib/distance.js'
@@ -290,7 +290,7 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
       const row = setSideField(e.sets[i], side, field, v)
       row.sides[side].weightOrigin = WEIGHT_ORIGIN_MANUAL
       e.sets[i] = markWarmupEdited(row, field)
-      e.sets = cascadeWeight(e.sets, i, v, side, e.target?.backoffStep)
+      if (weightCascadeOn(s)) e.sets = cascadeWeight(e.sets, i, v, side, e.target?.backoffStep)
       rerampOpen(s, e, i)
     }), true)
   }
@@ -1631,7 +1631,7 @@ function ActiveWorkout() {
     // warm-up edit stays on its own row, and the later rungs keep their ramp loads.
     if (field === 'w') {
       e.sets[i].weightOrigin = WEIGHT_ORIGIN_MANUAL
-      e.sets = cascadeWeight(e.sets, i, v, undefined, e.target?.backoffStep)
+      if (weightCascadeOn(useStore.getState().S)) e.sets = cascadeWeight(e.sets, i, v, undefined, e.target?.backoffStep)
       rerampOpen(useStore.getState().S, e, i)
     }
     // A warm-up you changed is yours from now on ("Your last session" carries it, #525).

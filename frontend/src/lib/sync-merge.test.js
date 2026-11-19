@@ -77,6 +77,14 @@ describe('mergeStates', () => {
     expect(m2.routines.find(r => r.id === 'shared').name).toBe('from B')
   })
 
+  it('weightCascade is one stamped setting, and the last change wins whole', () => {
+    const local = base({ weightCascade: false, _ts: 100 })
+    stampEdits(base({ weightCascade: true }), local, 200)
+    const remote = base({ weightCascade: true, _ts: 300 })
+    expect(mergeStates(local, remote).weightCascade).toBe(false)
+    expect(mergeStates(remote, local).weightCascade).toBe(false)
+  })
+
   it('bodyweight keeps the later-edited entry of a day, exWeights the larger weight, notes union', () => {
     const m = mergeStates(A(), B())
     expect(m.bodyweight.find(b => b.d === '2026-09-01')).toEqual({ d: '2026-09-01', w: 79, t: 20 })

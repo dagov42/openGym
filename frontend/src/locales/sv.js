@@ -6020,4 +6020,8 @@ export default {
   "Add next exercise to this superset": "Lägg till nästa övning i detta superset",
   "Remove from superset": "Ta bort från superset",
   "A superset holds up to {0} exercises": "Ett superset rymmer upp till {0} övningar",
+  "Weight changes": "Viktändringar",
+  "Weight changes apply to the following sets": "Viktändringar gäller för följande set",
+  "Off: a new weight stays on the set you edit.": "Av: en ny vikt stannar bara på setet du redigerar.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Det ändrar bara ett pågående pass. Rutinens planerade vikt redigeras i övningsinställningarna.",
 }

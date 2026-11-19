@@ -5939,4 +5939,8 @@ export default {
   "Add next exercise to this superset": "Thêm bài tập tiếp theo vào superset này",
   "Remove from superset": "Xóa khỏi superset",
   "A superset holds up to {0} exercises": "Một superset chứa tối đa {0} bài tập",
+  "Weight changes": "Thay đổi mức tạ",
+  "Weight changes apply to the following sets": "Thay đổi mức tạ áp dụng cho các hiệp sau",
+  "Off: a new weight stays on the set you edit.": "Tắt: mức tạ mới chỉ giữ ở hiệp bạn sửa.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Chỉ thay đổi buổi tập đang diễn ra. Mức tạ dự kiến của giáo án được sửa trong cài đặt bài tập.",
 };

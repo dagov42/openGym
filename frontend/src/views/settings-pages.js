@@ -203,6 +203,7 @@ export const SEARCH = [
   { page: 'advanced', title: 'Muscle map at the top', icon: 'figureStrength', tint: 'var(--orange)', kw: 'muscle map body figure diagram workout header lights up workout controls' },
   { page: 'advanced', title: 'Superset buttons in the exercise header', icon: 'link', tint: 'var(--blue)', kw: 'superset pair workout controls' },
   { page: 'advanced', title: 'Move, swap and remove buttons below the exercise', icon: 'swap', tint: 'var(--teal)', kw: 'move swap remove replace workout controls' },
+  { page: 'advanced', title: 'Weight changes apply to the following sets', icon: 'scale', tint: 'var(--orange)', kw: 'weight cascade following sets apply one set only back-off backoff' },
   // Timer alerts
   { page: 'alerts', title: 'Play a sound', icon: 'speaker', tint: 'var(--pink)', kw: 'sound sounds audio beep chime volume' },
   { page: 'alerts', title: 'Sound', icon: 'bell', tint: 'var(--pink)', kw: 'classic timer sound beep chime tone bell whistle soft ringtone custom rest end', opts: ['Chime (louder)', 'Classic beeps', 'Bell', 'Beep-beep', 'Whistle', 'Soft'], when: c => c.sound },

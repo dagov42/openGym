@@ -1189,6 +1189,12 @@ export { streakWeeks } from './streak.js'
  * one more step below the edited one rather than at the same load, so 26 → 27.5 on the top set
  * makes the back-off sets 25.5 and 23.5, not 27.5 three times.
  */
+/**
+ * Whether a live weight edit should carry into the following inherited work sets. Only the
+ * boolean false turns it off; an absent value (old profile) and a hostile string both stay on.
+ */
+export const weightCascadeOn = S => S?.weightCascade !== false
+
 export function cascadeWeight(rows, from, value, side, backoffStep = 0) {
   const source = rows[from]
   if (!source || isWarmupRow(source)) return rows.slice()

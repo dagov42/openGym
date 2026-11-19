@@ -5939,4 +5939,8 @@ export default {
   "Add next exercise to this superset": "Přidat následující cvičení do této supersérie",
   "Remove from superset": "Odebrat ze supersérie",
   "A superset holds up to {0} exercises": "Supersérie pojme nejvýše {0} cvičení",
+  "Weight changes": "Změny hmotnosti",
+  "Weight changes apply to the following sets": "Změny hmotnosti platí pro následující série",
+  "Off: a new weight stays on the set you edit.": "Vypnuto: nová hmotnost zůstane jen u upravené série.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Mění jen probíhající trénink. Plánovaná hmotnost rutiny se upravuje v nastavení cvičení.",
 }

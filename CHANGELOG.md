@@ -29,6 +29,8 @@ A small updater fix and keyboard shortcuts.
 - Supersets can grow to four members from the group itself. Unpair dissolves the whole group and
   Remove from superset takes one member out; a fifth is refused with a toast. Circuits and imported
   groups keep working as they are.
+- Settings → Workout → Fine-tuning can keep a weight change on the set you edit. It is on by default;
+  turn it off when one top set or back-off should not move the following sets.
 
 ## v1.4.9 (2026-11-18)
 

@@ -5939,4 +5939,8 @@ export default {
   "Add next exercise to this superset": "تمرین بعدی را به این سوپرست اضافه کنید",
   "Remove from superset": "حذف از سوپرست",
   "A superset holds up to {0} exercises": "یک سوپرست حداکثر {0} تمرین دارد",
+  "Weight changes": "تغییرات وزن",
+  "Weight changes apply to the following sets": "تغییرات وزن به ست‌های بعدی اعمال می‌شود",
+  "Off: a new weight stays on the set you edit.": "خاموش: وزن جدید فقط در ست ویرایش‌شده می‌ماند.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "فقط تمرین در حال اجرا را تغییر می‌دهد. وزن برنامه‌ریزی‌شدهٔ روال در تنظیمات تمرین ویرایش می‌شود.",
 }

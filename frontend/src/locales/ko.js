@@ -5973,4 +5973,8 @@ export default {
   "Add next exercise to this superset": "이 슈퍼세트에 다음 운동 추가",
   "Remove from superset": "슈퍼세트에서 제거",
   "A superset holds up to {0} exercises": "슈퍼세트는 최대 {0}개의 운동을 포함합니다",
+  "Weight changes": "무게 변경",
+  "Weight changes apply to the following sets": "무게 변경이 다음 세트에도 적용됩니다",
+  "Off: a new weight stays on the set you edit.": "끔: 새 무게는 편집한 세트에만 유지됩니다.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "진행 중인 운동만 변경합니다. 루틴의 계획 무게는 운동 설정에서 편집합니다.",
 }

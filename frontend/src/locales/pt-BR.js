@@ -4334,6 +4334,11 @@ export const PT_BR_OVERRIDES = {
   "Timer wheels": "Rodas do temporizador",
   "Seconds in steps of 1 or 5": "Segundos de 1 em 1 ou de 5 em 5",
   "{0} day a week": "{0} dia por semana",
+  // Weight cascade (Settings) in Brazilian wording.
+  "Weight changes": "Mudanças de peso",
+  "Weight changes apply to the following sets": "As mudanças de peso se aplicam às séries seguintes",
+  "Off: a new weight stays on the set you edit.": "Desligado: o novo peso fica apenas na série que você editar.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Isso só altera o treino em andamento. O peso planejado da rotina é editado nas configurações do exercício.",
 }
 
 export default { ...pt, ...PT_BR_OVERRIDES }

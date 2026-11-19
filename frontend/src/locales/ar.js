@@ -6028,4 +6028,8 @@ export default {
   "Add next exercise to this superset": "أضف التمرين التالي إلى هذه المجموعة",
   "Remove from superset": "إزالة من المجموعة",
   "A superset holds up to {0} exercises": "تحتوي المجموعة على {0} تمارين كحد أقصى",
+  "Weight changes": "تغييرات الوزن",
+  "Weight changes apply to the following sets": "تغييرات الوزن تنطبق على المجموعات التالية",
+  "Off: a new weight stays on the set you edit.": "إيقاف: الوزن الجديد يبقى في المجموعة التي تعدّلها فقط.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "هذا يغيّر التمرين الحالي فقط. الوزن المخطط في البرنامج يُعدّل من إعدادات التمرين.",
 }

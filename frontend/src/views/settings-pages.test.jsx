@@ -472,7 +472,7 @@ describe('the pages', () => {
     expect([...host.querySelectorAll('.sect-f')].some(f => /screen stays on/.test(f.textContent))).toBe(false)
     mount('advanced')
     expect(titles()).toEqual(['Default progression', 'Deload weeks', 'Suggest a deload when I need one', 'Planned sessions start from', 'Last time means', 'Keep timing after target', 'Timed holds start by themselves', 'Weight and reps buttons',
-      'Drop and burst shortcuts on every set', 'Swipe actions', 'Exercise chips at the top', 'Muscle map at the top', 'Superset buttons in the exercise header', 'Move, swap and remove buttons below the exercise'])
+      'Drop and burst shortcuts on every set', 'Swipe actions', 'Exercise chips at the top', 'Muscle map at the top', 'Superset buttons in the exercise header', 'Move, swap and remove buttons below the exercise', 'Weight changes apply to the following sets'])
   })
 
   it('Default progression shows linear on an older profile and writes S.progDefault', () => {
@@ -513,6 +513,11 @@ describe('the pages', () => {
     expect(map.getAttribute('aria-checked')).toBe('true')
     act(() => map.click())
     expect(mocks.S.wc.muscleMap).toBe(false)
+    // The weight cascade is its own setting, not a wc control: default on, only false turns it off.
+    const cascade = rowTitled('Weight changes apply to the following sets').querySelector('[role="switch"]')
+    expect(cascade.getAttribute('aria-checked')).toBe('true')
+    act(() => cascade.click())
+    expect(mocks.S.weightCascade).toBe(false)
   })
 
   it('a sub-page names where back goes; Fine-tuning goes back to Workout', () => {

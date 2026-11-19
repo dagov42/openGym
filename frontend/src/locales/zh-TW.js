@@ -5966,4 +5966,8 @@ export default {
   "Add next exercise to this superset": "將下一個動作加入此超級組",
   "Remove from superset": "從超級組移除",
   "A superset holds up to {0} exercises": "一個超級組最多包含 {0} 個動作",
+  "Weight changes": "重量變更",
+  "Weight changes apply to the following sets": "重量變更會套用到後續組數",
+  "Off: a new weight stays on the set you edit.": "關閉：新重量只保留在你編輯的那一組。",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "這只會改變進行中的訓練。課表的預定重量可在動作設定中編輯。",
 }

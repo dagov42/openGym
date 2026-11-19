@@ -5976,4 +5976,8 @@ export default {
   "Add next exercise to this superset": "Következő gyakorlat hozzáadása ehhez a szuperkészlethez",
   "Remove from superset": "Eltávolítás a szuperkészletből",
   "A superset holds up to {0} exercises": "Egy szuperkészlet legfeljebb {0} gyakorlatot tartalmaz",
+  "Weight changes": "Súlyváltozások",
+  "Weight changes apply to the following sets": "A súlyváltozások a következő sorozatokra érvényesek",
+  "Off: a new weight stays on the set you edit.": "Ki: az új súly csak a szerkesztett sorozaton marad.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Csak az aktuális edzést módosítja. A rutin tervezett súlya a gyakorlat beállításaiban szerkeszthető.",
 }

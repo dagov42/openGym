@@ -5970,4 +5970,8 @@ export default {
   "Add next exercise to this superset": "Додати наступну вправу до цього суперсету",
   "Remove from superset": "Прибрати з суперсету",
   "A superset holds up to {0} exercises": "У суперсеті до {0} вправ",
+  "Weight changes": "Зміни ваги",
+  "Weight changes apply to the following sets": "Зміни ваги застосовуються до наступних підходів",
+  "Off: a new weight stays on the set you edit.": "Вимк.: нова вага залишається лише в зміненому підході.",
+  "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Це впливає лише на поточну тренировку. Планова вага програми змінюється в налаштуваннях вправи.",
 }
