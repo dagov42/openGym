@@ -5942,4 +5942,7 @@ export default {
   "Weight changes apply to the following sets": "Perubahan beban berlaku untuk set berikutnya",
   "Off: a new weight stays on the set you edit.": "Mati: beban baru hanya tersimpan pada set yang diedit.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Ini hanya mengubah latihan yang sedang berjalan. Beban rencana rutin diedit di pengaturan latihan.",
+  "Locker {0}": "Loker {0}",
+  "Locker number (optional)": "Nomor loker (opsional)",
+  "e.g. B-42": "mis. B-42",
 };

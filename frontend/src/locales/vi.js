@@ -5943,4 +5943,7 @@ export default {
   "Weight changes apply to the following sets": "Thay đổi mức tạ áp dụng cho các hiệp sau",
   "Off: a new weight stays on the set you edit.": "Tắt: mức tạ mới chỉ giữ ở hiệp bạn sửa.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Chỉ thay đổi buổi tập đang diễn ra. Mức tạ dự kiến của giáo án được sửa trong cài đặt bài tập.",
+  "Locker {0}": "Tủ {0}",
+  "Locker number (optional)": "Số tủ (không bắt buộc)",
+  "e.g. B-42": "ví dụ B-42",
 };

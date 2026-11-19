@@ -136,6 +136,7 @@ const openSheet = async () => {
 }
 const sheetBtn = label => [...sheetHost.querySelectorAll('button')].find(b => b.textContent === label)
 const labelField = () => sheetHost.querySelector('input.field')
+const lockerField = () => [...sheetHost.querySelectorAll('input.field')][1]
 const fileInput = () => sheetHost.querySelector('input[type="file"]')
 const tap = async el => { await act(async () => { el.click(); await new Promise(r => setTimeout(r, 0)) }) }
 const typeInto = (el, value) => act(() => {
@@ -146,6 +147,15 @@ const typeInto = (el, value) => act(() => {
 /* ================================ tests ================================ */
 
 describe('CheckIn — the rail reopens where you left it', () => {
+  it('shows the card’s locker under its label, and nothing when there is none', async () => {
+    mocks.S = { gymCards: [card('a', { locker: 'B-42' }), card('b')], lastGymCardId: 'a' }
+    mount()
+    const faces = [...host.querySelectorAll('.ci-card')]
+    expect(faces[0].querySelector('.ci-locker').textContent).toBe('Locker B-42')
+    expect(faces[0].querySelector('.ci-locker').getAttribute('aria-label')).toBe('Locker B-42')
+    expect(faces[1].querySelector('.ci-locker')).toBeNull()
+  })
+
   it('opens on the last-used card rather than the first', () => {
     withRailWidth(300)
     mocks.S = { gymCards: [card('a'), card('b'), card('c')], lastGymCardId: 'c' }
@@ -349,17 +359,28 @@ describe('CheckIn — adding a card', () => {
     mocks.scanCode.mockResolvedValue({ value: 'MEMBER-9931', fmt: 'qrcode' })
     const { close } = await openAdd()
     typeInto(labelField(), 'FitZone downtown')
+    typeInto(lockerField(), '  B-42  ')
     await tap(sheetBtn('Scan'))
     await tap(sheetBtn('Save card'))
 
     expect(mocks.S.gymCards).toHaveLength(1)
     const saved = mocks.S.gymCards[0]
-    expect(saved).toMatchObject({ label: 'FitZone downtown', value: 'MEMBER-9931', fmt: 'qrcode' })
+    expect(saved).toMatchObject({ label: 'FitZone downtown', value: 'MEMBER-9931', fmt: 'qrcode', locker: 'B-42' })
     expect(saved.id).toBeTruthy()
     expect(mocks.S.lastGymCardId).toBe(saved.id)
     expect(mocks.writes).toEqual([{ push: true }])
     expect(mocks.toast).toHaveBeenCalledWith('Card added')
     expect(close).toHaveBeenCalledTimes(1)
+  })
+
+  it('an empty locker is stored as absent', async () => {
+    mocks.MOBILE = true
+    mocks.scanCode.mockResolvedValue({ value: 'MEMBER-9931', fmt: 'qrcode' })
+    await openAdd()
+    typeInto(lockerField(), '   ')
+    await tap(sheetBtn('Scan'))
+    await tap(sheetBtn('Save card'))
+    expect('locker' in mocks.S.gymCards[0]).toBe(false)
   })
 
   it('an unnamed card gets a name, and a code with stray whitespace is stored trimmed', async () => {
@@ -596,6 +617,23 @@ describe('CheckIn — editing a card', () => {
     expect(mocks.S.gymCards[1]).toMatchObject({ id: 'b', label: 'FitZone North', value: 'code-b', fmt: 'qrcode' })
     expect(mocks.toast).toHaveBeenCalledWith('Card updated')
     expect(close).toHaveBeenCalledTimes(1)
+  })
+
+  it('edits a card’s label and locker without touching its code', async () => {
+    const { close } = await openEdit('b', [card('a'), card('b', { locker: 'B-42' })])
+    expect(lockerField().value).toBe('B-42')
+    typeInto(labelField(), 'FitZone North')
+    typeInto(lockerField(), '  C-7  ')
+    await tap(sheetBtn('Save card'))
+    expect(mocks.S.gymCards[1]).toMatchObject({ id: 'b', label: 'FitZone North', value: 'code-b', locker: 'C-7' })
+    expect(close).toHaveBeenCalledTimes(1)
+  })
+
+  it('clearing a locker removes the key instead of storing an empty string', async () => {
+    await openEdit('b', [card('a'), card('b', { locker: 'B-42' })])
+    typeInto(lockerField(), '   ')
+    await tap(sheetBtn('Save card'))
+    expect('locker' in mocks.S.gymCards[1]).toBe(false)
   })
 
   it('a re-scan replaces the code and keeps the name', async () => {

@@ -5974,4 +5974,7 @@ export default {
   "Weight changes apply to the following sets": "Изменения веса применяются к следующим подходам",
   "Off: a new weight stays on the set you edit.": "Выкл.: новый вес остаётся только в изменённом подходе.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Это влияет только на текущую тренировку. Плановый вес программы меняется в настройках упражнения.",
+  "Locker {0}": "Шкафчик {0}",
+  "Locker number (optional)": "Номер шкафчика (необязательно)",
+  "e.g. B-42": "напр. B-42",
 }

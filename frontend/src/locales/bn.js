@@ -6056,4 +6056,7 @@ export default {
   "Weight changes apply to the following sets": "ওজনের পরিবর্তন পরের সেটগুলোতে প্রযোজ্য",
   "Off: a new weight stays on the set you edit.": "বন্ধ: নতুন ওজন শুধু আপনি যে সেটটি সম্পাদনা করছেন সেটিতেই থাকে।",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "এটি শুধু চলমান ওয়ার্কআউটে প্রযোজ্য। রুটিনের পরিকল্পিত ওজন ব্যায়ামের সেটিংসে সম্পাদনা করা হয়।",
+  "Locker {0}": "লকার {0}",
+  "Locker number (optional)": "লকার নম্বর (ঐচ্ছিক)",
+  "e.g. B-42": "যেমন B-42",
 }

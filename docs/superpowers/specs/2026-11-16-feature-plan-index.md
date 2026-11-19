@@ -30,7 +30,7 @@ improvements done while the larger one runs).
 | [`2026-11-16-session-length-design.md`](2026-11-16-session-length-design.md) | "≈55 min" on routines and the start preview | **Agreed** | 5 |
 | [`2026-11-16-lr-asymmetry-design.md`](2026-11-16-lr-asymmetry-design.md) | Left/right difference from the per-side data already logged | Candidate | 6 |
 | [`2026-11-16-rest-hint-design.md`](2026-11-16-rest-hint-design.md) | A rest suggestion read from logged RIR/RPE | Candidate | 7 |
-| [`2026-11-16-checkin-locker-design.md`](2026-11-16-checkin-locker-design.md) | Locker number on the gym check-in card (#1096) | Candidate | 7 |
+| [`2026-11-16-checkin-locker-design.md`](2026-11-16-checkin-locker-design.md) | Locker number on the gym check-in card (#1096) | **Done 2026-11-19** | 7 |
 | [`2026-11-16-single-set-weight-design.md`](2026-11-16-single-set-weight-design.md) | Change one working set's weight without the cascade (#1166) | **Done 2026-11-19** | 7 |
 | [`2026-11-16-injury-mode-design.md`](2026-11-16-injury-mode-design.md) | Flag an exercise that hurts, warn, offer the backup, pause progression | Candidate | 8 |
 | [`2026-11-16-plan-pause-design.md`](2026-11-16-plan-pause-design.md) | A holiday/illness pause that nags nobody and keeps the streak | **Agreed** | 9 |

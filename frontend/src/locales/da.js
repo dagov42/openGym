@@ -5917,4 +5917,7 @@ export default {
   "Weight changes apply to the following sets": "Vægtændringer gælder for de følgende sæt",
   "Off: a new weight stays on the set you edit.": "Fra: en ny vægt bliver kun på det sæt, du redigerer.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Det ændrer kun en igangværende træning. Rutinens planlagte vægt redigeres i øvelsesindstillingerne.",
+  "Locker {0}": "Skab {0}",
+  "Locker number (optional)": "Skabsnummer (valgfrit)",
+  "e.g. B-42": "f.eks. B-42",
 }

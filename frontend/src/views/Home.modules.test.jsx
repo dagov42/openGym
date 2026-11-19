@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-// Settings → Modules on Home: a module switched off takes its cards with it, and brings them
+// Settings в†’ Modules on Home: a module switched off takes its cards with it, and brings them
 // back when it is on again. Visibility only; what the cards do is their own tests'.
 import React, { act } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -65,5 +65,20 @@ describe('Home follows the modules', () => {
     expect(heads()).not.toContain('Check in')
     mountWith({ checkin: true }, { checkIn: false })
     expect(heads()).toContain('Check in')
+  })
+
+  it('shows the last-used cardвЂ™s locker under Check in, and nothing when it has none', () => {
+    mountWith(undefined, {
+      checkIn: true,
+      gymCards: [{ id: 'g1', label: 'FitZone', value: 'x', fmt: 'qrcode', locker: 'B-42' }],
+      lastGymCardId: 'g1',
+    })
+    expect(host.querySelector('.checkin-card .card-head-sub')?.textContent).toBe('Locker B-42')
+    mountWith(undefined, {
+      checkIn: true,
+      gymCards: [{ id: 'g1', label: 'FitZone', value: 'x', fmt: 'qrcode' }],
+      lastGymCardId: 'g1',
+    })
+    expect(host.querySelector('.checkin-card .card-head-sub')).toBeNull()
   })
 })

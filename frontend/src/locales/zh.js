@@ -5977,4 +5977,7 @@ export default {
   "Weight changes apply to the following sets": "重量更改会应用到后续组数",
   "Off: a new weight stays on the set you edit.": "关闭：新重量只保留在你编辑的那一组。",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "这只会改变进行中的训练。计划的预定重量可在动作设置中编辑。",
+  "Locker {0}": "储物柜 {0}",
+  "Locker number (optional)": "储物柜号码（选填）",
+  "e.g. B-42": "例如 B-42",
 }

@@ -6032,4 +6032,7 @@ export default {
   "Weight changes apply to the following sets": "تغييرات الوزن تنطبق على المجموعات التالية",
   "Off: a new weight stays on the set you edit.": "إيقاف: الوزن الجديد يبقى في المجموعة التي تعدّلها فقط.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "هذا يغيّر التمرين الحالي فقط. الوزن المخطط في البرنامج يُعدّل من إعدادات التمرين.",
+  "Locker {0}": "خزانة {0}",
+  "Locker number (optional)": "رقم الخزانة (اختياري)",
+  "e.g. B-42": "مثال: B-42",
 }

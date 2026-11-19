@@ -5977,4 +5977,7 @@ export default {
   "Weight changes apply to the following sets": "वज़न के बदलाव अगले सेटों पर लागू होते हैं",
   "Off: a new weight stays on the set you edit.": "बंद: नया वज़न सिर्फ़ उसी सेट में रहता है जिसे आप बदलते हैं।",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "यह सिर्फ़ चालू वर्कआउट को बदलता है। रूटीन का तय वज़न व्यायाम सेटिंग्स में बदला जाता है।",
+  "Locker {0}": "लॉकर {0}",
+  "Locker number (optional)": "लॉकर नंबर (वैकल्पिक)",
+  "e.g. B-42": "जैसे B-42",
 }

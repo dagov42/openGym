@@ -5943,4 +5943,7 @@ export default {
   "Weight changes apply to the following sets": "تغییرات وزن به ست‌های بعدی اعمال می‌شود",
   "Off: a new weight stays on the set you edit.": "خاموش: وزن جدید فقط در ست ویرایش‌شده می‌ماند.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "فقط تمرین در حال اجرا را تغییر می‌دهد. وزن برنامه‌ریزی‌شدهٔ روال در تنظیمات تمرین ویرایش می‌شود.",
+  "Locker {0}": "کمد {0}",
+  "Locker number (optional)": "شماره کمد (اختیاری)",
+  "e.g. B-42": "مثلاً B-42",
 }

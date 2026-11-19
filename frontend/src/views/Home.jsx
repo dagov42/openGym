@@ -37,6 +37,7 @@ import RecoveryHint from '../components/RecoveryHint.jsx'
 import { FastingLine } from '../components/SisterApps.jsx'
 import { ChallengesCard } from '../components/Challenges.jsx'
 import { isOn } from '../lib/modules.js'
+import { lockerOf } from '../lib/locker.js'
 import { Arranged, CustomizeLink } from '../components/PageLayout.jsx'
 
 // Home = what to do now + a quick glance. Deep charts & history live in Stats.
@@ -53,6 +54,9 @@ export default function Home() {
   // first, kept for the one-routine glyph. The derived session name joins them (§9).
   const todayRoutines = effectiveRoutines(S, todayISO())
   const routine = todayRoutines[0] || null
+  // The card the Check in tile opens; its optional locker number is useful before the rail opens.
+  const checkInCard = (S.gymCards || []).find(c => c.id === S.lastGymCardId) || null
+  const checkInLocker = lockerOf(checkInCard)
   const todayName = todayRoutines.map(r => r.name).join(' + ')
   // A fulfilled pin (a coach session pinned to today and since done) reads as no override.
   const todayOvr = S.dayPlan[todayISO()] !== undefined && pinState(S, S.dayPlan[todayISO()], todayISO(), todayISO()) !== 'done'
@@ -256,7 +260,7 @@ export default function Home() {
       // arrival at the gym; folds away per user via the "Gym check-in" switch in Settings.
       { id: 'checkin', node: on('checkin') && (
         <div className="card tap-host checkin-card">
-          <CardHead icon="qr" tint="var(--blue)" eyebrow={t('At the gym')} title={t('Check in')} open={{ onClick: () => nav('/checkin') }}
+          <CardHead icon="qr" tint="var(--blue)" eyebrow={t('At the gym')} title={t('Check in')} sub={checkInLocker ? t('Locker {0}', checkInLocker) : undefined} open={{ onClick: () => nav('/checkin') }}
             action={<Icon name="chevronRight" className="chev" />} />
         </div>
       ) },

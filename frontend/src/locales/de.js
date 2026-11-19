@@ -5997,4 +5997,7 @@ export default {
   "Weight changes apply to the following sets": "Gewichtsänderungen gelten für die folgenden Sätze",
   "Off: a new weight stays on the set you edit.": "Aus: Ein neues Gewicht bleibt nur im bearbeiteten Satz.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Das betrifft nur eine laufende Einheit. Das geplante Gewicht der Routine wird in den Übungseinstellungen bearbeitet.",
+  "Locker {0}": "Spind {0}",
+  "Locker number (optional)": "Spindnummer (optional)",
+  "e.g. B-42": "z. B. B-42",
 }

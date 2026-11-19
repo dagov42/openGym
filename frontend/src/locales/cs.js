@@ -5943,4 +5943,7 @@ export default {
   "Weight changes apply to the following sets": "Změny hmotnosti platí pro následující série",
   "Off: a new weight stays on the set you edit.": "Vypnuto: nová hmotnost zůstane jen u upravené série.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Mění jen probíhající trénink. Plánovaná hmotnost rutiny se upravuje v nastavení cvičení.",
+  "Locker {0}": "Skříňka {0}",
+  "Locker number (optional)": "Číslo skříňky (volitelné)",
+  "e.g. B-42": "např. B-42",
 }

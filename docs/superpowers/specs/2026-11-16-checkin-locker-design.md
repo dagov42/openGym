@@ -1,7 +1,7 @@
 # Locker number on the check-in card
 
-Status: candidate, designed 2026-11-16 (issue #1096). Open questions at the end must be answered before an
-implementation plan. Nothing implemented.
+Status: implemented 2026-11-19. The placement is under the gym's label, Home shows it for the
+last-used card, and it is stored per card. The three labels are translated in all 25 locale packs.
 
 ## Why
 
@@ -41,7 +41,8 @@ your head. The card is already on screen; a number typed once next to it costs n
   in", for the card `lastGymCardId` points at.
 - `CardSheet` (`:163`): a `TextField` "Locker number (optional)" below the label, with `LOCKER_MAX` and the
   same trim rules. No numeric keyboard: "B-42" is valid.
-- `t('Locker {0}', value)` for the display; the field label and placeholder through `t()`. No locale edits.
+- `t('Locker {0}', value)` for the display; the field label and placeholder through `t()`, all
+  translated in the 25 packs. No locale-only English fallback remains.
 
 ## Edge cases
 
@@ -54,15 +55,16 @@ your head. The card is already on screen; a number typed once next to it costs n
 
 ## Tests
 
-- Card sheet: add/edit/clear the locker; trim and cap; non-numeric values survive a round trip.
-- `CardFace` and Home card: shown when set, absent when not; the accessible name includes the number.
-- Backup/export round-trip and the whole-array sync merge (later edit wins).
+- `lib/locker.test.js`: trim, cap at `LOCKER_MAX`, strip control characters, hostile readings.
+- `CheckIn.test.jsx`: add/edit/clear the locker; non-numeric values survive; the card shows the
+  number with its accessible name, and shows nothing without one.
+- `Home.modules.test.jsx`: the last-used card's locker appears under Check in, and disappears.
+- `gymCards` whole-array sync/backup is the existing profile-data path; no new key or route.
 
 ## Open questions
 
-1. **Placement on the card:** under the gym's label (proposed) or below the code, larger? Proposal: under the
-   label; the code stays the biggest thing on the screen.
-2. **Home card:** show the locker there too (proposed) or only on the check-in screen? Proposal: show it; the
-   Home card exists exactly for the arrival moment.
-3. **Per-profile default:** a single "my locker" setting instead of per card? Proposal: per card; two gyms
-   rarely share a locker.
+Resolved for this implementation:
+
+1. **Placement on the card:** under the gym's label; the code stays the biggest thing on screen.
+2. **Home card:** show it there for the last-used card, as proposed.
+3. **Per-profile default:** per card, as proposed.

@@ -5988,4 +5988,7 @@ export default {
   "Weight changes apply to the following sets": "การเปลี่ยนน้ำหนักมีผลกับเซ็ตถัดไป",
   "Off: a new weight stays on the set you edit.": "ปิด: น้ำหนักใหม่จะอยู่เฉพาะเซ็ตที่คุณแก้ไข",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "สิ่งนี้เปลี่ยนเฉพาะการออกกำลังกายที่กำลังทำอยู่ น้ำหนักที่วางแผนไว้ของรูทีนแก้ไขได้ในการตั้งค่าท่าออกกำลังกาย",
+  "Locker {0}": "ล็อกเกอร์ {0}",
+  "Locker number (optional)": "หมายเลขล็อกเกอร์ (ไม่บังคับ)",
+  "e.g. B-42": "เช่น B-42",
 }

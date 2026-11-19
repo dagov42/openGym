@@ -5973,4 +5973,7 @@ export default {
   "Weight changes apply to the following sets": "Svorio pakeitimai taikomi kitiems setams",
   "Off: a new weight stays on the set you edit.": "Išjungta: naujas svoris lieka tik redaguotame sete.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Tai keičia tik vykstančią treniruotę. Suplanuotas rutinos svoris keičiamas pratimo nustatymuose.",
+  "Locker {0}": "Spintelė {0}",
+  "Locker number (optional)": "Spintelės numeris (neprivaloma)",
+  "e.g. B-42": "pvz., B-42",
 }

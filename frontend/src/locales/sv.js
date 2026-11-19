@@ -6024,4 +6024,7 @@ export default {
   "Weight changes apply to the following sets": "Viktändringar gäller för följande set",
   "Off: a new weight stays on the set you edit.": "Av: en ny vikt stannar bara på setet du redigerar.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Det ändrar bara ett pågående pass. Rutinens planerade vikt redigeras i övningsinställningarna.",
+  "Locker {0}": "Skåp {0}",
+  "Locker number (optional)": "Skåpnummer (valfritt)",
+  "e.g. B-42": "t.ex. B-42",
 }

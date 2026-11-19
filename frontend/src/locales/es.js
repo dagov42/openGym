@@ -5977,4 +5977,7 @@ export default {
   "Weight changes apply to the following sets": "Los cambios de peso se aplican a las series siguientes",
   "Off: a new weight stays on the set you edit.": "Desactivado: el nuevo peso se queda solo en la serie que editas.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Solo cambia el entrenamiento en curso. El peso planificado de la rutina se edita en los ajustes del ejercicio.",
+  "Locker {0}": "Taquilla {0}",
+  "Locker number (optional)": "Número de taquilla (opcional)",
+  "e.g. B-42": "p. ej., B-42",
 }

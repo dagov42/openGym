@@ -5977,4 +5977,7 @@ export default {
   "Weight changes apply to the following sets": "Ağırlık değişiklikleri sonraki setlere uygulanır",
   "Off: a new weight stays on the set you edit.": "Kapalı: yeni ağırlık yalnızca düzenlediğiniz sette kalır.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Bu yalnızca devam eden antrenmanı değiştirir. Rutinin planlanan ağırlığı egzersiz ayarlarında düzenlenir.",
+  "Locker {0}": "Dolap {0}",
+  "Locker number (optional)": "Dolap numarası (isteğe bağlı)",
+  "e.g. B-42": "ör. B-42",
 }

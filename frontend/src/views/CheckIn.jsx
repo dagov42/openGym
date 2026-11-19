@@ -13,6 +13,7 @@ import Icon from '../components/Icon.jsx'
 import QrCanvas from '../components/QrCanvas.jsx'
 import CameraScan from '../components/CameraScan.jsx'
 import { Button, TextField, MenuButton } from '../components/ui.jsx'
+import { LOCKER_MAX, cleanLocker, lockerOf } from '../lib/locker.js'
 import { confirmSheet } from '../sheets.jsx'
 
 // Move the card at `from` to sit at index `to`, returning a new array (the input is left alone).
@@ -113,6 +114,7 @@ export default function CheckIn() {
 // doesn't fight the rail's horizontal scroll the way a drag gesture did.
 function CardFace({ card, index, count }) {
   const update = useStore(s => s.update)
+  const locker = lockerOf(card)
   const remove = () => confirmSheet({
     title: t('Remove this card?'),
     message: card.label,
@@ -130,6 +132,7 @@ function CardFace({ card, index, count }) {
       <div className="ci-label">{card.label}</div>
       <button className="iconbtn ci-card-btn" style={{ color: 'var(--red)' }} onClick={remove} aria-label={card.label ? t('Remove {0}', said(card.label)) : t('Remove')}><Icon name="trash" /></button>
     </div>
+    {locker && <div className="ci-locker" aria-label={t('Locker {0}', locker)}>{t('Locker {0}', locker)}</div>}
     <div className="ci-qr-plate"><QrCanvas value={card.value} fmt={card.fmt} size={230} /></div>
     <div className="ci-value">{card.value}</div>
     {card.typed && <div className="ci-typed">
@@ -163,6 +166,7 @@ export function openEditCard(card) {
 function CardSheet({ close, card }) {
   const editing = !!card
   const [label, setLabel] = useState(card?.label || '')
+  const [locker, setLocker] = useState(lockerOf(card))
   const [value, setValue] = useState(card?.value || '')
   const [fmt, setFmt] = useState(normalizeFmt(card?.fmt) || 'qrcode')
   const [busy, setBusy] = useState(false)
@@ -176,6 +180,7 @@ function CardSheet({ close, card }) {
   const commit = () => {
     const trimmed = value.trim()
     if (!trimmed) { toast(t('Scan or import a code first')); return }
+    const lockerValue = cleanLocker(locker)
     const update = useStore.getState().update
     if (editing) {
       // The card can be removed on another device while this sheet is open. Checking inside the
@@ -192,6 +197,7 @@ function CardSheet({ close, card }) {
         c.label = label.trim() || t('Gym card')
         c.value = trimmed
         c.fmt = fmt
+        if (lockerValue) c.locker = lockerValue; else delete c.locker
         if (typed) c.typed = true; else delete c.typed
       })
       toast(t('Card updated'))
@@ -199,7 +205,7 @@ function CardSheet({ close, card }) {
       update(s => {
         if (!Array.isArray(s.gymCards)) s.gymCards = []
         const id = uid()
-        s.gymCards.push({ id, label: label.trim() || t('Gym card'), value: trimmed, fmt, ...(typed ? { typed: true } : {}) })
+        s.gymCards.push({ id, label: label.trim() || t('Gym card'), value: trimmed, fmt, ...(lockerValue ? { locker: lockerValue } : {}), ...(typed ? { typed: true } : {}) })
         s.lastGymCardId = id
       })
       toast(t('Card added'))
@@ -280,6 +286,10 @@ function CardSheet({ close, card }) {
 
     <label className="sect-t">{t('Label')}</label>
     <TextField value={label} onChange={e => setLabel(e.target.value)} placeholder={t('e.g. FitZone downtown')} style={{ marginBottom: 16 }} />
+
+    <label className="sect-t">{t('Locker number (optional)')}</label>
+    <TextField value={locker} onChange={e => setLocker(e.target.value)} maxLength={LOCKER_MAX}
+      placeholder={t('e.g. B-42')} aria-label={t('Locker number (optional)')} style={{ marginBottom: 16 }} />
 
     {value.trim() && <div className="ci-qr-plate" style={{ alignSelf: 'center', marginBottom: 16 }}><QrCanvas value={value.trim()} fmt={fmt} size={150} /></div>}
 

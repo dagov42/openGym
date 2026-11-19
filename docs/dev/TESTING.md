@@ -32,9 +32,9 @@ The floor was set on 2026-11-18 from a clean run:
 
 | Metric | Baseline | Floor |
 |---|---:|---:|
-| Statements | 91.64% | 88% |
+| Statements | 91.65% | 88% |
 | Branches | 83.90% | 80% |
-| Functions | 92.30% | 87% |
+| Functions | 92.31% | 87% |
 | Lines | 95.29% | 92% |
 
 The floor is intentionally a little below the baseline: it catches a real regression, not a

@@ -5977,4 +5977,7 @@ export default {
   "Weight changes apply to the following sets": "무게 변경이 다음 세트에도 적용됩니다",
   "Off: a new weight stays on the set you edit.": "끔: 새 무게는 편집한 세트에만 유지됩니다.",
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "진행 중인 운동만 변경합니다. 루틴의 계획 무게는 운동 설정에서 편집합니다.",
+  "Locker {0}": "사물함 {0}",
+  "Locker number (optional)": "사물함 번호 (선택)",
+  "e.g. B-42": "예: B-42",
 }
