@@ -5987,4 +5987,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Przy powtórzeniach na stronę krótka przerwa po każdej stronie. Izometrie zachowują przerwę na zmianę.",
   "Effort on warm-ups": "Wysiłek na rozgrzewce",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Wyłączone: wiersz rozgrzewki nie ma kolumny oceny. Serie robocze się nie zmieniają.",
+  "Ask for effort before ticking": "Pytaj o wysiłek przed odhaczeniem",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Odhaczenie nieocenionej serii roboczej najpierw otwiera ocenę. Zamknięcie zostawia serię nieodhaczoną.",
 }

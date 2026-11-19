@@ -6042,4 +6042,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "بالنسبة للعدّ الجانبي، استراحة قصيرة بعد كل جانب. التثبيتات تحتفظ بوقفة التبديل.",
   "Effort on warm-ups": "الجهد في الإحماء",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "إيقاف: صف الإحماء بلا عمود تقييم. مجموعات العمل لا تتغير.",
+  "Ask for effort before ticking": "اطلب الجهد قبل التعليم",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "تعليم مجموعة عمل غير مقيّمة يفتح التقييم أولاً. إغلاقه يتركها غير معلّمة.",
 }

@@ -5952,4 +5952,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Untuk repetisi per sisi, jeda singkat setelah tiap sisi. Hold mempertahankan jeda pergantiannya.",
   "Effort on warm-ups": "Usaha pada pemanasan",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Mati: baris pemanasan tidak punya kolom penilaian. Set kerja tidak berubah.",
+  "Ask for effort before ticking": "Tanyakan usaha sebelum mencentang",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Mencentang set kerja tanpa penilaian membuka penilaian lebih dulu. Menutupnya membuat set tetap tidak tercentang.",
 };

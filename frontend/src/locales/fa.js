@@ -5953,4 +5953,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "برای تکرارهای هر طرف، یک استراحت کوتاه بعد از هر طرف. هولدها مکث تعویض خود را نگه می‌دارند.",
   "Effort on warm-ups": "شدت در گرم‌کردن",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "خاموش: ردیف گرم‌کردن ستون امتیاز ندارد. ست‌های کاری تغییر نمی‌کنند.",
+  "Ask for effort before ticking": "قبل از تیک، شدت را بپرس",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "تیک زدن یک ست کاری بدون امتیاز ابتدا امتیازدهی را باز می‌کند. بستن آن ست را تیک‌نخورده می‌گذارد.",
 }

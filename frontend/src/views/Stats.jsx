@@ -255,7 +255,7 @@ function MusclesCard({ S, planFocus = false }) {
   const rated = inWin.some(w => w.entries.some(e => e.sets.some(s => s.done && isHardSet(s))))
   const on = !planned && !weekly && hard && rated
   const done = loadOfWorkouts(inWin, on ? isHardSet : null, { mainOnly: weekly && S.muscleSetsMain === true })
-  const plan = loadOfWeeklyPlan(S)
+  const plan = loadOfWeeklyPlan(S, { mainOnly: S.muscleSetsMain === true })
   const hasPlan = Object.values(plan).some(v => v > 0)
   const weeks = weekly ? 1 : weeksIn(win, inWin, now)
   const tickOn = !planned && weekly && weekOffset === 0 && hasPlan

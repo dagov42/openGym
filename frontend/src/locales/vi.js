@@ -5953,4 +5953,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Với số lần mỗi bên, nghỉ ngắn sau mỗi bên. Động tác giữ vẫn giữ nhịp nghỉ chuyển bên.",
   "Effort on warm-ups": "Mức gắng sức khi khởi động",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Tắt: hàng khởi động không có cột đánh giá. Các hiệp làm việc không đổi.",
+  "Ask for effort before ticking": "Hỏi mức gắng sức trước khi đánh dấu",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Đánh dấu hiệp làm việc chưa đánh giá sẽ mở phần đánh giá trước. Đóng lại thì hiệp vẫn chưa được đánh dấu.",
 };

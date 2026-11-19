@@ -641,8 +641,11 @@ export default function Settings({ page = null, find = null, via = null, entryKe
           <Switch aria-label={t('Effort on warm-ups')} checked={effortWarmupsOn(S)}
             onChange={v => update(s => { if (v) delete s.effortWarmups; else s.effortWarmups = false })} />
         </Row>}
-        {/* The line under each exercise that the rows are held against (#173). Tapping the line in
-            a workout switches it too; this is where the choice can be found without knowing that. */}
+        {on('effort') && effortOf(S) !== 'none' && <Row icon="gauge" iconTint="var(--purple)" title={t('Ask for effort before ticking')}
+          subtitle={t('Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.')}>
+          <Switch aria-label={t('Ask for effort before ticking')} checked={S.askEffort === true}
+            onChange={v => update(s => { if (v) s.askEffort = true; else delete s.askEffort })} />
+        </Row>}
         <SelectRow icon="history" iconTint="var(--blue)" title={t('Shown under each exercise')}
           value={S.logRef === 'best' ? 'best' : 'last'} onChange={v => update(s => { s.logRef = v })}
           options={[

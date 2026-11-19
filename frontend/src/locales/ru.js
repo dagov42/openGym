@@ -5984,4 +5984,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Для повторов на каждую сторону — короткая пауза после стороны. Удержания сохраняют паузу на смену.",
   "Effort on warm-ups": "Усилие на разминочных подходах",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Выкл.: у разминочного подхода нет колонки оценки. Рабочие подходы не меняются.",
+  "Ask for effort before ticking": "Спрашивать усилие перед отметкой",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Отметка рабочего подхода без оценки сначала открывает оценку. Если закрыть, подход остаётся неотмеченным.",
 }

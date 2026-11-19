@@ -5998,4 +5998,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "สำหรับเรปแบบข้างละครั้ง พักสั้นๆ หลังแต่ละข้าง ท่าค้างคงการพักเปลี่ยนข้างไว้",
   "Effort on warm-ups": "ความเหนื่อยในวอร์มアップ",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "ปิด: แถววอร์มアップไม่มีคอลัมน์ให้คะแนน เซ็ตทำงานไม่เปลี่ยน",
+  "Ask for effort before ticking": "ถามความเหนื่อยก่อนติ๊ก",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "การติ๊กเซ็ตทำงานที่ยังไม่ให้คะแนนจะเปิดการให้คะแนนก่อน ปิดแล้วเซ็ตจะยังไม่ติ๊ก",
 }

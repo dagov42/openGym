@@ -5990,4 +5990,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Oldalankénti ismétlésnél rövid szünet minden oldal után. A tartások megtartják a váltási szünetüket.",
   "Effort on warm-ups": "Erőkifejtés bemelegítésnél",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Ki: a bemelegítő sorban nincs értékelő oszlop. A munkasorozatok változatlanok.",
+  "Ask for effort before ticking": "Kérdezze meg az erőkifejtést pipálás előtt",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Egy értékeletlen munkasorozat kipipálása először az értékelést nyitja meg. Bezárva a sorozat kipipálatlan marad.",
 }

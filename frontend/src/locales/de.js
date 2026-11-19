@@ -6007,4 +6007,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Bei Wiederholungen pro Seite eine kurze Pause nach jeder Seite. Halte behalten ihre Wechselpause.",
   "Effort on warm-ups": "Anstrengung bei Aufwärmsätzen",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Aus: Eine Aufwärmzeile hat keine Bewertungsspalte. Arbeitssätze bleiben unverändert.",
+  "Ask for effort before ticking": "Vor dem Abhaken nach Anstrengung fragen",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Beim Abhaken eines unbewerteten Arbeitssatzes öffnet sich zuerst die Bewertung. Schließen lässt ihn unmarkiert.",
 }

@@ -225,6 +225,7 @@ describe('planned weekly muscle volume', () => {
 
   it('aggregates arrays and legacy scalar assignments, including routines repeated in the week', () => {
     expect(loadOfWeeklyPlan(state)).toEqual({ chest: 4, triceps: 1.6, biceps: 3 })
+  expect(loadOfWeeklyPlan(state, { mainOnly: true })).toEqual({ chest: 4, biceps: 3 })
   })
 
   it('ignores stale routine ids, date overrides, and completed-workout snapshots', () => {

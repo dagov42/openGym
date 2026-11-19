@@ -5987,4 +5987,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "한쪽씩 하는 반복은 각 쪽 후 짧게 쉽니다. 홀드는 전환 휴식을 유지합니다.",
   "Effort on warm-ups": "웜업의 노력도",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "끔: 웜업 행에는 평가 열이 없습니다. 작업 세트는 그대로입니다.",
+  "Ask for effort before ticking": "체크 전에 노력도 묻기",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "평가되지 않은 작업 세트를 체크하면 먼저 평가가 열립니다. 닫으면 세트는 체크되지 않은 채로 남습니다.",
 }

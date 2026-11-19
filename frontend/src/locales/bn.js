@@ -6066,4 +6066,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "পার-সাইড রেপে প্রতিটি দিকের পরে ছোট বিরতি। হোল্ড তাদের সুইচ বিরতি রাখে।",
   "Effort on warm-ups": "ওয়ার্ম-আপে পরিশ্রম",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "বন্ধ: ওয়ার্ম-আপ সারিতে রেটিং কলাম থাকে না। কাজের সেট অপরিবর্তিত।",
+  "Ask for effort before ticking": "টিক দেওয়ার আগে পরিশ্রম জিজ্ঞাসা করুন",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "রেট না করা কাজের সেট টিক দিলে আগে রেটিং খোলে। বন্ধ করলে সেটটি অটিক থাকে।",
 }

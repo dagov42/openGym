@@ -5953,4 +5953,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "U opakování na každou stranu krátká pauza po každé straně. Výdrže si nechají svou pauzu na přepnutí.",
   "Effort on warm-ups": "Námaha u rozcviček",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Vypnuto: řádek rozcvičky nemá sloupec hodnocení. Pracovní série se nemění.",
+  "Ask for effort before ticking": "Zeptat se na námahu před odškrtnutím",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Odškrtnutí nehodnocené pracovní série nejprve otevře hodnocení. Zavřením zůstane neodškrtnutá.",
 }

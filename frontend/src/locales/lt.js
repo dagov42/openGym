@@ -5983,4 +5983,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Kartojant kiekvienai pusei, trumpa pauzė po kiekvienos pusės. Laikymai išlaiko savo perėjimo pauzę.",
   "Effort on warm-ups": "Pastangos apšilime",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Išjungta: apšilimo eilutėje nėra vertinimo stulpelio. Darbiniai setai nesikeičia.",
+  "Ask for effort before ticking": "Prieš pažymint klausti pastangų",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Pažymint neįvertintą darbinį setą pirmiausia atidaromas vertinimas. Uždarius setas lieka nepažymėtas.",
 }

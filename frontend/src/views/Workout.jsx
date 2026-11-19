@@ -43,7 +43,7 @@ import { youtubeSearchUrl } from '../lib/youtube.js'
 import { openExternal } from '../components/CustomMedia.jsx'
 import { startFlow, exercisePicker, exConfigSheet, exerciseDetailSheet, finishWorkout, exitWorkoutEdit, workoutCompleteSheet, confirmSheet, exerciseNoteSheet, sessionNoteSheet, renameWorkoutSheet, swapActiveWorkoutExercise, barWeightSheet, menuSheet, effortPickerSheet, exerciseHistorySheet, addRoutineToSessionSheet, finishWorkoutSheet, finishWorkoutNow, swapActiveWorkoutToBackup, setNoteSheet } from '../sheets.jsx'
 import { afterScrollRestore, scrollRestorePending } from '../components/Modals.jsx'
-import { effortColor, effortWarmupsOn } from '../lib/effort.js'
+import { effortColor, effortWarmupsOn, asksEffortFor } from '../lib/effort.js'
 import Elapsed from '../components/Elapsed.jsx'
 import LiveHeartRate from '../components/LiveHeartRate.jsx'
 import LiveCard from '../components/LiveCard.jsx'
@@ -2459,6 +2459,19 @@ function ActiveWorkout() {
     const e = st.active?.entries?.[idx]
     const row = side ? e?.sets?.[i]?.sides?.[side] : e?.sets?.[i]
     if (editing || !row || row.done || modeAt(idx) !== 'reps') return toggle(idx, i, side, opts)
+    // #1317: an opt-in rating before the tick. Choosing a value ticks the set; closing leaves it
+    // unticked. Warm-ups, holds, cardio and an already-rated set never ask.
+    const effortKind = effortOf(st)
+    if (asksEffortFor(st, e?.sets?.[i], effortKind, side)) {
+      const field = EFFORT[effortKind].f
+      effortPickerSheet(effortKind, null, value => {
+        if (value == null) return
+        if (side) setSide(i, side, field, value)
+        else setField(i, field, value)
+        toggle(idx, i, side, opts)
+      })
+      return
+    }
     const last = lastEntryFor(st, e.id, e.rid)
     const odd = oddValues(row, bestsFor(st.workouts, e.id), {
       unit: st.unit, assisted: isAssisted(e.id), last: lastRowFor(last?.sets, e.sets, i, side),

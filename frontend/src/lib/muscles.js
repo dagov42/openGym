@@ -360,8 +360,8 @@ export function muscleBalanceWindow(workouts, win, now = Date.now(), today = tod
 }
 
 /** Load a routine *would* produce, from its planned set counts. */
-export const loadOfRoutine = (routine, exercises = {}) =>
-  loadOf((routine?.ex || []).map(c => ({ id: c.id, ex: exercises[c.id] || c, sets: c.sets || 1 })))
+export const loadOfRoutine = (routine, exercises = {}, options = {}) =>
+  loadOf((routine?.ex || []).map(c => ({ id: c.id, ex: exercises[c.id] || c, sets: c.sets || 1 })), options)
 
 /**
  * A running session's muscles (#670): `done` from the sets ticked so far, `planned` from every
@@ -400,7 +400,7 @@ export function sessionLevels({ done, planned }) {
  * A loop of 6 sessions at 4 a week plans 4/6 of the loop's sets. With no target a loop has no week
  * to scale to, and it counts as before.
  */
-export function loadOfWeeklyPlan(S) {
+export function loadOfWeeklyPlan(S, options = {}) {
   const routines = new Map((S?.routines || []).map(routine => [routine.id, routine]))
   const exercises = Object.fromEntries((S?.customEx || []).map(exercise => [exercise.id, exercise]))
   const q = queueOf(S)
@@ -410,7 +410,7 @@ export function loadOfWeeklyPlan(S) {
     if (sessions.length) {
       const load = {}
       for (const id of sessions) {
-        for (const [slug, sets] of Object.entries(loadOfRoutine(routines.get(id), exercises))) {
+        for (const [slug, sets] of Object.entries(loadOfRoutine(routines.get(id), exercises, options))) {
           load[slug] = (load[slug] || 0) + sets * target / sessions.length
         }
       }
@@ -426,7 +426,7 @@ export function loadOfWeeklyPlan(S) {
   for (const id of ids) {
     const routine = routines.get(id)
     if (!routine) continue
-    for (const [slug, sets] of Object.entries(loadOfRoutine(routine, exercises))) {
+    for (const [slug, sets] of Object.entries(loadOfRoutine(routine, exercises, options))) {
       load[slug] = (load[slug] || 0) + sets
     }
   }

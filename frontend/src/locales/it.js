@@ -5997,4 +5997,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Per le ripetizioni per lato, una breve pausa dopo ogni lato. I tenuti mantengono la pausa di cambio.",
   "Effort on warm-ups": "Sforzo nei riscaldamenti",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Disattivato: la riga di riscaldamento non ha una colonna di valutazione. Le serie di lavoro non cambiano.",
+  "Ask for effort before ticking": "Chiedi lo sforzo prima di spuntare",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Spuntare una serie di lavoro non valutata apre prima la valutazione. Chiuderla lascia la serie non spuntata.",
 }

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import {
   rirOf, toScale, displayScale, avgRir, effortSummary, hasEffort, hasEstimableEffort, effortWeeks,
   effortHistogram, isHardSet, HARD_RIR, MIN_RATED,
-  effortColor, EFFORT_BANDS, EFFORT_PRESETS, effortWarmupsOn
+  effortColor, EFFORT_BANDS, EFFORT_PRESETS, effortWarmupsOn, asksEffortFor
 } from './effort.js'
 import { isoOf } from './format.js'
 import { anchorsByWorkout, resolveSetRir } from './recovery.js'
@@ -15,6 +15,16 @@ describe('warm-up effort setting', () => {
     expect(effortWarmupsOn({})).toBe(true)
     expect(effortWarmupsOn({ effortWarmups: false })).toBe(false)
     expect(effortWarmupsOn({ effortWarmups: 'false' })).toBe(true)
+  })
+
+  it('asks only for an unrated work set when the opt-in is on', () => {
+    const S = { askEffort: true }
+    expect(asksEffortFor(S, {}, 'rir')).toBe(true)
+    expect(asksEffortFor(S, { rir: 2 }, 'rir')).toBe(false)
+    expect(asksEffortFor(S, { phase: 'warmup' }, 'rir')).toBe(false)
+    expect(asksEffortFor({}, {}, 'rir')).toBe(false)
+    expect(asksEffortFor(S, { sides: { L: { rir: 1 }, R: {} } }, 'rir', 'L')).toBe(false)
+    expect(asksEffortFor(S, { sides: { L: { rir: 1 }, R: {} } }, 'rir', 'R')).toBe(true)
   })
 })
 // One workout on a day, with the sets given. Everything here is a finished set unless a set

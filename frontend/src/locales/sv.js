@@ -6034,4 +6034,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Vid repetitioner per sida en kort paus efter varje sida. Hållningar behåller sin växelpaus.",
   "Effort on warm-ups": "Ansträngning på uppvärmning",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Av: en uppvärmningsrad har ingen bedömningskolumn. Arbetsseten ändras inte.",
+  "Ask for effort before ticking": "Fråga om ansträngning före bockning",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Bocka ett obetygsatt arbetsset öppnar först betyget. Stängs det förblir setet obockat.",
 }

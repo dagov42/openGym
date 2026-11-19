@@ -5927,4 +5927,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Ved gentagelser pr. side en kort pause efter hver side. Hold beholder deres skiftepause.",
   "Effort on warm-ups": "Indsats på opvarmning",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Fra: en opvarmningsrække har ingen vurderingskolonne. Arbejdssæt er uændrede.",
+  "Ask for effort before ticking": "Spørg om indsats før afkrydsning",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Afkrydsning af et uvurderet arbejdssæt åbner vurderingen først. Lukkes den, forbliver sættet ukrydset.",
 }

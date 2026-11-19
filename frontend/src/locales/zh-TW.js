@@ -5980,4 +5980,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "單側次數在每側之後短暫休息。維持動作保留換邊休息。",
   "Effort on warm-ups": "暖身組的努力程度",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "關閉：暖身列沒有評分欄。工作組不變。",
+  "Ask for effort before ticking": "勾選前先問努力程度",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "勾選尚未評分的工作組會先開啟評分。關閉後該組仍不會勾選。",
 }

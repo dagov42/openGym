@@ -5987,4 +5987,6 @@ export default {
   "For per-side reps, a short break after each side. Holds keep their switch pause.": "Yana göre tekrarlarda her yandan sonra kısa bir mola. Bekleyişler geçiş molasını korur.",
   "Effort on warm-ups": "Isınma setlerinde efor",
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Kapalı: ısınma satırında değerlendirme sütunu yok. Çalışma setleri değişmez.",
+  "Ask for effort before ticking": "İşaretlemeden önce eforu sor",
+  "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Değerlendirilmemiş bir çalışma setini işaretlemek önce değerlendirmeyi açar. Kapatmak seti işaretsiz bırakır.",
 }

@@ -22,6 +22,14 @@ export const MIN_RATED = 5
 /** Whether a warm-up row asks for an effort rating. Absent means on, as before the setting. */
 export const effortWarmupsOn = S => S?.effortWarmups !== false
 
+/** The opt-in “rate it before ticking” decision for one work set (or one side of a set). */
+export function asksEffortFor(S, set, kind, side = null) {
+  const f = EFFORT[kind]?.f
+  if (!S?.askEffort || !f || !set || set.done || isWarmupRow(set)) return false
+  const value = side ? set.sides?.[side]?.[f] : set[f]
+  return value == null
+}
+
 /**
  * A set's effort in RIR, or null when it was never rated. 0 is a rating, not "empty". A set
  * marked as taken to failure (workout-model isFailureSet) is RIR 0 by definition, so it reads as
