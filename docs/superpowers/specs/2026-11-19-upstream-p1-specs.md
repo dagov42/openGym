@@ -103,7 +103,8 @@ running.
 
 **Upstream:** [#1374](https://github.com/DuarteSantos8/openGym/pull/1374), 33 files.
 **Worth porting:** when effort per set is RIR or RPE, a switch hides the effort cell/button on warm-up
-rows in Cards, List, Compact and Focus; already stored ratings stay. Off by default.
+rows in Cards, List, Compact and Focus; already stored ratings stay. It is on by default (a profile
+without the key keeps today's behaviour); only the boolean false hides it.
 **Files:** settings, the set row and Focus view, the effort helpers.
 **Tests:** each layout, per-side warm-ups, a stored rating survives, work sets unchanged.
 **Risk:** keep the column geometry when the cell is hidden.
