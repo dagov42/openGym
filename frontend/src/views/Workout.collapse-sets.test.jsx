@@ -63,13 +63,15 @@ describe('Collapse sets', () => {
 
     click(button('Collapse sets'))
 
-    expect(container.querySelector('.setrow')).toBeNull()
-    expect(container.querySelector('.sethead')).toBeNull()
+    expect(container.querySelector('.wk-sets').classList.contains('is-collapsed')).toBe(true)
+    expect(container.querySelector('.wk-sets').getAttribute('aria-hidden')).toBe('true')
+    expect(container.querySelectorAll('.setrow')).toHaveLength(2)
     expect(container.querySelector('[data-testid="exercise-media"]')).toBeTruthy()
     expect(container.textContent).toContain('Straight back, slow down.')
     expect(button('Show the sets')).toBeTruthy()
 
     click(button('Show the sets'))
+    expect(container.querySelector('.wk-sets').classList.contains('is-collapsed')).toBe(false)
     expect(container.querySelectorAll('.setrow')).toHaveLength(2)
   })
 
@@ -79,7 +81,7 @@ describe('Collapse sets', () => {
       { id: '0007', target: { sets: 1, reps: 8 }, sets: [{ w: 20, r: 8, done: true }], sg: 'sg-0' },
     ])
     click(button('Collapse sets'))
-    expect(container.querySelectorAll('.setrow')).toHaveLength(0)
+    expect(container.querySelectorAll('.wk-sets.is-collapsed')).toHaveLength(2)
     expect(container.querySelectorAll('[data-testid="exercise-media"]')).toHaveLength(2)
     expect(container.textContent.toLowerCase()).toContain('barbell bench press')
   })

@@ -202,7 +202,10 @@ async function unmount() {
 }
 
 async function toggleSet(index) {
-  const checkbox = container.querySelectorAll('[role="checkbox"]')[index]
+  // A folded set card stays in the DOM for its height transition, but its controls are inert:
+  // a user can only tap the sets that are still visible.
+  const checkbox = [...container.querySelectorAll('[role="checkbox"]')]
+    .filter(node => !node.closest('.wk-sets.is-collapsed'))[index]
   expect(checkbox).toBeTruthy()
   await act(async () => { checkbox.dispatchEvent(new dom.Event('click', { bubbles: true })) })
 }
@@ -2584,13 +2587,13 @@ describe('workout view header menu', () => {
     expect(item(layout, 'Collapse completed exercises').on).toBe(false)
     await act(async () => { item(layout, 'Collapse completed exercises').onClick() })
     await rerender()
-    expect(container.querySelectorAll('.setrow').length).toBe(1)
+    expect(container.querySelectorAll('.wk-sets.is-collapsed').length).toBe(1)
     expect(mocks.S.collapseCompleted).toBeUndefined()
     layout = await openLayout(await openMenu())
     expect(item(layout, 'Collapse completed exercises').on).toBe(true)
     await act(async () => { item(layout, 'Collapse completed exercises').onClick() })
     await rerender()
-    expect(container.querySelectorAll('.setrow').length).toBe(2)
+    expect(container.querySelectorAll('.wk-sets.is-collapsed').length).toBe(0)
   })
 
   it('only offers collapsing in layouts that show more than the current exercise', async () => {
@@ -2615,7 +2618,7 @@ describe('collapsing completed workout exercises', () => {
     await rerender()
     // the marker moved on to what is left, so the finished one folded
     expect(mocks.S.active.cur).toBe(1)
-    expect(units()[0].querySelector('.setrow')).toBeNull()
+    expect(units()[0].querySelector('.wk-sets')?.classList.contains('is-collapsed')).toBe(true)
     expect(units()[0].querySelector('.exhd')).toBeTruthy()
     expect(units()[1].classList.contains('cur')).toBe(true)
     expect(units()[1].querySelector('.setrow')).toBeTruthy()
@@ -2628,7 +2631,7 @@ describe('collapsing completed workout exercises', () => {
     const fold = [...units()[0].querySelectorAll('button')].find(b => b.textContent.trim() === 'Fold away')
     expect(fold.getAttribute('aria-expanded')).toBe('true')
     await click(fold)
-    expect(units()[0].querySelector('.setrow')).toBeNull()
+    expect(units()[0].querySelector('.wk-sets')?.classList.contains('is-collapsed')).toBe(true)
     // Set current still brings it back as the one you are on
     await setCurrent(0)
     expect(units()[0].querySelectorAll('.setrow').length).toBe(2)
@@ -2653,7 +2656,7 @@ describe('collapsing completed workout exercises', () => {
     await toggleSet(0)
     await rerender()
     expect(mocks.S.active.cur).toBe(2)
-    expect(units()[0].querySelector('.setrow')).toBeNull()
+    expect(units()[0].querySelector('.wk-sets')?.classList.contains('is-collapsed')).toBe(true)
   })
 
   it('stays on the last exercise when nothing is left, and offers the finish', async () => {
@@ -2686,7 +2689,7 @@ describe('collapsing completed workout exercises', () => {
     expect(units()[0].querySelector('.setrow')).toBeTruthy()
     await toggleSet(1)
     await rerender()
-    expect(units()[0].querySelectorAll('.setrow').length).toBe(0)
+    expect(units()[0].querySelectorAll('.wk-sets.is-collapsed').length).toBe(2)
     await setCurrent(0)
     expect(units()[0].querySelectorAll('[role="checkbox"]').length).toBe(2)
   })
@@ -2694,7 +2697,7 @@ describe('collapsing completed workout exercises', () => {
   it('treats duplicate exercise occurrences separately when restoring a running session', async () => {
     await mount([exercise('bench', [true]), exercise('bench', [false]), exercise('row', [false])], 2,
       { active: { workoutView: 'compact', collapseCompleted: true } })
-    expect(units()[0].querySelector('.setrow')).toBeNull()
+    expect(units()[0].querySelector('.wk-sets')?.classList.contains('is-collapsed')).toBe(true)
     expect(units()[1].querySelector('.setrow')).toBeTruthy()
   })
 })
@@ -2704,7 +2707,8 @@ describe('collapsing completed workout exercises', () => {
 describe('list layout: only what is left to do (Discord request, #241)', () => {
   const units = () => [...container.querySelectorAll('.wl-unit')]
   const ticks = () => [...container.querySelectorAll('[role="checkbox"]')]
-  const folded = () => units().filter(u => !u.querySelector('.setrow'))
+    .filter(node => !node.closest('.wk-sets.is-collapsed'))
+  const folded = () => units().filter(u => u.querySelector('.wk-sets')?.classList.contains('is-collapsed'))
   const session = () => [
     exercise('bench', [false, false]),
     exercise('fly', [false], { sg: 'pair' }), exercise('row', [false], { sg: 'pair' }),
@@ -2737,7 +2741,7 @@ describe('list layout: only what is left to do (Discord request, #241)', () => {
     await toggleSet(0)
     await toggleSet(1)
     await rerender()
-    expect(units()[0].querySelector('.setrow')).toBeNull()
+    expect(units()[0].querySelector('.wk-sets')?.classList.contains('is-collapsed')).toBe(true)
     expect(units()[1].classList.contains('cur')).toBe(true)
     // the superset: its first member moves the marker to its partner, the second finishes the round
     await toggleSet(0)
@@ -2745,7 +2749,7 @@ describe('list layout: only what is left to do (Discord request, #241)', () => {
     expect(units()[1].querySelector('.setrow')).toBeTruthy()
     await toggleSet(1)
     await rerender()
-    expect(units()[1].querySelectorAll('.setrow').length).toBe(0)
+    expect(units()[1].querySelectorAll('.wk-sets.is-collapsed').length).toBe(2)
     expect(units()[2].classList.contains('cur')).toBe(true)
     // what is left is all that is open
     expect(ticks()).toHaveLength(1)

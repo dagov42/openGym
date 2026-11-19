@@ -1695,6 +1695,12 @@ button.whdr-gym{color:var(--acc-ink);cursor:pointer}
 .sethead .hd-swap:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
 .sethead .eff-sp{text-align:center}
 .sethead .ck-sp{width:30px;flex:none}
+/* Collapse sets: the set card keeps its DOM (and its measurements) while a grid row animates from
+   its content height to zero, so hiding and showing it is smooth rather than a jump. */
+.wk-sets{display:grid;grid-template-rows:1fr;margin-top:12px;opacity:1;transition:grid-template-rows .28s cubic-bezier(.2,.8,.2,1),opacity .2s ease,margin-top .28s}
+.wk-sets>.card{min-height:0;overflow:hidden}
+.wk-sets.is-collapsed{grid-template-rows:0fr;opacity:0;margin-top:0}
+@media (prefers-reduced-motion:reduce){.wk-sets{transition:none}}
 .setrow{display:flex;align-items:center;gap:8px;padding:6px 0;position:relative}
 .setrow+.setrow::before{
   content:'';position:absolute;inset-inline-start:32px;inset-inline-end:0;top:0;height:var(--hair);background:var(--sep);

@@ -1014,7 +1014,8 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, collapsed = false, on
     {/* The skill ladder (lib/ladders.js): the next rung, and one tap to put it in the routine. */}
     {plan?.kind === 'ladder' && plan.next && EXIDX[plan.next] && <LadderNext entry={entry} next={plan.next} />}
     </>}
-    {!collapsed && <div className="card" style={{ marginTop: 12, marginBottom: 0 }}>
+    <div className={'wk-sets' + (collapsed ? ' is-collapsed' : '')} aria-hidden={collapsed || undefined} inert={collapsed || undefined}>
+    <div className="card" style={{ marginTop: 0, marginBottom: 0 }}>
       {/* the header carries the same eff3/timed sizing as the rows, or the labels drift off their
           columns; over L/R rows it also has to skip the side badge that sits in front of the weight cell */}
       <div className={'sethead' + (col3 ? ' eff3' : '') + (timed ? ' timed' : '') + (perSide ? ' per-side' : '') + (wc.steppers ? '' : ' plain')}><span className="n-sp" /><span className="w-sp">{col1.hd}</span>{col2 && <span className={col2.dec ? 'r-sp dec' : 'r-sp'}>{cardio && !editing
@@ -1117,7 +1118,8 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, collapsed = false, on
         <Button className="wk-add" size="sm" icon="minus" aria-label={several ? inEx(t('Remove set')) : undefined} disabled={entry.sets.length <= setSpanAt(entry.sets, entry.sets.length - 1)[1]} onClick={onRemoveSet}>{t('Remove set')}</Button>
         <Button className="wk-add" size="sm" icon="plus" aria-label={several ? inEx(t('Add set')) : undefined} onClick={onAddSet}>{t('Add set')}</Button>
       </div> : <Button className="wk-add" size="sm" icon="plus" aria-label={several ? inEx(t('Add set')) : undefined} onClick={onAddSet}>{t('Add set')}</Button>}
-    </div>}
+    </div>
+    </div>
     {collapsed && onShowSets && <button type="button" className="lrow tap wk-end-row" aria-expanded="false" onClick={onShowSets}>
       <Icon name="chevronDown" className="wk-end-i" />
       <span className="lrow-m"><span className="lrow-t">{t('Show the sets')}</span></span>

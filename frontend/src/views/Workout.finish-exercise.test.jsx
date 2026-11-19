@@ -65,8 +65,7 @@ describe('Collapse sets', () => {
     render()
     const before = sets().map(s => ({ ...s }))
     click(button('Collapse sets'))
-    expect(container.querySelector('.setrow')).toBeNull()
-    expect(container.querySelector('.sethead')).toBeNull()
+    expect(container.querySelector('.wk-sets').classList.contains('is-collapsed')).toBe(true)
     expect(sets()).toEqual(before)
     click(button('Show the sets'))
     expect(container.querySelectorAll('.setrow')).toHaveLength(2)
@@ -82,7 +81,7 @@ describe('Collapse sets', () => {
     container.remove()
     root = null
     render()
-    expect(container.querySelector('.setrow')).toBeNull()
+    expect(container.querySelector('.wk-sets').classList.contains('is-collapsed')).toBe(true)
     expect(sets()).toEqual([row(true)])
   })
 
@@ -91,13 +90,13 @@ describe('Collapse sets', () => {
     render()
     click(button('Collapse sets'))
     expect(container.querySelectorAll('.ss-ex')).toHaveLength(2)
-    expect(container.querySelectorAll('.setrow')).toHaveLength(0)
+    expect(container.querySelectorAll('.wk-sets.is-collapsed')).toHaveLength(2)
   })
 
   it('is absent in the editor of a saved workout', () => {
     setActive([entry('1001', [row(true)])], { editingWorkoutId: 'w1' })
     render()
     expect(button('Collapse sets')).toBeUndefined()
-    expect(container.querySelector('.wl-summary')).toBeNull()
+    expect(container.querySelector('.wk-sets.is-collapsed')).toBeNull()
   })
 })
