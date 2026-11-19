@@ -21,8 +21,9 @@ A small updater fix and keyboard shortcuts.
   row to see the workout keys. Escape still closes a sheet.
 - Plan and the start preview show a rough session length: the median of the last five exact
   sessions, or a plan estimate until two exist. No new stored field; it follows the history.
-- Cards and Focus: Collapse sets folds a finished exercise to its one-line summary. The sets stay
-  ticked; the fold survives leaving and returning to the workout, and Show the sets unfolds it.
+- Cards and Focus: Collapse sets folds only the finished exercise's set rows; its image, description
+  and menu stay open. The sets stay ticked, the fold survives leaving and returning to the workout,
+  and Show the sets unfolds it.
 - Swap exercise can also replace the routine's slot: Replace in routine changes today's entry and
   the plan, keeping the slot's numbers, superset group and position. No history or saved-workout
   editor is touched.

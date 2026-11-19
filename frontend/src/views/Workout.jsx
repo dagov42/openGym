@@ -189,7 +189,7 @@ function LadderNext ({ entry, next }) {
   </div>
 }
 
-function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, onToggleSide, onField, onAddSet, onRemoveSet, onAddWarmup, onKeepWarmups, onAskCoach, onRemoveSetAt, onCopySetAt, onStartTimed, onPairPrev, onPairNext, onUnpairSelf, inGroup, onSetRowRef, onProgressionSettings, onRest, onNoProg, routineUpdate, onSwap, onSwapBackup, onMoveUp, onMoveDown, canMoveUp, canMoveDown, onRemoveExercise, busy }) {
+function ExerciseBlock({ entryIdx, compact, listed, dense, collapsed = false, onShowSets = null, editing, onToggle, onToggleSide, onField, onAddSet, onRemoveSet, onAddWarmup, onKeepWarmups, onAskCoach, onRemoveSetAt, onCopySetAt, onStartTimed, onPairPrev, onPairNext, onUnpairSelf, inGroup, onSetRowRef, onProgressionSettings, onRest, onNoProg, routineUpdate, onSwap, onSwapBackup, onMoveUp, onMoveDown, canMoveUp, canMoveDown, onRemoveExercise, busy }) {
   // The block reads the state as its exercise sees it (lib/ex-unit.js): in the exercise's own
   // weight unit when it has one (#657), so its rows, steppers, plates, owned weights, "last time"
   // and records all speak that unit. Every change goes through inEntryUnit or the parent's
@@ -1014,7 +1014,7 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
     {/* The skill ladder (lib/ladders.js): the next rung, and one tap to put it in the routine. */}
     {plan?.kind === 'ladder' && plan.next && EXIDX[plan.next] && <LadderNext entry={entry} next={plan.next} />}
     </>}
-    <div className="card" style={{ marginTop: 12, marginBottom: 0 }}>
+    {!collapsed && <div className="card" style={{ marginTop: 12, marginBottom: 0 }}>
       {/* the header carries the same eff3/timed sizing as the rows, or the labels drift off their
           columns; over L/R rows it also has to skip the side badge that sits in front of the weight cell */}
       <div className={'sethead' + (col3 ? ' eff3' : '') + (timed ? ' timed' : '') + (perSide ? ' per-side' : '') + (wc.steppers ? '' : ' plain')}><span className="n-sp" /><span className="w-sp">{col1.hd}</span>{col2 && <span className={col2.dec ? 'r-sp dec' : 'r-sp'}>{cardio && !editing
@@ -1117,7 +1117,11 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
         <Button className="wk-add" size="sm" icon="minus" aria-label={several ? inEx(t('Remove set')) : undefined} disabled={entry.sets.length <= setSpanAt(entry.sets, entry.sets.length - 1)[1]} onClick={onRemoveSet}>{t('Remove set')}</Button>
         <Button className="wk-add" size="sm" icon="plus" aria-label={several ? inEx(t('Add set')) : undefined} onClick={onAddSet}>{t('Add set')}</Button>
       </div> : <Button className="wk-add" size="sm" icon="plus" aria-label={several ? inEx(t('Add set')) : undefined} onClick={onAddSet}>{t('Add set')}</Button>}
-    </div>
+    </div>}
+    {collapsed && onShowSets && <button type="button" className="lrow tap wk-end-row" aria-expanded="false" onClick={onShowSets}>
+      <Icon name="chevronDown" className="wk-end-i" />
+      <span className="lrow-m"><span className="lrow-t">{t('Show the sets')}</span></span>
+    </button>}
   </>
 }
 
@@ -1387,14 +1391,30 @@ function ActiveWorkout() {
     setUI({ swipeHint: null, setFlash: null })
     setFolded(unitKey, true)
   }
-  // One summary for the List and for a folded Cards/Focus card, so the two cannot drift.
-  const unitSummary = (u, onOpen) => <button type="button" className="wl-summary" aria-expanded="false" title={t('Show the sets')}
-    onClick={onOpen}>
-    {u.map(idx => <span key={idx} className="row between" style={{ gap: 8 }}>
-      <span className={exerciseNameClass(exOr(A.entries[idx].id))} style={{ fontWeight: 600 }}>{exerciseNameFor(exOr(A.entries[idx].id))}</span>
-      <span className="tag acc nocap"><Icon name="check" />{t('{0} sets', A.entries[idx].sets.length)}</span>
-    </span>)}
-  </button>
+  // One superset card for Cards, Focus and the list; folding it hides only the set rows, not the
+  // exercise headings, media or description. `unpairAt` is the section's first index.
+  const supersetCard = (u, isCollapsed = false, unpairAt = u[0], onShowSets = null) => {
+    const section = units.findIndex(x => x[0] === u[0]) + 1
+    return (
+    <div className="ss-card">
+      <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
+        <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(u)}</span>
+        <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+          {groupPairButtons(u)}
+          {!circuitOf(A.entries, u, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} aria-label={nameIn(t('Superset {0} / {1}', section, units.length), t('Unpair'))} onClick={() => dissolveAt(unpairAt)}>{t('Unpair')}</Button>}
+        </div>
+      </div>
+      {u.map((idx, k) => {
+        const entry = A.entries[idx]
+        return <div key={idx} ref={el => bindExRef(entry, el)} className="ss-ex" data-exidx={idx}>
+          {k > 0 && <div className="ss-amp">+</div>}
+          <ExerciseBlock entryIdx={idx} compact dense={dense} collapsed={isCollapsed} onShowSets={onShowSets} onSetRowRef={(setIdx, el) => bindSetRef(entry, setIdx, el)}
+            {...blockProps(idx)} />
+        </div>
+      })}
+    </div>
+    )
+  }
   const wc = workoutControls(S)
   // Superset flow: center the actionable row when completing a set moves to the partner or
   // back to the first exercise of the next round. Entry-bound maps keep repeated exercise IDs
@@ -2877,26 +2897,9 @@ function ActiveWorkout() {
             {!isCollapsed && <CircuitCard unit={u} />}
             {/* One line per exercise, and the line is the way back in: a tap opens the sets again
                 to fix a number, without making it the current exercise. */}
-            {isCollapsed ? unitSummary(u, () => setUnitOpen(u.join('-'), true)) : multi ? (
-              <div className="ss-card">
-                <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
-                  <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(u)}</span>
-                  <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                    {groupPairButtons(u)}
-                    {!circuitOf(A.entries, u, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} aria-label={nameIn(t('Superset {0} / {1}', ui + 1, units.length), t('Unpair'))} onClick={() => dissolveAt(u[0])}>{t('Unpair')}</Button>}
-                  </div>
-                </div>
-                {u.map((idx, k) => {
-                  const entry = A.entries[idx]
-                  return <div key={idx} ref={el => bindExRef(entry, el)} className="ss-ex" data-exidx={idx}>
-                    {k > 0 && <div className="ss-amp">+</div>}
-                    <ExerciseBlock entryIdx={idx} compact dense={dense} onSetRowRef={(setIdx, el) => bindSetRef(entry, setIdx, el)}
-                      {...blockProps(idx)} />
-                  </div>
-                })}
-              </div>
-            ) : (
-              <ExerciseBlock entryIdx={u[0]} dense={dense} listed
+            {multi ? supersetCard(u, isCollapsed, u[0], () => setUnitOpen(u.join('-'), true)) : (
+              <ExerciseBlock entryIdx={u[0]} dense={dense} listed collapsed={isCollapsed}
+                onShowSets={() => setUnitOpen(u.join('-'), true)}
                 onPairPrev={u[0] > 0 ? () => pairAt(u[0] - 1, u[0]) : null}
                 onPairNext={u[0] < A.entries.length - 1 ? () => pairAt(u[0], u[0] + 1) : null}
                 {...blockProps(u[0])} />
@@ -2928,7 +2931,7 @@ function ActiveWorkout() {
                 <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(adjacent)}</span>
                 <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                   {groupPairButtons(adjacent)}
-                  {!circuitOf(A.entries, adjacent, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} onClick={() => dissolveAt(adjacent[0])}>{t('Unpair')}</Button>}
+                  {!circuitOf(A.entries, adjacent, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} aria-label={nameIn(t('Superset {0} / {1}', units.findIndex(x => x[0] === adjacent[0]) + 1, units.length), t('Unpair'))} onClick={() => dissolveAt(adjacent[0])}>{t('Unpair')}</Button>}
                 </div>
               </div>
               {adjacent.map((idx, k) => <div key={idx} className="ss-ex" data-exidx={idx}>
@@ -2941,31 +2944,15 @@ function ActiveWorkout() {
             onPairNext={adjacent[0] < A.entries.length - 1 ? () => pairAt(adjacent[0], adjacent[0] + 1) : null}
             {...blockProps(adjacent[0])} />
         }}>
-      {isFolded ? unitSummary(unit, () => setFolded(unitKey, false)) : focusMode ? (
+      {isFolded ? (
+        isSuperset ? supersetCard(unit, true) : <ExerciseBlock entryIdx={cur} collapsed {...blockProps(cur)} />
+      ) : focusMode ? (
         <FocusView entryIdx={cur} unit={unit}
           onSelectEntry={selectFocusEntry} onAdvanceUnit={advanceFocusUnit} pointerEpoch={focusPointerEpoch.current}
           onPairPrev={onPairPrev} onPairNext={onPairNext} onUnpair={() => dissolveAt(cur)}
           showPairButtons={wc.pairButtons}
           {...blockProps(cur)} />
-      ) : isSuperset ? (
-        <div className="ss-card">
-          <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
-            <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(unit)}</span>
-            <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              {groupPairButtons(unit)}
-              {!circuitOf(A.entries, unit, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} onClick={() => dissolveAt(cur)}>{t('Unpair')}</Button>}
-            </div>
-          </div>
-          {unit.map((idx, k) => {
-            const entry = A.entries[idx]
-            return <div key={idx} ref={el => bindExRef(entry, el)} className="ss-ex" data-exidx={idx}>
-              {k > 0 && <div className="ss-amp">+</div>}
-              <ExerciseBlock entryIdx={idx} compact onSetRowRef={(setIdx, el) => bindSetRef(entry, setIdx, el)}
-                {...blockProps(idx)} />
-            </div>
-          })}
-        </div>
-      ) : (
+      ) : isSuperset ? supersetCard(unit) : (
         <ExerciseBlock entryIdx={cur} onPairPrev={onPairPrev} onPairNext={onPairNext} {...blockProps(cur)} />
       )}
       </SwipeCards>

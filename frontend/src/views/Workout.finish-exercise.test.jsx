@@ -60,16 +60,16 @@ describe('Collapse sets', () => {
     expect(container.textContent).toContain('Tick every set first')
   })
 
-  it('folds to the one-line summary without changing the sets, and Show the sets unfolds', () => {
+  it('hides the set rows without changing the sets, and Show the sets unfolds', () => {
     setActive([entry('1001', [row(true), row(true)])])
     render()
     const before = sets().map(s => ({ ...s }))
     click(button('Collapse sets'))
-    expect(container.querySelector('.wl-summary')).toBeTruthy()
-    expect(container.textContent).toContain('2 sets')
+    expect(container.querySelector('.setrow')).toBeNull()
+    expect(container.querySelector('.sethead')).toBeNull()
     expect(sets()).toEqual(before)
     click(button('Show the sets'))
-    expect(container.querySelector('.wl-summary')).toBeNull()
+    expect(container.querySelectorAll('.setrow')).toHaveLength(2)
     expect(button('Collapse sets')).toBeTruthy()
     expect(sets()).toEqual(before)
   })
@@ -82,17 +82,16 @@ describe('Collapse sets', () => {
     container.remove()
     root = null
     render()
-    expect(container.querySelector('.wl-summary')).toBeTruthy()
+    expect(container.querySelector('.setrow')).toBeNull()
     expect(sets()).toEqual([row(true)])
   })
 
-  it('folds a superset as one unit with one summary line per member', () => {
+  it('keeps every superset heading while its sets are folded', () => {
     setActive([entry('1001', [row(true)], { sg: 'g' }), entry('1002', [row(true)], { sg: 'g' })])
     render()
     click(button('Collapse sets'))
-    const lines = [...container.querySelectorAll('.wl-summary .row.between')]
-    expect(lines).toHaveLength(2)
-    expect(container.textContent).toContain('1 set')
+    expect(container.querySelectorAll('.ss-ex')).toHaveLength(2)
+    expect(container.querySelectorAll('.setrow')).toHaveLength(0)
   })
 
   it('is absent in the editor of a saved workout', () => {
