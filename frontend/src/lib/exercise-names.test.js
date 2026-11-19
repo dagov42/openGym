@@ -231,7 +231,15 @@ for (const lang of EXERCISE_NAME_LANGS) {
     afterEach(() => _setLangState('en', {}, null, null))
 
     test('is built from catalogue/i18n, for known exercises only, with non-empty names', () => {
-      expect(pack).toEqual(catalogueNames(lang))
+      const source = catalogueNames(lang)
+      if (lang === 'ru') {
+        // The ru pack is cased by the build (small connectors stay lower-case); the words
+        // themselves must still be exactly the catalogue's.
+        expect(Object.keys(pack)).toEqual(Object.keys(source))
+        for (const [id, name] of Object.entries(pack)) expect(name.toLocaleLowerCase('ru'), id).toBe(source[id].toLocaleLowerCase('ru'))
+      } else {
+        expect(pack).toEqual(source)
+      }
       for (const [id, name] of Object.entries(pack)) {
         expect(EXIDX.has(id), `unknown exercise ${id}`).toBe(true)
         expect(typeof name === 'string' && name.trim(), id).toBeTruthy()

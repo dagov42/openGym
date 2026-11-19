@@ -38,6 +38,8 @@ A small updater fix and keyboard shortcuts.
 - Per-side exercises keep their band chips and planned starting bands. Health Connect now gets the
   measured heart-rate samples beside each workout, and the Wear APK's version code can no longer
   outrank the phone APK.
+- Russian exercise names read as titles: the small connectors (`на`, `и`, `с`, `в`, `по`…) stay
+  lower-case while the name words keep their capitals.
 - A saved gym card can carry a locker number. It shows under the label at check-in and on Home for
   the last-used card, and stays with the card in backups and sync.
 - Share with a friend now uses the address of the instance you are on, and accepts a shared
