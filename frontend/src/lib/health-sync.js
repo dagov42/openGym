@@ -32,7 +32,7 @@ import { speedUnitOf } from './speed.js'
 export const HEALTH_FILE = 'opengym-health.json'
 // How many ids of records the store refused are remembered (syncOnce, `refused`).
 export const REFUSED_MAX = 50
-const OFF = { on: false, kcalAsked: false, written: {}, at: 0, error: null, readHr: false, readWeight: false, wHistory: false, wCursor: 0, seen: {}, hrTried: {}, readError: null, readBody: false, body: {}, bCursor: 0, readVitals: false, vitals: {}, readSport: false, sCursor: 0 }
+const OFF = { on: false, kcalAsked: false, hrAsked: false, written: {}, at: 0, error: null, readHr: false, readWeight: false, wHistory: false, wCursor: 0, seen: {}, hrTried: {}, readError: null, readBody: false, body: {}, bCursor: 0, readVitals: false, vitals: {}, readSport: false, sCursor: 0 }
 
 // Wrapped in an object, as in rest-alert.js: a Capacitor plugin proxy answers `then`, so a
 // promise resolved with the bare proxy never settles.
@@ -138,13 +138,26 @@ async function kcalAllowed(p, h) {
   return { kcal: res?.calories === true, h: out }
 }
 
+async function heartRateAllowed(p, h) {
+  const st = await p.HC.status().catch(() => null)
+  if (st?.heartRate === true) return { hr: true, h }
+  const onScreen = typeof document === 'undefined' || document.visibilityState !== 'hidden'
+  if (st?.heartRate !== false || !st.granted || h.hrAsked || !onScreen) return { hr: false, h }
+  const res = await p.HC.requestPermissions({ read: [], write: ['heartRate'] }).catch(() => null)
+  const out = { ...h, hrAsked: true }
+  await saveHealth(out)
+  return { hr: res?.heartRate === true, h: out }
+}
+
 async function syncOnce(S, h) {
   const p = await plugin()
   if (!p) return h
   const allowed = await kcalAllowed(p, h)
   h = allowed.h
+  const hr = await heartRateAllowed(p, h)
+  h = hr.h
   // Segments (the sets, #816) only for Health Connect. Adding them rewrites each workout once.
-  const plan = planSync(healthRecords(S, { nameOf, speedUnit: speedUnitOf(S), kcal: allowed.kcal, segments: p.platform === 'android' }), h.written, goneIds(S))
+  const plan = planSync(healthRecords(S, { nameOf, speedUnit: speedUnitOf(S), kcal: allowed.kcal, heartRate: hr.hr, segments: p.platform === 'android' }), h.written, goneIds(S))
   const nothing = !plan.sessions.length && !plan.weights.length && !plan.remove.sessions.length && !plan.remove.weights.length
   if (nothing) {
     if (!h.error) return h
@@ -201,8 +214,8 @@ export async function enableHealth(S) {
   const granted = st.granted || (await p.HC.requestPermissions().catch(() => ({ granted: false }))).granted
   if (!granted) return { ok: false, reason: 'denied' }
   const h = await loadHealth()
-  // The default ask includes active energy (optional: refusing it keeps the rest on).
-  await saveHealth({ ...h, on: true, error: null, kcalAsked: true })
+  // The default ask includes active energy and heart rate (optional: refusing either keeps the rest on).
+  await saveHealth({ ...h, on: true, error: null, kcalAsked: true, hrAsked: true })
   await mirrorOn(true)
   const after = await syncHealth(S)
   return { ok: !after?.error, reason: after?.error || null, health: after }

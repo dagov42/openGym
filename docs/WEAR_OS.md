@@ -207,10 +207,13 @@ phone image that has one. Neither receiver exists in a release build.
 
 ### Versions
 
-The watch app takes the phone's `versionName` and **`versionCode` = phone versionCode + 10000**
-(read from `app/build.gradle` by `wear/build.gradle`, nothing to bump by hand). Google Play keeps
-one versionCode space per app for every form factor, so the phone (30 for 1.4.4) and the watch
-(10030) never collide, and each release's watch build is newer than the last one's.
+The watch app takes the phone's `versionName` and **`versionCode` = phone versionCode - 10000**
+(read from `app/build.gradle` by `wear/build.gradle`, nothing to bump by hand). The phone uses a
+20000 base, so its code is always above the watch APK: sideloading `openGym-Wear-<version>.apk` on a
+phone is refused as an older package instead of replacing the phone app and trapping its local data
+(#1359). The watch code still rises every release, so Play updates it. Google Play keeps one
+versionCode space per app for every form factor, so the phone (20052 for 1.4.10) and the watch
+(10052) never collide.
 
 ## Google Play
 

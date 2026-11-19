@@ -197,6 +197,13 @@ P2 — полезно, но позже. Открытые upstream PR не счи
 - [ ] **#1026/#1008** — японский UI / китайские описания.
 - [ ] **#1378** — IPv6 в web image (мелочь для self-host, взять при касании Docker).
 
+**Bug fixes из свежего upstream-триажа**
+
+- [x] **#1351** — Per Side больше не скрывает чипы брендов и стартовые бренды плана.
+- [x] **#1359** — Wear APK больше не может перезаписать телефон: phone versionCode 20052,
+      watch 10052, release-check проверяет порядок.
+- [x] **#1370** — в Health Connect пишутся измеренные samples пульса рядом с тренировкой.
+
 **Не берём сейчас:** iOS/Apple Watch/Wear OS/Garmin, Liquid Glass и iCloud, Google Play/F-Droid,
 Liquid Glass-серии, #191 (БД), #1186 (nutrition), #857 (Firestore), #974 (teachers), #848
 (YouTube import), #610 (phases), #590 (health widgets), #509 (social), #528/#1155, upstream-мета

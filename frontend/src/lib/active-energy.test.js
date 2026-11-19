@@ -84,5 +84,6 @@ describe('the native sides', () => {
     expect(java).toMatch(/new ActiveCaloriesBurnedRecord\(/)
     expect(java).toMatch(/"-kcal"/)
     expect(manifest).toMatch(/android\.permission\.health\.WRITE_ACTIVE_CALORIES_BURNED/)
+    expect(manifest).toMatch(/android\.permission\.health\.WRITE_HEART_RATE/)
   })
 })

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord;
 import androidx.health.connect.client.records.ExerciseSessionRecord;
+import androidx.health.connect.client.records.HeartRateRecord;
 import androidx.health.connect.client.records.WeightRecord;
 import java.util.Arrays;
 import org.json.JSONArray;
@@ -38,7 +39,11 @@ public class HealthWriteTest {
     }
 
     private static HealthWrite.Batch build(boolean kcal, JSONObject... sessions) {
-        return HealthWrite.build(new JSONArray(Arrays.asList(sessions)), new JSONArray(), kcal, 1, NOW);
+        return HealthWrite.build(new JSONArray(Arrays.asList(sessions)), new JSONArray(), kcal, false, 1, NOW);
+    }
+
+    private static HealthWrite.Batch buildHr(boolean kcal, JSONObject... sessions) {
+        return HealthWrite.build(new JSONArray(Arrays.asList(sessions)), new JSONArray(), kcal, true, 1, NOW);
     }
 
     @Test
@@ -172,6 +177,32 @@ public class HealthWriteTest {
     }
 
     @Test
+    public void measuredHeartRateGoesInWithItsSession() throws Exception {
+        long s0 = NOW - 2 * HOUR, s1 = NOW - HOUR;
+        JSONArray hr = new JSONArray()
+                .put(new JSONObject().put("t", s0 + 10 * 60_000).put("bpm", 128))
+                .put(new JSONObject().put("t", s0 + 20 * 60_000).put("bpm", 142))
+                .put(new JSONObject().put("t", s0 - 60_000).put("bpm", 99))     // before the session
+                .put(new JSONObject().put("t", s0 + 30 * 60_000).put("bpm", 400));  // not plausible
+        HealthWrite.Batch b = buildHr(false, session("a", s0, s1).put("hrSamples", hr));
+        assertEquals(2, b.records.size());
+        assertTrue(b.records.get(0) instanceof ExerciseSessionRecord);
+        HeartRateRecord r = (HeartRateRecord) b.records.get(1);
+        assertEquals(2, r.getSamples().size());
+        assertEquals(128, r.getSamples().get(0).getBeatsPerMinute());
+        assertEquals(142, r.getSamples().get(1).getBeatsPerMinute());
+        assertEquals("a-hr", r.getMetadata().getClientRecordId());
+    }
+
+    @Test
+    public void heartRateIsNotWrittenWithoutItsPermission() throws Exception {
+        JSONObject s = session("a", NOW - 2 * HOUR, NOW - HOUR)
+                .put("hrSamples", new JSONArray().put(new JSONObject().put("t", NOW - HOUR).put("bpm", 128)));
+        assertEquals(1, build(false, s).records.size());
+        assertEquals(1, buildHr(false, session("b", NOW - 2 * HOUR, NOW - HOUR)).records.size());
+    }
+
+    @Test
     public void weighIns() throws Exception {
         JSONArray ws = new JSONArray()
                 .put(weighIn("ok", NOW, 81.4))
@@ -180,7 +211,7 @@ public class HealthWriteTest {
                 .put(weighIn("old", 0, 80)).put(weighIn("y2000", HealthWrite.EPOCH_MS - HOUR, 80)).put(weighIn("ahead", NOW + 48 * HOUR, 80))
                 .put(weighIn("notime", null, 80)).put(weighIn("nokg", NOW, null))
                 .put(weighIn("almost", NOW, 999.9));
-        HealthWrite.Batch b = HealthWrite.build(new JSONArray(), ws, false, 1, NOW);
+        HealthWrite.Batch b = HealthWrite.build(new JSONArray(), ws, false, false, 1, NOW);
         assertEquals(Arrays.asList("ok", "almost"), b.owners);
         assertEquals(81.4, ((WeightRecord) b.records.get(0)).getWeight().getKilograms(), 1e-9);
         assertEquals(12, b.skipped.size());
@@ -189,9 +220,9 @@ public class HealthWriteTest {
     @Test
     public void notAnObjectIsSkippedNotACrash() {
         JSONArray odd = new JSONArray().put("text").put(5).put(JSONObject.NULL);
-        HealthWrite.Batch b = HealthWrite.build(odd, odd, true, 1, NOW);
+        HealthWrite.Batch b = HealthWrite.build(odd, odd, true, false, 1, NOW);
         assertTrue(b.records.isEmpty());
         assertEquals(6, b.skipped.size());
-        assertNotNull(HealthWrite.build(null, null, true, 1, NOW));
+        assertNotNull(HealthWrite.build(null, null, true, false, 1, NOW));
     }
 }

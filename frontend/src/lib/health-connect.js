@@ -16,6 +16,45 @@ import { workoutSegments } from './health-segments.js'
 const LB_PER_KG = 2.2046226218
 // Health Connect refuses a title or notes over 1000 characters (ExerciseSessionRecord).
 export const TEXT_MAX = 1000
+// Health Connect's own plausible range for a heart-rate sample.
+export const HR_MIN = 25
+export const HR_MAX = 250
+const MAX_HR_SAMPLES = 5000
+
+const hrValue = v => {
+  const n = Number(v && typeof v === 'object' ? v.avg : v)
+  return Number.isFinite(n) && n >= HR_MIN && n <= HR_MAX ? Math.round(n) : null
+}
+
+/**
+ * The heart-rate samples openGym actually measured, from the sets' own `hr` readings (#1370).
+ * A set stores the average its watch sent and the time it was ticked; that is one honest sample.
+ * No set-level readings: the session's aggregate average, at its start and end, so Health Connect
+ * still links a workout to a heart rate instead of showing it without one.
+ */
+export function heartRateSamples(w) {
+  const start = Number(w?.start), end = Number(w?.end)
+  if (!(start > 0) || !(end > start)) return []
+  const found = new Map()
+  const add = (t, v) => {
+    const at = Number(t), bpm = hrValue(v)
+    if (Number.isFinite(at) && at >= start && at <= end && bpm != null) found.set(Math.round(at), bpm)
+  }
+  for (const entry of w?.entries || []) {
+    for (const set of entry?.sets || []) {
+      if (!set || !set.at) continue
+      add(set.at, set.hr)
+      if (set.sides) for (const side of Object.values(set.sides)) add(set.at, side?.hr)
+    }
+  }
+  if (!found.size) {
+    const bpm = hrValue(w?.hr)
+    if (bpm != null) { add(start + 1, bpm); add(end - 1, bpm) }
+  }
+  return [...found].map(([t, bpm]) => ({ t, bpm })).sort((a, b) => a.t - b.t).slice(0, MAX_HR_SAMPLES)
+}
+
+/** Everything the state has to give Health Connect: { sessions, weights }. */
 
 // What Apple Health and Health Connect take (v1.4.5). HealthKit raises an exception the app cannot
 // catch for a sample it will not take, and the iPhone app died at every launch on a workout left
@@ -136,7 +175,7 @@ function sessionNotes(w, opts) {
  * its start) is left out rather than given made-up times: Health Connect needs both. So is one the
  * stores would refuse (see EPOCH_MS above): before 2001, ahead of the clock, longer than a week.
  */
-export function sessionRecord(w, { unit, nameOf, speedUnit, kg = null, segments = false, customEx = [], now = Date.now() }) {
+export function sessionRecord(w, { unit, nameOf, speedUnit, kg = null, segments = false, heartRate = false, customEx = [], now = Date.now() }) {
   const start = Number(w?.start), end = Number(w?.end)
   if (!w?.id || !healthTime(start, now) || !healthTime(end, now) || !(end > start) || end - start > MAX_SESSION_MS) return null
   const long = end - start > ENERGY_SPAN_MS
@@ -157,6 +196,12 @@ export function sessionRecord(w, { unit, nameOf, speedUnit, kg = null, segments 
   if (segments && !long && rec.type === 'strength_training') {
     const seg = workoutSegments(w, customEx)
     if (seg.length) rec.segments = seg
+  }
+  // Health Connect's heart-rate record linked to this session (#1370); the native side decides
+  // whether the user granted its write permission.
+  if (heartRate) {
+    const hr = heartRateSamples(w)
+    if (hr.length) rec.hrSamples = hr
   }
   return rec
 }
@@ -198,13 +243,14 @@ function localMorning(iso) {
 export const isImportedWorkout = w => w?.src === 'import' || /^iw[0-9a-z]+$/.test(String(w?.id || ''))
 
 /** Everything the state has to give Health Connect: { sessions, weights }. */
-export function healthRecords(S, { nameOf, speedUnit, kcal = false, segments = false, now = Date.now() }) {
+export function healthRecords(S, { nameOf, speedUnit, kcal = false, segments = false, heartRate = false, now = Date.now() }) {
   const unit = S?.unit === 'lb' ? 'lb' : 'kg'
   // `kcal`: the hub allows active energy, so every session carries its estimate. A change of that
   // permission changes the records, so the next sync writes them all again, with or without.
+  // `heartRate`: likewise for the measured samples (#1370).
   return {
     sessions: (S?.workouts || []).filter(w => !isImportedWorkout(w))
-      .map(w => sessionRecord(w, { unit, nameOf, speedUnit, kg: kcal ? bodyKgFor(S, w) : null, segments, customEx: S?.customEx, now })).filter(Boolean),
+      .map(w => sessionRecord(w, { unit, nameOf, speedUnit, kg: kcal ? bodyKgFor(S, w) : null, segments, heartRate, customEx: S?.customEx, now })).filter(Boolean),
     // A weigh-in read from the hub (`src`, lib/health-read.js) is already there: never written back.
     // Every weigh-in of a day with several (lib/weigh-ins.js), each at its own time.
     weights: (S?.bodyweight || []).flatMap(b => (Array.isArray(b?.ins)

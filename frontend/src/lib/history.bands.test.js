@@ -44,6 +44,14 @@ describe('the bands a new session starts with', () => {
     expect(buildSets(all, cfg({ weight: 5 })).map(s => s.bands)).toEqual([['y'], ['y']])
   })
 
+  it('keeps the bands on a per-side exercise, planned and from last time', () => {
+    const first = buildSets({ bands: BANDS, workouts: [] }, cfg({ side: true, sets: 1, bands: ['y'] }))
+    expect(first[0].bands).toEqual(['y'])
+    const S = after([{ w: 0, r: 20, bands: ['r'], done: true }])
+    const last = buildSets(S, cfg({ side: true, sets: 1, bands: ['y'], prog: 'off' }))
+    expect(last[0].bands).toEqual(['r'])
+  })
+
   it('leaves an exercise without bands exactly as it was', () => {
     const rows = [{ w: 50, r: 8, done: false }]
     expect(seedBands({ bands: BANDS, workouts: [] }, { id: LIFT, sets: 1, reps: 8, mode: 'reps' }, rows)).toBe(rows)

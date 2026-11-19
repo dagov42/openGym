@@ -35,6 +35,9 @@ A small updater fix and keyboard shortcuts.
   10–20 range. A profile rest between the sides of a per-side rep set is optional and off by default.
 - With effort logging on, warm-up rows can hide their rating column; work sets stay unchanged.
   An opt-in can also ask for a set's effort before ticking it; the set waits until a value is chosen.
+- Per-side exercises keep their band chips and planned starting bands. Health Connect now gets the
+  measured heart-rate samples beside each workout, and the Wear APK's version code can no longer
+  outrank the phone APK.
 - A saved gym card can carry a locker number. It shows under the label at check-in and on Home for
   the last-used card, and stays with the card in backups and sync.
 - Share with a friend now uses the address of the instance you are on, and accepts a shared

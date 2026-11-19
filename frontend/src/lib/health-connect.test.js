@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { EXIDX } from './exercises.js'
-import { exerciseType, goneIds, healthRecords, planSync, plannedType, recordKey, sessionRecord, sessionType, SESSION_TYPES, TEXT_MAX, weightRecord, writtenIds } from './health-connect.js'
+import { exerciseType, goneIds, healthRecords, heartRateSamples, planSync, plannedType, recordKey, sessionRecord, sessionType, SESSION_TYPES, TEXT_MAX, weightRecord, writtenIds } from './health-connect.js'
 
 // #200: what the Android app writes to Health Connect, worked out from the state alone.
 const nameOf = e => ({ '0025': 'barbell bench press', '3666': 'walking on incline treadmill', '2138': 'stationary bike run v. 3' })[e.id] || e.id
@@ -87,6 +87,8 @@ describe('the native tables', () => {
     for (const name of SESSION_TYPES.filter(n => !['jump_rope', 'mixed_cardio', 'other_workout'].includes(n))) {
       expect(s).toContain(`case "${name}": return`)
     }
+    expect(s).toContain('new HeartRateRecord(')
+    expect(s).toContain('"-hr"')
   })
 })
 
@@ -137,6 +139,22 @@ describe('weightRecord', () => {
   it('skips a weigh-in with no day or no weight', () => {
     expect(weightRecord({ w: 80 }, 'kg')).toBeNull()
     expect(weightRecord({ d: '2026-09-17', w: 0 }, 'kg')).toBeNull()
+  })
+})
+
+describe('heart-rate samples', () => {
+  const hrSet = { w: 60, r: 8, done: true, at: at(18, 10), hr: { avg: 128, max: 150 } }
+  it('uses the measured set averages at the times the sets were ticked', () => {
+    const w = workout([{ ...strength, sets: [hrSet] }])
+    expect(heartRateSamples(w)).toEqual([{ t: at(18, 10), bpm: 128 }])
+    expect(sessionRecord(w, { unit: 'kg', nameOf, heartRate: true }).hrSamples).toEqual([{ t: at(18, 10), bpm: 128 }])
+    expect(sessionRecord(w, { unit: 'kg', nameOf }).hrSamples).toBeUndefined()
+  })
+  it('falls back to the session average, and keeps plausible samples only', () => {
+    const w = workout([strength], { hr: { avg: 120, max: 150 } })
+    expect(heartRateSamples(w)).toEqual([{ t: at(18) + 1, bpm: 120 }, { t: at(19) - 1, bpm: 120 }])
+    const odd = workout([{ ...strength, sets: [{ ...hrSet, hr: { avg: 400 } }, { ...hrSet, at: at(17) }] }])
+    expect(heartRateSamples(odd)).toEqual([])
   })
 })
 

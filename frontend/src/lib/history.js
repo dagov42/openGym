@@ -715,7 +715,7 @@ function bandSeed(S, cfg, options = {}) {
   if (!cfg || modeOf(cfg) !== 'reps' || !usesBands(S, cfg.id, cfg)) return null
   const plan = setBandsOf({ bands: cfg.bands })
   const last = options.useTarget ? null : lastEntryFor(S, cfg.id, options.rid)
-  const lastWork = last ? (last.sets || []).filter(x => !isWarmupRow(x) && !isSideSet(x)) : []
+  const lastWork = last ? (last.sets || []).filter(x => !isWarmupRow(x)) : []
   const anyBands = lastWork.some(x => setBandsOf(x).length)
   if (!anyBands && !plan.length) return null
   const top = cfg.repsMax > 0 ? cfg.repsMax : cfg.reps
@@ -744,7 +744,7 @@ export function seedBands(S, cfg, rows, options = {}) {
   const list = bandsOf(S)
   let wi = 0
   return rows.map(r => {
-    if (isWarmupRow(r) || isSideSet(r)) return r
+    if (isWarmupRow(r)) return r
     const prev = lastWork[wi] || lastWork[lastWork.length - 1]
     wi++
     let ids = anyBands ? setBandsOf(prev) : plan

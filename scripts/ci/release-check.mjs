@@ -14,11 +14,18 @@ import { appendFileSync, readFileSync } from 'node:fs'
 const tag = process.argv[2]
 const want = tag ? tag.replace(/^(?:fork-)?v/, '') : null
 const read = (p) => { try { return readFileSync(p, 'utf8') } catch { return '' } }
+const appGradle = read('frontend/android/app/build.gradle')
+const wearGradle = read('frontend/android/wear/build.gradle')
+const phoneCode = Number(/versionCode\s+(\d+)/.exec(appGradle)?.[1])
+const wearOffset = Number(/WEAR_VERSION_OFFSET\s*=\s*(\d+)/.exec(wearGradle)?.[1])
+const wearCode = Number.isFinite(phoneCode) && Number.isFinite(wearOffset) && /versionCode\s+phoneCode\s*-/.test(wearGradle)
+  ? phoneCode - wearOffset : null
 const found = {
   'frontend/package.json': JSON.parse(read('frontend/package.json') || '{}').version,
   'api/package.json': JSON.parse(read('api/package.json') || '{}').version,
-  'Android versionName': /versionName\s+"([^"]+)"/.exec(read('frontend/android/app/build.gradle'))?.[1],
-  'Android versionCode': /versionCode\s+(\d+)/.exec(read('frontend/android/app/build.gradle'))?.[1],
+  'Android versionName': /versionName\s+"([^"]+)"/.exec(appGradle)?.[1],
+  'Android versionCode': /versionCode\s+(\d+)/.exec(appGradle)?.[1],
+  'Wear versionCode': wearCode ?? 'derived from the phone',
   'iOS MARKETING_VERSION': [...new Set([...read('frontend/ios/App/App.xcodeproj/project.pbxproj').matchAll(/MARKETING_VERSION = ([^;]+);/g)].map((m) => m[1]))].join(', '),
   'Garmin manifest version': /<iq:application [^>]*version="([^"]+)"/.exec(read('frontend/garmin/manifest.xml'))?.[1],
   'iOS build number': [...new Set([...read('frontend/ios/App/App.xcodeproj/project.pbxproj').matchAll(/CURRENT_PROJECT_VERSION = ([^;]+);/g)].map((m) => m[1]))].join(', '),
@@ -27,6 +34,11 @@ const changelog = read('CHANGELOG.md')
 const section = want ? new RegExp(`^## v${want.replace(/\./g, '\\.')}([^0-9.]|$)`, 'm').test(changelog) : null
 
 const errors = [], warnings = []
+// A Wear APK with a code at or above the phone's can overwrite the phone app when sideloaded
+// (#1359), and leaves no lower phone build able to recover it.
+if (wearCode != null && Number.isFinite(phoneCode) && phoneCode <= wearCode) {
+  errors.push(`Android versionCode ${phoneCode} must be above the Wear versionCode ${wearCode}`)
+}
 if (want) {
   for (const k of ['frontend/package.json', 'api/package.json']) if (found[k] !== want) errors.push(`${k} says ${found[k]}, the tag says ${want}`)
   if (!section) errors.push(`CHANGELOG.md has no "## v${want}" section (the release notes come from there)`)
