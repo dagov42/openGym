@@ -2,12 +2,21 @@ import { describe, it, expect } from 'vitest'
 import {
   rirOf, toScale, displayScale, avgRir, effortSummary, hasEffort, hasEstimableEffort, effortWeeks,
   effortHistogram, isHardSet, HARD_RIR, MIN_RATED,
-  effortColor, EFFORT_BANDS, EFFORT_PRESETS
+  effortColor, EFFORT_BANDS, EFFORT_PRESETS, effortWarmupsOn
 } from './effort.js'
 import { isoOf } from './format.js'
 import { anchorsByWorkout, resolveSetRir } from './recovery.js'
 
 const daysAgo = n => { const d = new Date(); d.setDate(d.getDate() - n); return d }
+
+describe('warm-up effort setting', () => {
+  it('is on unless the profile explicitly turned it off', () => {
+    expect(effortWarmupsOn(undefined)).toBe(true)
+    expect(effortWarmupsOn({})).toBe(true)
+    expect(effortWarmupsOn({ effortWarmups: false })).toBe(false)
+    expect(effortWarmupsOn({ effortWarmups: 'false' })).toBe(true)
+  })
+})
 // One workout on a day, with the sets given. Everything here is a finished set unless a set
 // says otherwise, because that is what the stats read.
 const W = (n, sets) => {

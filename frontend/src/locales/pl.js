@@ -5981,4 +5981,10 @@ export default {
   "Locker number (optional)": "Numer szafki (opcjonalnie)",
   "e.g. B-42": "np. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Licz tylko główne mięśnie",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Seria liczy się raz dla mięśnia, który trenuje, a nie częściowo dla mięśni pomocniczych.",
+  "Main muscles only": "Tylko główne mięśnie",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Przy powtórzeniach na stronę krótka przerwa po każdej stronie. Izometrie zachowują przerwę na zmianę.",
+  "Effort on warm-ups": "Wysiłek na rozgrzewce",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Wyłączone: wiersz rozgrzewki nie ma kolumny oceny. Serie robocze się nie zmieniają.",
 }

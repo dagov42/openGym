@@ -318,7 +318,7 @@ export function exerciseMuscleSnapshot(ex) {
  * times a single set. Volume in kg is deliberately not used: 100 kg of leg press
  * against 12 kg of lateral raise says nothing about which muscle worked harder.
  */
-export function loadOf(items) {
+export function loadOf(items, { mainOnly = false } = {}) {
   const load = {}
   items.forEach(item => {
     const { id, sets } = item || {}
@@ -326,7 +326,11 @@ export function loadOf(items) {
     const historical = item.ex || item.exercise
     const source = historical?.muscleWeights ? historical : (EXIDX[id] || historical || item)
     const m = musclesOf(source)
-    for (const slug in m) load[slug] = (load[slug] || 0) + m[slug] * sets
+    for (const slug in m) {
+      // A supporting muscle is 0.4; a main one is at least one full set.
+      if (mainOnly && m[slug] < 1) continue
+      load[slug] = (load[slug] || 0) + m[slug] * sets
+    }
   })
   return load
 }
@@ -337,9 +341,9 @@ export function loadOf(items) {
  * question from where the sets went: a muscle can lead on volume and still never be trained
  * near failure.
  */
-export const loadOfWorkouts = (workouts, pick) =>
+export const loadOfWorkouts = (workouts, pick, options = {}) =>
   loadOf((workouts || []).flatMap(w =>
-    (w.entries || []).map(e => ({ id: e.id, ex: e.exercise || e, sets: (e.sets || []).filter(s => s.done && !isWarmupRow(s) && (!pick || pick(s))).length }))))
+    (w.entries || []).map(e => ({ id: e.id, ex: e.exercise || e, sets: (e.sets || []).filter(s => s.done && !isWarmupRow(s) && (!pick || pick(s))).length }))), options)
 
 /**
  * Workouts in one existing Muscle balance range, with time injected for deterministic tests.

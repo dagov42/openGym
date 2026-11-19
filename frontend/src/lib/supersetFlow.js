@@ -191,11 +191,16 @@ export function ownSetRest(row) {
  * `ownSec` is the set's own rest from its menu (ownSetRest, #609): given, it is this one set's
  * pause between its sides too (0 = none), before anything the exercise says (#853).
  */
-export function sideRestFor(target, { timed, restAfter, switchSec, ownSec = null }) {
+export function sideRestFor(target, { timed, restAfter, switchSec, ownSec = null, profileSec = 0 }) {
   if (typeof ownSec === 'number' && Number.isFinite(ownSec) && ownSec >= 0) return ownSec > 0 ? Math.round(ownSec) : null
   if (target?.sideRestOff === true) return null
   const own = Math.round(Number(target?.sideRestSec)) || 0
   if (own > 0) return own
+  if (!timed) {
+    const profile = Math.round(Number(profileSec)) || 0
+    if (profile > 0) return profile
+    return null
+  }
   if (timed && restAfter > 0) return Math.min(switchSec, restAfter)
   return null
 }

@@ -5981,4 +5981,10 @@ export default {
   "Locker number (optional)": "Número de taquilla (opcional)",
   "e.g. B-42": "p. ej., B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Contar solo los músculos principales",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Una serie cuenta una vez para el músculo que entrena, no en parte para los músculos que ayudan.",
+  "Main muscles only": "Solo músculos principales",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "En repeticiones por lado, una pausa corta tras cada lado. Los isométricos mantienen su pausa de cambio.",
+  "Effort on warm-ups": "Esfuerzo en los calentamientos",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Desactivado: la fila de calentamiento no tiene columna de valoración. Las series de trabajo no cambian.",
 }

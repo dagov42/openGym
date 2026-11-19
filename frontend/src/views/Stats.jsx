@@ -254,7 +254,7 @@ function MusclesCard({ S, planFocus = false }) {
   // none the hard view would just be empty and read as "you trained nothing".
   const rated = inWin.some(w => w.entries.some(e => e.sets.some(s => s.done && isHardSet(s))))
   const on = !planned && !weekly && hard && rated
-  const done = loadOfWorkouts(inWin, on ? isHardSet : null)
+  const done = loadOfWorkouts(inWin, on ? isHardSet : null, { mainOnly: weekly && S.muscleSetsMain === true })
   const plan = loadOfWeeklyPlan(S)
   const hasPlan = Object.values(plan).some(v => v > 0)
   const weeks = weekly ? 1 : weeksIn(win, inWin, now)
@@ -311,7 +311,7 @@ function MusclesCard({ S, planFocus = false }) {
               onClick={() => { setWeekOffset(offset => Math.min(0, offset + 1)); reset() }}><Icon name="chevronRight" /></button>
           </div>
           : <div className="mus-cap row between">
-            <span className="small dim">{on ? t('by hard sets') : t('Average sets a week')}</span>
+            <span className="small dim">{on ? t('by hard sets') : t('Average sets a week')}{weekly && S.muscleSetsMain === true ? ' · ' + t('Main muscles only') : ''}</span>
             {rated && <Button size="sm" icon="gauge" aria-pressed={on} className={on ? 'mus-hard on' : 'mus-hard'}
               onClick={() => { setHard(h => !h); setSel(null) }}>{on ? t('Hard') : t('All')}</Button>}
           </div>}

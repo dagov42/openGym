@@ -5946,4 +5946,10 @@ export default {
   "Locker number (optional)": "Nomor loker (opsional)",
   "e.g. B-42": "mis. B-42",
   "≈ {0} kcal": "≈ {0} kkal",
+  "Count main muscles only": "Hitung otot utama saja",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Satu set dihitung sekali untuk otot yang dilatih, bukan sebagian untuk otot pendukung.",
+  "Main muscles only": "Otot utama saja",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Untuk repetisi per sisi, jeda singkat setelah tiap sisi. Hold mempertahankan jeda pergantiannya.",
+  "Effort on warm-ups": "Usaha pada pemanasan",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Mati: baris pemanasan tidak punya kolom penilaian. Set kerja tidak berubah.",
 };

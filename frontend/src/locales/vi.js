@@ -5947,4 +5947,10 @@ export default {
   "Locker number (optional)": "Số tủ (không bắt buộc)",
   "e.g. B-42": "ví dụ B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Chỉ tính cơ chính",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Một hiệp chỉ tính một lần cho cơ được tập, không tính một phần cho cơ hỗ trợ.",
+  "Main muscles only": "Chỉ cơ chính",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Với số lần mỗi bên, nghỉ ngắn sau mỗi bên. Động tác giữ vẫn giữ nhịp nghỉ chuyển bên.",
+  "Effort on warm-ups": "Mức gắng sức khi khởi động",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Tắt: hàng khởi động không có cột đánh giá. Các hiệp làm việc không đổi.",
 };

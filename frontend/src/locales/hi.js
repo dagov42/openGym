@@ -5981,4 +5981,10 @@ export default {
   "Locker number (optional)": "लॉकर नंबर (वैकल्पिक)",
   "e.g. B-42": "जैसे B-42",
   "≈ {0} kcal": "≈ {0} किलोकैलोरी",
+  "Count main muscles only": "केवल मुख्य मांसपेशियाँ गिनें",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "एक सेट उस मांसपेशी के लिए एक बार गिना जाता है जिसे वह प्रशिक्षित करता है, सहायक मांसपेशियों के लिए आंशिक रूप से नहीं।",
+  "Main muscles only": "केवल मुख्य मांसपेशियाँ",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "प्रति-साइड रेप्स में हर तरफ़ के बाद छोटा विराम। होल्ड अपना स्विच विराम रखते हैं।",
+  "Effort on warm-ups": "वार्म-अप पर प्रयास",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "बंद: वार्म-अप पंक्ति में रेटिंग कॉलम नहीं होता। काम के सेट नहीं बदलते।",
 }

@@ -5992,4 +5992,10 @@ export default {
   "Locker number (optional)": "หมายเลขล็อกเกอร์ (ไม่บังคับ)",
   "e.g. B-42": "เช่น B-42",
   "≈ {0} kcal": "≈ {0} แคลอรี",
+  "Count main muscles only": "นับเฉพาะกล้ามเนื้อหลัก",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "หนึ่งเซ็ตนับหนึ่งครั้งสำหรับกล้ามเนื้อที่ฝึก ไม่นับบางส่วนให้กล้ามเนื้อช่วย",
+  "Main muscles only": "เฉพาะกล้ามเนื้อหลัก",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "สำหรับเรปแบบข้างละครั้ง พักสั้นๆ หลังแต่ละข้าง ท่าค้างคงการพักเปลี่ยนข้างไว้",
+  "Effort on warm-ups": "ความเหนื่อยในวอร์มアップ",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "ปิด: แถววอร์มアップไม่มีคอลัมน์ให้คะแนน เซ็ตทำงานไม่เปลี่ยน",
 }

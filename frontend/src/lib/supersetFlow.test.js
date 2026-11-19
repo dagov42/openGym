@@ -169,6 +169,13 @@ describe('set-specific rests (Discord: rest for warm-ups and between sides)', ()
     expect(sideRestFor({}, { timed: true, restAfter: 5, switchSec: 10 })).toBe(5)
     expect(sideRestFor({ sideRestSec: 0 }, { timed: true, restAfter: 0, switchSec: 10 })).toBeNull()
   })
+  it('uses the profile default for reps only, after the set and exercise choices', () => {
+    expect(sideRestFor({}, { timed: false, profileSec: 15 })).toBe(15)
+    expect(sideRestFor({ sideRestSec: 20 }, { timed: false, profileSec: 15 })).toBe(20)
+    expect(sideRestFor({ sideRestOff: true }, { timed: false, profileSec: 15 })).toBeNull()
+    expect(sideRestFor({}, { timed: true, restAfter: 90, switchSec: 10, profileSec: 15 })).toBe(10)
+    expect(sideRestFor({}, { timed: false, ownSec: 0, profileSec: 15 })).toBeNull()
+  })
   it('a set\'s own rest: a number of 0 or more, anything else is none (#609)', () => {
     expect(ownSetRest({ restSec: 0 })).toBe(0)
     expect(ownSetRest({ restSec: 90.4 })).toBe(90)

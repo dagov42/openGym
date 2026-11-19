@@ -5984,4 +5984,10 @@ export default {
   "Locker number (optional)": "Szekrényszám (nem kötelező)",
   "e.g. B-42": "pl. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Csak a fő izmokat számolja",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Egy sorozat egyszer számít annak az izomnak, amelyet edz, nem részben a segítő izmoknak.",
+  "Main muscles only": "Csak fő izmok",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Oldalankénti ismétlésnél rövid szünet minden oldal után. A tartások megtartják a váltási szünetüket.",
+  "Effort on warm-ups": "Erőkifejtés bemelegítésnél",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Ki: a bemelegítő sorban nincs értékelő oszlop. A munkasorozatok változatlanok.",
 }

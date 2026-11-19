@@ -5977,4 +5977,10 @@ export default {
   "Locker number (optional)": "Spintelės numeris (neprivaloma)",
   "e.g. B-42": "pvz., B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Skaičiuoti tik pagrindinius raumenis",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Setas skaičiuojamas vieną kartą treniruojamam raumeniui, o ne dalinai pagalbiniams raumenims.",
+  "Main muscles only": "Tik pagrindiniai raumenys",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Kartojant kiekvienai pusei, trumpa pauzė po kiekvienos pusės. Laikymai išlaiko savo perėjimo pauzę.",
+  "Effort on warm-ups": "Pastangos apšilime",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Išjungta: apšilimo eilutėje nėra vertinimo stulpelio. Darbiniai setai nesikeičia.",
 }

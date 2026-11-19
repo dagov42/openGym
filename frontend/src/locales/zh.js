@@ -5981,4 +5981,10 @@ export default {
   "Locker number (optional)": "储物柜号码（选填）",
   "e.g. B-42": "例如 B-42",
   "≈ {0} kcal": "≈ {0} 千卡",
+  "Count main muscles only": "只计算主要肌群",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "一组只计入主要训练的肌群一次，不部分计入辅助肌群。",
+  "Main muscles only": "只计主要肌群",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "单侧次数在每侧之后短暂休息。保持动作保留换边休息。",
+  "Effort on warm-ups": "热身组的努力程度",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "关闭：热身行没有评分列。工作组不变。",
 }

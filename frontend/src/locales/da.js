@@ -5921,4 +5921,10 @@ export default {
   "Locker number (optional)": "Skabsnummer (valgfrit)",
   "e.g. B-42": "f.eks. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Tæl kun hovedmuskler",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Et sæt tælles én gang for musklen, det træner, ikke delvist for hjælpemusklerne.",
+  "Main muscles only": "Kun hovedmuskler",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Ved gentagelser pr. side en kort pause efter hver side. Hold beholder deres skiftepause.",
+  "Effort on warm-ups": "Indsats på opvarmning",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Fra: en opvarmningsrække har ingen vurderingskolonne. Arbejdssæt er uændrede.",
 }

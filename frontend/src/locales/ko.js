@@ -5981,4 +5981,10 @@ export default {
   "Locker number (optional)": "사물함 번호 (선택)",
   "e.g. B-42": "예: B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "주요 근육만 계산",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "한 세트는 훈련하는 근육에 한 번 계산되며, 돕는 근육에 일부만 계산되지 않습니다.",
+  "Main muscles only": "주요 근육만",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "한쪽씩 하는 반복은 각 쪽 후 짧게 쉽니다. 홀드는 전환 휴식을 유지합니다.",
+  "Effort on warm-ups": "웜업의 노력도",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "끔: 웜업 행에는 평가 열이 없습니다. 작업 세트는 그대로입니다.",
 }

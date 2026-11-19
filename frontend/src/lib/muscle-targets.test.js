@@ -19,6 +19,16 @@ describe('weekly sets per muscle', () => {
     expect(rows.quadriceps.sets).toBe(3)
     expect(Object.keys(rows)).toEqual(Object.keys(DEFAULT_TARGETS))
   })
+  test('main muscles only counts a supporting muscle as zero', () => {
+    const S = { weekStart: 1, workouts: [wk('2026-10-26', BENCH, 4)] }
+    const all = Object.fromEntries(weeklyMuscleSets(S, TODAY).map(r => [r.slug, r.sets]))
+    const main = Object.fromEntries(weeklyMuscleSets({ ...S, muscleSetsMain: true }, TODAY).map(r => [r.slug, r.sets]))
+    expect(all.chest).toBe(4)
+    expect(all.triceps).toBeCloseTo(1.6)
+    expect(main.chest).toBe(4)
+    expect(main.triceps).toBe(0)
+  })
+
   test('in range and above it', () => {
     expect(statusOf(10, [10, 20])).toBe('in')
     expect(statusOf(20, [10, 20])).toBe('in')

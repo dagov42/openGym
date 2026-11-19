@@ -5947,4 +5947,10 @@ export default {
   "Locker number (optional)": "شماره کمد (اختیاری)",
   "e.g. B-42": "مثلاً B-42",
   "≈ {0} kcal": "≈ {0} کالری",
+  "Count main muscles only": "فقط ماهیچه‌های اصلی را بشمار",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "هر ست یک بار برای ماهیچهٔ اصلی تمرین شمرده می‌شود، نه به‌صورت جزئی برای ماهیچه‌های کمکی.",
+  "Main muscles only": "فقط ماهیچه‌های اصلی",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "برای تکرارهای هر طرف، یک استراحت کوتاه بعد از هر طرف. هولدها مکث تعویض خود را نگه می‌دارند.",
+  "Effort on warm-ups": "شدت در گرم‌کردن",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "خاموش: ردیف گرم‌کردن ستون امتیاز ندارد. ست‌های کاری تغییر نمی‌کنند.",
 }

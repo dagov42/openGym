@@ -5978,4 +5978,10 @@ export default {
   "Locker number (optional)": "Номер шафки (необов’язково)",
   "e.g. B-42": "напр. B-42",
   "≈ {0} kcal": "≈ {0} ккал",
+  "Count main muscles only": "Рахувати лише основні м’язи",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Підхід рахується один раз для основного м’яза, а не частково для допоміжних.",
+  "Main muscles only": "Лише основні м’язи",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Для повторів на кожну сторону — коротка пауза після сторони. Утримання зберігають паузу на зміну.",
+  "Effort on warm-ups": "Зусилля на розминочних підходах",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Вимк.: у розминочного підходу немає колонки оцінки. Робочі підходи не змінюються.",
 }

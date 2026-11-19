@@ -1,9 +1,16 @@
 # Upstream P1 batch: specs for the next upstream ports
 
-Status: planned 2026-11-19, not implemented. This is a planning pack, not a promise that every item
-lands. Each section records the upstream PR, the behaviour worth porting to this fork, the files it
-touches and the tests that must exist before it is merged. P0 work is separate: share-link origin,
+Status: planned 2026-11-19, not all implemented. This is a planning pack, not a promise that every
+item lands. Each section records the upstream PR, the behaviour worth porting to this fork, the files
+it touches and the tests that must exist before it is merged. P0 work is separate: share-link origin,
 the wake-lock hold count and the calorie estimate.
+
+Current status, checked against the fork on 2026-11-19:
+
+- already present and verified: #1293, #1092, #1226, #1211, #1095, #1156, #1091, #1191;
+- implemented in this batch: #1157 (main muscles only), #1377 (profile rest between sides),
+  #1374 (effort on warm-ups);
+- still to do: #1379, #1164, #1375, #1317, #1193.
 
 Source: the open-PR/issue triage of `DuarteSantos8/openGym` on 2026-11-19. The PRs are open, so none
 of this is in `FORK_CHANGELOG.md` yet. A PR that is `dirty` or `unstable` must be rebased and reviewed

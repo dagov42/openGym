@@ -5947,4 +5947,10 @@ export default {
   "Locker number (optional)": "Číslo skříňky (volitelné)",
   "e.g. B-42": "např. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Počítat jen hlavní svaly",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Série se počítá jednou pro sval, který trénuje, ne částečně pro pomocné svaly.",
+  "Main muscles only": "Jen hlavní svaly",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "U opakování na každou stranu krátká pauza po každé straně. Výdrže si nechají svou pauzu na přepnutí.",
+  "Effort on warm-ups": "Námaha u rozcviček",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Vypnuto: řádek rozcvičky nemá sloupec hodnocení. Pracovní série se nemění.",
 }

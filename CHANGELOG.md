@@ -31,6 +31,9 @@ A small updater fix and keyboard shortcuts.
   groups keep working as they are.
 - Settings → Workout → Fine-tuning can keep a weight change on the set you edit. It is on by default;
   turn it off when one top set or back-off should not move the following sets.
+- Weekly sets can count main muscles only, for a lifter who compares the weekly number with the
+  10–20 range. A profile rest between the sides of a per-side rep set is optional and off by default.
+- With effort logging on, warm-up rows can hide their rating column; work sets stay unchanged.
 - A saved gym card can carry a locker number. It shows under the label at check-in and on Home for
   the last-used card, and stays with the card in backups and sync.
 - Share with a friend now uses the address of the instance you are on, and accepts a shared

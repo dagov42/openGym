@@ -43,7 +43,7 @@ import { youtubeSearchUrl } from '../lib/youtube.js'
 import { openExternal } from '../components/CustomMedia.jsx'
 import { startFlow, exercisePicker, exConfigSheet, exerciseDetailSheet, finishWorkout, exitWorkoutEdit, workoutCompleteSheet, confirmSheet, exerciseNoteSheet, sessionNoteSheet, renameWorkoutSheet, swapActiveWorkoutExercise, barWeightSheet, menuSheet, effortPickerSheet, exerciseHistorySheet, addRoutineToSessionSheet, finishWorkoutSheet, finishWorkoutNow, swapActiveWorkoutToBackup, setNoteSheet } from '../sheets.jsx'
 import { afterScrollRestore, scrollRestorePending } from '../components/Modals.jsx'
-import { effortColor } from '../lib/effort.js'
+import { effortColor, effortWarmupsOn } from '../lib/effort.js'
 import Elapsed from '../components/Elapsed.jsx'
 import LiveHeartRate from '../components/LiveHeartRate.jsx'
 import LiveCard from '../components/LiveCard.jsx'
@@ -849,12 +849,13 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
   // One side's row: the L or R badge, then the same weight/reps/effort controls as a straight
   // row but bound to that side, and the side's own done tick.
   const sideRow = (s, i, side, col1, col2, col3) => {
+    const c3 = isWarmupRow(s) && !effortWarmupsOn(S) && col3?.eff ? null : col3
     const sd = (s.sides && s.sides[side]) || { w: 0, r: 0, done: false }
-    return <div className={'setrow side' + (sd.done ? ' done' : '') + (col3 ? ' eff3' : '')}>
+    return <div className={'setrow side' + (sd.done ? ' done' : '') + (c3 ? ' eff3' : '')}>
       <span className="sidetag" aria-hidden="true">{side === 'L' ? t('L') : t('R')}</span>
       {sideCell(s, sd, i, side, col1, 'w')}
       {col2 && sideCell(s, sd, i, side, col2, 'r')}
-      {col3 && sideEffortCell(s, sd, i, side, col3)}
+      {c3 && sideEffortCell(s, sd, i, side, c3)}
       <Check checked={sd.done} label={doneSay(s, i, side)} onChange={() => onToggleSide(i, side)} />
     </div>
   }
@@ -901,8 +902,10 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
   // The set's colour tag: its shape in its colour, beside the number; said with the number.
   const tagMark = s => { const tag = setTagOf(s); return tag ? <span className="settag" style={{ '--tag': tag.color }} aria-hidden="true">{tag.shape}</span> : null }
   const failSay = (s, label) => { const tag = setTagOf(s); const l = isFailureSet(s) ? label + ', ' + t('Taken to failure') : label; return tag ? l + ', ' + setTagName(tag.id) : l }
-  const plainRow = (s, i) => (
-    <div ref={el => onSetRowRef?.(i, el)} data-tour="set" className={'setrow' + (s.done ? ' done' : '') + (col3 ? ' eff3' : '') + (timed ? ' timed' : '')}>
+  const plainRow = (s, i) => {
+    const c3 = isWarmupRow(s) && !effortWarmupsOn(S) && col3?.eff ? null : col3
+    return (
+    <div ref={el => onSetRowRef?.(i, el)} data-tour="set" className={'setrow' + (s.done ? ' done' : '') + (c3 ? ' eff3' : '') + (timed ? ' timed' : '')}>
       <button type="button" className="n" aria-label={inEx(trendSay(i, failSay(s, setSay(s, i))))} aria-describedby={optsId} title={t('More')} onClick={() => openSetMenu(s, i)}>{setNumOf(s, i)}{failMark(s)}{tagMark(s)}{trendMark(i)}</button>
       {/* Both words sit in the pill's one grid cell (::before/::after, hidden), so Left and
           Right are as wide as the longer of the two in every language and the inputs
@@ -910,14 +913,15 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
       {sideTagOf(s) && <span className="tag acc nocap sidepill" data-l={t('Left')} data-r={t('Right')}><span className="full">{sideTagOf(s)}</span><span className="short" aria-hidden="true">{s.side === 'L' ? t('L') : t('R')}</span></span>}
       {cell(s, i, col1, 'w')}
       {col2 && cell(s, i, col2, col2.dec ? 'r dec' : 'r')}
-      {col3 && (col3.eff ? effortCell(s, i, col3) : cell(s, i, col3, 'r inc'))}
+      {c3 && (c3.eff ? effortCell(s, i, c3) : cell(s, i, c3, 'r inc'))}
       {/* A timed set is started, not typed: the timer counts the hold down and checks the
           set off itself. The checkbox stays for anyone who timed it on their own watch. */}
       {timed && !editing && <button className="setgo" aria-label={inSet(s, i, t('Start set'))} disabled={s.done || !!working}
         onClick={() => onStartTimed(i)}><Icon name="play" /></button>}
       <Check checked={s.done} tour="tick" label={doneSay(s, i)} onChange={() => onToggle(i)} />
     </div>
-  )
+    )
+  }
   // Swipe on sets (v1.3.11, Settings → Workout): a set row swiped toward the start of the line is
   // removed with an Undo, toward the end copied below itself. Off, the row is the plain row it
   // was, and the Cards swipe works from it again. The row closes whenever its exercise's rows
@@ -2350,7 +2354,7 @@ function ActiveWorkout() {
       const other = side === 'L' ? 'R' : 'L'
       if (row?.sides?.[side]?.done && !row.sides[other]?.done) {
         const ownSec = ownSetRest(sets[setSpanAt(sets, i)[0]])
-        const pause = sideRestFor(useStore.getState().S.active.entries[idx].target, { timed: false, ownSec })
+        const pause = sideRestFor(useStore.getState().S.active.entries[idx].target, { timed: false, ownSec, profileSec: useStore.getState().S.sideRestSec })
         if (pause > 0) startRest(pause, idx, { kind: 'switch', forSet: i })
       }
     }

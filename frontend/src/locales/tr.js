@@ -5981,4 +5981,10 @@ export default {
   "Locker number (optional)": "Dolap numarası (isteğe bağlı)",
   "e.g. B-42": "ör. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Yalnızca ana kasları say",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Bir set, çalıştırdığı kas için bir kez sayılır; yardımcı kaslar için kısmen sayılmaz.",
+  "Main muscles only": "Yalnızca ana kaslar",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Yana göre tekrarlarda her yandan sonra kısa bir mola. Bekleyişler geçiş molasını korur.",
+  "Effort on warm-ups": "Isınma setlerinde efor",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Kapalı: ısınma satırında değerlendirme sütunu yok. Çalışma setleri değişmez.",
 }

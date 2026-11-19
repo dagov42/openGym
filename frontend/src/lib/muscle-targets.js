@@ -72,7 +72,7 @@ export function weeklyMuscleSets(S, today = todayISO()) {
   const ws = weekStartOf(S)
   const wk = weekKey(today, ws)
   const workouts = (S?.workouts || []).filter(w => w && weekKey(w.d, ws) === wk)
-  const load = loadOfWorkouts(workouts)
+  const load = loadOfWorkouts(workouts, null, { mainOnly: S?.muscleSetsMain === true })
   return TARGET_MUSCLES.map(slug => {
     const [lo, hi] = targetOf(S, slug)
     const sets = roundSets(load[slug] || 0)

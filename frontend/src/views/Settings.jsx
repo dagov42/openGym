@@ -17,6 +17,7 @@ import { BAR_TYPES, ownBarDefault } from '../lib/bar.js'
 import { dumbbellsOf, ownsNoDumbbells } from '../lib/dumbbells.js'
 import { activeProfile as activeEquipment, benchKindOf, withBench, profileEquipment, ACC_V } from '../lib/equipment.js'
 import { effortOf } from '../lib/history.js'
+import { effortWarmupsOn } from '../lib/effort.js'
 import NewExDefaultsSheet, { newExLine } from '../components/NewExDefaultsSheet.jsx'
 import { figureOf } from '../lib/exercises.js'
 import { unlock, chime, playOnSilentSupported, vibrateSupported, appleTouchDevice } from '../lib/sound.js'
@@ -549,6 +550,20 @@ export default function Settings({ page = null, find = null, via = null, entryKe
   // the work sets, 0 no timer (lib/supersetFlow.js transitionRestFor).
   const nextAll = typeof S.nextRestSec === 'number' ? S.nextRestSec : null
   const setNext = v => update(s => { if (v === null) delete s.nextRestSec; else s.nextRestSec = v })
+  const sideRest = Math.round(Number(S.sideRestSec)) || 0
+  const sideRestRow = <Row icon="timer" iconTint="var(--blue)" title={t('Rest between sides')} accessory="chevron"
+    subtitle={t('For per-side reps, a short break after each side. Holds keep their switch pause.')}
+    value={sideRest > 0 ? fmtRest(sideRest) : t('Off')}
+    onClick={() => menuSheet({
+      title: t('Rest between sides'),
+      items: [
+        { icon: 'timer', label: t('Off'), on: sideRest === 0, onClick: () => update(s => { delete s.sideRestSec }) },
+        { icon: 'clock', label: t('Pick a time'), on: sideRest > 0, onClick: () => durationSheet({
+          title: t('Rest between sides'), value: sideRest > 0 ? sideRest : 15, max: REST_MAX, off: t('Off'),
+          onDone: v => update(s => { if (v > 0) s.sideRestSec = v; else delete s.sideRestSec }),
+        }) },
+      ],
+    })} />
   const nextRestRow = <Row icon="timer" iconTint="var(--teal)" title={t('Rest before the next exercise')} accessory="chevron"
     subtitle={t('After the last set of an exercise, while you walk to the next machine.')}
     value={nextAll === null ? t('Like the work sets') : nextAll > 0 ? fmtRest(nextAll) : t('No timer')}
@@ -601,6 +616,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
       <Section title={t('Rest')} footer={t('Each exercise can have its own rest too. Set it in the exercise settings of a routine.')}>
         {restRow}
         {warmupRestRow}
+        {sideRestRow}
         {nextRestRow}
         {restPauseRow}
         {/* How the seconds wheel of every duration picker steps (components/DurationWheel.jsx):
@@ -619,6 +635,11 @@ export default function Settings({ page = null, find = null, via = null, entryKe
           <Segmented className="seg-inline"
             options={[{ value: 'none', label: t('Off') }, { value: 'rir', label: t('RIR') }, { value: 'rpe', label: t('RPE') }]}
             value={effortOf(S)} onChange={v => update(s => { s.effort = v; delete s.showRir })} />
+        </Row>}
+        {on('effort') && effortOf(S) !== 'none' && <Row icon="gauge" iconTint="var(--purple)" title={t('Effort on warm-ups')}
+          subtitle={t('Off: a warm-up row has no rating column. Work sets are unchanged.')}>
+          <Switch aria-label={t('Effort on warm-ups')} checked={effortWarmupsOn(S)}
+            onChange={v => update(s => { if (v) delete s.effortWarmups; else s.effortWarmups = false })} />
         </Row>}
         {/* The line under each exercise that the rows are held against (#173). Tapping the line in
             a workout switches it too; this is where the choice can be found without knowing that. */}

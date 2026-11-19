@@ -6028,4 +6028,10 @@ export default {
   "Locker number (optional)": "Skåpnummer (valfritt)",
   "e.g. B-42": "t.ex. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Räkna bara huvudmuskler",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Ett set räknas en gång för muskeln det tränar, inte delvis för hjälpmusklerna.",
+  "Main muscles only": "Bara huvudmuskler",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Vid repetitioner per sida en kort paus efter varje sida. Hållningar behåller sin växelpaus.",
+  "Effort on warm-ups": "Ansträngning på uppvärmning",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Av: en uppvärmningsrad har ingen bedömningskolumn. Arbetsseten ändras inte.",
 }

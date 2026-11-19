@@ -19,6 +19,9 @@ export const HARD_RIR = 3
 // like a finding when it is one tap, so the callers show a dash instead.
 export const MIN_RATED = 5
 
+/** Whether a warm-up row asks for an effort rating. Absent means on, as before the setting. */
+export const effortWarmupsOn = S => S?.effortWarmups !== false
+
 /**
  * A set's effort in RIR, or null when it was never rated. 0 is a rating, not "empty". A set
  * marked as taken to failure (workout-model isFailureSet) is RIR 0 by definition, so it reads as

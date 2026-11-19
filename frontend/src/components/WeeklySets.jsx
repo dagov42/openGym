@@ -8,7 +8,7 @@ import { fmtNum, todayISO } from '../lib/format.js'
 import { weeklyMuscleSets, mostRoom, targetOf, withTarget, TARGET_MUSCLES, TARGET_MAX } from '../lib/muscle-targets.js'
 import { MUSCLE_NAME } from '../lib/muscles.js'
 import Icon from './Icon.jsx'
-import { Button, Stepper } from './ui.jsx'
+import { Button, Row, Stepper, Switch } from './ui.jsx'
 
 /** Home (Settings → Look & Home → Weekly sets on Home): the muscle with the most room this week. */
 export function WeeklySetsHomeLine({ S, onOpen }) {
@@ -36,6 +36,11 @@ function TargetsEditor() {
   return <>
     <h3>{t('Weekly sets per muscle')}</h3>
     <div className="muted small" style={{ marginBottom: 12 }}>{t('Starting points from hypertrophy research: below the low end is room for more, past the high end extra sets stop paying. Tweak them to fit you.')}</div>
+    <Row icon="scale" iconTint="var(--teal)" title={t('Count main muscles only')}
+      subtitle={t('A set counts once for the muscle it trains, not partly for the muscles that help.')}>
+      <Switch aria-label={t('Count main muscles only')} checked={S.muscleSetsMain === true}
+        onChange={v => update(s => { if (v) s.muscleSetsMain = true; else delete s.muscleSetsMain })} />
+    </Row>
     {TARGET_MUSCLES.map(slug => {
       const [lo, hi] = targetOf(S, slug)
       return <div key={slug} className="wsets-edit">

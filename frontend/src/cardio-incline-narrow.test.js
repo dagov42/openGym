@@ -16,7 +16,7 @@ describe('the incline column on a narrow phone', () => {
     expect(narrow[0][2]).toMatch(/\.setrow \.stp\.inc,\.sethead \.inc-sp\{--btn-floor:0px\}/)
     expect(css.replace(narrow[0][0], '')).not.toMatch(/\.stp\.inc[^{]*>button\{display:none/)
     expect(jsx).toContain("'r-sp inc-sp'")
-    expect(jsx).toContain("cell(s, i, col3, 'r inc')")
+    expect(jsx).toContain("cell(s, i, c3, 'r inc')")
   })
 })
 

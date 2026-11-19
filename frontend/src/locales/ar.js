@@ -6036,4 +6036,10 @@ export default {
   "Locker number (optional)": "رقم الخزانة (اختياري)",
   "e.g. B-42": "مثال: B-42",
   "≈ {0} kcal": "≈ {0} كالوري",
+  "Count main muscles only": "احسب العضلات الرئيسية فقط",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "تُحسب المجموعة مرة للعضلة التي تدرّبها، وليس جزئيًا للعضلات المساعدة.",
+  "Main muscles only": "العضلات الرئيسية فقط",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "بالنسبة للعدّ الجانبي، استراحة قصيرة بعد كل جانب. التثبيتات تحتفظ بوقفة التبديل.",
+  "Effort on warm-ups": "الجهد في الإحماء",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "إيقاف: صف الإحماء بلا عمود تقييم. مجموعات العمل لا تتغير.",
 }

@@ -6060,4 +6060,10 @@ export default {
   "Locker number (optional)": "লকার নম্বর (ঐচ্ছিক)",
   "e.g. B-42": "যেমন B-42",
   "≈ {0} kcal": "≈ {0} কিলোক্যালরি",
+  "Count main muscles only": "শুধু প্রধান পেশি গণনা করুন",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "একটি সেট যে পেশি প্রশিক্ষণ করে তার জন্য একবার গণনা হয়, সহায়ক পেশির জন্য আংশিক নয়।",
+  "Main muscles only": "শুধু প্রধান পেশি",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "পার-সাইড রেপে প্রতিটি দিকের পরে ছোট বিরতি। হোল্ড তাদের সুইচ বিরতি রাখে।",
+  "Effort on warm-ups": "ওয়ার্ম-আপে পরিশ্রম",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "বন্ধ: ওয়ার্ম-আপ সারিতে রেটিং কলাম থাকে না। কাজের সেট অপরিবর্তিত।",
 }

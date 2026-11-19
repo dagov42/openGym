@@ -2638,7 +2638,7 @@ export default {
   'Like the work sets': 'Wie die Arbeitssätze',
   'No timer': 'Kein Timer',
   'Pick a time': 'Zeit wählen',
-  'Rest between sides': 'Pause zwischen den Seiten',
+  'Rest between sides': 'Pause je Seite',
   'Rest between warm-ups': 'Aufwärmpausen',
   'Warm-ups are light, so they can rest less, or not at all. The last one still gets the full rest before your first work set.': 'Aufwärmsätze sind leicht, da reicht weniger Pause oder gar keine. Der letzte bekommt trotzdem die volle Pause vor dem ersten Arbeitssatz.',
   // --- progress photos for any day (#557) ---
@@ -6001,4 +6001,10 @@ export default {
   "Locker number (optional)": "Spindnummer (optional)",
   "e.g. B-42": "z. B. B-42",
   "≈ {0} kcal": "≈ {0} kcal",
+  "Count main muscles only": "Nur Hauptmuskeln zählen",
+  "A set counts once for the muscle it trains, not partly for the muscles that help.": "Ein Satz zählt einmal für den trainierten Muskel, nicht teilweise für die Hilfsmuskeln.",
+  "Main muscles only": "Nur Hauptmuskeln",
+  "For per-side reps, a short break after each side. Holds keep their switch pause.": "Bei Wiederholungen pro Seite eine kurze Pause nach jeder Seite. Halte behalten ihre Wechselpause.",
+  "Effort on warm-ups": "Anstrengung bei Aufwärmsätzen",
+  "Off: a warm-up row has no rating column. Work sets are unchanged.": "Aus: Eine Aufwärmzeile hat keine Bewertungsspalte. Arbeitssätze bleiben unverändert.",
 }
