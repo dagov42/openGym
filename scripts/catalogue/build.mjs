@@ -81,29 +81,54 @@ files['frontend/src/lib/exercise-muscle-map.json'] = JSON.stringify(muscleMap, n
 
 const pack = (obj) => header + 'export default ' + jsonLiteral(obj) + '\n'
 const byId = (pick) => Object.fromEntries(exercises.filter(e => !e.variantOf).map(e => [e.id, pick(e)]).filter(([, v]) => v && (!Array.isArray(v) || v.length)))
-// Russian is written in sentence case inside a title: the small connectors stay lower-case
-// ("Подъём на Носки и Фронтальное Приседание с Гирей"), while the name words take a capital.
-// CSS `capitalize` cannot do that, so the ru pack is cased here and `ru` joins
-// CASED_NAME_LANGS in i18n-core. Keep this list in step with the language's title-case rules.
-const RU_SMALL = new Set([
-  'а', 'без', 'бы', 'в', 'во', 'для', 'до', 'же', 'за', 'и', 'из', 'к', 'ко', 'ли', 'между',
-  'на', 'над', 'не', 'ни', 'но', 'о', 'об', 'от', 'перед', 'по', 'под', 'при', 'про', 'с', 'со',
-  'у', 'через', 'или',
-])
-const ruName = name => {
+// Russian is written in sentence case inside a title: only the first letter of the whole name is
+// capitalised, and the words stay lower-case; proper names are the exception. CSS `capitalize`
+// cannot do that, so the ru pack is cased here and `ru` joins CASED_NAME_LANGS in i18n-core.
+// Keep the list in step with the language's proper names and title-case rules.
+const RU_PROPER = [
+  'арнольд', 'брэдфорд', 'джефферсон', 'жиронд', 'зерчер', 'оттис', 'паллоф', 'пендлей',
+  'роки', 'свенд', 'скотт', 'смит', 'тейт', 'франкенштейн', 'цоттман', 'янда',
+]
+const ruCore = part => part.replace(/^[^\p{L}]+|[^\p{L}]+$/gu, '').toLocaleLowerCase('ru')
+const ruProperSet = names => {
+  const set = new Set(RU_PROPER)
+  for (const name of Object.values(names)) {
+    String(name).split(/\s+/u).forEach((part, i) => {
+      // A capital inside a source name (not the sentence's first word) is the catalogue's own
+      // proper-name marker: preserve it instead of guessing every transliteration.
+      if (i > 0 && /\p{Lu}/u.test(part)) {
+        const core = ruCore(part)
+        if (/^\p{L}+$/u.test(core)) set.add(core)
+      }
+    })
+  }
+  return set
+}
+const ruFirst = (segment, upper) => {
+  const chars = [...segment]
+  const at = chars.findIndex(ch => /\p{L}/u.test(ch))
+  if (at < 0) return segment
+  return chars.slice(0, at).join('') +
+    (upper ? chars[at].toLocaleUpperCase('ru') : chars[at].toLocaleLowerCase('ru')) +
+    chars.slice(at + 1).join('').toLocaleLowerCase('ru')
+}
+const ruName = (name, proper) => {
   let word = 0
   return String(name).split(/(\s+)/u).map(part => {
     if (!part || /^\s+$/u.test(part)) return part
     const chars = [...part]
     const at = chars.findIndex(ch => /\p{L}/u.test(ch))
     if (at < 0) return part
+    const prefix = chars.slice(0, at).join('')
+    const core = chars.slice(at).join('')
     const first = word++ === 0
-    if (!first && RU_SMALL.has(part.toLocaleLowerCase('ru'))) {
-      const lower = [...part.toLocaleLowerCase('ru')]
-      return lower.slice(0, at).join('') + lower.slice(at).join('')
-    }
-    const letter = chars[at].toLocaleUpperCase('ru')
-    return chars.slice(0, at).join('') + letter + chars.slice(at + 1).join('')
+    const segments = core.split('-')
+    return prefix + segments.map((segment, i) => {
+      const key = ruCore(segment)
+      const properWord = [...proper].some(p => key === p || key.startsWith(p))
+      const upper = first ? i === 0 : i === 0 && properWord
+      return ruFirst(segment, upper)
+    }).join('-')
   }).join('')
 }
 files['frontend/src/instr/en.js'] = pack(byId(e => e.instructions))
@@ -111,7 +136,10 @@ files['frontend/src/exercise-desc/en.js'] = pack(byId(e => e.description))
 for (const [lang, rowsOf] of Object.entries(i18n)) {
   const pick = key => Object.fromEntries(Object.entries(rowsOf).filter(([, r]) => r[key] && (!Array.isArray(r[key]) || r[key].length)).map(([id, r]) => [id, r[key]]))
   const instr = pick('instructions'), names = pick('name'), desc = pick('description')
-  const casedNames = lang === 'ru' ? Object.fromEntries(Object.entries(names).map(([id, n]) => [id, ruName(n)])) : names
+  const proper = lang === 'ru' ? ruProperSet(names) : null
+  const casedNames = lang === 'ru'
+    ? Object.fromEntries(Object.entries(names).map(([id, n]) => [id, ruName(n, proper)]))
+    : names
   if (Object.keys(instr).length) files[`frontend/src/instr/${lang}.js`] = pack(instr)
   if (Object.keys(names).length) files[`frontend/src/exercise-names/${lang}.js`] = pack(casedNames)
   if (Object.keys(desc).length) files[`frontend/src/exercise-desc/${lang}.js`] = pack(desc)

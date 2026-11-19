@@ -179,12 +179,12 @@ describe('title-casing per exercise-name pack', () => {
     for (const lang of CASED_NAME_LANGS) expect(EXERCISE_NAME_LANGS, lang).toContain(lang)
   })
 
-  it('ru keeps its small connectors lower-case inside a cased title', () => {
+  it('ru keeps sentence case, with proper names capitalised', () => {
     const names = packFor('ru')
     _setLangState('ru', {}, null, names, false)
-    const ex = EXDB.find(e => e.id === '5880')
-    expect(exerciseNameFor(ex)).toBe('Подъём на Носки и Фронтальное Приседание с Гирей')
-    expect(exerciseNameClass(ex)).toBe('')
+    expect(exerciseNameFor(EXDB.find(e => e.id === '5880'))).toBe('Подъём на носки и фронтальное приседание с гирей')
+    expect(exerciseNameFor(EXDB.find(e => e.id === '0523'))).toBe('Жим Арнольда с гирей')
+    expect(exerciseNameClass(EXDB.find(e => e.id === '5880'))).toBe('')
     _setLangState('en', {}, null, null)
   })
 
