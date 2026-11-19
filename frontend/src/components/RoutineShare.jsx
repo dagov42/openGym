@@ -14,7 +14,8 @@ import { nav } from '../lib/nav.js'
 import { MOBILE, shareExport } from '../lib/mobile.js'
 import { copyText } from '../lib/clipboard.js'
 import { buildPlanBundle } from '../lib/plan-share.js'
-import { routineLink, routinePayloadFromUrl, decodePayload, readRoutineBundle, importRoutineLink, FROM_MAX } from '../lib/routine-link.js'
+import { remoteAuth } from '../lib/api.js'
+import { routineLink, routinePayloadFromUrl, decodePayload, readRoutineBundle, importRoutineLink, FROM_MAX, shareBase } from '../lib/routine-link.js'
 import { libraryLinkFromUrl } from '../lib/library-link.js'
 import { openLibraryLink } from './LibraryLink.jsx'
 import { Button, Switch } from './ui.jsx'
@@ -62,7 +63,9 @@ function ShareRoutine({ routine, close }) {
   const go = async () => {
     setBusy(true)
     try {
-      const link = await routineLink(st, routine, { weights, from: named ? from : '' })
+      const remote = remoteAuth()
+      const base = remote?.base ? remote.base.replace(/\/+$/, '') + '/r' : shareBase()
+      const link = await routineLink(st, routine, { weights, from: named ? from : '', base })
       close()
       if (link.tooLong) {
         toast(t('That one’s too big for a link, so it goes as a plan file.'))

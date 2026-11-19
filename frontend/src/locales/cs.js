@@ -5946,4 +5946,5 @@ export default {
   "Locker {0}": "Skříňka {0}",
   "Locker number (optional)": "Číslo skříňky (volitelné)",
   "e.g. B-42": "např. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

@@ -6000,4 +6000,5 @@ export default {
   "Locker {0}": "Spind {0}",
   "Locker number (optional)": "Spindnummer (optional)",
   "e.g. B-42": "z. B. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

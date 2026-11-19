@@ -22,6 +22,10 @@ describe('activeKcal', () => {
   it('takes the session type for an all-cardio workout', () => {
     expect(activeKcal(workout([treadmill(60)]), 70)).toBe(Math.round((MET.walking - 1) * 70))
   })
+  it('uses the planned type before the first set is ticked', () => {
+    const planned = { id: '3666', target: { mode: 'cardio' }, sets: [{ min: 60, done: false }] }
+    expect(activeKcal(workout([planned]), 70, { planned: 'walking' })).toBe(Math.round((MET.walking - 1) * 70))
+  })
   it('lets how hard it felt nudge the cardio MET', () => {
     const easy = activeKcal(workout([treadmill(60, { rpe: 2 })]), 70)
     const hard = activeKcal(workout([treadmill(60, { rpe: 9 })]), 70)

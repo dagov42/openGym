@@ -5976,4 +5976,5 @@ export default {
   "Locker {0}": "Spintelė {0}",
   "Locker number (optional)": "Spintelės numeris (neprivaloma)",
   "e.g. B-42": "pvz., B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

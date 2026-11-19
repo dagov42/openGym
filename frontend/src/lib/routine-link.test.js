@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import {
   routineLinkBundle, encodePayload, decodePayload, routineLink, routinePayloadFromUrl, readRoutineBundle,
-  importRoutineLink, importedRoutineName, linkFor, toBase64Url, fromBase64Url, cleanFrom, LINK_FMT, MAX_LINK,
+  importRoutineLink, importedRoutineName, linkFor, shareBase, toBase64Url, fromBase64Url, cleanFrom, LINK_FMT, MAX_LINK,
 } from './routine-link.js'
 import { EXIDX, registerCustom } from './exercises.js'
 import { youtubeSearchUrl } from './youtube.js'
@@ -138,13 +138,22 @@ describe('routine links: reading a link', () => {
       'https://opengym.ch/r#' + P, 'https://opengym.ch/r/#' + P, 'https://www.opengym.ch/r#' + P,
       'https://opengym.ch/r/index.html#' + P, 'opengym://r#' + P, 'opengym://r/#' + P, 'OPENGYM://r#' + P,
       'https://gym.example.org/#/r/' + P, 'http://192.168.1.10:8080/#/r/' + P, 'https://opengym.ch/demo/#/r/' + P,
+      'https://gym.example.org/r#' + P, 'http://192.168.1.10:8080/r#' + P, 'https://evil.test/r#' + P,
       linkFor(P),
     ]) expect(routinePayloadFromUrl(url), url).toBe(P)
   })
 
+  it('shares from the instance origin, but keeps the public base for local development', () => {
+    expect(shareBase('https://gym.example.org')).toBe('https://gym.example.org/r')
+    expect(shareBase('https://gym.example.org/')).toBe('https://gym.example.org/r')
+    expect(shareBase('http://192.168.1.10:8080')).toBe('http://192.168.1.10:8080/r')
+    expect(shareBase('http://localhost:3000')).toBe('https://opengym.ch/r')
+    expect(shareBase(undefined)).toBe('https://opengym.ch/r')
+  })
+
   it('ignores everything else, without throwing', () => {
     for (const url of [
-      'https://opengym.ch/r', 'https://opengym.ch/r#', 'https://opengym.ch/nfc?do=start', 'https://evil.test/r#' + P,
+      'https://opengym.ch/r', 'https://opengym.ch/r#', 'https://opengym.ch/nfc?do=start',
       'https://opengym.ch/rest#' + P, 'opengym://nfc?do=start', 'opengym://r/extra#' + P, 'opengym://x#' + P,
       'https://opengym.ch/r#hello', 'https://opengym.ch/r#1.d.<script>', 'javascript:alert(1)', '', null, 42,
       'https://opengym.ch/r#1.d.' + 'A'.repeat(17000),

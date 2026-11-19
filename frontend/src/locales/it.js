@@ -5990,4 +5990,5 @@ export default {
   "Locker {0}": "Armadietto {0}",
   "Locker number (optional)": "Numero armadietto (facoltativo)",
   "e.g. B-42": "es. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

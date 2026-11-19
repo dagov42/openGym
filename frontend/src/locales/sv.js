@@ -6027,4 +6027,5 @@ export default {
   "Locker {0}": "Skåp {0}",
   "Locker number (optional)": "Skåpnummer (valfritt)",
   "e.g. B-42": "t.ex. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

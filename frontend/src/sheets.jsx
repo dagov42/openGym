@@ -137,6 +137,7 @@ import { recoveryDays, recoveryOn } from './lib/recovery-sessions.js'
 import { recoverySheet, RecoveryRow } from './components/RecoverySheet.jsx'
 import { activityDays, activitiesOn, mergeImportedActivities } from './lib/activities.js'
 import { activitySheet, ActivityRow } from './components/ActivitySheet.jsx'
+import { activeKcal, bodyKgFor } from './lib/active-energy.js'
 import { StreakSummary, StreakLegend, WeekMark, WeekNote } from './components/StreakCalendar.jsx'
 import { copyText } from './lib/clipboard.js'
 import { queueRemaining, pinState } from './lib/queue.js'
@@ -3745,11 +3746,14 @@ function WorkoutDetail({ w, close }) {
       ],
     })
   }
+  // The session's estimate, the same number the health stores get. Imported workouts without
+  // a start/end simply have none.
+  const kcal = activeKcal(w, bodyKgFor(st, w))
   const groups = sessionSections(w.entries)
   const grouped = groups.length > 1 || (groups[0] && groups[0].rid && (w.routineIds || []).length > 1)
   return <>
     <h3>{w.name}</h3>
-    <div className="muted small" style={{ marginBottom: 12 }}>{[fmtDate(w.d, true), ...durPart(w.end - w.start), fmtVol(sessionVolume(w, st), st.unit), ...(w.bw ? [fmtWeight(w.bw, st.unit)] : []), ...(workoutGymLabel(st, w) ? [workoutGymLabel(st, w)] : [])].join(' · ')}</div>
+    <div className="muted small" style={{ marginBottom: 12 }}>{[fmtDate(w.d, true), ...durPart(w.end - w.start), fmtVol(sessionVolume(w, st), st.unit), ...(w.bw ? [fmtWeight(w.bw, st.unit)] : []), ...(workoutGymLabel(st, w) ? [workoutGymLabel(st, w)] : []), ...(kcal ? [t('≈ {0} kcal', kcal)] : [])].join(' · ')}</div>
     {/* Ended by itself (lib/forgotten-workout.js): said so, with Reopen for 24 hours. */}
     <AutoEndedNote w={w} close={close} />
     {/* Circuits, AMRAPs, EMOMs and intervals: the score and the round times (lib/circuit.js). */}

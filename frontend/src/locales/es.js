@@ -5980,4 +5980,5 @@ export default {
   "Locker {0}": "Taquilla {0}",
   "Locker number (optional)": "Número de taquilla (opcional)",
   "e.g. B-42": "p. ej., B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

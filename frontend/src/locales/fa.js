@@ -5946,4 +5946,5 @@ export default {
   "Locker {0}": "کمد {0}",
   "Locker number (optional)": "شماره کمد (اختیاری)",
   "e.g. B-42": "مثلاً B-42",
+  "≈ {0} kcal": "≈ {0} کالری",
 }

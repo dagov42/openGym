@@ -3,23 +3,23 @@
 //
 // The browser drops the lock on its own whenever the document stops being visible (tab
 // switch, app backgrounded, screen locked by hand). A one-shot request therefore works
-// exactly once and then silently dies, which is why `wanted` is kept as our own intent
+// exactly once and then silently dies, which is why `holds` is kept as our own intent
 // and the lock is re-acquired on every visibilitychange for as long as it holds.
 import { useEffect } from 'react'
 
 export const wakeLockSupported = () => 'wakeLock' in navigator
 
 let sentinel = null       // the live WakeLockSentinel, null when we hold nothing
-let wanted = false        // do we currently want the screen to stay on?
+let holds = 0             // request() calls that have not been released yet
 let pending = false       // a request() is in flight — don't stack a second one
 
 async function acquire() {
-  if (!wanted || sentinel || pending || !wakeLockSupported()) return
+  if (!holds || sentinel || pending || !wakeLockSupported()) return
   if (document.visibilityState !== 'visible') return   // request() rejects on a hidden document
   pending = true
   try {
     const s = await navigator.wakeLock.request('screen')
-    if (!wanted) { s.release().catch(() => {}); return }   // released while we were awaiting
+    if (!holds) { s.release().catch(() => {}); return }   // released while we were awaiting
     sentinel = s
     s.addEventListener('release', () => { if (sentinel === s) sentinel = null })
   } catch (e) {
@@ -32,15 +32,21 @@ async function acquire() {
 
 const onVisible = () => { if (document.visibilityState === 'visible') acquire() }
 
+/**
+ * One hold on the screen lock. Callers pair every call with releaseWakeLock(): the workout and
+ * the circuit player can both hold it, and the last release is the one that lets the screen sleep.
+ */
 export function requestWakeLock() {
-  if (wanted) return
-  wanted = true
+  holds++
+  if (holds > 1) return
   document.addEventListener('visibilitychange', onVisible)
   acquire()
 }
 
 export function releaseWakeLock() {
-  wanted = false
+  if (!holds) return
+  holds--
+  if (holds) return
   document.removeEventListener('visibilitychange', onVisible)
   const s = sentinel
   sentinel = null

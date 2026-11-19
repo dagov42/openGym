@@ -5946,4 +5946,5 @@ export default {
   "Locker {0}": "Tủ {0}",
   "Locker number (optional)": "Số tủ (không bắt buộc)",
   "e.g. B-42": "ví dụ B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 };

@@ -33,6 +33,9 @@ A small updater fix and keyboard shortcuts.
   turn it off when one top set or back-off should not move the following sets.
 - A saved gym card can carry a locker number. It shows under the label at check-in and on Home for
   the last-used card, and stays with the card in backups and sync.
+- Share with a friend now uses the address of the instance you are on, and accepts a shared
+  `/r#…` link from that address. The screen stays awake after the circuit player closes, and the
+  live calorie tile and a finished workout use the same activity-based estimate.
 
 ## v1.4.9 (2026-11-18)
 

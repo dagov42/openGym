@@ -113,4 +113,21 @@ describe('releaseWakeLock', () => {
     await foreground()
     expect(requests).toBe(1)         // and we did not start wanting it again
   })
+
+  it('keeps one lock while another holder still needs it', async () => {
+    requestWakeLock(); requestWakeLock(); await settle()
+    expect(requests).toBe(1)
+    releaseWakeLock(); await settle()
+    expect(live).not.toBeNull()
+    expect(released).toBe(0)
+    releaseWakeLock(); await settle()
+    expect(live).toBeNull()
+    expect(released).toBe(1)
+  })
+
+  it('a release with no hold does nothing', async () => {
+    releaseWakeLock(); await settle()
+    expect(requests).toBe(0)
+    expect(released).toBe(0)
+  })
 })

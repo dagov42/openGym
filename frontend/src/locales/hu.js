@@ -5983,4 +5983,5 @@ export default {
   "Locker {0}": "Szekrény {0}",
   "Locker number (optional)": "Szekrényszám (nem kötelező)",
   "e.g. B-42": "pl. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

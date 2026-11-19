@@ -5920,4 +5920,5 @@ export default {
   "Locker {0}": "Skab {0}",
   "Locker number (optional)": "Skabsnummer (valgfrit)",
   "e.g. B-42": "f.eks. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

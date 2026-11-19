@@ -5977,4 +5977,5 @@ export default {
   "Locker {0}": "Шафка {0}",
   "Locker number (optional)": "Номер шафки (необов’язково)",
   "e.g. B-42": "напр. B-42",
+  "≈ {0} kcal": "≈ {0} ккал",
 }

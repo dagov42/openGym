@@ -6035,4 +6035,5 @@ export default {
   "Locker {0}": "خزانة {0}",
   "Locker number (optional)": "رقم الخزانة (اختياري)",
   "e.g. B-42": "مثال: B-42",
+  "≈ {0} kcal": "≈ {0} كالوري",
 }

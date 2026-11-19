@@ -143,6 +143,66 @@ machine and run `scripts/android/upload-release.sh v1.4.8.1 <out>`.
       Fine-tuning, по умолчанию включена; выключенная оставляет вес только в изменённом подходе.
       Реализовано 2026-11-19. Спека: `docs/superpowers/specs/2026-11-16-single-set-weight-design.md`.
 
+### Upstream triage 2026-11-19
+
+Основание: обзор 206 открытых PR и 155 issue DuarteSantos8/openGym. P0 — критичное для
+форка; P1 — следующий эшелон, спеки в
+[docs/superpowers/specs/2026-11-19-upstream-p1-specs.md](docs/superpowers/specs/2026-11-19-upstream-p1-specs.md);
+P2 — полезно, но позже. Открытые upstream PR не считаются перенесёнными, пока не прошли rebase,
+тесты и запись в FORK_CHANGELOG.md.
+
+**P0 — берём сейчас**
+
+- [x] **#1337 — Share with a friend** — ссылка должна идти на origin своего инстанса, а не на
+      opengym.ch; получатель принимает /r#… с любого http(s)-хоста. Проверено: свой origin,
+      localhost fallback, приём кастомной ссылки.
+- [x] **#1366 — wake lock после circuit player** — workout и circuit player держат lock по счётчику;
+      закрытие плеера больше не гасит экран тренировки. Тесты на две hold/release пары.
+- [x] **#1369 — калории live/детали** — live-плитка считает по MET активности (и planned type до
+      первого подхода), сохранённая тренировка показывает ту же оценку в detail. Тесты MET,
+      planned type и kcalSoFar.
+
+**P1 — следующий эшелон**
+
+- [ ] **#1293** — день Calendar тренирует выбранную сессию ротации.
+- [ ] **#1092** — Android Back возвращает по истории приложения при canGoBack: false.
+- [ ] **#1226** — суббота как третий вариант начала недели.
+- [ ] **#1379** — «следующее упражнение»: off / после отдыха / сразу; заменяет #1167.
+- [ ] **#1164** — полноэкранный rest timer.
+- [ ] **#1375** — cardio set с часами, считающими вперёд.
+- [ ] **#1377** — профильный отдых между сторонами для reps.
+- [ ] **#1374** — не оценивать warm-up подходы при включённом RIR/RPE.
+- [ ] **#1317** — спрашивать RIR/RPE перед тиком (телефон; часы позже).
+- [ ] **#1191/#1193** — Coach payload: custom exercises и пирамиды.
+- [ ] **#1211** — поиск упражнения по бренду тренажёра.
+- [ ] **#1156** — шаг секунд на wheel 5 с.
+- [ ] **#1091** — выбор числа auto-backup копий.
+- [ ] **#1157** — weekly sets только по основным мышцам.
+- [ ] **#1095** — plan line в одной строке с pills.
+
+**P2 — позже**
+
+- [ ] **#1253** — rest-pause: activation set как work set, bursts и progression.
+- [ ] **#1259** — фиксированный вес собственных warm-up строк.
+- [ ] **#1265** — lift goals (и пересечение с #702).
+- [ ] **#1245** — Skills and ladders.
+- [ ] **#1235/#1237** — модули по частям.
+- [ ] **#1158** — Hevy API: links, folders, measurements.
+- [ ] **#773** — slim APK и on-demand animations.
+- [ ] **#722** — RENPHO как источник измерений.
+- [ ] **#706** — guided warm-up.
+- [ ] **#702** — exercise goals.
+- [ ] **#901** — Explorer по группам оборудования.
+- [ ] **#879** — Finish: «ещё одно» и частые добавки.
+- [ ] **#1026/#1008** — японский UI / китайские описания.
+- [ ] **#1378** — IPv6 в web image (мелочь для self-host, взять при касании Docker).
+
+**Не берём сейчас:** iOS/Apple Watch/Wear OS/Garmin, Liquid Glass и iCloud, Google Play/F-Droid,
+Liquid Glass-серии, #191 (БД), #1186 (nutrition), #857 (Firestore), #974 (teachers), #848
+(YouTube import), #610 (phases), #590 (health widgets), #509 (social), #528/#1155, upstream-мета
+#554/#795/#933/#1383 и мусор вроде #1344. Часть этих пунктов уже закрыта в форке; перед переносом
+сверять FORK_CHANGELOG.md и текущий код.
+
 ### UX-находки из закрытых issues (2026-11-16)
 
 Разобраны 400 самых обсуждаемых закрытых items (234 issue, 166 PR), 300 недавних закрытий и 300

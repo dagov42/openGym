@@ -5973,4 +5973,5 @@ export default {
   "Locker {0}": "置物櫃 {0}",
   "Locker number (optional)": "置物櫃號碼（選填）",
   "e.g. B-42": "例如 B-42",
+  "≈ {0} kcal": "≈ {0} 大卡",
 }

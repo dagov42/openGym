@@ -5980,4 +5980,5 @@ export default {
   "Locker {0}": "Dolap {0}",
   "Locker number (optional)": "Dolap numarası (isteğe bağlı)",
   "e.g. B-42": "ör. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

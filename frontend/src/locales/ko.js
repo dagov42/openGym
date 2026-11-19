@@ -5980,4 +5980,5 @@ export default {
   "Locker {0}": "사물함 {0}",
   "Locker number (optional)": "사물함 번호 (선택)",
   "e.g. B-42": "예: B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

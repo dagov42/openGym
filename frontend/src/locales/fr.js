@@ -5980,4 +5980,5 @@ export default {
   "Locker {0}": "Casier {0}",
   "Locker number (optional)": "Numéro de casier (facultatif)",
   "e.g. B-42": "ex. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

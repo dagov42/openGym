@@ -6059,4 +6059,5 @@ export default {
   "Locker {0}": "লকার {0}",
   "Locker number (optional)": "লকার নম্বর (ঐচ্ছিক)",
   "e.g. B-42": "যেমন B-42",
+  "≈ {0} kcal": "≈ {0} কিলোক্যালরি",
 }

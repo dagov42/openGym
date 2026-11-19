@@ -5980,4 +5980,5 @@ export default {
   "Locker {0}": "Szafka {0}",
   "Locker number (optional)": "Numer szafki (opcjonalnie)",
   "e.g. B-42": "np. B-42",
+  "≈ {0} kcal": "≈ {0} kcal",
 }

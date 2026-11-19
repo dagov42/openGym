@@ -55,7 +55,7 @@ export function bodyKgFor(S, w) {
  * with its minutes logged counts those minutes at its own MET (and effort); the rest of the
  * session counts at strength training's MET, or the session's own type when nothing was lifted.
  */
-export function activeKcal(w, kg) {
+export function activeKcal(w, kg, { planned = null } = {}) {
   const start = Number(w?.start), end = Number(w?.end)
   if (!(start > 0) || !(end > start) || !(kg > 0)) return null
   const hours = Math.min(MAX_HOURS, (end - start) / 3600e3)
@@ -74,7 +74,7 @@ export function activeKcal(w, kg) {
       kcal += (met * effortFactor(s.rpe) - 1) * kg * take
     }
   }
-  const type = sessionType(w)
+  const type = done.length ? sessionType(w) : (planned || sessionType(w))
   const lifted = done.some(e => exerciseType(e) === 'strength_training')
   const base = metOf(lifted ? 'strength_training' : type)
   kcal += (base - 1) * kg * Math.max(0, hours - cardioHours)

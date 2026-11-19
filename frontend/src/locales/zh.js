@@ -5980,4 +5980,5 @@ export default {
   "Locker {0}": "储物柜 {0}",
   "Locker number (optional)": "储物柜号码（选填）",
   "e.g. B-42": "例如 B-42",
+  "≈ {0} kcal": "≈ {0} 千卡",
 }
