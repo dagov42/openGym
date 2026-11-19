@@ -5997,4 +5997,8 @@ export default {
   "30d": "30 nap",
   "90d": "90 nap",
   "1Y": "1 év",
+  "Move to the next exercise": "Lépj a következő gyakorlatra",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Kártyák nézetben a következő gyakorlat egyetlen koppintás nélkül magától előjön. A kéz maradhat a magnéziában.",
+  "When the rest ends": "A pihenő végén",
+  "Right away": "Azonnal",
 }

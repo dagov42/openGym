@@ -5994,4 +5994,8 @@ export default {
   "30d": "30 d",
   "90d": "90 d",
   "1Y": "1 ano",
+  "Move to the next exercise": "Passar para o exercício seguinte",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Em Cartões, o exercício seguinte aparece sozinho sem tocar. As mãos ficam no magnésio.",
+  "When the rest ends": "No fim do descanso",
+  "Right away": "De imediato",
 }

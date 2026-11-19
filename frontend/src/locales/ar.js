@@ -6049,4 +6049,8 @@ export default {
   "30d": "30 يومًا",
   "90d": "90 يومًا",
   "1Y": "1 سنة",
+  "Move to the next exercise": "الانتقال إلى التمرين التالي",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "في البطاقات، يظهر التمرين التالي دون لمس. يداك تبقيان على المغنيسيوم.",
+  "When the rest ends": "عند انتهاء الراحة",
+  "Right away": "فورًا",
 }

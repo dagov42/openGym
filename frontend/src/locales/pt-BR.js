@@ -4341,4 +4341,9 @@ export const PT_BR_OVERRIDES = {
   "This only changes a live workout. The routine’s planned weight is edited in the exercise settings.": "Isso só altera o treino em andamento. O peso planejado da rotina é editado nas configurações do exercício.",
 }
 
-export default { ...pt, ...PT_BR_OVERRIDES }
+export default { ...pt, ...PT_BR_OVERRIDES,
+  "Move to the next exercise": "Passar para o próximo exercício",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Em Cartões, o próximo exercício aparece sozinho sem tocar. As mãos ficam no magnésio.",
+  "When the rest ends": "No fim do descanso",
+  "Right away": "Na hora",
+}

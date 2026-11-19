@@ -3086,6 +3086,37 @@ describe('workout controls: the more menu and the set menu', () => {
     mocks.timer = null
   })
 
+  it('right away moves on the tick and still starts the rest for the exercise just finished', async () => {
+    await mount([exercise('plain-bench', [false, false]), exercise('plain-row', [false])], 0, { autoNextExercise: 'now' })
+    await toggleSet(0)
+    expect(mocks.S.active.cur).toBe(0)
+    await toggleSet(1)
+    expect(mocks.S.active.cur).toBe(1)
+    expect(mocks.startRest).toHaveBeenLastCalledWith(expect.any(Number), 0, expect.objectContaining({ forSet: 1 }))
+  })
+
+  it('right away waits for the whole superset round before moving', async () => {
+    await mount([
+      exercise('plain-bench', [false], { sg: 'now' }),
+      exercise('plain-row', [false], { sg: 'now' }),
+      exercise('plain-curl', [false]),
+    ], 0, { autoNextExercise: 'now' })
+    await toggleSet(0)
+    expect(mocks.S.active.cur).toBe(1)
+    await toggleSet(1)
+    expect(mocks.S.active.cur).toBe(2)
+  })
+
+  it('right away does not make Focus skip the exercise Focus itself moves to', async () => {
+    await mount([
+      exercise('plain-bench', [false]),
+      exercise('plain-row', [false]),
+      exercise('plain-curl', [false]),
+    ], 0, { autoNextExercise: 'now', active: { workoutView: 'focus' } })
+    await click(buttonNamed('Complete set'))
+    expect(mocks.S.active.cur).toBe(1)
+  })
+
   // #523: "Skip completed exercises" makes Next hop over a finished exercise in Cards.
   it('with skip completed on, Next hops over a finished exercise; off, it steps to it', async () => {
     const three = () => [exercise('plain-bench', [false]), exercise('plain-row', [true, true]), exercise('plain-curl', [false])]

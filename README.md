@@ -48,7 +48,7 @@ separate one. Run it locally from the quick start below to try it.
 
 This fork keeps the upstream feature set and adds:
 
-- **Workout flow:** supersets of up to four exercises with order controls inside the group, **Collapse sets** for finished work, **Replace in routine** from the swap sheet, and an option to keep a weight change on the one set you edited.
+- **Workout flow:** supersets of up to four exercises with order controls inside the group, **Collapse sets** for finished work, **Replace in routine** from the swap sheet, an option to keep a weight change on the one set you edited, and a choice to move to the next exercise off, when the rest ends, or right away.
 - **Volume and effort:** weekly sets counted by main muscles only, an optional profile rest between the sides of a per-side set, effort hidden on warm-ups, and an opt-in **Ask for effort before ticking**.
 - **History and data:** **History search**, the **What's new** sheet, recent routines in the Start picker, **Save to device** through the system file picker, and a locker number on saved gym cards.
 - **Sharing:** share links use the origin of your own openGym instance and accept `/r#…` links from it.

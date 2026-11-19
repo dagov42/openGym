@@ -5994,4 +5994,8 @@ export default {
   "30d": "30 दिन",
   "90d": "90 दिन",
   "1Y": "1 वर्ष",
+  "Move to the next exercise": "अगले व्यायाम पर बढ़ो",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "कार्ड में अगला व्यायाम बिना टाप किए अपने आप आ जाता है। हाथ चॉक पर ही रहें।",
+  "When the rest ends": "आराम ख़त्म होते ही",
+  "Right away": "तुरंत",
 }

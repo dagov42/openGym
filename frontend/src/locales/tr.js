@@ -5994,4 +5994,8 @@ export default {
   "30d": "30 g",
   "90d": "90 g",
   "1Y": "1 yıl",
+  "Move to the next exercise": "Sonraki egzersize geç",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Kartlar düzeninde sonraki egzersiz dokunmadan kendiliğinden gelir. Eller tebeşirde kalır.",
+  "When the rest ends": "Dinlenme bitince",
+  "Right away": "Hemen",
 }

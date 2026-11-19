@@ -6073,4 +6073,8 @@ export default {
   "30d": "30 দিন",
   "90d": "90 দিন",
   "1Y": "1 বছর",
+  "Move to the next exercise": "পরের ব্যায়ামে যাও",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "কার্ড ভিউতে পরের ব্যায়াম টিপতে না বলে নিজেই চলে আসে। হাত চকেই থাকুক।",
+  "When the rest ends": "বিশ্রাম শেষ হলে",
+  "Right away": "সাথে সাথে",
 }

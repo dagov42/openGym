@@ -6005,4 +6005,8 @@ export default {
   "30d": "30 วัน",
   "90d": "90 วัน",
   "1Y": "1 ปี",
+  "Move to the next exercise": "ไปท่าถัดไป",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "ในโหมดการ์ด ท่าถัดไปจะขึ้นมาเองโดยไม่ต้องแตะ มือไม่ต้องละจากชอล์ก",
+  "When the rest ends": "เมื่อพักครบ",
+  "Right away": "ทันที",
 }

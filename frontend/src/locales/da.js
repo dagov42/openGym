@@ -5934,4 +5934,8 @@ export default {
   "30d": "30 d",
   "90d": "90 d",
   "1Y": "1 år",
+  "Move to the next exercise": "Gå til næste øvelse",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "I Kort kommer næste øvelse frem uden et tryk. Hænderne bliver i kridtet.",
+  "When the rest ends": "Når pausen slutter",
+  "Right away": "Med det samme",
 }

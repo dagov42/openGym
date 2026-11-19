@@ -5960,4 +5960,8 @@ export default {
   "30d": "30 ngày",
   "90d": "90 ngày",
   "1Y": "1 năm",
+  "Move to the next exercise": "Chuyển sang bài tiếp theo",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Ở chế độ Thẻ, bài tiếp theo tự hiện ra mà không cần chạm. Tay cứ việc ở trong phấn.",
+  "When the rest ends": "Khi hết giờ nghỉ",
+  "Right away": "Ngay",
 };

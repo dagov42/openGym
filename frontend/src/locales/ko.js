@@ -5994,4 +5994,8 @@ export default {
   "30d": "30일",
   "90d": "90일",
   "1Y": "1년",
+  "Move to the next exercise": "다음 운동으로 넘어가기",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "카드에서는 다음 운동이 따로 누르지 않아도 나와요. 손은 초크에 그대로 두세요.",
+  "When the rest ends": "휴식이 끝나면",
+  "Right away": "바로",
 }

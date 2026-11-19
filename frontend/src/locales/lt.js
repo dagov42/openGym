@@ -5990,4 +5990,8 @@ export default {
   "30d": "30 d.",
   "90d": "90 d.",
   "1Y": "1 m.",
+  "Move to the next exercise": "Eiti prie kito pratimo",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Kortelėse kitas pratimas atsiranda pats be paspaudimo. Rankos lieka magnezijoje.",
+  "When the rest ends": "Pasibaigus poilsiui",
+  "Right away": "Iš karto",
 }

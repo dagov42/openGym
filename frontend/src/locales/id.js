@@ -5959,4 +5959,8 @@ export default {
   "30d": "30 hr",
   "90d": "90 hr",
   "1Y": "1 thn",
+  "Move to the next exercise": "Lanjut ke latihan berikutnya",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Di Kartu, latihan berikutnya muncul sendiri tanpa diketuk. Tangan tetap di kapur.",
+  "When the rest ends": "Saat istirahat selesai",
+  "Right away": "Langsung",
 };

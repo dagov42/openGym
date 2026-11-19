@@ -5960,4 +5960,8 @@ export default {
   "30d": "30 d",
   "90d": "90 d",
   "1Y": "1 rok",
+  "Move to the next exercise": "Přechod na další cvik",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "V režimu Karty se další cvik objeví sám bez ťuknutí. Ruce zůstanou v magnéziu.",
+  "When the rest ends": "Po skončení pauzy",
+  "Right away": "Hned",
 }

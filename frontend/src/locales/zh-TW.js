@@ -5987,4 +5987,8 @@ export default {
   "30d": "30 天",
   "90d": "90 天",
   "1Y": "1 年",
+  "Move to the next exercise": "前往下一個動作",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "在卡片版面中，下一個動作不用觸碰就會自己出現。手不用離開止滑粉。",
+  "When the rest ends": "休息結束後",
+  "Right away": "立刻",
 }

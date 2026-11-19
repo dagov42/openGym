@@ -5960,4 +5960,8 @@ export default {
   "30d": "30 روز",
   "90d": "90 روز",
   "1Y": "1 سال",
+  "Move to the next exercise": "به تمرین بعدی برو",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "در چیدمان کارت، تمرین بعدی بدون لمس خودش می‌آید. دست‌ها روی پودر منیزیم می‌مانند.",
+  "When the rest ends": "وقتی استراحت تمام شد",
+  "Right away": "فورًا",
 }

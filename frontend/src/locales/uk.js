@@ -5991,4 +5991,8 @@ export default {
   "30d": "30 д",
   "90d": "90 д",
   "1Y": "1 р",
+  "Move to the next exercise": "Перехід до наступної вправи",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "У Картках наступна вправа з’являється сама, без натискання. Руки лишаються в магнезії.",
+  "When the rest ends": "Після відпочинку",
+  "Right away": "Одразу",
 }

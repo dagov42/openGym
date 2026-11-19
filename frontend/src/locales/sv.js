@@ -6041,4 +6041,8 @@ export default {
   "30d": "30 d",
   "90d": "90 d",
   "1Y": "1 år",
+  "Move to the next exercise": "Gå till nästa övning",
+  "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "I Kort kommer nästa övning upp utan ett tryck. Händerna stannar i kritan.",
+  "When the rest ends": "När vilan är slut",
+  "Right away": "Direkt",
 }
