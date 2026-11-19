@@ -61,7 +61,9 @@ describe('Collapse sets', () => {
     expect(container.querySelectorAll('.setrow')).toHaveLength(2)
     expect(container.querySelector('[data-testid="exercise-media"]')).toBeTruthy()
 
-    click(button('Collapse sets'))
+    const collapse = button('Collapse sets')
+    expect(collapse.querySelector('[data-icon]').getAttribute('data-icon')).toBe('chevronUp')
+    click(collapse)
 
     expect(container.querySelector('.wk-sets').classList.contains('is-collapsed')).toBe(true)
     expect(container.querySelector('.wk-sets').getAttribute('aria-hidden')).toBe('true')

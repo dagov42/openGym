@@ -2979,7 +2979,7 @@ function ActiveWorkout() {
       {!listMode && !editing && A.entries.length > 0 &&
         <button type="button" className="lrow tap wk-end-row" disabled={!isFolded && !unitReady}
           aria-expanded={isFolded} onClick={() => (isFolded ? setFolded(unitKey, false) : foldCurrentUnit())}>
-          <Icon name={isFolded ? 'chevronDown' : 'checkCircle'} className="wk-end-i" />
+          <Icon name={isFolded ? 'chevronDown' : 'chevronUp'} className="wk-end-i" />
           <span className="lrow-m">
             <span className="lrow-t">{isFolded ? t('Show the sets') : t('Collapse sets')}</span>
             {!isFolded && !unitReady && <span className="lrow-s">{t('Tick every set first')}</span>}
