@@ -1,7 +1,7 @@
 # Map an unknown CSV once
 
-Status: candidate, designed 2026-11-16. Open questions at the end must be answered before an implementation
-plan. Nothing implemented.
+Status: candidate, designed 2026-11-16. Decisions at the end; the sync/tokens/merge behaviour is settled.
+Nothing implemented.
 
 ## Why
 
@@ -36,8 +36,8 @@ that map when the app is not one we know.
 - `signature` = the header row lower-cased, trimmed, sorted? No: **in order**, joined by `|`, hashed short.
   Order matters because a column map is positional in the file. A different order is a different mapping.
 - Storage in v1: `S.csvMaps`, a stamped map keyed by the signature (`{ [signature]: { ...mapping, _ts } }`),
-  capped at 10. It rides in the sync and the backup like other import preferences. If that proves noisy, a
-  device-local store is the fallback (open question).
+  capped at 10 live entries. It rides in the sync and the backup like other import preferences; a delete is a
+  stamped tombstone (`{ _ts }`), so another device cannot bring the mapping back (see "Sync, tokens, merge").
 - Column matching: each `<select>` offers the file's headers. Required: date and exercise. A column can be
   used once; the sheet says which are unused.
 - Dates: accept the formats the existing parser accepts; when a file's dates are ambiguous (03/04), offer a
@@ -54,7 +54,25 @@ that map when the app is not one we know.
 - The sheet: a small table mapping each field to a header, required fields first; a preview below; then
   **Import**.
 - Settings → Data & backup: "Saved CSV mappings" lists signature + date, with a delete action. Optional in v1.
-- Strings through `t()`; no locale edits.
+- Strings through `t()`; no locale edits in the PR, and untranslated packs fall back to English. File headers
+  are data: shown exactly as the file has them (`Name (column 3)` for duplicates) and never translated. Reuse
+  the existing unit and field labels where one exists.
+
+## Sync, tokens, merge
+
+- `S.csvMaps` is a stamped map: every entry carries `_ts`. Add `csvMaps` to `STAMPED_MAPS` in
+  `frontend/src/lib/sync-merge.js` and in the hand-copied `api/sync-stamps.js`; the existing parity test
+  (for example `ex-unit.test.js`) compares the two lists, so a missed copy fails CI.
+- Merge per signature (`mergeStampedMap`): the entry saved last wins, and a signature present on one device
+  only is kept. A delete is a tombstone (`{ _ts }`) stamped later than the entry, not a plain removal:
+  without it the other device's copy would resurrect the mapping on the next sync.
+- The 10-entry cap counts live mappings only; tombstones are kept for the merge and pruned like other stale
+  markers.
+- Tokens: `csvMaps` gets no `KEY_CATEGORY` entry, so it stays a setting — any token that can read anything may
+  read the saved signatures and column choices (they are not personal data), and no token may write it. It is
+  not in `NEVER`.
+- Backup/export/import and the mobile state file carry the field automatically once it is in `S`; no new
+  route, and `api/openapi.yaml` describes the state document generically.
 
 ## Edge cases
 
@@ -81,10 +99,10 @@ that map when the app is not one we know.
 - UI: the "Map the columns" path appears only when detection fails; the preview blocks Import until required
   fields are set.
 
-## Open questions
+## Decisions
 
-1. **Where the mapping lives:** `S.csvMaps` (synced, proposed) or device-local (no sync surface, simpler)?
-   Proposal: `S.csvMaps`; it is small and the sync already handles stamped maps.
-2. **Scope:** workouts only in v1 (proposed). Measurements can reuse the same idea later.
-3. **Unknown-header detection:** only when the known readers fail (proposed), or always offer "Map manually"
-   as a power-user option? Proposal: only on failure; a manual path on a recognised file invites mistakes.
+1. **Where the mapping lives:** `S.csvMaps`, synced and stamped (decided 2026-11-17). A device-local store is
+   not used in v1.
+2. **Scope:** workouts only in v1. Measurements can reuse the same idea later.
+3. **Unknown-header detection:** only when the known readers fail. A manual path on a recognised file invites
+   mistakes.

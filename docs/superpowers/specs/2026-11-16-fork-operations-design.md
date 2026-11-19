@@ -1,7 +1,9 @@
 # Fork operations: tests, upstream status, sync checklist
 
-Status: task spec, designed 2026-11-16. Nothing implemented. These are the chores that make every later PR
-cheaper; they are not user-facing features.
+Status: task spec, designed 2026-11-16. B and C implemented 2026-11-17 (`scripts/fork/upstream-status.mjs`,
+`docs/dev/FORK_SYNC.md`); A landed in the 2026-11-16/17 test-hygiene work and is recorded in
+`docs/dev/WINDOWS_TESTS.md`. These are the chores that make every later PR cheaper; they are not
+user-facing features.
 
 ## A. Test hygiene on Windows
 
@@ -77,11 +79,10 @@ The human process the changelog already follows, written down once:
 - Making the Windows suite pass by deleting tests.
 - Replacing `FORK_CHANGELOG.md` with the script; the changelog is the human record.
 
-## Open questions
+## Decisions (formerly open questions)
 
-1. **Where the Windows baseline lives:** `docs/dev/WINDOWS_TESTS.md` (proposed) or a comment in
-   `FORK_CHANGELOG.md`? Proposal: the doc, so it survives changelog edits.
-2. **`--fetch` default:** fetch automatically (convenient, may be surprising) or only with a flag (proposed).
-   Proposal: flag; the script must not touch the network without being asked.
-3. **GitHub API without a token:** the overlapping-PR list is the only part that needs it; without a token the
-   script prints the git-only sections and a note. Proposed.
+1. **Where the Windows baseline lives:** `docs/dev/WINDOWS_TESTS.md`, so it survives changelog edits.
+2. **`--fetch` default:** a flag; the script must not touch the network without being asked.
+3. **GitHub API without a token:** the script still asks unauthenticated (60 requests/hour is enough for one
+   run). A network or rate-limit error drops the overlapping-PR section and keeps the git-only output, with a
+   note saying why.
