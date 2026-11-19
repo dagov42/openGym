@@ -5989,4 +5989,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Desligado: a linha de aquecimento não tem coluna de avaliação. As séries de trabalho não mudam.",
   "Ask for effort before ticking": "Perguntar o esforço antes de marcar",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Marcar uma série de trabalho sem avaliação abre primeiro a avaliação. Fechá-la deixa a série por marcar.",
+  "1M": "1 mês",
+  "3M": "3 meses",
+  "30d": "30 d",
+  "90d": "90 d",
+  "1Y": "1 ano",
 }

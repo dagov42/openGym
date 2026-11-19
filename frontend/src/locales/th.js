@@ -6000,4 +6000,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "ปิด: แถววอร์มアップไม่มีคอลัมน์ให้คะแนน เซ็ตทำงานไม่เปลี่ยน",
   "Ask for effort before ticking": "ถามความเหนื่อยก่อนติ๊ก",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "การติ๊กเซ็ตทำงานที่ยังไม่ให้คะแนนจะเปิดการให้คะแนนก่อน ปิดแล้วเซ็ตจะยังไม่ติ๊ก",
+  "1M": "1 เดือน",
+  "3M": "3 เดือน",
+  "30d": "30 วัน",
+  "90d": "90 วัน",
+  "1Y": "1 ปี",
 }

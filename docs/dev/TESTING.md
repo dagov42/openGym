@@ -33,7 +33,7 @@ The floor was set on 2026-11-18 from a clean run:
 | Metric | Baseline | Floor |
 |---|---:|---:|
 | Statements | 91.64% | 88% |
-| Branches | 83.91% | 80% |
+| Branches | 83.92% | 80% |
 | Functions | 92.29% | 87% |
 | Lines | 95.28% | 92% |
 

@@ -5992,4 +5992,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Ki: a bemelegítő sorban nincs értékelő oszlop. A munkasorozatok változatlanok.",
   "Ask for effort before ticking": "Kérdezze meg az erőkifejtést pipálás előtt",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Egy értékeletlen munkasorozat kipipálása először az értékelést nyitja meg. Bezárva a sorozat kipipálatlan marad.",
+  "1M": "1 hó",
+  "3M": "3 hó",
+  "30d": "30 nap",
+  "90d": "90 nap",
+  "1Y": "1 év",
 }

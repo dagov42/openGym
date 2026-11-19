@@ -5954,4 +5954,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Mati: baris pemanasan tidak punya kolom penilaian. Set kerja tidak berubah.",
   "Ask for effort before ticking": "Tanyakan usaha sebelum mencentang",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Mencentang set kerja tanpa penilaian membuka penilaian lebih dulu. Menutupnya membuat set tetap tidak tercentang.",
+  "1M": "1 bln",
+  "3M": "3 bln",
+  "30d": "30 hr",
+  "90d": "90 hr",
+  "1Y": "1 thn",
 };

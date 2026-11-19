@@ -5989,4 +5989,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Kapalı: ısınma satırında değerlendirme sütunu yok. Çalışma setleri değişmez.",
   "Ask for effort before ticking": "İşaretlemeden önce eforu sor",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Değerlendirilmemiş bir çalışma setini işaretlemek önce değerlendirmeyi açar. Kapatmak seti işaretsiz bırakır.",
+  "1M": "1 ay",
+  "3M": "3 ay",
+  "30d": "30 g",
+  "90d": "90 g",
+  "1Y": "1 yıl",
 }

@@ -5989,4 +5989,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "关闭：热身行没有评分列。工作组不变。",
   "Ask for effort before ticking": "勾选前先问努力程度",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "勾选尚未评分的工作组会先打开评分。关闭后该组仍不会勾选。",
+  "1M": "1 个月",
+  "3M": "3 个月",
+  "30d": "30 天",
+  "90d": "90 天",
+  "1Y": "1 年",
 }

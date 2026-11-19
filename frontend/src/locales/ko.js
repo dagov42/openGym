@@ -5989,4 +5989,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "끔: 웜업 행에는 평가 열이 없습니다. 작업 세트는 그대로입니다.",
   "Ask for effort before ticking": "체크 전에 노력도 묻기",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "평가되지 않은 작업 세트를 체크하면 먼저 평가가 열립니다. 닫으면 세트는 체크되지 않은 채로 남습니다.",
+  "1M": "1개월",
+  "3M": "3개월",
+  "30d": "30일",
+  "90d": "90일",
+  "1Y": "1년",
 }

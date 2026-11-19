@@ -5985,4 +5985,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Išjungta: apšilimo eilutėje nėra vertinimo stulpelio. Darbiniai setai nesikeičia.",
   "Ask for effort before ticking": "Prieš pažymint klausti pastangų",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Pažymint neįvertintą darbinį setą pirmiausia atidaromas vertinimas. Uždarius setas lieka nepažymėtas.",
+  "1M": "1 mėn.",
+  "3M": "3 mėn.",
+  "30d": "30 d.",
+  "90d": "90 d.",
+  "1Y": "1 m.",
 }

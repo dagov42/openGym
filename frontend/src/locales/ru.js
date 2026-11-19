@@ -5986,4 +5986,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Выкл.: у разминочного подхода нет колонки оценки. Рабочие подходы не меняются.",
   "Ask for effort before ticking": "Спрашивать усилие перед отметкой",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Отметка рабочего подхода без оценки сначала открывает оценку. Если закрыть, подход остаётся неотмеченным.",
+  "1M": "1 мес.",
+  "3M": "3 мес.",
+  "30d": "30 д",
+  "90d": "90 д",
+  "1Y": "1 г",
 }

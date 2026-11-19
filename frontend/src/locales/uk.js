@@ -5986,4 +5986,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Вимк.: у розминочного підходу немає колонки оцінки. Робочі підходи не змінюються.",
   "Ask for effort before ticking": "Питати зусилля перед позначкою",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Позначка робочого підходу без оцінки спершу відкриває оцінку. Якщо закрити, підхід лишиться не позначеним.",
+  "1M": "1 міс.",
+  "3M": "3 міс.",
+  "30d": "30 д",
+  "90d": "90 д",
+  "1Y": "1 р",
 }

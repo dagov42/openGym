@@ -5929,4 +5929,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Fra: en opvarmningsrække har ingen vurderingskolonne. Arbejdssæt er uændrede.",
   "Ask for effort before ticking": "Spørg om indsats før afkrydsning",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Afkrydsning af et uvurderet arbejdssæt åbner vurderingen først. Lukkes den, forbliver sættet ukrydset.",
+  "1M": "1 md.",
+  "3M": "3 md.",
+  "30d": "30 d",
+  "90d": "90 d",
+  "1Y": "1 år",
 }

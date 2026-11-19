@@ -41,6 +41,8 @@ A small updater fix and keyboard shortcuts.
   outrank the phone APK.
 - Russian exercise names use sentence case: only the first letter is capitalised, with proper names
   such as `Арнольда`, `Смита` and `Жиронде` keeping their capitals.
+- Stats period pickers use translated short labels, so Russian shows `30 д`, `90 д` and `1 г`
+  instead of the English `30d`, `90d` and `1Y`.
 - A saved gym card can carry a locker number. It shows under the label at check-in and on Home for
   the last-used card, and stays with the card in backups and sync.
 - Share with a friend now uses the address of the instance you are on, and accepts a shared

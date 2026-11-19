@@ -5999,4 +5999,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Disattivato: la riga di riscaldamento non ha una colonna di valutazione. Le serie di lavoro non cambiano.",
   "Ask for effort before ticking": "Chiedi lo sforzo prima di spuntare",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Spuntare una serie di lavoro non valutata apre prima la valutazione. Chiuderla lascia la serie non spuntata.",
+  "1M": "1 mese",
+  "3M": "3 mesi",
+  "30d": "30 g",
+  "90d": "90 g",
+  "1Y": "1 anno",
 }

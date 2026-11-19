@@ -5989,4 +5989,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Wyłączone: wiersz rozgrzewki nie ma kolumny oceny. Serie robocze się nie zmieniają.",
   "Ask for effort before ticking": "Pytaj o wysiłek przed odhaczeniem",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Odhaczenie nieocenionej serii roboczej najpierw otwiera ocenę. Zamknięcie zostawia serię nieodhaczoną.",
+  "1M": "1 mies.",
+  "3M": "3 mies.",
+  "30d": "30 dni",
+  "90d": "90 dni",
+  "1Y": "1 rok",
 }

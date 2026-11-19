@@ -6044,4 +6044,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "إيقاف: صف الإحماء بلا عمود تقييم. مجموعات العمل لا تتغير.",
   "Ask for effort before ticking": "اطلب الجهد قبل التعليم",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "تعليم مجموعة عمل غير مقيّمة يفتح التقييم أولاً. إغلاقه يتركها غير معلّمة.",
+  "1M": "1 شهر",
+  "3M": "3 أشهر",
+  "30d": "30 يومًا",
+  "90d": "90 يومًا",
+  "1Y": "1 سنة",
 }

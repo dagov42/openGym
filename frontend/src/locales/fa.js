@@ -5955,4 +5955,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "خاموش: ردیف گرم‌کردن ستون امتیاز ندارد. ست‌های کاری تغییر نمی‌کنند.",
   "Ask for effort before ticking": "قبل از تیک، شدت را بپرس",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "تیک زدن یک ست کاری بدون امتیاز ابتدا امتیازدهی را باز می‌کند. بستن آن ست را تیک‌نخورده می‌گذارد.",
+  "1M": "1 ماه",
+  "3M": "3 ماه",
+  "30d": "30 روز",
+  "90d": "90 روز",
+  "1Y": "1 سال",
 }

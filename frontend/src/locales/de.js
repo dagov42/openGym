@@ -6009,4 +6009,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Aus: Eine Aufwärmzeile hat keine Bewertungsspalte. Arbeitssätze bleiben unverändert.",
   "Ask for effort before ticking": "Vor dem Abhaken nach Anstrengung fragen",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Beim Abhaken eines unbewerteten Arbeitssatzes öffnet sich zuerst die Bewertung. Schließen lässt ihn unmarkiert.",
+  "1M": "1 M",
+  "3M": "3 M",
+  "30d": "30 T",
+  "90d": "90 T",
+  "1Y": "1 J",
 }

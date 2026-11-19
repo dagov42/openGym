@@ -5955,4 +5955,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Tắt: hàng khởi động không có cột đánh giá. Các hiệp làm việc không đổi.",
   "Ask for effort before ticking": "Hỏi mức gắng sức trước khi đánh dấu",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Đánh dấu hiệp làm việc chưa đánh giá sẽ mở phần đánh giá trước. Đóng lại thì hiệp vẫn chưa được đánh dấu.",
+  "1M": "1 tháng",
+  "3M": "3 tháng",
+  "30d": "30 ngày",
+  "90d": "90 ngày",
+  "1Y": "1 năm",
 };

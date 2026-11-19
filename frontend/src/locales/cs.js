@@ -5955,4 +5955,9 @@ export default {
   "Off: a warm-up row has no rating column. Work sets are unchanged.": "Vypnuto: řádek rozcvičky nemá sloupec hodnocení. Pracovní série se nemění.",
   "Ask for effort before ticking": "Zeptat se na námahu před odškrtnutím",
   "Ticking an unrated work set opens the rating first. Closing it leaves the set unticked.": "Odškrtnutí nehodnocené pracovní série nejprve otevře hodnocení. Zavřením zůstane neodškrtnutá.",
+  "1M": "1 měs.",
+  "3M": "3 měs.",
+  "30d": "30 d",
+  "90d": "90 d",
+  "1Y": "1 rok",
 }
