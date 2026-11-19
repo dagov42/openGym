@@ -5969,4 +5969,8 @@ export default {
   "Collapse sets": "सेट संक्षिप्त करें",
   "Tick every set first": "पहले सभी सेट टिक करें",
   "Replace in routine": "रूटीन में बदलें",
+  "Add previous exercise to this superset": "इस सुपरसेट में पिछला व्यायाम जोड़ें",
+  "Add next exercise to this superset": "इस सुपरसेट में अगला व्यायाम जोड़ें",
+  "Remove from superset": "सुपरसेट से हटाएँ",
+  "A superset holds up to {0} exercises": "सुपरसेट में अधिकतम {0} व्यायाम होते हैं",
 }

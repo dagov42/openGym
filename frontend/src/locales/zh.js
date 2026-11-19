@@ -5969,4 +5969,8 @@ export default {
   "Collapse sets": "收起组数",
   "Tick every set first": "先勾选所有组数",
   "Replace in routine": "在训练中替换",
+  "Add previous exercise to this superset": "将上一个动作加入此超级组",
+  "Add next exercise to this superset": "将下一个动作加入此超级组",
+  "Remove from superset": "从超级组移除",
+  "A superset holds up to {0} exercises": "一个超级组最多包含 {0} 个动作",
 }

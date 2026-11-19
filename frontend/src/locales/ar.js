@@ -6024,4 +6024,8 @@ export default {
   "Collapse sets": "طي المجموعة",
   "Tick every set first": "علّم كل المجموعات أولاً",
   "Replace in routine": "استبدال في البرنامج",
+  "Add previous exercise to this superset": "أضف التمرين السابق إلى هذه المجموعة",
+  "Add next exercise to this superset": "أضف التمرين التالي إلى هذه المجموعة",
+  "Remove from superset": "إزالة من المجموعة",
+  "A superset holds up to {0} exercises": "تحتوي المجموعة على {0} تمارين كحد أقصى",
 }

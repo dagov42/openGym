@@ -5935,4 +5935,8 @@ export default {
   "Collapse sets": "جمع کردن ست",
   "Tick every set first": "ابتدا همه ستها را علامت بزنید",
   "Replace in routine": "جایگزینی در برنامه",
+  "Add previous exercise to this superset": "تمرین قبلی را به این سوپرست اضافه کنید",
+  "Add next exercise to this superset": "تمرین بعدی را به این سوپرست اضافه کنید",
+  "Remove from superset": "حذف از سوپرست",
+  "A superset holds up to {0} exercises": "یک سوپرست حداکثر {0} تمرین دارد",
 }

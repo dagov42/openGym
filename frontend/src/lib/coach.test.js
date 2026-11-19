@@ -291,6 +291,31 @@ describe('applying changes', () => {
     expect(ex[0].sg).toBe(ex[1].sg)
   })
 
+  it('grows an existing group from its end instead of splitting it', () => {
+    const S = state()
+    S.routines[0].ex[0].sg = 'a'
+    S.routines[0].ex[1].sg = 'a'
+    const out = apply(S, proposal([change({
+      type: 'superset', target: { routineId: 'r1', exId: '0001' }, after: { link: true, with: '0009' }
+    })]), ['c1'])
+    const ex = out.routines[0].ex
+    expect(ex.map(e => e.id)).toEqual(['0001', '0007', '0009'])
+    expect(ex.map(e => e.sg)).toEqual(['a', 'a', 'a'])
+  })
+
+  it('refuses a fifth member and leaves the group untouched', () => {
+    const S = state()
+    S.routines[0].ex = [
+      { id: '0001', sg: 'a' }, { id: '0007', sg: 'a' }, { id: '0009', sg: 'a' }, { id: '0002', sg: 'a' },
+      { id: '0010' },
+    ]
+    const before = JSON.parse(JSON.stringify(S))
+    expect(() => apply(S, proposal([change({
+      type: 'superset', target: { routineId: 'r1', exId: '0001' }, after: { link: true, with: '0010' }
+    })]), ['c1'])).toThrow(/up to 4/)
+    expect(S).toEqual(before)
+  })
+
   it('unlinks a superset and cleans up the orphan tag', () => {
     const S = state()
     S.routines[0].ex[0].sg = 'a'; S.routines[0].ex[1].sg = 'a'

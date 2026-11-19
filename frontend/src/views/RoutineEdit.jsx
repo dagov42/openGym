@@ -8,7 +8,7 @@ import { activeProfile, exAvailable } from '../lib/equipment.js'
 import { uid, exerciseNameText } from '../lib/format.js'
 import { t, exerciseNameFor, exerciseNameClass } from '../lib/i18n.js'
 import { nameIn, said } from '../lib/a11y-name.js'
-import { supersetUnits, moveRoutineEntry, cleanupSg, exLine, pickedExerciseConfig } from '../lib/history.js'
+import { supersetUnits, moveRoutineEntry, cleanupSg, exLine, pickedExerciseConfig, pairAdjacent, canPairSuperset, MAX_SUPERSET } from '../lib/history.js'
 import { Thumb } from '../components/Media.jsx'
 import { glyphPicker, exercisePicker, exConfigSheet, confirmSheet, supersetSheet, printPlanSheet } from '../sheets.jsx'
 import { supersetMeta, setSupersetMeta } from '../lib/superset-meta.js'
@@ -429,13 +429,28 @@ export default function RoutineEdit() {
   // Android's print manager refuses a job without a name. The editor never leaves a name blank,
   // but a routine that arrived from an import or another client may have none.
   const printRoutine = () => printPlanSheet({ routineId: id, name: r.name || t('Routine') })
-  const toggleLink = i => edit(ex => {
+  const toggleLink = i => {
     if (i < 1) return
-    const cur = ex[i], prev = ex[i - 1]
-    if (cur.sg && prev.sg && cur.sg === prev.sg) delete cur.sg
-    else { const gid = prev.sg || ('sg' + uid()); prev.sg = gid; cur.sg = gid }
-    cleanupSg(ex)
-  })
+    const currentUnit = supersetUnits(r.ex).find(u => u.includes(i))
+    // A circuit's group is owned by its type; the row has no link button, and this guard keeps a
+    // stale/tap-through call from splitting it.
+    if (currentUnit && circuitOf(r.ex, currentUnit)) return
+    const cur = r.ex[i], prev = r.ex[i - 1]
+    if (cur.sg && prev.sg && cur.sg === prev.sg) {
+      edit(ex => { delete ex[i].sg; cleanupSg(ex) })
+      return
+    }
+    if (!canPairSuperset(r.ex, i - 1, i)) {
+      toast(t('A superset holds up to {0} exercises', MAX_SUPERSET))
+      return
+    }
+    edit(ex => {
+      if (!canPairSuperset(ex, i - 1, i)) return
+      const next = pairAdjacent(ex, i - 1, i)
+      ex.splice(0, ex.length, ...next)
+      cleanupSg(ex)
+    })
+  }
 
   const addExercise = () => exercisePicker((ex, quick) => {
     if (quick) {
@@ -561,6 +576,7 @@ export default function RoutineEdit() {
       const ex = exOr(e.id)
       const noEquip = profile && !exAvailable(S, ex)
       const linkedPrev = i > 0 && e.sg && r.ex[i - 1].sg === e.sg
+      const circuitHere = !!circuitOf(r.ex, unitOf.get(i))
       // At a superset's edge an arrow takes the exercise out of it rather than past a neighbour.
       const leavesUp = inSS.has(i) && !linkedPrev
       const leavesDown = inSS.has(i) && r.ex[i + 1]?.sg !== e.sg
@@ -589,7 +605,7 @@ export default function RoutineEdit() {
               target (index.css .re-rail). The first exercise has nothing above to link to, so its
               link cell stays empty and the arrows keep their place down the list. */}
           <div className="re-rail">
-            {i > 0 ? <button className={'iconbtn re-link' + (linkedPrev ? ' on-ss' : '')} title={t('Superset with exercise above')} aria-label={nameIn(rowName, t('Superset with exercise above'))} aria-pressed={!!linkedPrev} onClick={() => toggleLink(i)}><Icon name="link" /></button>
+            {i > 0 && !circuitHere ? <button className={'iconbtn re-link' + (linkedPrev ? ' on-ss' : '')} title={t('Superset with exercise above')} aria-label={nameIn(rowName, t('Superset with exercise above'))} aria-pressed={!!linkedPrev} onClick={() => toggleLink(i)}><Icon name="link" /></button>
               : <span className="re-link" aria-hidden="true" />}
             <button className="iconbtn re-up" aria-label={t('Move {0} up', said(rowName))} title={leavesUp ? t('Move out of the superset') : t('Move up')} disabled={!moveRoutineEntry(r.ex, i, -1)} onClick={() => move(i, -1)}><Icon name="chevronUp" /></button>
             <button className="iconbtn re-down" aria-label={t('Move {0} down', said(rowName))} title={leavesDown ? t('Move out of the superset') : t('Move down')} disabled={!moveRoutineEntry(r.ex, i, 1)} onClick={() => move(i, 1)}><Icon name="chevronDown" /></button>

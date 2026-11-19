@@ -5989,4 +5989,8 @@ export default {
   "Collapse sets": "Satz einklappen",
   "Tick every set first": "Zuerst alle Sätze abhaken",
   "Replace in routine": "In Routine ersetzen",
+  "Add previous exercise to this superset": "Vorherige Übung zu diesem Superset hinzufügen",
+  "Add next exercise to this superset": "Nächste Übung zu diesem Superset hinzufügen",
+  "Remove from superset": "Aus dem Superset entfernen",
+  "A superset holds up to {0} exercises": "Ein Superset fasst bis zu {0} Übungen",
 }

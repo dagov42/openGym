@@ -44,7 +44,7 @@ improvements done while the larger one runs).
 | [`2026-11-17-apk-variants-design.md`](2026-11-17-apk-variants-design.md) | Release Standard, Plus and HD APKs, then switch between them in Settings | **Agreed** | 15 |
 | [`2026-11-18-finish-exercise-design.md`](2026-11-18-finish-exercise-design.md) | Collapse a finished exercise so the card swipe can no longer reach its sets | **Done 2026-11-18** | 16 |
 | [`2026-11-18-replace-in-routine-design.md`](2026-11-18-replace-in-routine-design.md) | Replace the routine's exercise, not just today's, from the swap sheet | **Done 2026-11-18** | 17 |
-| [`2026-11-18-superset-up-to-four-design.md`](2026-11-18-superset-up-to-four-design.md) | Supersets of up to four exercises, built from the group itself | **Agreed** | 18 |
+| [`2026-11-18-superset-up-to-four-design.md`](2026-11-18-superset-up-to-four-design.md) | Supersets of up to four exercises, built from the group itself | **Done 2026-11-19** | 18 |
 
 ## Decisions already made (do not re-open without a reason)
 

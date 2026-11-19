@@ -5969,4 +5969,8 @@ export default {
   "Collapse sets": "Réduire la série",
   "Tick every set first": "Cochez d’abord toutes les séries",
   "Replace in routine": "Remplacer dans la routine",
+  "Add previous exercise to this superset": "Ajouter l’exercice précédent à ce superset",
+  "Add next exercise to this superset": "Ajouter l’exercice suivant à ce superset",
+  "Remove from superset": "Retirer du superset",
+  "A superset holds up to {0} exercises": "Un superset contient jusqu’à {0} exercices",
 }

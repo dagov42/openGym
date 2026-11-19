@@ -11,7 +11,7 @@ import { bestsFor, lastRowFor, oddValues } from '../lib/typo-check.js'
 import { usesBar } from '../lib/bar.js'
 import { loadKindFor, baseWeightFor, inventoryFor, rowLoad, sameLoad, plateDelta, dropGrid } from '../lib/plates.js'
 import { plateText } from '../lib/plate-text.js'
-import { effectiveRoutines, effectiveRoutineIds, lastEntryFor, bestWeightFor, bestWeightForEntry, freestyleConfig, pickedExerciseConfig, setsDoneActive, setUnitsTotal, supersetUnits, unitOf, setLabel, modeOf, isBw, isPerSide, repStep, EFFORT, effortOf, stepEffort, capEffort, cascadeWeight, liveReramp, insertWarmupRow, barFloor, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, copyRowAt, copySpanAt, insertRowAt, pairAdjacent, unpairSuperset, cleanupSg, applyIntensifierPlan, pinnedNoteFor, exNoteFor, setsRepsOf, sessionVolume } from '../lib/history.js'
+import { effectiveRoutines, effectiveRoutineIds, lastEntryFor, bestWeightFor, bestWeightForEntry, freestyleConfig, pickedExerciseConfig, setsDoneActive, setUnitsTotal, supersetUnits, unitOf, setLabel, modeOf, isBw, isPerSide, repStep, EFFORT, effortOf, stepEffort, capEffort, cascadeWeight, liveReramp, insertWarmupRow, barFloor, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, copyRowAt, copySpanAt, insertRowAt, pairAdjacent, unpairSuperset, cleanupSg, applyIntensifierPlan, pinnedNoteFor, exNoteFor, setsRepsOf, sessionVolume, MAX_SUPERSET, canPairSuperset, dissolveSuperset } from '../lib/history.js'
 import { cleanNum, fmtNum, fmtPlate, fmtVol, fmtWeight, exerciseNameText, fmtDate, fmtDaysAgo, todayISO, exCount, DAYN } from '../lib/format.js'
 import { speedUnitOf, toSpeed, fromSpeed } from '../lib/speed.js'
 import { byDistance, withCardioBy, distUnitOf, distLabel, toDist, fromDist, distanceKmOf, settleSpeed } from '../lib/distance.js'
@@ -189,7 +189,7 @@ function LadderNext ({ entry, next }) {
   </div>
 }
 
-function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, onToggleSide, onField, onAddSet, onRemoveSet, onAddWarmup, onKeepWarmups, onAskCoach, onRemoveSetAt, onCopySetAt, onStartTimed, onPairPrev, onPairNext, onSetRowRef, onProgressionSettings, onRest, onNoProg, routineUpdate, onSwap, onSwapBackup, onMoveUp, onMoveDown, canMoveUp, canMoveDown, onRemoveExercise, busy }) {
+function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, onToggleSide, onField, onAddSet, onRemoveSet, onAddWarmup, onKeepWarmups, onAskCoach, onRemoveSetAt, onCopySetAt, onStartTimed, onPairPrev, onPairNext, onUnpairSelf, inGroup, onSetRowRef, onProgressionSettings, onRest, onNoProg, routineUpdate, onSwap, onSwapBackup, onMoveUp, onMoveDown, canMoveUp, canMoveDown, onRemoveExercise, busy }) {
   // The block reads the state as its exercise sees it (lib/ex-unit.js): in the exercise's own
   // weight unit when it has one (#657), so its rows, steppers, plates, owned weights, "last time"
   // and records all speak that unit. Every change goes through inEntryUnit or the parent's
@@ -597,6 +597,8 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
     const at = setSpanAt(entry.sets, i)[0]
     filmSetSheet({ entry: entryIdx, set: at }, t('Film {0}', setTitle(entry.sets[at], at)))
   }
+  const pairPrevLabel = inGroup ? t('Add previous exercise to this superset') : t('Make superset with previous')
+  const pairNextLabel = inGroup ? t('Add next exercise to this superset') : t('Make superset with next')
   const openMore = () => menuSheet({
     title: exerciseNameFor(ex),
     titleClass: exerciseNameClass(ex),
@@ -623,8 +625,9 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
           routineUpdate && { icon: 'clipboard', label: t('Update routine'), sub: routineUpdate.sub, onClick: routineUpdate.run },
         ] },
         { title: t('Order and supersets'), items: [
-          onPairPrev && { icon: 'link', label: t('Make superset with previous'), onClick: onPairPrev },
-          onPairNext && { icon: 'link', label: t('Make superset with next'), onClick: onPairNext },
+          onPairPrev && { icon: 'link', label: pairPrevLabel, onClick: onPairPrev },
+          onPairNext && { icon: 'link', label: pairNextLabel, onClick: onPairNext },
+          inGroup && onUnpairSelf && { icon: 'link', label: t('Remove from superset'), onClick: onUnpairSelf },
           onMoveUp && { icon: 'chevronUp', label: t('Move up'), onClick: onMoveUp, disabled: busy || !canMoveUp },
           onMoveDown && { icon: 'chevronDown', label: t('Move down'), onClick: onMoveDown, disabled: busy || !canMoveDown },
         ] },
@@ -961,8 +964,8 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, editing, onToggle, on
     {/* compact view keeps the plan line: it is what the rows are measured against */}
     {dense && planLine && <div style={{ marginBottom: 4 }}>{planLine}</div>}
     {wc.pairButtons && !compact && !dense && (onPairPrev || onPairNext) && <div className="row" style={{ gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
-      {onPairPrev && <Button size="xs" variant="tinted" icon="link" title={t('Make superset with previous')} aria-label={several ? inEx(t('Make superset with previous')) : undefined} onClick={onPairPrev}>{t('Make superset with previous')}</Button>}
-      {onPairNext && <Button size="xs" variant="tinted" icon="link" title={t('Make superset with next')} aria-label={several ? inEx(t('Make superset with next')) : undefined} onClick={onPairNext}>{t('Make superset with next')}</Button>}
+      {onPairPrev && <Button size="xs" variant="tinted" icon="link" title={pairPrevLabel} aria-label={several ? inEx(pairPrevLabel) : undefined} onClick={onPairPrev}>{pairPrevLabel}</Button>}
+      {onPairNext && <Button size="xs" variant="tinted" icon="link" title={pairNextLabel} aria-label={several ? inEx(pairNextLabel) : undefined} onClick={onPairNext}>{pairNextLabel}</Button>}
     </div>}
     {/* compact view drops everything from here to the sets card — it is all still on the ⋯ menu
         (note, details, history, bar weight, progression) or is display-only (tags, "last time"). */}
@@ -1673,16 +1676,48 @@ function ActiveWorkout() {
   })
   // The set-number menu's Remove and the swipe both go through deleteActiveSet, Undo and all.
   const removeSetAt = (idx, i) => deleteActiveSet(idx, i, { editing })
-  const pairAt = (first, second) => update(s => {
+  const pairAt = (first, second) => {
+    const capToast = () => useUI.getState().toast(t('A superset holds up to {0} exercises', MAX_SUPERSET))
+    const live = useStore.getState().S.active?.entries || []
+    if (!Number.isInteger(first) || !Number.isInteger(second) || !live[first] || !live[second]) return
+    if (!canPairSuperset(live, first, second)) { capToast(); return }
+    update(s => {
+      if (!s.active.entries[first] || !s.active.entries[second]) return
+      if (!canPairSuperset(s.active.entries, first, second)) { capToast(); return }
+      if (focusMode) focusPointerEpoch.current++
+      s.active.entries = pairAdjacent(s.active.entries, first, second)
+    })
+  }
+  const dissolveAt = idx => update(s => {
     if (focusMode) focusPointerEpoch.current++
-    s.active.entries = pairAdjacent(s.active.entries, first, second)
+    s.active.entries = dissolveSuperset(s.active.entries, idx)
   })
   const unpairAt = idx => update(s => {
     if (focusMode) focusPointerEpoch.current++
     s.active.entries = unpairSuperset(s.active.entries, idx)
   })
-  const onPairPrev = !isSuperset && cur > 0 ? () => pairAt(cur - 1, cur) : null
-  const onPairNext = !isSuperset && cur < A.entries.length - 1 ? () => pairAt(cur, cur + 1) : null
+  const pairActionsFor = u => {
+    // A circuit owns its own group and has no merge/unpair actions; an imported five-member
+    // superset can still be dissolved or shrunk, but not grown.
+    if (circuitOf(A.entries, u, { onTarget: true })) return { onPairPrev: null, onPairNext: null }
+    return {
+      onPairPrev: u[0] > 0 ? () => pairAt(u[0] - 1, u[0]) : null,
+      onPairNext: u.at(-1) < A.entries.length - 1 ? () => pairAt(u.at(-1), u.at(-1) + 1) : null,
+    }
+  }
+  const unitFor = idx => units.find(candidate => candidate.includes(idx)) || [idx]
+  const onPairPrev = pairActionsFor(unit).onPairPrev
+  const onPairNext = pairActionsFor(unit).onPairNext
+  // The group header's opt-in pair buttons, matching the lone exercise's existing pair controls.
+  // Each button grows the group from its boundary; the cap is enforced by pairAt.
+  const groupPairButtons = u => {
+    const pair = pairActionsFor(u)
+    if (!wc.pairButtons || (!pair.onPairPrev && !pair.onPairNext)) return null
+    return <div className="row" style={{ gap: 4, flexWrap: 'wrap' }}>
+      {pair.onPairPrev && <Button size="xs" variant="tinted" icon="link" onClick={pair.onPairPrev}>{t('Add previous exercise to this superset')}</Button>}
+      {pair.onPairNext && <Button size="xs" variant="tinted" icon="link" onClick={pair.onPairNext}>{t('Add next exercise to this superset')}</Button>}
+    </div>
+  }
   // `member`: the exercise ⋯ menu's move, which reorders a superset member inside its superset
   // (lib/active-workout-order.js moveActiveWorkoutEntry). The buttons below the exercise move the
   // whole unit. Both return the same index permutation, so everything below remaps the same way.
@@ -1800,38 +1835,48 @@ function ActiveWorkout() {
     if (coachOk) swapActiveWorkoutExercise(idx, { askCoach: () => workoutCoachSheet(idx, 'busy') })
     else swapActiveWorkoutExercise(idx)
   }
-  const blockProps = idx => ({
-    editing,
-    onSwap: () => swapExercise(idx),
-    onSwapBackup: id => {
-      if (focusMode) focusPointerEpoch.current++
-      swapActiveWorkoutToBackup(idx, id)
-    },
-    onMoveUp: () => moveUnitAt(idx, -1, true),
-    onMoveDown: () => moveUnitAt(idx, 1, true),
-    canMoveUp: canMoveActiveWorkoutEntry(A, idx, -1),
-    canMoveDown: canMoveActiveWorkoutEntry(A, idx, 1),
-    onRemoveExercise: () => confirmRemoveExercise(idx),
-    busy: working,
-    onToggle: (i, onFocusProgress) => checkedToggle(idx, i, undefined, { onFocusProgress }),
-    onToggleSide: (i, side, onFocusProgress) => checkedToggle(idx, i, side, { onFocusProgress }),
-    onField: (i, f, v) => setField(idx, i, f, v),
-    onMutateSet: (i, fn) => mutEntry(idx, entry => { entry.sets[i] = fn(entry.sets[i]) }),
-    onAddSet: () => addSet(idx),
-    onRemoveSet: () => removeSet(idx),
-    onAddWarmup: () => addWarmup(idx),
-    onKeepWarmups: keepWarmupsFor(idx),
-    // Only with the Coach set up and agreed to, live (not a past workout), and something left to do.
-    onAskCoach: coachGate.ok && hasConsent(S) && !editing && (A.entries[idx]?.sets || []).some(x => !isWarmupRow(x) && !x.done)
-      ? () => workoutCoachSheet(idx) : null,
-    onRemoveSetAt: i => removeSetAt(idx, i),
-    onCopySetAt: i => copyActiveSet(idx, i),
-    onStartTimed: (i, onFocusProgress) => startTimed(idx, i, onFocusProgress),
-    onProgressionSettings: editing ? null : () => openProgressionSettings(idx),
-    onRest: editing ? null : () => openExerciseRest(idx),
-    onNoProg: routineKeepsOut(A.entries[idx]) ? null : on => setNoProg(idx, on),
-    routineUpdate: routineUpdateFor(idx),
-  })
+  const blockProps = idx => {
+    const u = unitFor(idx)
+    const pair = pairActionsFor(u)
+    const circuit = !!circuitOf(A.entries, u, { onTarget: true })
+    return {
+      editing,
+      inGroup: u.length > 1,
+      circuit,
+      onPairPrev: pair.onPairPrev,
+      onPairNext: pair.onPairNext,
+      onUnpairSelf: u.length > 1 && !circuit ? () => unpairAt(idx) : null,
+      onSwap: () => swapExercise(idx),
+      onSwapBackup: id => {
+        if (focusMode) focusPointerEpoch.current++
+        swapActiveWorkoutToBackup(idx, id)
+      },
+      onMoveUp: () => moveUnitAt(idx, -1, true),
+      onMoveDown: () => moveUnitAt(idx, 1, true),
+      canMoveUp: canMoveActiveWorkoutEntry(A, idx, -1),
+      canMoveDown: canMoveActiveWorkoutEntry(A, idx, 1),
+      onRemoveExercise: () => confirmRemoveExercise(idx),
+      busy: working,
+      onToggle: (i, onFocusProgress) => checkedToggle(idx, i, undefined, { onFocusProgress }),
+      onToggleSide: (i, side, onFocusProgress) => checkedToggle(idx, i, side, { onFocusProgress }),
+      onField: (i, f, v) => setField(idx, i, f, v),
+      onMutateSet: (i, fn) => mutEntry(idx, entry => { entry.sets[i] = fn(entry.sets[i]) }),
+      onAddSet: () => addSet(idx),
+      onRemoveSet: () => removeSet(idx),
+      onAddWarmup: () => addWarmup(idx),
+      onKeepWarmups: keepWarmupsFor(idx),
+      // Only with the Coach set up and agreed to, live (not a past workout), and something left to do.
+      onAskCoach: coachGate.ok && hasConsent(S) && !editing && (A.entries[idx]?.sets || []).some(x => !isWarmupRow(x) && !x.done)
+        ? () => workoutCoachSheet(idx) : null,
+      onRemoveSetAt: i => removeSetAt(idx, i),
+      onCopySetAt: i => copyActiveSet(idx, i),
+      onStartTimed: (i, onFocusProgress) => startTimed(idx, i, onFocusProgress),
+      onProgressionSettings: editing ? null : () => openProgressionSettings(idx),
+      onRest: editing ? null : () => openExerciseRest(idx),
+      onNoProg: routineKeepsOut(A.entries[idx]) ? null : on => setNoProg(idx, on),
+      routineUpdate: routineUpdateFor(idx),
+    }
+  }
   const selectFocusEntry = idx => update(s => { if (s.active) s.active.cur = idx })
   const advanceFocusUnit = () => update(s => {
     if (!s.active) return
@@ -2819,7 +2864,10 @@ function ActiveWorkout() {
               <div className="ss-card">
                 <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
                   <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(u)}</span>
-                  <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} aria-label={nameIn(t('Superset {0} / {1}', ui + 1, units.length), t('Unpair'))} onClick={() => unpairAt(u[0])}>{t('Unpair')}</Button>
+                  <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                    {groupPairButtons(u)}
+                    {!circuitOf(A.entries, u, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} aria-label={nameIn(t('Superset {0} / {1}', ui + 1, units.length), t('Unpair'))} onClick={() => dissolveAt(u[0])}>{t('Unpair')}</Button>}
+                  </div>
                 </div>
                 {u.map((idx, k) => {
                   const entry = A.entries[idx]
@@ -2861,7 +2909,10 @@ function ActiveWorkout() {
             <div className="ss-card">
               <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
                 <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(adjacent)}</span>
-                <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} onClick={() => unpairAt(adjacent[0])}>{t('Unpair')}</Button>
+                <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                  {groupPairButtons(adjacent)}
+                  {!circuitOf(A.entries, adjacent, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} onClick={() => dissolveAt(adjacent[0])}>{t('Unpair')}</Button>}
+                </div>
               </div>
               {adjacent.map((idx, k) => <div key={idx} className="ss-ex" data-exidx={idx}>
                 {k > 0 && <div className="ss-amp">+</div>}
@@ -2876,13 +2927,17 @@ function ActiveWorkout() {
       {isFolded ? unitSummary(unit, () => setFolded(unitKey, false)) : focusMode ? (
         <FocusView entryIdx={cur} unit={unit}
           onSelectEntry={selectFocusEntry} onAdvanceUnit={advanceFocusUnit} pointerEpoch={focusPointerEpoch.current}
-          onPairPrev={onPairPrev} onPairNext={onPairNext} onUnpair={() => unpairAt(cur)}
+          onPairPrev={onPairPrev} onPairNext={onPairNext} onUnpair={() => dissolveAt(cur)}
+          showPairButtons={wc.pairButtons}
           {...blockProps(cur)} />
       ) : isSuperset ? (
         <div className="ss-card">
           <div className="ss-hd" style={{ justifyContent: 'space-between' }}>
             <span className="row" style={{ gap: 5 }}><Icon name="link" />{ssTitle(unit)}</span>
-            <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} onClick={() => unpairAt(cur)}>{t('Unpair')}</Button>
+            <div className="row" style={{ gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              {groupPairButtons(unit)}
+              {!circuitOf(A.entries, unit, { onTarget: true }) && <Button size="xs" variant="ghost" icon="link" title={t('Unpair')} onClick={() => dissolveAt(cur)}>{t('Unpair')}</Button>}
+            </div>
           </div>
           {unit.map((idx, k) => {
             const entry = A.entries[idx]

@@ -5935,4 +5935,8 @@ export default {
   "Collapse sets": "Thu gọn hiệp",
   "Tick every set first": "Đánh dấu tất cả hiệp trước",
   "Replace in routine": "Thay trong giáo án",
+  "Add previous exercise to this superset": "Thêm bài tập trước vào superset này",
+  "Add next exercise to this superset": "Thêm bài tập tiếp theo vào superset này",
+  "Remove from superset": "Xóa khỏi superset",
+  "A superset holds up to {0} exercises": "Một superset chứa tối đa {0} bài tập",
 };

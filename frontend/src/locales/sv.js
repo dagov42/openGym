@@ -6016,4 +6016,8 @@ export default {
   "Collapse sets": "Fäll ihop setet",
   "Tick every set first": "Markera alla set först",
   "Replace in routine": "Ersätt i rutinen",
+  "Add previous exercise to this superset": "Lägg till föregående övning i detta superset",
+  "Add next exercise to this superset": "Lägg till nästa övning i detta superset",
+  "Remove from superset": "Ta bort från superset",
+  "A superset holds up to {0} exercises": "Ett superset rymmer upp till {0} övningar",
 }

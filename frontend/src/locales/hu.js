@@ -5972,4 +5972,8 @@ export default {
   "Collapse sets": "Sorozat összecsukása",
   "Tick every set first": "Előbb pipáld ki az összes sorozatot",
   "Replace in routine": "Csere a rutinban",
+  "Add previous exercise to this superset": "Előző gyakorlat hozzáadása ehhez a szuperkészlethez",
+  "Add next exercise to this superset": "Következő gyakorlat hozzáadása ehhez a szuperkészlethez",
+  "Remove from superset": "Eltávolítás a szuperkészletből",
+  "A superset holds up to {0} exercises": "Egy szuperkészlet legfeljebb {0} gyakorlatot tartalmaz",
 }

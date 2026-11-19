@@ -5965,4 +5965,8 @@ export default {
   "Collapse sets": "Sutraukti seriją",
   "Tick every set first": "Pirmiausia pažymėkite visas serijas",
   "Replace in routine": "Pakeisti rutinoje",
+  "Add previous exercise to this superset": "Pridėti ankstesnį pratimą į šį supersetą",
+  "Add next exercise to this superset": "Pridėti kitą pratimą į šį supersetą",
+  "Remove from superset": "Pašalinti iš superseto",
+  "A superset holds up to {0} exercises": "Supersete gali būti iki {0} pratimų",
 }

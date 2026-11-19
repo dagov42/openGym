@@ -5969,4 +5969,8 @@ export default {
   "Collapse sets": "Seti daralt",
   "Tick every set first": "Önce tüm setleri işaretle",
   "Replace in routine": "Rutinde değiştir",
+  "Add previous exercise to this superset": "Bu süper sete önceki egzersizi ekle",
+  "Add next exercise to this superset": "Bu süper sete sonraki egzersizi ekle",
+  "Remove from superset": "Süper setten çıkar",
+  "A superset holds up to {0} exercises": "Bir süper set en fazla {0} egzersiz içerir",
 }

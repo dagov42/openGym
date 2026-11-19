@@ -5934,4 +5934,8 @@ export default {
   "Collapse sets": "Ringkas set",
   "Tick every set first": "Centang semua set dulu",
   "Replace in routine": "Ganti di rutin",
+  "Add previous exercise to this superset": "Tambahkan latihan sebelumnya ke superset ini",
+  "Add next exercise to this superset": "Tambahkan latihan berikutnya ke superset ini",
+  "Remove from superset": "Hapus dari superset",
+  "A superset holds up to {0} exercises": "Superset berisi maksimal {0} latihan",
 };

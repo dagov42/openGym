@@ -5962,4 +5962,8 @@ export default {
   "Collapse sets": "收合組數",
   "Tick every set first": "先勾選所有組數",
   "Replace in routine": "在訓練中替換",
+  "Add previous exercise to this superset": "將上一個動作加入此超級組",
+  "Add next exercise to this superset": "將下一個動作加入此超級組",
+  "Remove from superset": "從超級組移除",
+  "A superset holds up to {0} exercises": "一個超級組最多包含 {0} 個動作",
 }

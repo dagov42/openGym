@@ -6048,4 +6048,8 @@ export default {
   "Collapse sets": "সেট গুটিয়ে নিন",
   "Tick every set first": "প্রথমে সব সেট টিক দিন",
   "Replace in routine": "রুটিনে প্রতিস্থাপন করুন",
+  "Add previous exercise to this superset": "এই সুপারসেটে আগের ব্যায়াম যোগ করুন",
+  "Add next exercise to this superset": "এই সুপারসেটে পরের ব্যায়াম যোগ করুন",
+  "Remove from superset": "সুপারসেট থেকে সরান",
+  "A superset holds up to {0} exercises": "একটি সুপারসেটে সর্বোচ্চ {0}টি ব্যায়াম থাকে",
 }

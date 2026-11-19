@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { nextTrainingDay, modeOf, isTimed, fmtSec, setLabel, defaultConfig, pickedExerciseConfig, lastLoggedShape, buildSets, freestyleConfig, exLine, workoutVolume, bestWeightFor, bestWeightForEntry, completedRepsOf, metricRowsForEntry, effortOf, stepEffort, capEffort, isBw, isPerSide, sideReps, repStep, cascadeWeight, insertWarmupRow, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, workSetsDone, setsDone, setsDoneActive, setUnits, doneUnits, setUnitsTotal, pairAdjacent, unpairSuperset, supersetUnits, sessionSections, applyIntensifierPlan, pinnedNoteFor, exNoteFor, effectiveRoutineIds, effectiveRoutines, effectiveRoutineId, effectiveRoutine, lastEntryFor, entryExcluded, entryRoutineId, setsRepsOf, newExDefaultsOf, NEW_EX_DEFAULTS } from './history.js'
+import { nextTrainingDay, modeOf, isTimed, fmtSec, setLabel, defaultConfig, pickedExerciseConfig, lastLoggedShape, buildSets, freestyleConfig, exLine, workoutVolume, bestWeightFor, bestWeightForEntry, completedRepsOf, metricRowsForEntry, effortOf, stepEffort, capEffort, isBw, isPerSide, sideReps, repStep, cascadeWeight, insertWarmupRow, makeWarmupAt, canBeWarmup, makeWorkAt, removeRowAt, removeLastSet, setSpanAt, workSetsDone, setsDone, setsDoneActive, setUnits, doneUnits, setUnitsTotal, pairAdjacent, unpairSuperset, supersetUnits, sessionSections, applyIntensifierPlan, pinnedNoteFor, exNoteFor, effectiveRoutineIds, effectiveRoutines, effectiveRoutineId, effectiveRoutine, lastEntryFor, entryExcluded, entryRoutineId, setsRepsOf, newExDefaultsOf, NEW_EX_DEFAULTS, MAX_SUPERSET, mergedSupersetSize, canPairSuperset, dissolveSuperset } from './history.js'
 import { makeSideSet, setSideField, toggleSide, WEIGHT_ORIGIN_MANUAL } from './workout-model.js'
 import { EXDB } from './exercises.js'
 import { todayISO, isoOf } from './format.js'
@@ -991,11 +991,76 @@ describe('superset editing', () => {
     expect(entries.map(e => e.sg)).toEqual(['group', 'group', 'group', 'orphan'])
   })
 
+  it('keeps the remaining group metadata and clears the detached member\'s own', () => {
+    const entries = [
+      { id: 'a', sg: 'g', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } },
+      { id: 'b', sg: 'g', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } },
+      { id: 'c', sg: 'g', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } },
+    ]
+    const next = unpairSuperset(entries, 2)
+    expect(next[0]).toMatchObject({ sg: 'g', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } })
+    expect(next[1]).toMatchObject({ sg: 'g', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } })
+    expect(next[2]).toEqual({ id: 'c' })
+  })
+
   it('rejects a non-adjacent pairing request', () => {
     const entries = [{ id: 'a' }, { id: 'b' }, { id: 'c' }]
 
     expect(() => pairAdjacent(entries, 0, 2, 'sg-invalid')).toThrow(/adjacent/)
     expect(entries).toEqual([{ id: 'a' }, { id: 'b' }, { id: 'c' }])
+  })
+
+  it('caps a superset at four and counts a whole group on either side of the boundary', () => {
+    expect(MAX_SUPERSET).toBe(4)
+    const threeOne = [{ id: 'a', sg: 'a' }, { id: 'b', sg: 'a' }, { id: 'c', sg: 'a' }, { id: 'd' }]
+    expect(mergedSupersetSize(threeOne, 2, 3)).toBe(4)
+    expect(canPairSuperset(threeOne, 2, 3)).toBe(true)
+
+    const twoTwo = [{ id: 'a', sg: 'a' }, { id: 'b', sg: 'a' }, { id: 'c', sg: 'b' }, { id: 'd', sg: 'b' }]
+    expect(mergedSupersetSize(twoTwo, 1, 2)).toBe(4)
+    expect(canPairSuperset(twoTwo, 1, 2)).toBe(true)
+
+    const threeTwo = [
+      { id: 'a', sg: 'a' }, { id: 'b', sg: 'a' }, { id: 'c', sg: 'a' },
+      { id: 'd', sg: 'b' }, { id: 'e', sg: 'b' },
+    ]
+    expect(mergedSupersetSize(threeTwo, 2, 3)).toBe(5)
+    expect(canPairSuperset(threeTwo, 2, 3)).toBe(false)
+
+    const fourOne = [{ id: 'a', sg: 'a' }, { id: 'b', sg: 'a' }, { id: 'c', sg: 'a' }, { id: 'd', sg: 'a' }, { id: 'e' }]
+    expect(canPairSuperset(fourOne, 3, 4)).toBe(false)
+  })
+
+  it('refuses a circuit boundary, whether the marker is on the slot or its target', () => {
+    expect(canPairSuperset([
+      { id: 'a', sg: 'c', sgCircuit: { mode: 'circuit', rounds: 3 } },
+      { id: 'b' },
+    ], 0, 1)).toBe(false)
+    expect(canPairSuperset([
+      { id: 'a', sg: 'c', target: { sgCircuit: { mode: 'circuit', rounds: 3 } } },
+      { id: 'b' },
+    ], 0, 1)).toBe(false)
+  })
+
+  it('throws instead of creating a fifth member, and leaves the source untouched', () => {
+    const entries = [{ id: 'a', sg: 'a' }, { id: 'b', sg: 'a' }, { id: 'c', sg: 'a' }, { id: 'd', sg: 'a' }, { id: 'e' }]
+    expect(() => pairAdjacent(entries, 3, 4)).toThrow(RangeError)
+    expect(entries.map(e => e.sg)).toEqual(['a', 'a', 'a', 'a', undefined])
+  })
+
+  it('dissolves the whole contiguous group and its metadata, leaving neighbours alone', () => {
+    const entries = [
+      { id: 'a', sg: 'left', sgName: 'Left' }, { id: 'b', sg: 'left', sgName: 'Left' },
+      { id: 'c', sg: 'group', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } },
+      { id: 'd', sg: 'group', sgName: 'Push pair', sgRest: 75, sgCircuit: { mode: 'circuit', rounds: 3 } },
+      { id: 'e', sg: 'group', sgName: 'Push pair', sgRest: 75 },
+      { id: 'f', sg: 'right' }, { id: 'g', sg: 'right' },
+    ]
+    const next = dissolveSuperset(entries, 3)
+    expect(next.slice(2, 5)).toEqual([{ id: 'c' }, { id: 'd' }, { id: 'e' }])
+    expect(next[0]).toMatchObject({ id: 'a', sg: 'left', sgName: 'Left' })
+    expect(next[6]).toMatchObject({ id: 'g', sg: 'right' })
+    expect(entries[3].sg).toBe('group')
   })
 })
 

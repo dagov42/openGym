@@ -5966,4 +5966,8 @@ export default {
   "Collapse sets": "Згорнути підхід",
   "Tick every set first": "Спочатку позначте всі підходи",
   "Replace in routine": "Замінити в програмі",
+  "Add previous exercise to this superset": "Додати попередню вправу до цього суперсету",
+  "Add next exercise to this superset": "Додати наступну вправу до цього суперсету",
+  "Remove from superset": "Прибрати з суперсету",
+  "A superset holds up to {0} exercises": "У суперсеті до {0} вправ",
 }

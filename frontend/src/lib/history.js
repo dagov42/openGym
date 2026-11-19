@@ -380,6 +380,40 @@ function freshSg(items, first, second) {
   return sg
 }
 
+/** The most a superset the app creates or grows may hold. Older/imported groups are untouched. */
+export const MAX_SUPERSET = 4
+
+/**
+ * The size the contiguous group around `idx` would have if the two adjacent entries on either
+ * side of a boundary were joined. Singleton entries count as one. Throws on invalid indexes.
+ */
+export function mergedSupersetSize(items, first, second) {
+  if (!Array.isArray(items)) throw new TypeError('Superset entries must be an array')
+  if (!Number.isInteger(first) || !Number.isInteger(second) || !items[first] || !items[second]) {
+    throw new RangeError('Superset entry indexes are invalid')
+  }
+  if (Math.abs(first - second) !== 1) throw new RangeError('Superset entries must be adjacent')
+  const left = Math.min(first, second)
+  const right = Math.max(first, second)
+  const members = new Set([...contiguousSgGroup(items, left), ...contiguousSgGroup(items, right)])
+  return members.size
+}
+
+/** Whether pairing the two adjacent entries stays within the app's superset cap. */
+export function canPairSuperset(items, first, second, max = MAX_SUPERSET) {
+  const size = mergedSupersetSize(items, first, second)
+  if (size > max) return false
+  // Circuits are owned by their type. The session stores sgCircuit on `target`, the routine on
+  // the slot itself; either marker on either side means this boundary is not a superset seam.
+  const left = Math.min(first, second)
+  const right = Math.max(first, second)
+  const members = new Set([...contiguousSgGroup(items, left), ...contiguousSgGroup(items, right)])
+  for (const i of members) {
+    if (items[i]?.sgCircuit || items[i]?.target?.sgCircuit) return false
+  }
+  return true
+}
+
 // Purely pair two adjacent entries. Existing contiguous groups on either side are merged, so
 // pairing the end of one group with the start of another produces one display unit. A caller can
 // provide a group id (useful when restoring a known id); otherwise an existing id is preferred,
@@ -391,12 +425,25 @@ export function pairAdjacent(items, first, second, groupId) {
   }
   if (Math.abs(first - second) !== 1) throw new RangeError('Superset entries must be adjacent')
 
-  const next = items.map(e => ({ ...e }))
   const left = Math.min(first, second)
   const right = Math.max(first, second)
+  const members = new Set([...contiguousSgGroup(items, left), ...contiguousSgGroup(items, right)])
+  if (members.size > MAX_SUPERSET) throw new RangeError('Superset holds too many exercises')
+
+  const next = items.map(e => ({ ...e }))
   const group = groupId || next[left].sg || next[right].sg || freshSg(next, left, right)
-  const members = new Set([...contiguousSgGroup(next, left), ...contiguousSgGroup(next, right)])
   members.forEach(i => { next[i].sg = group })
+  return next
+}
+
+// A new array with `sg` taken off every member of the contiguous run around `idx`, including the
+// group's name, rest and circuit metadata (syncSupersetMeta removes them from now-ungrouped rows).
+export function dissolveSuperset(items, idx) {
+  if (!Array.isArray(items)) throw new TypeError('Superset entries must be an array')
+  if (!Number.isInteger(idx) || !items[idx]) throw new RangeError('Superset entry index is invalid')
+  const next = items.map(e => ({ ...e }))
+  for (const i of contiguousSgGroup(next, idx)) delete next[i].sg
+  cleanupSg(next)
   return next
 }
 
@@ -410,6 +457,8 @@ export function unpairSuperset(items, idx) {
   next.forEach((e, i) => {
     if (e.sg && !(next[i - 1]?.sg === e.sg || next[i + 1]?.sg === e.sg)) delete e.sg
   })
+  // Keep the remaining group's name/rest/circuit and clear the detached row's metadata.
+  syncSupersetMeta(next)
   return next
 }
 

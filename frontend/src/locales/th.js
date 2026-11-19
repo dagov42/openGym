@@ -5980,4 +5980,8 @@ export default {
   "Collapse sets": "ย่อเซต",
   "Tick every set first": "ทำเครื่องหมายทุกเซตก่อน",
   "Replace in routine": "แทนที่ในรูทีน",
+  "Add previous exercise to this superset": "เพิ่มท่าออกกำลังกายก่อนหน้าในซุปเปอร์เซ็ตนี้",
+  "Add next exercise to this superset": "เพิ่มท่าออกกำลังกายถัดไปในซุปเปอร์เซ็ตนี้",
+  "Remove from superset": "นำออกจากซุปเปอร์เซ็ต",
+  "A superset holds up to {0} exercises": "ซุปเปอร์เซ็ตมีได้สูงสุด {0} ท่าออกกำลังกาย",
 }

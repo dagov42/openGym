@@ -26,6 +26,9 @@ A small updater fix and keyboard shortcuts.
 - Swap exercise can also replace the routine's slot: Replace in routine changes today's entry and
   the plan, keeping the slot's numbers, superset group and position. No history or saved-workout
   editor is touched.
+- Supersets can grow to four members from the group itself. Unpair dissolves the whole group and
+  Remove from superset takes one member out; a fifth is refused with a toast. Circuits and imported
+  groups keep working as they are.
 
 ## v1.4.9 (2026-11-18)
 

@@ -50,6 +50,19 @@ describe('supersetFlowStep', () => {
       nextIdx: 0
     })
   })
+
+  it('round-robins a three-member unit and wraps after its last member', () => {
+    const entries = [entry([false, false]), entry([false, false]), entry([false, false])]
+    expect(supersetFlowStep(entries, [0, 1, 2], 0)).toMatchObject({ nextIdx: 1, roundDone: false, unitDone: false })
+    expect(supersetFlowStep(entries, [0, 1, 2], 1)).toMatchObject({ nextIdx: 2, roundDone: false, unitDone: false })
+    expect(supersetFlowStep(entries, [0, 1, 2], 2)).toEqual({ unitDone: false, roundDone: true, nextIdx: 0 })
+  })
+
+  it('round-robins a four-member unit and wraps after its last member', () => {
+    const entries = [entry([false]), entry([false]), entry([false]), entry([false])]
+    expect(supersetFlowStep(entries, [0, 1, 2, 3], 0)).toMatchObject({ nextIdx: 1, roundDone: false })
+    expect(supersetFlowStep(entries, [0, 1, 2, 3], 3)).toEqual({ unitDone: false, roundDone: true, nextIdx: 0 })
+  })
 })
 
 describe('active workout unit ordering', () => {

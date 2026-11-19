@@ -5969,4 +5969,8 @@ export default {
   "Collapse sets": "Contraer serie",
   "Tick every set first": "Marca todas las series primero",
   "Replace in routine": "Reemplazar en la rutina",
+  "Add previous exercise to this superset": "Añadir el ejercicio anterior a esta superserie",
+  "Add next exercise to this superset": "Añadir el siguiente ejercicio a esta superserie",
+  "Remove from superset": "Quitar de la superserie",
+  "A superset holds up to {0} exercises": "Una superserie admite hasta {0} ejercicios",
 }

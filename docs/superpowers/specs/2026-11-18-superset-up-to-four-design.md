@@ -1,9 +1,9 @@
 # Supersets of up to four exercises
 
-Status: agreed 2026-11-18, not implemented. The lifter's calls stand: groups can be built in the live
+Status: implemented 2026-11-19. The lifter's calls stand: groups can be built in the live
 session, in the routine editor and by the Coach, up to four members; imported and older larger groups
 are left alone; circuit groups are not capped; the group header's Unpair dissolves the group, and its
-members get their own "Remove from superset".
+members get their own "Remove from superset". The new labels are translated in all 25 locale packs.
 
 ## Why
 
@@ -47,8 +47,7 @@ What limits it today is the interface, not the data:
   toggle are enough.
 - Changing rest, round-robin, skip-completed, the Focus sequence, chips, print or share logic: they
   are already unit-based; this feature adds tests that lock three- and four-member units.
-- Editing locale packs in the feature PR: the new strings ship in English, per the index's "Strings
-  and locales" rule.
+- Per-locale wording beyond the four new labels; the labels themselves are in every pack.
 
 ## Decisions
 
@@ -80,7 +79,8 @@ In `lib/history.js`, beside `pairAdjacent` and `unpairSuperset`:
 export const MAX_SUPERSET = 4
 
 // The size the merged run would have: the contiguous `sg` runs around each boundary entry, unioned.
-// Size only — the call sites decide about circuits with `circuitOf` and about the ends of the list.
+// `canPairSuperset` also refuses a boundary with a circuit marker; `pairAdjacent` itself only caps
+// the size, so imports and older groups are never rewritten.
 export function mergedSupersetSize(items, first, second) { ... }
 
 export function canPairSuperset(items, first, second, max = MAX_SUPERSET) {
@@ -193,8 +193,8 @@ the chip row are unit-based and read the same for three or four members.
 - `lib/history.test.js` (extend): `canPairSuperset` allows 2+2=4 and 3+1=4, refuses 3+2, 4+1 and a
   circuit boundary; `pairAdjacent` throws over the cap; `dissolveSuperset` clears the whole run and
   leaves the neighbours alone; `unpairSuperset` still detaches one member of four.
-- `lib/supersetFlow.test.js` (extend): a three- and a four-member unit's round order, the wrap, the
-  round end, and the rest after a round.
+- `lib/supersetFlow.test.js` (extend): a three- and a four-member unit's round order and the wrap
+  (the round end and rest-after-round paths are already unit-based).
 - `views/Workout.superset-four.test.jsx` (new): grow 2→3→4 from a member's ⋯ menu; the fifth attempt
   toasts `A superset holds up to 4 exercises` and leaves the entries untouched; the header Unpair
   dissolves all four; "Remove from superset" shrinks 4→3 and the rest stay grouped; a lone neighbour
@@ -206,8 +206,7 @@ the chip row are unit-based and read the same for three or four members.
   an existing group when the anchor is already grouped.
 - `lib/watch-sync` or `lib/live-activity.test.js` (extend): a three-member group still presents the
   next member in turn and the rest after the round.
-- No locale test is extended: the new strings are English and fall back for other packs until the
-  translation PR.
+- Locale packs: the four new labels are translated in all 25 packs, not left as English fallback.
 
 ## Where the logic lives
 
@@ -219,6 +218,9 @@ the chip row are unit-based and read the same for three or four members.
   Unpair.
 - `frontend/src/views/RoutineEdit.jsx`: the link cap, the toast and the circuit row.
 - `frontend/src/lib/coach.js`: the group-aware, capped link action.
+- `frontend/src/views/Workout.superset-four.test.jsx` and `views/RoutineEdit.superset.test.jsx`:
+  the session/card/list/focus and editor coverage; `lib/supersetFlow.test.js` locks three- and
+  four-member round order.
 - `frontend/src/sheets.jsx`: no signature change; the group sheet already names and rests a group of
   any size.
 - No `S` field, no API, no sync change.

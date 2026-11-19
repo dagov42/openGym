@@ -129,7 +129,8 @@ function PlateBadge({ S, entry, set }) {
 export default function FocusView({
   entryIdx, unit, onToggle, onToggleSide, onField, onMutateSet, onStartTimed,
   onAddSet, onAddWarmup, onRemoveSetAt, onProgressionSettings, onSwap, onRemoveExercise,
-  onNoProg, busy, onSelectEntry, onAdvanceUnit, onPairPrev, onPairNext, onUnpair, pointerEpoch,
+  onNoProg, busy, onSelectEntry, onAdvanceUnit, onPairPrev, onPairNext, onUnpair, onUnpairSelf,
+  inGroup, showPairButtons, circuit, pointerEpoch,
 }) {
   // In the exercise's own weight unit when it has one (#657); the parent stores every change back.
   const live = useStore(state => state.S)
@@ -252,6 +253,8 @@ export default function FocusView({
   // extra set?"). The set on screen goes back to the next one to do, which is the new set once the
   // others are done; a stored pointer would also sit on the wrong row after a warm-up goes in front.
   const addRow = add => () => { add(); clearPointer(entryIdx) }
+  const pairPrevLabel = inGroup ? t('Add previous exercise to this superset') : t('Make superset with previous')
+  const pairNextLabel = inGroup ? t('Add next exercise to this superset') : t('Make superset with next')
   // Laid out like the Cards layout's menu (Workout.jsx): what you do mid-set first, the rest under
   // More, Remove last. Details is the ⓘ beside the ⋯ in the card's header, so it is not here twice.
   const openExerciseMenu = () => menuSheet({
@@ -273,8 +276,9 @@ export default function FocusView({
           youtubeSearchUrl(exOr(entry.id)) && { icon: 'play', label: t('Watch on YouTube'), sub: t('Opens a search for good form'), onClick: () => openExternal(youtubeSearchUrl(exOr(entry.id))) },
         ] },
         { title: t('Order and supersets'), items: [
-          onPairPrev && { icon: 'link', label: t('Make superset with previous'), onClick: onPairPrev },
-          onPairNext && { icon: 'link', label: t('Make superset with next'), onClick: onPairNext },
+          onPairPrev && { icon: 'link', label: pairPrevLabel, onClick: onPairPrev },
+          onPairNext && { icon: 'link', label: pairNextLabel, onClick: onPairNext },
+          inGroup && onUnpairSelf && { icon: 'link', label: t('Remove from superset'), onClick: onUnpairSelf },
         ] },
         { title: t('This session'), items: [
           onNoProg && { icon: 'chartLineSlash', label: t('Don’t count for progression'), sub: t('This exercise, this session only'), on: entry.noProg === true, onClick: () => onNoProg(entry.noProg !== true) },
@@ -313,7 +317,9 @@ export default function FocusView({
         <Icon name="reset" />
         <strong>{t('Superset:')} {unit.map(index => exerciseNameFor(exOr(S.active.entries[index].id))).join(' + ')}</strong>
         <span>{t('Round {0}', setIdx + 1)} · {t('Exercise {0} of {1}', unit.indexOf(entryIdx) + 1, unit.length)}</span>
-        <Button size="xs" variant="ghost" icon="link" aria-label={t('Unpair')} onClick={onUnpair}>{t('Unpair')}</Button>
+        {showPairButtons && onPairPrev && <Button size="xs" variant="tinted" icon="link" onClick={onPairPrev}>{pairPrevLabel}</Button>}
+        {showPairButtons && onPairNext && <Button size="xs" variant="tinted" icon="link" onClick={onPairNext}>{pairNextLabel}</Button>}
+        {!circuit && <Button size="xs" variant="ghost" icon="link" aria-label={t('Unpair')} onClick={onUnpair}>{t('Unpair')}</Button>}
         <div className="focus-superset-nav">
           <button aria-label={t('Previous superset set')} disabled={sequenceIdx <= 0} onClick={() => selectSequence(sequenceIdx - 1)}><Icon name="chevronLeft" /></button>
           <button aria-label={t('Next superset set')} disabled={sequenceIdx < 0 || sequenceIdx >= sequence.length - 1} onClick={() => selectSequence(sequenceIdx + 1)}><Icon name="chevronRight" /></button>

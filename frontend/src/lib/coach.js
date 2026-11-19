@@ -14,7 +14,8 @@
 
 import { offlineBuild } from './build-caps.js'
 import { EXIDX, canonicalExId } from './exercises.js'
-import { modeOf, isBw, isPerSide, cleanupSg } from './history.js'
+import { modeOf, isBw, isPerSide, cleanupSg, supersetUnits, pairAdjacent, canPairSuperset, MAX_SUPERSET } from './history.js'
+import { circuitOf } from './circuit.js'
 import { uid, todayISO, DAYN } from './format.js'
 import { mergePlan } from './plan-share.js'
 import { deleteRoutine } from './routines.js'
@@ -565,13 +566,28 @@ const CHANGE_APPLY = {
     if (c.after.with === c.target.exId) throw new Error('superset with itself')
     const j = r.ex.findIndex(e => e.id === c.after.with)
     if (j < 0) throw new Error('missing partner')
-    // Supersets are a property of adjacency in this app; move the partner next to it first.
+
+    const units = supersetUnits(r.ex)
+    const anchorUnit = units.find(u => u.includes(i))
+    const partnerUnit = units.find(u => u.includes(j))
+    if (circuitOf(r.ex, anchorUnit) || circuitOf(r.ex, partnerUnit)) throw new Error('circuit is not a superset')
+    // Already in the same contiguous group: nothing to move or split.
+    if (anchorUnit === partnerUnit) return
+    // A group that already holds four cannot take another member. Checked before the splice so
+    // a refused proposal leaves the routine untouched.
+    if (anchorUnit.length + 1 > MAX_SUPERSET) {
+      throw new Error('superset holds up to ' + MAX_SUPERSET + ' exercises')
+    }
+
+    // Move the partner after the anchor's whole group, not after the anchor row: inserting
+    // between two members of an existing group would split it.
     const [partner] = r.ex.splice(j, 1)
     const at = r.ex.findIndex(e => e.id === c.target.exId)
-    r.ex.splice(at + 1, 0, partner)
-    const tag = uid().slice(0, 6)
-    r.ex[at].sg = tag
-    r.ex[at + 1].sg = tag
+    const end = supersetUnits(r.ex).find(u => u.includes(at))?.at(-1) ?? at
+    r.ex.splice(end + 1, 0, partner)
+    if (!canPairSuperset(r.ex, end, end + 1)) throw new Error('superset holds up to ' + MAX_SUPERSET + ' exercises')
+    r.ex = pairAdjacent(r.ex, end, end + 1, r.ex[at].sg || ('sg' + uid()))
+    cleanupSg(r.ex)
   },
   'add-routine': (s, c) => {
     const a = c.after

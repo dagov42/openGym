@@ -5909,4 +5909,8 @@ export default {
   "Collapse sets": "Skjul sæt",
   "Tick every set first": "Sæt flueben ved alle sæt først",
   "Replace in routine": "Erstat i rutinen",
+  "Add previous exercise to this superset": "Tilføj forrige øvelse til dette supersæt",
+  "Add next exercise to this superset": "Tilføj næste øvelse til dette supersæt",
+  "Remove from superset": "Fjern fra supersæt",
+  "A superset holds up to {0} exercises": "Et supersæt rummer højst {0} øvelser",
 }

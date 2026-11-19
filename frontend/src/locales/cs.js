@@ -5935,4 +5935,8 @@ export default {
   "Collapse sets": "Sbalit sadu",
   "Tick every set first": "Nejprve označte všechny sady",
   "Replace in routine": "Nahradit v rutině",
+  "Add previous exercise to this superset": "Přidat předchozí cvičení do této supersérie",
+  "Add next exercise to this superset": "Přidat následující cvičení do této supersérie",
+  "Remove from superset": "Odebrat ze supersérie",
+  "A superset holds up to {0} exercises": "Supersérie pojme nejvýše {0} cvičení",
 }

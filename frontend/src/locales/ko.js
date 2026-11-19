@@ -5969,4 +5969,8 @@ export default {
   "Collapse sets": "세트 접기",
   "Tick every set first": "먼저 모든 세트를 체크하세요",
   "Replace in routine": "루틴에서 교체",
+  "Add previous exercise to this superset": "이 슈퍼세트에 이전 운동 추가",
+  "Add next exercise to this superset": "이 슈퍼세트에 다음 운동 추가",
+  "Remove from superset": "슈퍼세트에서 제거",
+  "A superset holds up to {0} exercises": "슈퍼세트는 최대 {0}개의 운동을 포함합니다",
 }
