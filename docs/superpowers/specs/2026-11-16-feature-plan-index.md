@@ -2,7 +2,7 @@
 
 Status: index for the fork's planned work ([`FORK_ROADMAP.md`](../../../FORK_ROADMAP.md) → "План фич"). The
 fork-operations spec (test hygiene, `fork-status`, sync checklist) landed on 2026-11-17; the other specs are
-not implemented. Nine specs are agreed and ready for an implementation plan; the rest are candidates or tasks
+not implemented. Eight specs are agreed and ready for an implementation plan; the rest are candidates or tasks
 with a proposed design and explicit open questions. A candidate is not a promise: read its "Open questions"
 before starting, and get the same sign-off the agreed ones got.
 
@@ -44,6 +44,7 @@ improvements done while the larger one runs).
 | [`2026-11-17-apk-variants-design.md`](2026-11-17-apk-variants-design.md) | Release Standard, Plus and HD APKs, then switch between them in Settings | **Agreed** | 15 |
 | [`2026-11-18-finish-exercise-design.md`](2026-11-18-finish-exercise-design.md) | Collapse a finished exercise so the card swipe can no longer reach its sets | **Done 2026-11-18** | 16 |
 | [`2026-11-18-replace-in-routine-design.md`](2026-11-18-replace-in-routine-design.md) | Replace the routine's exercise, not just today's, from the swap sheet | **Done 2026-11-18** | 17 |
+| [`2026-11-18-superset-up-to-four-design.md`](2026-11-18-superset-up-to-four-design.md) | Supersets of up to four exercises, built from the group itself | **Agreed** | 18 |
 
 ## Decisions already made (do not re-open without a reason)
 
@@ -79,6 +80,12 @@ improvements done while the larger one runs).
   warm-ups carried over), and an edited value goes to both. The slot keeps its position and its superset
   group (`sg`, `sgName`, `sgRest`, `sgCircuit`). Not added to the slot's backups, no undo, and nothing in
   history or the saved-workout editor is written; no new `S` field.
+
+- **Supersets up to four:** a cap on what the app builds, not a data rule — the `sg` model already
+  holds any length, and circuits keep their any-size groups. Grow from a member's menu (and the header
+  when the pair-buttons setting is on), with a toast at four; the group header's Unpair dissolves the
+  whole group and a member's menu detaches one. Imports, plan bundles and older profiles are preserved
+  as they are; no new `S` field.
 
 ## How to use a candidate spec
 
