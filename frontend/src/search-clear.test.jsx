@@ -30,7 +30,7 @@ function type(el, value) {
   Object.getOwnPropertyDescriptor(el.constructor.prototype, 'value').set.call(el, value)
   el.dispatchEvent(new Event('input', { bubbles: true }))
 }
-const chip = (host, text) => [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim() === text)
+const chip = (host, text) => [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 const clear = host => host.querySelector('.search .clear')
 const count = host => host.querySelector('.search .search-count')
 

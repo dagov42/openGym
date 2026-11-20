@@ -24,7 +24,7 @@ function renderTop() {
 }
 
 const chipByText = (host, text) =>
-  [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim() === text)
+  [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 const isOn = el => el.className.split(/\s+/).includes('on')
 // Every row's add button carries the exercise's name, so it tells which exercises are listed.
 const listed = host => [...host.querySelectorAll('.list .item button[aria-label]')]

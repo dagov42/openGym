@@ -45,8 +45,9 @@ A small updater fix and keyboard shortcuts.
   longer holds twenty chips.
 - The lift goal's target unit and the exercise sheet's weight unit now read «кг»/«фунт» in
   Russian. All 5,632 exercise descriptions now have Russian text.
-- Equipment and muscle tags and chips use sentence case, so Russian reads «Рычажный тренажёр»,
-  «С отягощением» and «Петли для подвесных тренировок» instead of capitalising every word.
+- Equipment, muscle and body-part tags and chips use sentence case, so Russian reads «Рычажный
+  тренажёр», «С отягощением», «Петли для подвесных тренировок» and «Тяжёлая атлетика» instead of
+  capitalising every word.
 - An exercise can carry a lift goal: target weight, 3, 6 or 12 months, and the sheet shows the due
   date, progress from the best set when the goal was set, and the weekly gain needed.
 - Russian exercise names now follow the reviewed workbook's “Ваше название” column and the

@@ -103,16 +103,16 @@ export default function MuscleExplorer({ onPick, onDetail, onPlan, onBuild, pick
         {MUSCLE_GROUPS.map(g => {
           const single = g.muscles.length === 1
           const on = single ? terms.includes(g.muscles[0]) : terms.includes(groupTerm(g.id))
-          return <button key={g.id} className={'chip' + (on ? ' on' : '')} aria-pressed={on}
+          return <button key={g.id} className={'chip nocap' + (on ? ' on' : '')} aria-pressed={on}
             aria-expanded={single ? undefined : openGroup === g.id} onClick={() => pickGroup(g)}>
-            {t(g.name)}{!single && <Icon name={openGroup === g.id ? 'chevronUp' : 'chevronDown'} className="mx-chev" />}
+            {sentenceCase(t(g.name))}{!single && <Icon name={openGroup === g.id ? 'chevronUp' : 'chevronDown'} className="mx-chev" />}
           </button>
         })}
       </div>
       <div className="chips" style={{ marginTop: 8 }}>
-        {(MUSCLE_GROUPS.find(g => g.id === openGroup)?.muscles || MUSCLES).map(m => <button key={m} className={'chip' + (terms.includes(m) ? ' on' : '')}
+        {(MUSCLE_GROUPS.find(g => g.id === openGroup)?.muscles || MUSCLES).map(m => <button key={m} className={'chip nocap' + (terms.includes(m) ? ' on' : '')}
           aria-pressed={terms.includes(m)} onClick={() => pick(m)}>
-          {t(MUSCLE_NAME[m])} <span className="dim">{counts[m]}</span>
+          {sentenceCase(t(MUSCLE_NAME[m]))} <span className="dim">{counts[m]}</span>
         </button>)}
       </div>
       {terms.length > 1 && <div style={{ marginTop: 10 }}>
@@ -143,7 +143,7 @@ export default function MuscleExplorer({ onPick, onDetail, onPlan, onBuild, pick
         {favIds(S).length > 0 && <button className={'chip' + (favOn ? ' on' : '')} onClick={() => { setBp(FAV); setEq(''); setShown(40) }}><Icon name="starFill" className="fav-star" />{t('Favourites')} ({favHere})</button>}
         {/* "Body part: Shoulders" for a screen reader: the muscle groups above have a Shoulders too (P4). */}
         <button className={'chip nocap' + (!bp ? ' on' : '')} aria-label={nameIn(t('Body part'), t('All'))} onClick={() => { setBp(''); setEq(''); setShown(40) }}>{t('All')}</button>
-        {BODYPARTS.map(b => <button key={b} className={'chip' + (bp === b ? ' on' : '')} aria-label={nameIn(t('Body part'), t(b))} onClick={() => { setBp(b); setShown(40) }}>{t(b)}</button>)}
+        {BODYPARTS.map(b => <button key={b} className={'chip nocap' + (bp === b ? ' on' : '')} aria-label={nameIn(t('Body part'), sentenceCase(t(b)))} onClick={() => { setBp(b); setShown(40) }}>{sentenceCase(t(b))}</button>)}
       </div>
       {eqOpts.length > 1 && <GroupStrip groups={groupKinds(eqOpts)} value={eqOn} onChange={x => { setEq(x); setShown(40) }}
         anyLabel={t('Any equipment')} gv={groupValue} gidOf={groupIdOf} kindGroup={groupOf} style={{ marginBottom: 12 }} />}

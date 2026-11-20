@@ -41,7 +41,7 @@ function type(el, value) {
   el.dispatchEvent(new Event('input', { bubbles: true }))
 }
 const click = (host, sel, text) => {
-  const el = [...host.querySelectorAll(sel)].find(e => e.textContent.trim() === text)
+  const el = [...host.querySelectorAll(sel)].find(e => e.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
   if (!el) throw new Error(`nothing with text "${text}"`)
   act(() => el.click())
 }

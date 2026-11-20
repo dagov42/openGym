@@ -1774,7 +1774,7 @@ function CustomExForm({ existing, prefill, onDone, close }) {
     {aliasesOpen ? <ExerciseAliasesField value={aliases} onChange={setAliases} autoFocus />
       : <div><ExerciseAliasesLink names={normalizeAliases(aliases)} onOpen={() => setAliasesOpen(true)} /></div>}
     <div className="chips" data-tour="cx-bp" style={{ margin: '12px 0' }}>
-      {BODYPARTS.map(b => <button key={b} className={'chip' + (bp === b ? ' on' : '')} onClick={() => setBp(b)}>{t(b)}</button>)}
+      {BODYPARTS.map(b => <button key={b} className={'chip nocap' + (bp === b ? ' on' : '')} onClick={() => setBp(b)}>{sentenceCase(t(b))}</button>)}
     </div>
     <div className="chips" data-tour="cx-eq" style={{ margin: '12px 0' }}>
       {ALL_EQUIPMENT.map(k => (<button key={k} className={'chip' + (eq === k ? ' on' : '')} onClick={() => setEq(k)}>{t(k)}</button>))}
@@ -2014,7 +2014,7 @@ function ExercisePicker({ onPick, title, close, like, actionIcon, backups, askCo
       {favCount > 0 && <button className={'chip' + (bp === '☆' ? ' on' : '')} onClick={() => { setBp('☆'); setEq(''); setShown(50) }}><Icon name="starFill" className="fav-star" />{t('Favourites')} ({favCount})</button>}
       {chosenCount > 0 && <button className={'chip' + (bp === '★' ? ' on' : '')} onClick={() => { setBp('★'); setEq(''); setShown(50) }}><Icon name="starFill" style={{ fontSize: 'var(--fs-caption)', display: 'inline-block', marginInlineEnd: 4, verticalAlign: '-1px' }} />{t('Chosen')} ({chosenCount})</button>}
       <button className={'chip nocap' + (!bp ? ' on' : '')} onClick={() => { setBp(''); setShown(50) }}>{t('All')}</button>
-      {BODYPARTS.map(b => <button key={b} className={'chip' + (bp === b ? ' on' : '')} onClick={() => { setBp(b); setShown(50) }}>{t(b)}</button>)}
+      {BODYPARTS.map(b => <button key={b} className={'chip nocap' + (bp === b ? ' on' : '')} onClick={() => { setBp(b); setShown(50) }}>{sentenceCase(t(b))}</button>)}
     </div>
     {catOpts.length > 1 && <div className="chips" ref={catStrip} style={{ marginBottom: eqOpts.length > 1 ? 6 : 10 }}>
       <button className={'chip nocap' + (!catOn ? ' on' : '')} onClick={() => { setCat(''); setShown(50) }}>{t('Any type')}</button>

@@ -31,7 +31,7 @@ function type(el, value) {
   Object.getOwnPropertyDescriptor(el.constructor.prototype, 'value').set.call(el, value)
   el.dispatchEvent(new Event('input', { bubbles: true }))
 }
-const chip = (host, text) => [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim() === text)
+const chip = (host, text) => [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 // Every body part again: the picker's "All" chip, or in the Library (one filter row since 1.4.5,
 // P7) a second tap on the chosen body part.
 const allParts = host => chip(host, 'All') || host.querySelector('.lib-filters .chip.on[aria-pressed="true"]')

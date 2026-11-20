@@ -27,7 +27,7 @@ function type(el, value) {
 }
 const rows = host => [...host.querySelectorAll('.list .item:not(.ex-new)')]
 const nameOf = row => row.querySelector('.tt').textContent.trim()
-const chip = (host, text) => [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim() === text)
+const chip = (host, text) => [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 
 const PRESS = CATALOGUE.find(e => /^sled 45° leg press$/i.test(e.n))
 const CURL = CATALOGUE.find(e => /^lever lying leg curl$/i.test(e.n))

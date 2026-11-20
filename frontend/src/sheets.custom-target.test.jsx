@@ -33,7 +33,7 @@ function type(el, value) {
   Object.getOwnPropertyDescriptor(el.constructor.prototype, 'value').set.call(el, value)
   el.dispatchEvent(new Event('input', { bubbles: true }))
 }
-const byText = (host, sel, text) => [...host.querySelectorAll(sel)].find(e => e.textContent.trim() === text)
+const byText = (host, sel, text) => [...host.querySelectorAll(sel)].find(e => e.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 const click = (host, sel, text) => {
   const el = byText(host, sel, text)
   if (!el) throw new Error(`nothing with text "${text}"`)

@@ -77,7 +77,7 @@ describe('a custom exercise stored without the flag', () => {
     const form = renderTop()
     expect(form.textContent).toContain('Edit custom exercise')
     expect(form.querySelector('input.input').value).toBe('My row')
-    expect(form.querySelector('.chip.on').textContent).toBe('back')
+    expect(form.querySelector('.chip.on').textContent).toBe('Back')
   })
 
   it('Delete takes it out of the routines and keeps the name in history', () => {
