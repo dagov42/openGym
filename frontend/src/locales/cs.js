@@ -5964,4 +5964,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "V režimu Karty se další cvik objeví sám bez ťuknutí. Ruce zůstanou v magnéziu.",
   "When the rest ends": "Po skončení pauzy",
   "Right away": "Hned",
+  "km/h": "km/h",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 }

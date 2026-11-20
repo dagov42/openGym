@@ -6001,4 +6001,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Kártyák nézetben a következő gyakorlat egyetlen koppintás nélkül magától előjön. A kéz maradhat a magnéziában.",
   "When the rest ends": "A pihenő végén",
   "Right away": "Azonnal",
+  "km/h": "km/h",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 }

@@ -16,7 +16,7 @@ import { isWarmupRow, hasCompletedWork, isSideSet } from './workout-model.js'
 import { bestSetOf } from './onerm.js'
 import { sanitizeHr } from './heart-rate.js'
 import { viewEntry, exUnitOf } from './ex-unit.js'
-import { fmtDur, fmtNum, fmtVol, capWords } from './format.js'
+import { fmtDur, fmtNum, fmtVol, fmtUnit, capWords } from './format.js'
 import { t, tn, exerciseNameClass } from './i18n-core.js'
 import { parseColor, mixColor, drawBrand, roundRect, BRAND, accTextOnLight } from './card-draw.js'
 import { isoRun } from './bidi.js'
@@ -78,13 +78,13 @@ function bestSetText(entry, { unit = 'kg', speedUnit } = {}) {
   if (mode === 'reps') {
     const bw = isBw(cfg)
     const best = bw ? null : bestSetOf(entry)
-    if (best && best.w > 0) return `${fmtNum(best.w)} ${unit} × ${best.r}`
+    if (best && best.w > 0) return `${fmtNum(best.w)} ${fmtUnit(unit)} × ${best.r}`
     // Added weight beats more reps on a body-weight lift: "+10 × 6" says more than "12 reps".
     const score = s => (Number(s.w) > 0 ? 1e6 + Number(s.w) * 1000 : 0) + (Number(s.r) || 0)
     const top = flatSets(sets).reduce((a, s) => (!a || score(s) > score(a) ? s : a), null)
     if (!top || !(Number(top.r) > 0)) return null
     const r = Math.round(Number(top.r))
-    return Number(top.w) > 0 ? (bw ? `+${fmtNum(top.w)} ${unit} × ${r}` : `${fmtNum(top.w)} ${unit} × ${r}`) : t('{0} reps', r)
+    return Number(top.w) > 0 ? (bw ? `+${fmtNum(top.w)} ${fmtUnit(unit)} × ${r}` : `${fmtNum(top.w)} ${fmtUnit(unit)} × ${r}`) : t('{0} reps', r)
   }
   const score = s => (mode === 'time' ? Number(s.sec) || 0 : (Number(s.km) || 0) * 1e4 + (Number(s.min) || 0))
   const top = sets.reduce((a, s) => (!a || score(s) > score(a) ? s : a), null)

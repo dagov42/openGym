@@ -5938,4 +5938,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "I Kort kommer næste øvelse frem uden et tryk. Hænderne bliver i kridtet.",
   "When the rest ends": "Når pausen slutter",
   "Right away": "Med det samme",
+  "km/h": "km/t",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 }

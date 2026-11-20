@@ -5998,4 +5998,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "在卡片布局中，下一个动作不用点击就会自己出现。手不用离开镁粉。",
   "When the rest ends": "休息结束后",
   "Right away": "立刻",
+  "km/h": "公里/小时",
+  "mph": "英里/小时",
+  "kg": "公斤",
+  "lb": "磅",
 }

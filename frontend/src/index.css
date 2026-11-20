@@ -1991,7 +1991,7 @@ button.whdr-gym{color:var(--acc-ink);cursor:pointer}
    (issue: drop-sets & rest-pause) */
 /* Cardio's effort chip (Q5): a quiet pill under the row until rated, then the value in its effort
    colour. 28px tall to sit light under the row; the ::before lends it a 40px tap area. */
-.cardio-eff-line{display:flex;padding-inline:32px 0;margin:-3px 0 5px}
+.cardio-eff-line{display:flex;padding-inline:32px 0;margin:6px 0 5px}
 .cardio-eff{position:relative;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 11px 0 9px;border-radius:99px;
   border:1px dashed var(--label-3);background:transparent;color:var(--label-2);font:inherit;font-size:var(--fs-caption);font-weight:500;
   font-variant-numeric:tabular-nums;white-space:nowrap;cursor:pointer;transition:transform 160ms var(--ease),background-color 160ms ease}

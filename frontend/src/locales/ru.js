@@ -5995,4 +5995,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "В Карточках следующее упражнение появляется само, без нажатия. Руки остаются в магнезии.",
   "When the rest ends": "После отдыха",
   "Right away": "Сразу",
+  "km/h": "км/ч",
+  "mph": "миль/ч",
+  "kg": "кг",
+  "lb": "фунт",
 }

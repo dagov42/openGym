@@ -5964,4 +5964,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Ở chế độ Thẻ, bài tiếp theo tự hiện ra mà không cần chạm. Tay cứ việc ở trong phấn.",
   "When the rest ends": "Khi hết giờ nghỉ",
   "Right away": "Ngay",
+  "km/h": "km/h",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 };

@@ -20,6 +20,13 @@ describe('the incline column on a narrow phone', () => {
   })
 })
 
+describe('the cardio effort pill under the row', () => {
+  it('sits clear of the time row, not pulled up into it', () => {
+    expect(css).toMatch(/\.cardio-eff-line\{[^}]*margin:6px 0 5px/)
+    expect(css).not.toMatch(/\.cardio-eff-line\{[^}]*margin:-3px/)
+  })
+})
+
 // Full QA 146: a cardio row with the incline is an eff3 row, which sized its middle column for a
 // reps count; at 360 and 375 px the speed "10.5" read "10.!". A decimal middle column is wider.
 describe('the speed column of a cardio row with the incline', () => {

@@ -45,8 +45,13 @@ A small updater fix and keyboard shortcuts.
   outrank the phone APK.
 - Russian exercise names use sentence case: only the first letter is capitalised, with proper names
   such as `Арнольда`, `Смита` and `Жиронде` keeping their capitals.
+- Cardio rows leave a clear gap above the Rate it pill instead of letting its border touch the
+  time field. The last-time recap also localizes its minutes and speed unit, so Russian reads
+  `23 мин @ 10,5 км/ч` rather than `23 min @ 10,5 km/h`.
 - Stats period pickers use translated short labels, so Russian shows `30 д`, `90 д` and `1 г`
   instead of the English `30d`, `90d` and `1Y`.
+- Weight and volume units follow the language too: Russian shows `кг` under the workout progress
+  bar and in weight lines instead of leaving the English `kg`.
 - A saved gym card can carry a locker number. It shows under the label at check-in and on Home for
   the last-used card, and stays with the card in backups and sync.
 - Share with a friend now uses the address of the instance you are on, and accepts a shared

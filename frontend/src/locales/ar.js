@@ -6053,4 +6053,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "في البطاقات، يظهر التمرين التالي دون لمس. يداك تبقيان على المغنيسيوم.",
   "When the rest ends": "عند انتهاء الراحة",
   "Right away": "فورًا",
+  "km/h": "كم/س",
+  "mph": "ميل/س",
+  "kg": "كغ",
+  "lb": "رطل",
 }

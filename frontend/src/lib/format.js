@@ -113,9 +113,10 @@ export const fmtPlate = n => formatter(Intl.NumberFormat, dateLocale()).format(M
 // "7'535 kg" — two numbers you can't compare at a glance.
 // "8,055 kg" stays one left-to-right run in Arabic and Persian (lib/bidi.js), so a line of them
 // ("8,055 kg · 78.6 kg") does not run its numbers and units together into "kg · 78.6 kg 8,055".
-export const fmtVol = (v, unit) => isoRun(fmtNum(v) + ' ' + unit)
+export const fmtUnit = unit => t(unit === 'lb' ? 'lb' : 'kg')
+export const fmtVol = (v, unit) => isoRun(fmtNum(v) + ' ' + fmtUnit(unit))
 /** A weight with its unit, "78.6 kg", isolated the same way. */
-export const fmtWeight = (v, unit) => isoRun(fmtNum(v) + ' ' + unit)
+export const fmtWeight = (v, unit) => isoRun(fmtNum(v) + ' ' + fmtUnit(unit))
 // Plural forms come from the pack via tn(): three forms in Russian, two in English.
 export const exCount = n => tn('{0} exercise', '{0} exercises', n)
 export const routineCount = n => tn('{0} routine', '{0} routines', n)

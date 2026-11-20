@@ -32,10 +32,10 @@ The floor was set on 2026-11-18 from a clean run:
 
 | Metric | Baseline | Floor |
 |---|---:|---:|
-| Statements | 91.64% | 88% |
-| Branches | 83.92% | 80% |
-| Functions | 92.29% | 87% |
-| Lines | 95.28% | 92% |
+| Statements | 91.62% | 88% |
+| Branches | 83.91% | 80% |
+| Functions | 92.27% | 87% |
+| Lines | 95.27% | 92% |
 
 The floor is intentionally a little below the baseline: it catches a real regression, not a
 rounding difference between Node/V8 versions. Raise it when the baseline moves up; do not lower it

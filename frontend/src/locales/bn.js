@@ -6077,4 +6077,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "কার্ড ভিউতে পরের ব্যায়াম টিপতে না বলে নিজেই চলে আসে। হাত চকেই থাকুক।",
   "When the rest ends": "বিশ্রাম শেষ হলে",
   "Right away": "সাথে সাথে",
+  "km/h": "কিমি/ঘ",
+  "mph": "মাইল/ঘ",
+  "kg": "কেজি",
+  "lb": "পাউন্ড",
 }

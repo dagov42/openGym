@@ -5963,4 +5963,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Di Kartu, latihan berikutnya muncul sendiri tanpa diketuk. Tangan tetap di kapur.",
   "When the rest ends": "Saat istirahat selesai",
   "Right away": "Langsung",
+  "km/h": "km/j",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 };

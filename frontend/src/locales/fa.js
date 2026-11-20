@@ -5964,4 +5964,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "در چیدمان کارت، تمرین بعدی بدون لمس خودش می‌آید. دست‌ها روی پودر منیزیم می‌مانند.",
   "When the rest ends": "وقتی استراحت تمام شد",
   "Right away": "فورًا",
+  "km/h": "کیلومتر/ساعت",
+  "mph": "مایل/ساعت",
+  "kg": "کیلوگرم",
+  "lb": "پوند",
 }

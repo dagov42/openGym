@@ -5998,4 +5998,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "कार्ड में अगला व्यायाम बिना टाप किए अपने आप आ जाता है। हाथ चॉक पर ही रहें।",
   "When the rest ends": "आराम ख़त्म होते ही",
   "Right away": "तुरंत",
+  "km/h": "किमी/घं",
+  "mph": "मील/घं",
+  "kg": "किग्रा",
+  "lb": "पाउंड",
 }

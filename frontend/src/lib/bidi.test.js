@@ -43,12 +43,12 @@ describe.each([['ar', ar], ['fa', fa]])('right to left (%s)', (lang, pack) => {
     const rir = setLabel('0025', { w: 65, r: 10, rir: 3, done: true }, press.target)
     expect(rir.startsWith(LRI)).toBe(true)
     expect(rir.indexOf('RIR') < rir.lastIndexOf(PDI)).toBe(true)
-    expect(fmtVol(8055, 'kg')).toBe(lri('8,055 kg'))
-    expect(fmtWeight(78.6, 'kg')).toBe(lri('78.6 kg'))
+    expect(fmtVol(8055, 'kg')).toBe(isoRun('8,055 ' + pack.kg))
+    expect(fmtWeight(78.6, 'kg')).toBe(isoRun('78.6 ' + pack.kg))
     expect(stripBidi(setsRepsOf({ sets: 3, reps: 10 }))).toBe('3 × 10')
     expect(setsRepsOf({ sets: 3, reps: 10 })).toBe(lri('3 × 10'))
     // the share cards' best set: "25 kg × 10", not "kg × 10 25"
-    expect(bestSetLabel({ ...press, sets: [{ w: 25, r: 10, done: true }] })).toBe(lri('25 kg × 10'))
+    expect(bestSetLabel({ ...press, sets: [{ w: 25, r: 10, done: true }] })).toBe(isoRun('25 ' + pack.kg + ' × 10'))
   })
 
   it('keeps a set with words of the page in its own direction, its numbers still in order', () => {
@@ -68,8 +68,8 @@ describe.each([['ar', ar], ['fa', fa]])('right to left (%s)', (lang, pack) => {
     _setLangState(lang, pack, null, null)
     const w = { d: '2026-11-09', start: 0, end: 48 * 60000, entries: [{ ...press, sets: [{ w: 25, r: 10, done: true }] }] }
     const model = shareCardModel(w, { unit: 'kg', nameOf: () => 'Single-Arm Landmine Press' })
-    expect(model.lifts[0].best).toBe(lri('25 kg × 10'))
-    expect(model.stats.find(s => s.id === 'volume').value).toBe(lri('250 kg'))
+    expect(model.lifts[0].best).toBe(isoRun('25 ' + pack.kg + ' × 10'))
+    expect(model.stats.find(s => s.id === 'volume').value).toBe(isoRun('250 ' + pack.kg))
   })
 })
 

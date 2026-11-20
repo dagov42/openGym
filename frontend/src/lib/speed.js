@@ -7,6 +7,7 @@
 // needs no conversion. The weight unit works the other way round (lib/units.js walks every
 // stored weight), because a load has to land on plates in the unit you load; a speed does not.
 import { fmtNum } from './format.js'
+import { t } from './i18n-core.js'
 
 // Exact: the international mile is 1609.344 m.
 export const KMH_PER_MPH = 1.609344
@@ -19,7 +20,7 @@ export const KMH_PER_MPH = 1.609344
 export const speedUnitOf = S => (S?.speedUnit === 'mph' || S?.speedUnit === 'kmh' ? S.speedUnit : S?.unit === 'lb' ? 'mph' : 'kmh')
 
 /** The unit's short label, as the numbers carry it: "km/h" or "mph". */
-export const speedLabel = unit => (unit === 'mph' ? 'mph' : 'km/h')
+export const speedLabel = unit => t(unit === 'mph' ? 'mph' : 'km/h')
 
 /*
  * km/h to the unit on screen and back. In km/h both are the identity, so a profile that never

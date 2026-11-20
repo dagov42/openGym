@@ -5998,4 +5998,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Kartlar düzeninde sonraki egzersiz dokunmadan kendiliğinden gelir. Eller tebeşirde kalır.",
   "When the rest ends": "Dinlenme bitince",
   "Right away": "Hemen",
+  "km/h": "km/sa",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 }

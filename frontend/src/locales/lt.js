@@ -5994,4 +5994,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "Kortelėse kitas pratimas atsiranda pats be paspaudimo. Rankos lieka magnezijoje.",
   "When the rest ends": "Pasibaigus poilsiui",
   "Right away": "Iš karto",
+  "km/h": "km/val.",
+  "mph": "mph",
+  "kg": "kg",
+  "lb": "lb",
 }

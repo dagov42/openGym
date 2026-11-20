@@ -5998,4 +5998,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "En Cartes, l’exercice suivant arrive tout seul, sans qu’on y touche. Les mains restent dans la magnésie.",
   "When the rest ends": "À la fin du repos",
   "Right away": "Tout de suite",
+  "km/h": "km/h",
+  "mph": "mi/h",
+  "kg": "kg",
+  "lb": "lb",
 }

@@ -6009,4 +6009,8 @@ export default {
   "In Cards, the next exercise comes up without a tap. Hands stay on the chalk.": "ในโหมดการ์ด ท่าถัดไปจะขึ้นมาเองโดยไม่ต้องแตะ มือไม่ต้องละจากชอล์ก",
   "When the rest ends": "เมื่อพักครบ",
   "Right away": "ทันที",
+  "km/h": "กม./ชม.",
+  "mph": "ไมล์/ชม.",
+  "kg": "กก.",
+  "lb": "ปอนด์",
 }
