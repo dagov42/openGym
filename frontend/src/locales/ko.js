@@ -6002,4 +6002,6 @@ export default {
   "mph": "mph",
   "kg": "kg",
   "lb": "lb",
+  "Remove 15 seconds": "15초 줄이기",
+  "Add 15 seconds": "15초 늘리기",
 }

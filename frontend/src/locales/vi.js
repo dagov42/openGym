@@ -5968,4 +5968,6 @@ export default {
   "mph": "mph",
   "kg": "kg",
   "lb": "lb",
+  "Remove 15 seconds": "Bớt 15 giây",
+  "Add 15 seconds": "Thêm 15 giây",
 };

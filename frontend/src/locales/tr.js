@@ -6002,4 +6002,6 @@ export default {
   "mph": "mph",
   "kg": "kg",
   "lb": "lb",
+  "Remove 15 seconds": "15 saniye azalt",
+  "Add 15 seconds": "15 saniye ekle",
 }

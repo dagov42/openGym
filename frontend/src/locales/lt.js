@@ -5998,4 +5998,6 @@ export default {
   "mph": "mph",
   "kg": "kg",
   "lb": "lb",
+  "Remove 15 seconds": "Atimti 15 sekundžių",
+  "Add 15 seconds": "Pridėti 15 sekundžių",
 }

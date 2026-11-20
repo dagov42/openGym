@@ -34,6 +34,10 @@ A small updater fix and keyboard shortcuts.
 - Settings → Workout → Move to the next exercise chooses Off, When the rest ends, or Right away.
   Right away brings the next exercise up on the tick while the rest keeps counting for the
   exercise just finished; an old switch keeps its previous behavior.
+- The rest timer opens full screen from its clock: a large ring, −15 s, pause, +15 s and Skip,
+  with the time wheel one tap away. It closes itself when the rest goes.
+- The Coach sees pyramid sets as they are, keeps them through validation and review, and the plan
+  fingerprint changes when a pyramid changes.
 - Settings → Workout → Fine-tuning can keep a weight change on the set you edit. It is on by default;
   turn it off when one top set or back-off should not move the following sets.
 - Weekly sets can count main muscles only, for a lifter who compares the weekly number with the

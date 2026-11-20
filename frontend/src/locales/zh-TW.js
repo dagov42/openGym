@@ -5995,4 +5995,6 @@ export default {
   "mph": "英里/小時",
   "kg": "公斤",
   "lb": "磅",
+  "Remove 15 seconds": "減少 15 秒",
+  "Add 15 seconds": "增加 15 秒",
 }

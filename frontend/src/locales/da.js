@@ -5942,4 +5942,6 @@ export default {
   "mph": "mph",
   "kg": "kg",
   "lb": "lb",
+  "Remove 15 seconds": "Fjern 15 sekunder",
+  "Add 15 seconds": "Tilføj 15 sekunder",
 }

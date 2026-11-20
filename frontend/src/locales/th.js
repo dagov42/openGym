@@ -6013,4 +6013,6 @@ export default {
   "mph": "ไมล์/ชม.",
   "kg": "กก.",
   "lb": "ปอนด์",
+  "Remove 15 seconds": "ลด 15 วินาที",
+  "Add 15 seconds": "เพิ่ม 15 วินาที",
 }

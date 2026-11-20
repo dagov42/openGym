@@ -5967,4 +5967,6 @@ export default {
   "mph": "mph",
   "kg": "kg",
   "lb": "lb",
+  "Remove 15 seconds": "Kurangi 15 detik",
+  "Add 15 seconds": "Tambah 15 detik",
 };
