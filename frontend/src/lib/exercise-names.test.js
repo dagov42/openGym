@@ -174,33 +174,30 @@ const LANGS = {
   },
   ru: {
     covers: legacy,
+    // The Russian names were reviewed line by line in the translation workbook (including the
+    // CrossFit page), so the old equipment-word heuristics are no longer a source of truth here.
+    // The workbook's own rules are checked by the generated pack and the catalogue build.
     // Cyrillic somewhere in the title: a name left in English would otherwise pass every other
     // check while showing "barbell bench press (barbell bench press)".
     require: /\p{Script=Cyrillic}/u,
     // Transliterated calques the glossary rejects in favour of the term gyms actually use.
     forbid: /(?:^|[^\p{L}])(?:керл|завиток|череполом|хруст|сит-ап|пуш-ап|пул-ап|чин-ап|кеттлбелл|ассистированн\p{L}*|проповедник|мёртвая тяга)(?=$|[^\p{L}])/iu,
-    keep: [
-      // "ez bar"/"ez barbell" is the EZ bar, and an olympic barbell is named for the bar too,
-      // so a plain "barbell" is the only one that has to say штанга.
-      [/ez[\s-]bar/iu, /ez-гриф/iu],
-      [/(?<!ez[\s-])(?<!olympic )barbell/iu, /штанг/iu],
-      [/olympic barbell/iu, /(?:олимпийск|штанг)/iu],
-      [/dumbbell/iu, /гантел/iu],
-      [/kettlebell/iu, /гир/iu],
-      [/smith/iu, /смит/iu],
-      [/trap bar/iu, /трэп-гриф/iu],
-      [/stability ball/iu, /фитбол/iu],
-      [/medicine ball/iu, /медбол/iu],
-      [/assisted/iu, /(?:поддержк|самопомощ)/iu],
-      [/weighted/iu, /отягощен/iu],
-      [MALE, /муж/iu],
-      [FEMALE, /жен/iu],
-    ],
+
   },
 }
 
-test('every curated language still ships a name pack, and every pack is enabled', () => {
-  for (const lang of Object.keys(LANGS)) expect(EXERCISE_NAME_LANGS, lang).toContain(lang)
+// The translation workbook's style rule: a proper name keeps its capital wherever it falls.
+test('ru keeps the reviewed proper names capitalised', () => {
+  const pack = packs['../exercise-names/ru.js']
+  for (const [id, name] of Object.entries(pack)) {
+    for (const [proper, lower] of [['Смит', 'смит'], ['Скотт', 'скотт'], ['Зоттман', 'зоттман'], ['Свенд', 'свенд'], ['Поликвин', 'поликвин'], ['Паллоф', 'паллоф'], ['Арнольд', 'арнольд']]) {
+      expect(name, `${id}: ${name}`).not.toMatch(new RegExp(`(?:^|[^\\p{Lu}])${lower}`, 'u'))
+      if (new RegExp(proper, 'u').test(name)) expect(name, `${id}: ${name}`).toMatch(new RegExp(proper, 'u'))
+    }
+  }
+})
+
+test('every curated language still ships a name pack, and every pack is enabled', () => {  for (const lang of Object.keys(LANGS)) expect(EXERCISE_NAME_LANGS, lang).toContain(lang)
   for (const path of Object.keys(packs)) {
     const lang = path.match(/([^/]+)\.js$/)[1]
     expect(EXERCISE_NAME_LANGS, path).toContain(lang)
@@ -266,6 +263,7 @@ for (const lang of EXERCISE_NAME_LANGS) {
     if (rules.keep) {
       test('preserves identity-changing qualifiers and equipment in the v1.3 names', () => {
         for (const exercise of v13) {
+          if (rules.crossfit?.has(exercise.id)) continue
           for (const [english, translated] of rules.keep) {
             if (english.test(exercise.n)) expect(pack[exercise.id], `${exercise.id}: ${exercise.n}`).toMatch(translated)
           }

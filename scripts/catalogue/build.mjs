@@ -87,7 +87,7 @@ const byId = (pick) => Object.fromEntries(exercises.filter(e => !e.variantOf).ma
 // Keep the list in step with the language's proper names and title-case rules.
 const RU_PROPER = [
   'арнольд', 'брэдфорд', 'джефферсон', 'жиронд', 'зерчер', 'оттис', 'паллоф', 'пендлей',
-  'роки', 'свенд', 'скотт', 'смит', 'тейт', 'франкенштейн', 'цоттман', 'янда',
+  'поликвин', 'роки', 'свенд', 'скотт', 'смит', 'тейт', 'франкенштейн', 'зоттман', 'янда',
 ]
 const ruCore = part => part.replace(/^[^\p{L}]+|[^\p{L}]+$/gu, '').toLocaleLowerCase('ru')
 const ruProperSet = names => {

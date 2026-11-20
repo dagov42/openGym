@@ -44,6 +44,9 @@ A small updater fix and keyboard shortcuts.
   longer holds twenty chips.
 - An exercise can carry a lift goal: target weight, 3, 6 or 12 months, and the sheet shows the due
   date, progress from the best set when the goal was set, and the weekly gain needed.
+- Russian exercise names now follow the reviewed workbook's “Ваше название” column and the
+  CrossFit page: machine names use «тренажёр», and Смит, Скотт, Зоттман, Свенд, Поликвин, Паллоф
+  and Арнольд keep their capitals.
 - The web image listens on IPv4 and IPv6, so a self-hosted install can be reached over either.
 - The Coach sees pyramid sets as they are, keeps them through validation and review, and the plan
   fingerprint changes when a pyramid changes.
