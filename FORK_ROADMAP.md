@@ -184,7 +184,7 @@ P2 — полезно, но позже. Открытые upstream PR не счи
 
 - [ ] **#1253** — rest-pause: activation set как work set, bursts и progression.
 - [ ] **#1259** — фиксированный вес собственных warm-up строк.
-- [ ] **#1265** — lift goals (и пересечение с #702).
+- [x] **#1265** — lift goals (и пересечение с #702) (реализовано 2026-11-20).
 - [ ] **#1245** — Skills and ladders.
 - [ ] **#1235/#1237** — модули по частям.
 - [ ] **#1158** — Hevy API: links, folders, measurements.

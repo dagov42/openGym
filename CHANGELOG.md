@@ -42,6 +42,8 @@ A small updater fix and keyboard shortcuts.
 - The exercise explorer groups its equipment by broad kind (body weight, free weights, barbells,
   machines, cables, and so on); a group opens to its individual kinds, so a muscle's strip no
   longer holds twenty chips.
+- An exercise can carry a lift goal: target weight, 3, 6 or 12 months, and the sheet shows the due
+  date, progress from the best set when the goal was set, and the weekly gain needed.
 - The web image listens on IPv4 and IPv6, so a self-hosted install can be reached over either.
 - The Coach sees pyramid sets as they are, keeps them through validation and review, and the plan
   fingerprint changes when a pyramid changes.

@@ -26,6 +26,7 @@ import { t, tn, dateLocale, instrFor, instrTranslated, descFor, exerciseNameFor,
 import { nameIn, said } from './lib/a11y-name.js'
 import { nav, closeThenNav, navToWorkout } from './lib/nav.js'
 import OwnExerciseMedia from './components/OwnExerciseMedia.jsx'
+import LiftGoal from './components/LiftGoal.jsx'
 import Media, { Thumb } from './components/Media.jsx'
 import CustomMediaField from './components/CustomMediaField.jsx'
 import WorkoutMediaSection, { workoutMediaCount } from './components/WorkoutMedia.jsx'
@@ -1445,6 +1446,7 @@ function ExerciseDetail({ ex, close }) {
     {/* One line of text that wraps as a sentence: as a flex row, the last session became a
         separate column beside "Best: 105 kg" once it wrapped (design review 1.4.5). */}
     {best > 0 && <div className="small ex-best"><Icon name="trophy" style={{ fontSize: 14, color: 'var(--gold-ink)' }} />{t('Best:')} <b className="accent" style={{ whiteSpace: 'nowrap' }}>{fmtWeight(best, st.unit)}</b>{last ? <span className="muted">{` · ${t('last')} ${fmtDate(last.d)}: ${last.sets.map(s => setLabel(ex.id, s, last.target, speedUnitOf(st))).join(', ')}`}</span> : ''}</div>}
+    {modeOf({ id: ex.id }) === 'reps' && !isAssisted(ex) && !ex.missing && <LiftGoal ex={ex} best={best} unit={st.unit} />}
     <Button variant="primary" icon="plus" style={{ margin: '10px 0 4px' }} onClick={() => addToRoutineSheet(ex)}>{t('Add to my plan')}</Button>
     {last && <Button icon="history" style={{ marginTop: 4 }} onClick={() => exerciseHistorySheet(ex.id)}>{t('History')}</Button>}
     <FormVideosSection exId={ex.id} />
