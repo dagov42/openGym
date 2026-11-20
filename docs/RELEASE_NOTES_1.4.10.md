@@ -1,4 +1,4 @@
-# openGym 1.4.10
+﻿# openGym 1.4.10
 
 **Release date:** 20 November 2026  
 **Version:** `1.4.10`  
@@ -24,12 +24,12 @@ consistent state.
 
 ## Workout and training
 
-- **Move to the next exercise** in Settings → Workout now has three choices: Off, When the rest
+- **Move to the next exercise** in Settings в†’ Workout now has three choices: Off, When the rest
   ends, or Right away. Right away moves the marker on the tick while the rest keeps counting for
   the exercise just finished. A saved old switch reads as When the rest ends.
-- **Full-screen rest timer:** tap the rest clock for a large ring with −15 s, pause, +15 s and
+- **Full-screen rest timer:** tap the rest clock for a large ring with в€’15 s, pause, +15 s and
   Skip. The time wheel opens from the big clock; the screen closes itself when the rest ends.
-- **Cardio timing:** a ▶ button under the speed field starts a count-up clock. ■, ticking the row
+- **Cardio timing:** a в–¶ button under the speed field starts a count-up clock. в– , ticking the row
   or finishing the workout writes the minutes rounded as if typed. The clock survives a reload and
   ignores the workout's pauses. The effort pill sits under time and the timer under speed, the same
   width.
@@ -39,7 +39,7 @@ consistent state.
   group; a fifth member is refused with a toast. Circuits and imported groups keep working.
 - **Replace in routine** from the swap sheet changes both today's entry and the routine slot,
   keeping the slot's numbers, superset group and position.
-- **Keep one set's weight change:** Settings → Workout → Fine-tuning can stop a weight edit from
+- **Keep one set's weight change:** Settings в†’ Workout в†’ Fine-tuning can stop a weight edit from
   cascading to the following sets.
 - **Skip completed exercises** and **Next/Prev** continue to work across Cards and Focus.
 - **Session length estimate** appears on Plan and the start preview, based on recent exact
@@ -47,20 +47,20 @@ consistent state.
 
 ## Russian names, descriptions and interface
 
-- **5,632 exercise names** taken from the workbook's «Ваше название» column, with 33 CrossFit
+- **5,632 exercise names** taken from the workbook's В«Р’Р°С€Рµ РЅР°Р·РІР°РЅРёРµВ» column, with 33 CrossFit
   slots taken from the CrossFit sheet.
-- **Proper names** keep their capitals: Смит, Скотт, Зоттман, Свенд, Поликвин, Паллоф, Арнольд,
-  Жиронде and the other eponyms already covered by the catalogue.
-- **Machine names** use «тренажёр» instead of «машина»; the reviewed descriptions were normalised
-  for Smith machine, leverage machine, «с отягощением», «петли для подвесных тренировок».
+- **Proper names** keep their capitals: РЎРјРёС‚, РЎРєРѕС‚С‚, Р—РѕС‚С‚РјР°РЅ, РЎРІРµРЅРґ, РџРѕР»РёРєРІРёРЅ, РџР°Р»Р»РѕС„, РђСЂРЅРѕР»СЊРґ,
+  Р–РёСЂРѕРЅРґРµ and the other eponyms already covered by the catalogue.
+- **Machine names** use В«С‚СЂРµРЅР°Р¶С‘СЂВ» instead of В«РјР°С€РёРЅР°В»; the reviewed descriptions were normalised
+  for Smith machine, leverage machine, В«СЃ РѕС‚СЏРіРѕС‰РµРЅРёРµРјВ», В«РїРµС‚Р»Рё РґР»СЏ РїРѕРґРІРµСЃРЅС‹С… С‚СЂРµРЅРёСЂРѕРІРѕРєВ».
 - **Full Russian description pack:** all 5,632 exercise descriptions are translated and shown in
   the exercise sheet. English fallback is no longer shown under a Russian name.
-- **Sentence case for tags and chips:** «Рычажный тренажёр», «С отягощением», «Петли для
-  подвесных тренировок», «Тяжёлая атлетика», «Всё тело»; only the first letter is capitalised,
+- **Sentence case for tags and chips:** В«Р С‹С‡Р°Р¶РЅС‹Р№ С‚СЂРµРЅР°Р¶С‘СЂВ», В«РЎ РѕС‚СЏРіРѕС‰РµРЅРёРµРјВ», В«РџРµС‚Р»Рё РґР»СЏ
+  РїРѕРґРІРµСЃРЅС‹С… С‚СЂРµРЅРёСЂРѕРІРѕРєВ», В«РўСЏР¶С‘Р»Р°СЏ Р°С‚Р»РµС‚РёРєР°В», В«Р’СЃС‘ С‚РµР»РѕВ»; only the first letter is capitalised,
   except proper names and acronyms.
-- **Units:** goal target reads «Цель (кг)», the exercise weight unit reads «кг»/«фунт», cardio
-  recap reads «23 мин @ 10,5 км/ч», and the workout progress bar reads «0 кг».
-- **Stats periods:** translated short labels `30 д`, `90 д`, `1 г` instead of `30d`, `90d`, `1Y`.
+- **Units:** goal target reads В«Р¦РµР»СЊ (РєРі)В», the exercise weight unit reads В«РєРіВ»/В«С„СѓРЅС‚В», cardio
+  recap reads В«23 РјРёРЅ @ 10,5 РєРј/С‡В», and the workout progress bar reads В«0 РєРіВ».
+- **Stats periods:** translated short labels `30 Рґ`, `90 Рґ`, `1 Рі` instead of `30d`, `90d`, `1Y`.
 
 ## Goals and exercise discovery
 
@@ -85,7 +85,7 @@ consistent state.
   over either.
 - **Warm-up effort:** with effort logging on, warm-up rows can hide their rating column; an opt-in
   can ask for a set's effort before ticking.
-- **Weekly sets** can count main muscles only for the 10–20 range comparison.
+- **Weekly sets** can count main muscles only for the 10вЂ“20 range comparison.
 
 ## Fixes and polish
 
@@ -110,7 +110,7 @@ over them and keeps the data.
   signing key differs. Export a backup, uninstall the official app, install this APK and restore
   the backup.
 - The APK has 180 px animations built in. Plus/HD variants are not part of this release.
-- SHA-256: `CHECKSUM_PLACEHOLDER`
+- SHA-256: `1f3d890e14c16417061889d55344fe29fd27fff956dc4ca3df87ca3293e0980a`
 
 ## Verification
 
