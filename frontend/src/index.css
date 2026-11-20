@@ -2166,6 +2166,20 @@ button.whdr-gym{color:var(--acc-ink);cursor:pointer}
 .setrow .setgo::before{content:'';position:absolute;inset:-7px -3px}   /* 30px look, 44px tall; narrower sideways so it stays off the stepper and the tick */
 .setrow .setgo:disabled{opacity:.3;cursor:default}
 .setrow .setgo:not(:disabled):active{background:var(--surface-3)}
+/* A cardio set's clock (#131) shows in its minutes cell while it runs, read-only. */
+.setrow .stp.clock .val{align-items:center}
+.setrow .stp.clock .num{display:flex;align-items:center;justify-content:center;cursor:default;color:var(--acc-ink);font-variant-numeric:tabular-nums}
+@media (max-width:399px){
+  .setrow.cgo.eff3{gap:3px}
+  .setrow.cgo.eff3 .setgo{width:26px}
+  .setrow.cgo.eff3 .stp.w:not(.plain),.setrow.cgo.eff3 .stp.r:not(.inc):not(.plain){--btn-floor:14px}
+}
+@media (max-width:359px){
+  .setrow.cgo{gap:4px}
+  .setrow.cgo .setgo{width:26px}
+  .setrow.cgo .stp.w:not(.plain),.setrow.cgo .stp.r:not(.inc):not(.plain){--btn-floor:16px}
+  .setrow.cgo.eff3 .stp.w:not(.plain),.setrow.cgo.eff3 .stp.r:not(.inc):not(.plain){--btn-floor:12px}
+}
 /* exercise-config sheet: three steppers side by side on narrow phones */
 .cfgrow{gap:8px}
 .cfgrow>div{flex:1;min-width:0}

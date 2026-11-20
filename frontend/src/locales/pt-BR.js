@@ -4348,4 +4348,6 @@ export default { ...pt, ...PT_BR_OVERRIDES,
   "Right away": "Na hora",
   "Remove 15 seconds": "Remover 15 segundos",
   "Add 15 seconds": "Adicionar 15 segundos",
+  "Start timing": "Iniciar cronômetro",
+  "Stop timing": "Parar cronômetro",
 }

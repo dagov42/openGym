@@ -10,8 +10,7 @@ Current status, checked against the fork on 2026-11-19:
 - already present and verified: #1293, #1092, #1226, #1211, #1095, #1156, #1091, #1191;
 - implemented in this batch: #1157 (main muscles only), #1377 (profile rest between sides),
   #1374 (effort on warm-ups), #1317 (ask for effort before ticking), #1379 (move to the next
-  exercise), #1164 (full-screen rest), #1193 (Coach pyramids);
-- still to do: #1375.
+  exercise), #1164 (full-screen rest), #1375 (cardio count-up), #1193 (Coach pyramids).
 
 Source: the open-PR/issue triage of `DuarteSantos8/openGym` on 2026-11-19. The PRs are open, so none
 of this is in `FORK_CHANGELOG.md` yet. A PR that is `dirty` or `unstable` must be rebased and reviewed

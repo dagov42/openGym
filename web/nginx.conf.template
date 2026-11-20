@@ -14,7 +14,11 @@ map $request_uri $api_request_uri {
 }
 
 server {
+    # Both families: a host with IPv6 gets the same app there, while the IPv4 line keeps every
+    # existing address working. The two lines are needed because nginx defaults an IPv6 listener
+    # to IPv6-only.
     listen ${NGINX_PORT};
+    listen [::]:${NGINX_PORT};
     # No nginx version in the Server header or on its own error pages.
     server_tokens off;
     root /usr/share/nginx/html;

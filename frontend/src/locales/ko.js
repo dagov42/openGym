@@ -6004,4 +6004,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "15초 줄이기",
   "Add 15 seconds": "15초 늘리기",
+  "Start timing": "시간 측정 시작",
+  "Stop timing": "시간 측정 중지",
 }

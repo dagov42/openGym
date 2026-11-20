@@ -5970,4 +5970,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Bớt 15 giây",
   "Add 15 seconds": "Thêm 15 giây",
+  "Start timing": "Bắt đầu tính giờ",
+  "Stop timing": "Dừng tính giờ",
 };

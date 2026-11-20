@@ -6083,4 +6083,6 @@ export default {
   "lb": "পাউন্ড",
   "Remove 15 seconds": "১৫ সেকেন্ড কমান",
   "Add 15 seconds": "১৫ সেকেন্ড যোগ করুন",
+  "Start timing": "সময় গোনা শুরু",
+  "Stop timing": "সময় গোনা থামান",
 }

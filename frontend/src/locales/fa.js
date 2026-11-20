@@ -5970,4 +5970,6 @@ export default {
   "lb": "پوند",
   "Remove 15 seconds": "۱۵ ثانیه کم کن",
   "Add 15 seconds": "۱۵ ثانیه اضافه کن",
+  "Start timing": "شروع زمان‌سنجی",
+  "Stop timing": "توقف زمان‌سنجی",
 }

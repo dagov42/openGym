@@ -6004,4 +6004,6 @@ export default {
   "lb": "पाउंड",
   "Remove 15 seconds": "15 सेकंड घटाएँ",
   "Add 15 seconds": "15 सेकंड जोड़ें",
+  "Start timing": "समय मापना शुरू करें",
+  "Stop timing": "समय मापना रोकें",
 }

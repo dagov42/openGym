@@ -6015,4 +6015,6 @@ export default {
   "lb": "ปอนด์",
   "Remove 15 seconds": "ลด 15 วินาที",
   "Add 15 seconds": "เพิ่ม 15 วินาที",
+  "Start timing": "เริ่มจับเวลา",
+  "Stop timing": "หยุดจับเวลา",
 }

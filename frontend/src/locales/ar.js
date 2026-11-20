@@ -6059,4 +6059,6 @@ export default {
   "lb": "رطل",
   "Remove 15 seconds": "إزالة 15 ثانية",
   "Add 15 seconds": "إضافة 15 ثانية",
+  "Start timing": "بدء التوقيت",
+  "Stop timing": "إيقاف التوقيت",
 }

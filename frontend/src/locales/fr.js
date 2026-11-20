@@ -6004,4 +6004,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Retirer 15 secondes",
   "Add 15 seconds": "Ajouter 15 secondes",
+  "Start timing": "Démarrer le chrono",
+  "Stop timing": "Arrêter le chrono",
 }

@@ -6051,4 +6051,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Ta bort 15 sekunder",
   "Add 15 seconds": "Lägg till 15 sekunder",
+  "Start timing": "Starta tidtagning",
+  "Stop timing": "Stoppa tidtagning",
 }

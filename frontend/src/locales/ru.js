@@ -6001,4 +6001,6 @@ export default {
   "lb": "фунт",
   "Remove 15 seconds": "Убрать 15 секунд",
   "Add 15 seconds": "Добавить 15 секунд",
+  "Start timing": "Запустить секундомер",
+  "Stop timing": "Остановить секундомер",
 }

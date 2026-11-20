@@ -6004,4 +6004,6 @@ export default {
   "lb": "磅",
   "Remove 15 seconds": "减少 15 秒",
   "Add 15 seconds": "增加 15 秒",
+  "Start timing": "开始计时",
+  "Stop timing": "停止计时",
 }

@@ -6004,4 +6004,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "15 saniye azalt",
   "Add 15 seconds": "15 saniye ekle",
+  "Start timing": "Zamanlamayı başlat",
+  "Stop timing": "Zamanlamayı durdur",
 }

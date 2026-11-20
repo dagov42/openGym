@@ -36,6 +36,10 @@ A small updater fix and keyboard shortcuts.
   exercise just finished; an old switch keeps its previous behavior.
 - The rest timer opens full screen from its clock: a large ring, −15 s, pause, +15 s and Skip,
   with the time wheel one tap away. It closes itself when the rest goes.
+- Cardio rows can be timed while you do them: start the clock, stop it, tick the row, or finish
+  the workout, and it writes the minutes rounded the way typing them would. It counts across a
+  reload and keeps the workout's pauses out.
+- The web image listens on IPv4 and IPv6, so a self-hosted install can be reached over either.
 - The Coach sees pyramid sets as they are, keeps them through validation and review, and the plan
   fingerprint changes when a pyramid changes.
 - Settings → Workout → Fine-tuning can keep a weight change on the set you edit. It is on by default;

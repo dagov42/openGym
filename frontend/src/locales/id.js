@@ -5969,4 +5969,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Kurangi 15 detik",
   "Add 15 seconds": "Tambah 15 detik",
+  "Start timing": "Mulai waktu",
+  "Stop timing": "Hentikan waktu",
 };

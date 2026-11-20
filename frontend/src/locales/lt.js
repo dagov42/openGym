@@ -6000,4 +6000,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Atimti 15 sekundžių",
   "Add 15 seconds": "Pridėti 15 sekundžių",
+  "Start timing": "Pradėti laiką",
+  "Stop timing": "Stabdyti laiką",
 }

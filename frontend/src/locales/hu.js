@@ -6007,4 +6007,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "15 másodperc levétele",
   "Add 15 seconds": "15 másodperc hozzáadása",
+  "Start timing": "Időmérés indítása",
+  "Stop timing": "Időmérés leállítása",
 }

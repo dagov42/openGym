@@ -6004,4 +6004,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Odejmij 15 sekund",
   "Add 15 seconds": "Dodaj 15 sekund",
+  "Start timing": "Włącz stoper",
+  "Stop timing": "Zatrzymaj stoper",
 }

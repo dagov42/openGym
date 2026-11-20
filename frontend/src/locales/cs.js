@@ -5970,4 +5970,6 @@ export default {
   "lb": "lb",
   "Remove 15 seconds": "Odebrat 15 sekund",
   "Add 15 seconds": "Přidat 15 sekund",
+  "Start timing": "Spustit stopky",
+  "Stop timing": "Zastavit stopky",
 }
