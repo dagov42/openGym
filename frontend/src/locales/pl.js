@@ -6006,4 +6006,11 @@ export default {
   "Add 15 seconds": "Dodaj 15 sekund",
   "Start timing": "Włącz stoper",
   "Stop timing": "Zatrzymaj stoper",
+  "Free weights": "Wolne ciężary",
+  "Barbells": "Sztangi",
+  "Cables": "Wyciągi",
+  "Balls & rollers": "Piłki i wałki",
+  "Bench & bar": "Ławka i drążek",
+  "Show {0}": "Pokaż: {0}",
+  "Hide {0}": "Ukryj: {0}",
 }

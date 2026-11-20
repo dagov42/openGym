@@ -6002,4 +6002,11 @@ export default {
   "Add 15 seconds": "Pridėti 15 sekundžių",
   "Start timing": "Pradėti laiką",
   "Stop timing": "Stabdyti laiką",
+  "Free weights": "Laisvieji svoriai",
+  "Barbells": "Štangos",
+  "Cables": "Lynai",
+  "Balls & rollers": "Kamuoliai ir voleliai",
+  "Bench & bar": "Suolas ir skersinis",
+  "Show {0}": "Rodyti {0}",
+  "Hide {0}": "Slėpti {0}",
 }

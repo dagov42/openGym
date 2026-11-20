@@ -6053,4 +6053,11 @@ export default {
   "Add 15 seconds": "Lägg till 15 sekunder",
   "Start timing": "Starta tidtagning",
   "Stop timing": "Stoppa tidtagning",
+  "Free weights": "Fria vikter",
+  "Barbells": "Skivstänger",
+  "Cables": "Kablar",
+  "Balls & rollers": "Bollar och rullar",
+  "Bench & bar": "Bänk och stång",
+  "Show {0}": "Visa {0}",
+  "Hide {0}": "Dölj {0}",
 }

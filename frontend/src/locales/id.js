@@ -5971,4 +5971,11 @@ export default {
   "Add 15 seconds": "Tambah 15 detik",
   "Start timing": "Mulai waktu",
   "Stop timing": "Hentikan waktu",
+  "Free weights": "Beban bebas",
+  "Barbells": "Barbel",
+  "Cables": "Kabel",
+  "Balls & rollers": "Bola & roller",
+  "Bench & bar": "Bangku & palang",
+  "Show {0}": "Tampilkan {0}",
+  "Hide {0}": "Sembunyikan {0}",
 };

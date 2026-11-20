@@ -6017,4 +6017,11 @@ export default {
   "Add 15 seconds": "เพิ่ม 15 วินาที",
   "Start timing": "เริ่มจับเวลา",
   "Stop timing": "หยุดจับเวลา",
+  "Free weights": "ฟรีเวท",
+  "Barbells": "บาร์เบล",
+  "Cables": "เคเบิล",
+  "Balls & rollers": "บอลและโรลเลอร์",
+  "Bench & bar": "ม้านั่งและบาร์",
+  "Show {0}": "แสดง {0}",
+  "Hide {0}": "ซ่อน {0}",
 }

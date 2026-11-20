@@ -6006,4 +6006,11 @@ export default {
   "Add 15 seconds": "Adicionar 15 segundos",
   "Start timing": "Iniciar cronómetro",
   "Stop timing": "Parar cronómetro",
+  "Free weights": "Pesos livres",
+  "Barbells": "Barras",
+  "Cables": "Cabos",
+  "Balls & rollers": "Bolas e rolos",
+  "Bench & bar": "Banco e barra",
+  "Show {0}": "Mostrar {0}",
+  "Hide {0}": "Ocultar {0}",
 }

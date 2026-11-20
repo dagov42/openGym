@@ -6006,4 +6006,11 @@ export default {
   "Add 15 seconds": "15 saniye ekle",
   "Start timing": "Zamanlamayı başlat",
   "Stop timing": "Zamanlamayı durdur",
+  "Free weights": "Serbest ağırlıklar",
+  "Barbells": "Barlar",
+  "Cables": "Kablolar",
+  "Balls & rollers": "Toplar ve rulolar",
+  "Bench & bar": "Sehpa ve bar",
+  "Show {0}": "{0} göster",
+  "Hide {0}": "{0} gizle",
 }

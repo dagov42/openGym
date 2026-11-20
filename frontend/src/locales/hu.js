@@ -6009,4 +6009,11 @@ export default {
   "Add 15 seconds": "15 másodperc hozzáadása",
   "Start timing": "Időmérés indítása",
   "Stop timing": "Időmérés leállítása",
+  "Free weights": "Szabadsúlyok",
+  "Barbells": "Rudak",
+  "Cables": "Kábelek",
+  "Balls & rollers": "Labdák és hengerek",
+  "Bench & bar": "Pad és rúd",
+  "Show {0}": "{0} megjelenítése",
+  "Hide {0}": "{0} elrejtése",
 }

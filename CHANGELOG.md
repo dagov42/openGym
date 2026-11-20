@@ -39,6 +39,9 @@ A small updater fix and keyboard shortcuts.
 - Cardio rows can be timed while you do them: start the clock, stop it, tick the row, or finish
   the workout, and it writes the minutes rounded the way typing them would. It counts across a
   reload and keeps the workout's pauses out.
+- The exercise explorer groups its equipment by broad kind (body weight, free weights, barbells,
+  machines, cables, and so on); a group opens to its individual kinds, so a muscle's strip no
+  longer holds twenty chips.
 - The web image listens on IPv4 and IPv6, so a self-hosted install can be reached over either.
 - The Coach sees pyramid sets as they are, keeps them through validation and review, and the plan
   fingerprint changes when a pyramid changes.

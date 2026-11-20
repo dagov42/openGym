@@ -6061,4 +6061,11 @@ export default {
   "Add 15 seconds": "إضافة 15 ثانية",
   "Start timing": "بدء التوقيت",
   "Stop timing": "إيقاف التوقيت",
+  "Free weights": "أوزان حرة",
+  "Barbells": "بارات",
+  "Cables": "كيبلات",
+  "Balls & rollers": "كرات وأسطوانات",
+  "Bench & bar": "مقعد وبار",
+  "Show {0}": "إظهار {0}",
+  "Hide {0}": "إخفاء {0}",
 }

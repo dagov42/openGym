@@ -5972,4 +5972,11 @@ export default {
   "Add 15 seconds": "Thêm 15 giây",
   "Start timing": "Bắt đầu tính giờ",
   "Stop timing": "Dừng tính giờ",
+  "Free weights": "Tạ tự do",
+  "Barbells": "Tạ đòn",
+  "Cables": "Cáp",
+  "Balls & rollers": "Bóng & con lăn",
+  "Bench & bar": "Ghế & xà",
+  "Show {0}": "Hiện {0}",
+  "Hide {0}": "Ẩn {0}",
 };

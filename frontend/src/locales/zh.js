@@ -6006,4 +6006,11 @@ export default {
   "Add 15 seconds": "增加 15 秒",
   "Start timing": "开始计时",
   "Stop timing": "停止计时",
+  "Free weights": "自由重量",
+  "Barbells": "杠铃",
+  "Cables": "拉力器",
+  "Balls & rollers": "球和滚轴",
+  "Bench & bar": "卧推凳和杆",
+  "Show {0}": "展开{0}",
+  "Hide {0}": "收起{0}",
 }

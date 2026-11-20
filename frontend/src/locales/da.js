@@ -5946,4 +5946,11 @@ export default {
   "Add 15 seconds": "Tilføj 15 sekunder",
   "Start timing": "Start tidtagning",
   "Stop timing": "Stop tidtagning",
+  "Free weights": "Frie vægte",
+  "Barbells": "Vægtstænger",
+  "Cables": "Kabler",
+  "Balls & rollers": "Bolde og ruller",
+  "Bench & bar": "Bænk og stang",
+  "Show {0}": "Vis {0}",
+  "Hide {0}": "Skjul {0}",
 }

@@ -6006,4 +6006,11 @@ export default {
   "Add 15 seconds": "15초 늘리기",
   "Start timing": "시간 측정 시작",
   "Stop timing": "시간 측정 중지",
+  "Free weights": "프리 웨이트",
+  "Barbells": "바벨",
+  "Cables": "케이블",
+  "Balls & rollers": "볼과 롤러",
+  "Bench & bar": "벤치와 바",
+  "Show {0}": "{0} 펼치기",
+  "Hide {0}": "{0} 접기",
 }

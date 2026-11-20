@@ -5972,4 +5972,11 @@ export default {
   "Add 15 seconds": "Přidat 15 sekund",
   "Start timing": "Spustit stopky",
   "Stop timing": "Zastavit stopky",
+  "Free weights": "Volné váhy",
+  "Barbells": "Velké činky",
+  "Cables": "Kladky",
+  "Balls & rollers": "Míče a válce",
+  "Bench & bar": "Lavice a hrazda",
+  "Show {0}": "Zobrazit {0}",
+  "Hide {0}": "Skrýt {0}",
 }

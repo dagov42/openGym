@@ -6006,4 +6006,11 @@ export default {
   "Add 15 seconds": "15 सेकंड जोड़ें",
   "Start timing": "समय मापना शुरू करें",
   "Stop timing": "समय मापना रोकें",
+  "Free weights": "फ़्री वेट",
+  "Barbells": "बारबेल",
+  "Cables": "केबल",
+  "Balls & rollers": "बॉल और रोलर",
+  "Bench & bar": "बेंच और बार",
+  "Show {0}": "{0} दिखाएँ",
+  "Hide {0}": "{0} छिपाएँ",
 }

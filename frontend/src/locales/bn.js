@@ -6085,4 +6085,11 @@ export default {
   "Add 15 seconds": "১৫ সেকেন্ড যোগ করুন",
   "Start timing": "সময় গোনা শুরু",
   "Stop timing": "সময় গোনা থামান",
+  "Free weights": "ফ্রি ওয়েট",
+  "Barbells": "বারবেল",
+  "Cables": "কেবল",
+  "Balls & rollers": "বল ও রোলার",
+  "Bench & bar": "বেঞ্চ ও বার",
+  "Show {0}": "{0} দেখান",
+  "Hide {0}": "{0} লুকান",
 }

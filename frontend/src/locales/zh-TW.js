@@ -5999,4 +5999,11 @@ export default {
   "Add 15 seconds": "增加 15 秒",
   "Start timing": "開始計時",
   "Stop timing": "停止計時",
+  "Free weights": "自由重量",
+  "Barbells": "槓鈴",
+  "Cables": "滑輪",
+  "Balls & rollers": "球與滾筒",
+  "Bench & bar": "臥推凳與單槓",
+  "Show {0}": "展開{0}",
+  "Hide {0}": "收合{0}",
 }

@@ -6026,4 +6026,11 @@ export default {
   "Add 15 seconds": "15 Sekunden hinzufügen",
   "Start timing": "Zeitmessung starten",
   "Stop timing": "Zeitmessung stoppen",
+  "Free weights": "Freie Gewichte",
+  "Barbells": "Langhanteln",
+  "Cables": "Kabelzüge",
+  "Balls & rollers": "Bälle & Rollen",
+  "Bench & bar": "Bank & Stange",
+  "Show {0}": "{0} anzeigen",
+  "Hide {0}": "{0} ausblenden",
 }

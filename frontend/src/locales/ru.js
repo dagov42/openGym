@@ -6003,4 +6003,11 @@ export default {
   "Add 15 seconds": "Добавить 15 секунд",
   "Start timing": "Запустить секундомер",
   "Stop timing": "Остановить секундомер",
+  "Free weights": "Свободные веса",
+  "Barbells": "Штанги",
+  "Cables": "Блоки",
+  "Balls & rollers": "Мячи и ролики",
+  "Bench & bar": "Скамья и турник",
+  "Show {0}": "Показать: {0}",
+  "Hide {0}": "Скрыть: {0}",
 }

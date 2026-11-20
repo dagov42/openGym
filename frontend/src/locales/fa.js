@@ -5972,4 +5972,11 @@ export default {
   "Add 15 seconds": "۱۵ ثانیه اضافه کن",
   "Start timing": "شروع زمان‌سنجی",
   "Stop timing": "توقف زمان‌سنجی",
+  "Free weights": "وزنه‌های آزاد",
+  "Barbells": "هالترها",
+  "Cables": "کابل‌ها",
+  "Balls & rollers": "توپ‌ها و فوم‌رولرها",
+  "Bench & bar": "نیمکت و میله",
+  "Show {0}": "نمایش {0}",
+  "Hide {0}": "پنهان کردن {0}",
 }
