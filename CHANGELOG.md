@@ -8,9 +8,11 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 Nothing yet.
 
-## v1.4.10 (2026-11-18)
+## v1.4.10 (2026-11-20)
 
-A small updater fix and keyboard shortcuts.
+A large fork release: the Russian catalogue is translated end to end, the workout screen gets a
+full-screen rest timer, cardio timing, lift goals and a cleaner next-exercise flow, and the
+exercise explorer groups equipment instead of showing a wall of chips.
 
 - The update progress sheet can be hidden. The APK keeps downloading in the background while you
   train, and the app asks Install or Later when it is ready.
