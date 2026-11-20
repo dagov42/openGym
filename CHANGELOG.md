@@ -38,7 +38,8 @@ A small updater fix and keyboard shortcuts.
   with the time wheel one tap away. It closes itself when the rest goes.
 - Cardio rows can be timed while you do them: start the clock, stop it, tick the row, or finish
   the workout, and it writes the minutes rounded the way typing them would. It counts across a
-  reload and keeps the workout's pauses out.
+  reload and keeps the workout's pauses out. The clock sits under the number fields beside the
+  effort pill, not in a column of its own.
 - The exercise explorer groups its equipment by broad kind (body weight, free weights, barbells,
   machines, cables, and so on); a group opens to its individual kinds, so a muscle's strip no
   longer holds twenty chips.

@@ -2006,7 +2006,19 @@ button.whdr-gym{color:var(--acc-ink);cursor:pointer}
    (issue: drop-sets & rest-pause) */
 /* Cardio's effort chip (Q5): a quiet pill under the row until rated, then the value in its effort
    colour. 28px tall to sit light under the row; the ::before lends it a 40px tap area. */
-.cardio-eff-line{display:flex;padding-inline:32px 0;margin:6px 0 5px}
+.cardio-eff-line{display:flex;align-items:center;gap:8px;padding-inline:32px 38px;margin:6px 0 5px}
+.cardio-act{display:flex;min-width:0}
+.cardio-act.time{flex:1.4}
+.cardio-act.speed{flex:1}
+.cardio-act .cardio-eff{width:100%;justify-content:center}
+.cardio-clock-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;width:100%;height:28px;border-radius:99px;
+  border:1.5px solid var(--label-3);background:transparent;color:var(--acc-ink);font-size:.8rem;
+  transition:background-color 160ms ease,border-color 160ms ease}
+.cardio-clock-btn::before{content:'';position:absolute;inset:-8px -4px}
+.cardio-clock-btn:not(:disabled):active{background:var(--surface-3)}
+.cardio-clock-btn.on{border-style:solid;border-color:var(--acc);background:var(--surface-2);background:color-mix(in srgb,var(--acc) 16%,transparent)}
+.cardio-clock-btn:disabled{opacity:.35;cursor:default}
+.cardio-clock-btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .cardio-eff{position:relative;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 11px 0 9px;border-radius:99px;
   border:1px dashed var(--label-3);background:transparent;color:var(--label-2);font:inherit;font-size:var(--fs-caption);font-weight:500;
   font-variant-numeric:tabular-nums;white-space:nowrap;cursor:pointer;transition:transform 160ms var(--ease),background-color 160ms ease}

@@ -930,12 +930,6 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, collapsed = false, on
         : cell(s, i, col1, 'w')}
       {col2 && cell(s, i, col2, col2.dec ? 'r dec' : 'r')}
       {c3 && (c3.eff ? effortCell(s, i, c3) : cell(s, i, c3, 'r inc'))}
-      {/* A cardio set's clock: ▶ starts it, ■ stops it and writes the minutes as if typed. */}
-      {cardio && !editing && <button className="setgo" aria-label={inSet(s, i, t(clockHere ? 'Stop timing' : 'Start timing'))}
-        disabled={s.done || (!!working && !clockHere)}
-        onClick={() => clockHere ? useCardioClock.getState().stop() : useCardioClock.getState().start(entryIdx, i)}>
-        <Icon name={clockHere ? 'stop' : 'play'} />
-      </button>}
       {/* A timed set is started, not typed: the timer counts the hold down and checks the
           set off itself. The checkbox stays for anyone who timed it on their own watch. */}
       {timed && !editing && <button className="setgo" aria-label={inSet(s, i, t('Start set'))} disabled={s.done || !!working}
@@ -1080,11 +1074,25 @@ function ExerciseBlock({ entryIdx, compact, listed, dense, collapsed = false, on
               </div>
             </div>
           ) : pairHead ? <>{plainRow(s, i)}{plainRow(entry.sets[i + 1], i + 1)}</> : plainRow(s, i))}
-          {/* Cardio's "how hard it felt", on the row instead of only in the set menu (Q5). Its own
-              line under the inputs, so a narrow phone keeps all three columns. */}
-          {!pairTail && cardio && effortOn && !isWarmupRow(s) && <div className="cardio-eff-line">
-            <CardioEffortChip value={s.rpe ?? null} onOpen={() => effortPickerSheet('rpe', s.rpe ?? null, nv => onField(i, 'rpe', nv), { cardio: true })} />
-          </div>}
+          {/* Cardio's timer and "how hard it felt" share one line under the inputs: the effort
+              pill sits under the time field and the timer under speed, each filling its column. */}
+          {!pairTail && cardio && !isWarmupRow(s) && (() => {
+            const clockAt = clockRun ? runAt(S.active, clockRun) : null
+            const clockHere = !!clockAt && clockAt.idx === entryIdx && clockAt.i === i
+            return <div className="cardio-eff-line">
+              <div className="cardio-act time">
+                {effortOn && <CardioEffortChip value={s.rpe ?? null} onOpen={() => effortPickerSheet('rpe', s.rpe ?? null, nv => onField(i, 'rpe', nv), { cardio: true })} />}
+              </div>
+              <div className="cardio-act speed">
+                {!editing && <button type="button" className={'cardio-clock-btn' + (clockHere ? ' on' : '')}
+                  aria-label={inSet(s, i, t(clockHere ? 'Stop timing' : 'Start timing'))}
+                  disabled={s.done || (!!working && !clockHere)}
+                  onClick={() => clockHere ? useCardioClock.getState().stop() : useCardioClock.getState().start(entryIdx, i)}>
+                  <Icon name={clockHere ? 'stop' : 'play'} />
+                </button>}
+              </div>
+            </div>
+          })()}
           {swipeHint && swipeHint.i === i && swipeOn && <div className="swhint">
             <button type="button" onClick={() => setUI({ swipeHint: null })}>
               <Icon name="swap" /><span>{t('Psst: swipe a set. Left deletes, right copies.')}</span><Icon name="xmark" />

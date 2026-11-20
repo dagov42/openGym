@@ -25,6 +25,13 @@ describe('the cardio effort pill under the row', () => {
     expect(css).toMatch(/\.cardio-eff-line\{[^}]*margin:6px 0 5px/)
     expect(css).not.toMatch(/\.cardio-eff-line\{[^}]*margin:-3px/)
   })
+
+  it('puts the timer beside the effort pill in that line', () => {
+    expect(css).toMatch(/\.cardio-eff-line\{[^}]*display:flex[^}]*gap:8px/)
+    expect(css).toMatch(/\.cardio-act\.time\{flex:1\.4\}/)
+    expect(css).toMatch(/\.cardio-act\.speed\{flex:1\}/)
+    expect(css).toMatch(/\.cardio-clock-btn\{[^}]*width:100%[^}]*height:28px/)
+  })
 })
 
 // Full QA 146: a cardio row with the incline is an eff3 row, which sized its middle column for a
