@@ -16,7 +16,7 @@ import { activeGym, gymsOf, gymLabel, copyInventory, gymHasStack, workoutGymLabe
 import { autoGymHere } from './lib/gym-auto.js'
 import { withDayApart } from './lib/day-sessions.js'
 import { isoRun } from './lib/bidi.js'
-import { fmtDate, fmtClock, fmtDateRange, fmtNum, fmtPlate, exerciseNameText, fmtVol, fmtWeight, fmtDur, durPart, todayISO, isoOf, uid, exCount, routineCount, setsWorkCount, DAYN, DAYS, weekOrder, weekStartOf, weekKey, weekDayOffset, MONTHS_LONG, ACCENTS } from './lib/format.js'
+import { fmtDate, fmtClock, fmtDateRange, fmtNum, fmtPlate, exerciseNameText, fmtUnit, fmtVol, fmtWeight, fmtDur, durPart, todayISO, isoOf, uid, exCount, routineCount, setsWorkCount, DAYN, DAYS, weekOrder, weekStartOf, weekKey, weekDayOffset, MONTHS_LONG, ACCENTS } from './lib/format.js'
 import { fmtSec, lastEntryFor, bestWeightFor, bestWeightForEntry, buildSets, effectiveRoutineIds, workoutDay, workoutVolume, sessionVolume, countsWarmups, setsDone, setsDoneActive, setUnitsTotal, lastBW, sessionSections, setLabel, defaultConfig, pickedExerciseConfig, cleanupSg, modeOf, effortOf, EFFORT, capEffort, stepEffort, isBw, isPerSide, sideReps, workSetsDone, applyIntensifierPlan, MAX_PLANNED_WARMUPS, NOTE_MAX, exLine } from './lib/history.js'
 import { usesBar, hasBarOverride, isNoBar, barTypeWeight, ownBarDefault, barPicks, withBarDefault, withStandardBars, defaultBarWeight, BAR_TYPES } from './lib/bar.js'
 import { plateSizesFor, isPlateSize, isStandardPlate, withoutPlateSize, DEFAULT_PAIRS, pairsOf, ownsPlates, withPlatePairs, withStandardPlates, withLoadKind, loadKindFor, baseWeightFor, dropGrid } from './lib/plates.js'
@@ -883,13 +883,13 @@ function ExUnitRow({ ex, onChange }) {
     <div className="sect-b" style={{ marginBottom: 8 }}>
       <SelectRow icon="scale" iconTint="var(--acc)" title={t('Weight unit')} sheetTitle={t('Weight unit')} value={pin || ''} onChange={set}
         options={[
-          { value: '', label: t('Profile default ({0})', profileUnit(st)) },
-          { value: 'kg', label: 'kg' },
-          { value: 'lb', label: 'lb' },
+          { value: '', label: t('Profile default ({0})', fmtUnit(profileUnit(st))) },
+          { value: 'kg', label: fmtUnit('kg') },
+          { value: 'lb', label: fmtUnit('lb') },
         ]} />
     </div>
     <div className="small dim" style={{ marginBottom: 18 }}>
-      {t('For gyms that mix kg and lb. This exercise is shown and typed in it everywhere, plates and steps included. Totals in Stats stay in {0}.', profileUnit(st))}
+      {t('For gyms that mix kg and lb. This exercise is shown and typed in it everywhere, plates and steps included. Totals in Stats stay in {0}.', fmtUnit(profileUnit(st)))}
     </div>
   </>
 }

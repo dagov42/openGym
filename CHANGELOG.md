@@ -43,6 +43,9 @@ A small updater fix and keyboard shortcuts.
 - The exercise explorer groups its equipment by broad kind (body weight, free weights, barbells,
   machines, cables, and so on); a group opens to its individual kinds, so a muscle's strip no
   longer holds twenty chips.
+- The lift goal's target unit, the exercise sheet's weight unit and its explanation now read
+  «кг»/«фунт» in Russian. The exercise sheet no longer shows an English description under a
+  translated name: the translated steps remain.
 - An exercise can carry a lift goal: target weight, 3, 6 or 12 months, and the sheet shows the due
   date, progress from the best set when the goal was set, and the weekly gain needed.
 - Russian exercise names now follow the reviewed workbook's “Ваше название” column and the

@@ -194,6 +194,9 @@ export const descFor = ex => {
   const own = descs && descs[ex.id]
   if (own) return own
   if (!enDescs) askDetails()
+  // Never put an English paragraph under a Russian exercise name: the translated steps below
+  // carry the instructions instead. Other languages keep the English fallback they had.
+  if (getLang() === 'ru') return ''
   return (enDescs && enDescs[ex.id]) || ex.desc || ''
 }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useStore } from '../store/useStore.js'
 import { t } from '../lib/i18n.js'
-import { fmtDate, fmtNum, fmtWeight, todayISO } from '../lib/format.js'
+import { fmtDate, fmtNum, fmtUnit, fmtWeight, todayISO } from '../lib/format.js'
 import { GOAL_HORIZONS, GOAL_W_MAX, goalFor, goalProgress, withGoal } from '../lib/lift-goals.js'
 import { Button, Segmented, Stepper } from './ui.jsx'
 import Icon from './Icon.jsx'
@@ -11,7 +11,7 @@ import Icon from './Icon.jsx'
 // `best` and `unit` are what the sheet already shows for the exercise (its own weight unit).
 
 const update = (...a) => useStore.getState().update(...a)
-const HORIZON_LABEL = { 3: '3 months', 6: '6 months', 12: '1 year' }
+const horizonLabel = months => t(months === 3 ? '3 months' : months === 6 ? '6 months' : '1 year')
 const STATUS_LABEL = {
   done: 'Goal reached', ahead: 'Ahead of schedule', on: 'On track', behind: 'Behind schedule', overdue: 'Past the due date',
 }
@@ -45,10 +45,10 @@ export default function LiftGoal({ ex, best, unit }) {
     return <div className="lgoal">
       <h4 className="sec">{t('Lift goal')}</h4>
       <div className="row cfgrow" style={{ marginBottom: 10 }}>
-        <Stepper label={t('Target ({0})', unit)} of={t('Lift goal')} value={w} step={2.5} min={0} max={GOAL_W_MAX} onChange={setW} />
+        <Stepper label={t('Target ({0})', fmtUnit(unit))} of={t('Lift goal')} value={w} step={2.5} min={0} max={GOAL_W_MAX} onChange={setW} />
       </div>
       <Segmented value={h} onChange={setH} of={t('Lift goal')}
-        options={GOAL_HORIZONS.map(m => ({ value: m, label: t(HORIZON_LABEL[m]) }))} />
+        options={GOAL_HORIZONS.map(m => ({ value: m, label: horizonLabel(m) }))} />
       <div className="row lgoal-actions">
         <Button variant="primary" onClick={save} disabled={!(w > 0)}>{t('Save')}</Button>
         <Button onClick={() => setEditing(false)}>{t('Cancel')}</Button>
