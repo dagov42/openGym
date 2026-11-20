@@ -34,7 +34,7 @@ function render(props = {}) {
   return host
 }
 const chipByText = (host, text) =>
-  [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim() === text)
+  [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 const muscleChip = (host, label) =>
   [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.startsWith(label))
 const isOn = el => el.className.split(/\s+/).includes('on')
@@ -227,7 +227,7 @@ describe('MuscleExplorer equipment by group', () => {
     expect(isOn(groupChip(host, 'Free weights'))).toBe(true)
     const eqs = shown(host).map(ss => ss.split(' · ').pop().trim())
     expect(eqs.length).toBeGreaterThan(0)
-    for (const eq of eqs) expect(groupOf(eq), eq).toBe('free')
+    for (const eq of eqs) expect(groupOf(eq.toLocaleLowerCase()), eq).toBe('free')
 
     const x = groupChip(host, 'Free weights').querySelector('.gchip-x')
     expect(x.getAttribute('aria-expanded')).toBe('false')
@@ -238,7 +238,7 @@ describe('MuscleExplorer equipment by group', () => {
     act(() => { chipByText(host, 'dumbbell').click() })
     expect(isOn(chipByText(host, 'dumbbell'))).toBe(true)
     expect(isOn(groupChip(host, 'Free weights'))).toBe(false)
-    expect(shown(host).every(ss => ss.endsWith('dumbbell'))).toBe(true)
+    expect(shown(host).every(ss => ss.endsWith('Dumbbell'))).toBe(true)
 
     // A second tap on the kind goes back to its group; on the group, to any equipment.
     act(() => { chipByText(host, 'dumbbell').click() })
@@ -265,7 +265,7 @@ describe('MuscleExplorer equipment by group', () => {
     expect(cable, 'a plain cable chip for the Cables group').toBeTruthy()
     expect(cable.querySelector('.gchip-x')).toBeNull()
     act(() => { cable.click() })
-    expect(shown(host).every(ss => ss.endsWith('cable'))).toBe(true)
+    expect(shown(host).every(ss => ss.endsWith('Cable'))).toBe(true)
   })
 
   it('a chosen group left with one kind shows that kind chosen, and a tap clears it', async () => {

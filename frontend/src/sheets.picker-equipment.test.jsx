@@ -25,7 +25,7 @@ function renderTop() {
 // The two chip strips render in order: body parts first, then equipment. Grab a chip by its
 // visible label out of the whole picker.
 const chipByText = (host, text) =>
-  [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim() === text)
+  [...host.querySelectorAll('.chips .chip')].find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 const isOn = el => el.className.split(/\s+/).includes('on')
 
 beforeEach(() => {

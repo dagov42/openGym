@@ -114,6 +114,13 @@ export const fmtPlate = n => formatter(Intl.NumberFormat, dateLocale()).format(M
 // "8,055 kg" stays one left-to-right run in Arabic and Persian (lib/bidi.js), so a line of them
 // ("8,055 kg · 78.6 kg") does not run its numbers and units together into "kg · 78.6 kg 8,055".
 export const fmtUnit = unit => t(unit === 'lb' ? 'lb' : 'kg')
+// Dataset words arrive lowercase; tags and chips want "Рычажный тренажёр", not every word
+// capitalised. Only the first letter changes, so names inside a term keep their case.
+export const sentenceCase = value => {
+  const text = String(value ?? '')
+  const match = text.match(/^([^\p{L}]*)(\p{L})(.*)$/u)
+  return match ? match[1] + match[2].toLocaleUpperCase() + match[3] : text
+}
 export const fmtVol = (v, unit) => isoRun(fmtNum(v) + ' ' + fmtUnit(unit))
 /** A weight with its unit, "78.6 kg", isolated the same way. */
 export const fmtWeight = (v, unit) => isoRun(fmtNum(v) + ' ' + fmtUnit(unit))

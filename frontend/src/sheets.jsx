@@ -16,7 +16,7 @@ import { activeGym, gymsOf, gymLabel, copyInventory, gymHasStack, workoutGymLabe
 import { autoGymHere } from './lib/gym-auto.js'
 import { withDayApart } from './lib/day-sessions.js'
 import { isoRun } from './lib/bidi.js'
-import { fmtDate, fmtClock, fmtDateRange, fmtNum, fmtPlate, exerciseNameText, fmtUnit, fmtVol, fmtWeight, fmtDur, durPart, todayISO, isoOf, uid, exCount, routineCount, setsWorkCount, DAYN, DAYS, weekOrder, weekStartOf, weekKey, weekDayOffset, MONTHS_LONG, ACCENTS } from './lib/format.js'
+import { fmtDate, fmtClock, fmtDateRange, fmtNum, fmtPlate, exerciseNameText, fmtUnit, fmtVol, fmtWeight, fmtDur, durPart, todayISO, isoOf, uid, exCount, routineCount, setsWorkCount, DAYN, DAYS, weekOrder, weekStartOf, weekKey, weekDayOffset, MONTHS_LONG, ACCENTS, sentenceCase } from './lib/format.js'
 import { fmtSec, lastEntryFor, bestWeightFor, bestWeightForEntry, buildSets, effectiveRoutineIds, workoutDay, workoutVolume, sessionVolume, countsWarmups, setsDone, setsDoneActive, setUnitsTotal, lastBW, sessionSections, setLabel, defaultConfig, pickedExerciseConfig, cleanupSg, modeOf, effortOf, EFFORT, capEffort, stepEffort, isBw, isPerSide, sideReps, workSetsDone, applyIntensifierPlan, MAX_PLANNED_WARMUPS, NOTE_MAX, exLine } from './lib/history.js'
 import { usesBar, hasBarOverride, isNoBar, barTypeWeight, ownBarDefault, barPicks, withBarDefault, withStandardBars, defaultBarWeight, BAR_TYPES } from './lib/bar.js'
 import { plateSizesFor, isPlateSize, isStandardPlate, withoutPlateSize, DEFAULT_PAIRS, pairsOf, ownsPlates, withPlatePairs, withStandardPlates, withLoadKind, loadKindFor, baseWeightFor, dropGrid } from './lib/plates.js'
@@ -1352,11 +1352,11 @@ export function detailTags(ex) {
   }
   // 1) equipment, 2) body part (with the muscle's percentage folded in when the two are the
   //    same word, like "Chest"/"Chest"), 3) every involved muscle, primaries first.
-  add(t(ex.eq), { icon: 'kettlebell' })
+  add(sentenceCase(t(ex.eq)), { icon: 'kettlebell' })
   const bpSlug = canonicalMuscle(ex.bp)
   const sameWord = bpSlug != null && t(ex.bp).trim().toLocaleLowerCase() === t(MUSCLE_NAME[bpSlug] || bpSlug).trim().toLocaleLowerCase()
   const bpPct = sameWord && bpSlug && (weights[bpSlug] || 0) !== 0 ? ' ' + pctOf(bpSlug) : ''
-  add(t(ex.bp) + bpPct, { acc: true }, t(ex.bp))
+  add(sentenceCase(t(ex.bp)) + bpPct, { acc: true }, t(ex.bp))
 
   // One muscle list for the tag limit: primaries then supporting muscles, at most three tags
   // in total ("Other" counts as one). Three or fewer muscles all get their own tag; more fold
@@ -1366,7 +1366,7 @@ export function detailTags(ex) {
   const push = (raw, primary) => {
     const slug = canonicalMuscle(raw)
     if (!slug) return
-    const label = t(MUSCLE_NAME[slug] || slug)
+    const label = sentenceCase(t(MUSCLE_NAME[slug] || slug))
     const key = label.toLocaleLowerCase()
     if (pushed.has(key)) return
     if (!((weights[slug] || 0) > 0)) return
@@ -1428,14 +1428,14 @@ function ExerciseDetail({ ex, close }) {
       {detailTags(ex).map(tg => {
         if (tg.other) {
           if (!showOther) {
-            return <button key={tg.key} type="button" className="tag" onClick={() => setShowOther(true)}>{tg.label}</button>
+            return <button key={tg.key} type="button" className="tag nocap" onClick={() => setShowOther(true)}>{tg.label}</button>
           }
           return [
-            ...tg.other.map((m, i) => <span key={tg.key + '-o-' + i} className="tag dim">{m.label} {m.pct}</span>),
-            <button key={tg.key + '-close'} type="button" className="tag" onClick={() => setShowOther(false)} aria-label={t('Close')}>×</button>,
+            ...tg.other.map((m, i) => <span key={tg.key + '-o-' + i} className="tag nocap dim">{m.label} {m.pct}</span>),
+            <button key={tg.key + '-close'} type="button" className="tag nocap" onClick={() => setShowOther(false)} aria-label={t('Close')}>×</button>,
           ]
         }
-        return <span key={tg.key} className={'tag' + (tg.acc ? ' acc' : '')}>{tg.icon && <Icon name={tg.icon} />}{tg.label}</span>
+        return <span key={tg.key} className={'tag nocap' + (tg.acc ? ' acc' : '')}>{tg.icon && <Icon name={tg.icon} />}{tg.label}</span>
       })}
     </div>
     <ExerciseAliasesEditor key={ex.id} ex={ex} />
@@ -1959,7 +1959,7 @@ function ExercisePicker({ onPick, title, close, like, actionIcon, backups, askCo
     : []
   // The name opens the config sheet, stretched over the row; the quick add is its sibling (card dismiss pass).
   const pickRow = e => <div key={e.id} className="item tap-host">
-        <Thumb ex={e} /><button type="button" className="grow item-open tap-main" onClick={() => onPick(e)}><span className={`tt ${exerciseNameClass(e)}`}>{isFav(st, e.id) && <Icon name="starFill" className="fav-star" />}{exerciseNameFor(e)}</span><span className="ss capitalize">{t(MUSCLE_NAME[e.tg] || e.tg || e.bp)} · {t(e.eq)}</span>{byBrand.has(e.id) && <span className="ss">{byBrand.get(e.id)}</span>}</button>
+        <Thumb ex={e} /><button type="button" className="grow item-open tap-main" onClick={() => onPick(e)}><span className={`tt ${exerciseNameClass(e)}`}>{isFav(st, e.id) && <Icon name="starFill" className="fav-star" />}{exerciseNameFor(e)}</span><span className="ss">{sentenceCase(t(MUSCLE_NAME[e.tg] || e.tg || e.bp))} · {sentenceCase(t(e.eq))}</span>{byBrand.has(e.id) && <span className="ss">{byBrand.get(e.id)}</span>}</button>
         {/* Accent tag = already in a routine/log ("Chosen"); the yellow star by the name = favourite. */}
         {usage[e.id] && <span className="tag acc"><Icon name="starFill" /></span>}
         {/* "Not at my gym" (#923): takes this machine out of the gym the list is filtered for. */}
@@ -2022,7 +2022,7 @@ function ExercisePicker({ onPick, title, close, like, actionIcon, backups, askCo
     </div>}
     {eqOpts.length > 1 && <div className="chips" ref={eqStrip} style={{ marginBottom: 10 }}>
       <button className={'chip nocap' + (!eqOn ? ' on' : '')} onClick={() => { setEq(''); setShown(50) }}>{t('Any equipment')}</button>
-      {eqOpts.map(x => <button key={x} className={'chip' + (eqOn === x ? ' on' : '')} onClick={() => { setEq(x); setShown(50) }}>{t(x)}</button>)}
+      {eqOpts.map(x => <button key={x} className={'chip nocap' + (eqOn === x ? ' on' : '')} onClick={() => { setEq(x); setShown(50) }}>{sentenceCase(t(x))}</button>)}
     </div>}
     {/* The Coach's pick, when one is set up (#1003): it knows the workout, the gym and the
         history, and answers in the workout's own sheet (components/WorkoutCoachSheet.jsx). */}

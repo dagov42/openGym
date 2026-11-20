@@ -71,17 +71,17 @@ describe('muscle names in the rows and tags (QA C9)', () => {
     exercisePicker(vi.fn())
     const host = renderTop()
     act(() => type(host.querySelector('input.input'), 'QA Custom'))
-    expect(rowFor(host, 'QA Custom Thrust').querySelector('.ss').textContent).toBe('Glutes · barbell')
+    expect(rowFor(host, 'QA Custom Thrust').querySelector('.ss').textContent).toBe('Glutes · Barbell')
   })
 
   it('config sheet tags read like the detail sheet, for a custom exercise and for power clean', () => {
     seed(custom())
     exConfigSheet(EXIDX.cqa1, null, vi.fn())
     const tags = h => [...h.querySelectorAll('.tag')].map(e => e.textContent.trim())
-    expect(tags(renderTop())).toEqual(['barbell', 'upper legs', 'Glutes 56%', 'Forearms 22%', 'Hip flexors 22%'])
+    expect(tags(renderTop())).toEqual(['Barbell', 'Upper legs', 'Glutes 56%', 'Forearms 22%', 'Hip flexors 22%'])
     // #207 Olympic lifts list their secondaries as map ids ('forearm', 'deltoids').
     exConfigSheet(EXIDX['0648'], null, vi.fn())
-    expect(tags(renderTop())).toEqual(['barbell', 'full body', 'Quads 16%', 'Glutes 16%', 'Other 69%'])
+    expect(tags(renderTop())).toEqual(['Barbell', 'Full body', 'Quads 16%', 'Glutes 16%', 'Other 69%'])
   })
 
   it('translates them in German too — "forearm" was staying English', () => {
@@ -117,6 +117,6 @@ describe('muscle names in the rows and tags (QA C9)', () => {
     const chip = [...host.querySelectorAll('.chip[aria-pressed]')].find(e => e.textContent.startsWith('Glutes'))
     act(() => chip.click())
     act(() => type(host.querySelector('.search input'), 'QA Custom'))
-    expect(rowFor(host, 'QA Custom Thrust').querySelector('.ss').textContent).toBe('Primary target · Glutes · barbell')
+    expect(rowFor(host, 'QA Custom Thrust').querySelector('.ss').textContent).toBe('Primary target · Glutes · Barbell')
   })
 })

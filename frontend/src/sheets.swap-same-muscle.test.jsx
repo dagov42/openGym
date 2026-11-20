@@ -24,7 +24,7 @@ function renderTop() {
   return host
 }
 const chips = host => [...host.querySelectorAll('.chips .chip')]
-const chipByText = (host, text) => chips(host).find(b => b.textContent.trim() === text)
+const chipByText = (host, text) => chips(host).find(b => b.textContent.trim().toLocaleLowerCase() === text.toLocaleLowerCase())
 const sameChip = host => chips(host).find(b => b.textContent.trim().startsWith('Same muscle'))
 const isOn = el => el.className.split(/\s+/).includes('on')
 const rows = host => [...host.querySelectorAll('.list .item:not(.ex-new)')].map(r => r.querySelector('.ss').textContent)
@@ -80,9 +80,9 @@ describe('swap picker opens on the same muscle', () => {
     expect(listed.length).toBeGreaterThan(1)
     expect(listed.every(s => s.startsWith('Triceps'))).toBe(true)
     // Cable first: once something else shows up, no cable exercise follows it.
-    const firstOther = listed.findIndex(s => !s.endsWith('cable'))
-    expect(listed[0].endsWith('cable')).toBe(true)
-    if (firstOther > 0) expect(listed.slice(firstOther).some(s => s.endsWith('cable'))).toBe(false)
+    const firstOther = listed.findIndex(s => !s.endsWith('Cable'))
+    expect(listed[0].endsWith('Cable')).toBe(true)
+    if (firstOther > 0) expect(listed.slice(firstOther).some(s => s.endsWith('Cable'))).toBe(false)
     // The exercise being swapped away is not offered as its own replacement.
     expect([...host.querySelectorAll('.list .item .tt')].map(x => x.textContent)).not.toContain(CABLE_TRI.n)
 
@@ -169,7 +169,7 @@ describe('gym selection in a swap', () => {
     expect(host.textContent).toContain('Just for this list. Your gym in Settings stays put.')
     chooseGym(host, 'Travel')
     expect(suggestedNames(host)).toEqual(['push-up'])
-    expect(rows(host).every(s => s.endsWith('body weight'))).toBe(true)
+    expect(rows(host).every(s => s.endsWith('Body weight'))).toBe(true)
     // The list follows the gym picked here, the profile does not: Settings' gym, the filter
     // switch and everything else are exactly as they were.
     expect(useStore.getState().S).toEqual(baseline)

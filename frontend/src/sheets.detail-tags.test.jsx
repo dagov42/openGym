@@ -11,7 +11,7 @@ describe('the exercise detail tags', () => {
 
   it('lead with the equipment, then say Chest once as the body part (acc)', () => {
     const tags = tagsOf('0025')
-    expect(tags[0]).toMatchObject({ icon: 'kettlebell', label: 'barbell' })
+    expect(tags[0]).toMatchObject({ icon: 'kettlebell', label: 'Barbell' })
     expect(tags[1]).toMatchObject({ acc: true })
     expect(labels('0025').filter(x => x === 'chest 56%')).toHaveLength(1)
     expect(new Set(labels('0025')).size).toBe(tags.length)

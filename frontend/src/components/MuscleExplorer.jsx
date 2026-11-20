@@ -16,6 +16,7 @@ import { Button, Segmented } from './ui.jsx'
 import { useAutoMore } from '../lib/use-auto-more.js'
 import { favIds, isFav, sortFavouritesFirst } from '../lib/favourites.js'
 import { groupKinds, groupValue, groupIdOf, groupOf, eqMatches, eqOnAmong } from '../lib/equipment-groups.js'
+import { sentenceCase } from '../lib/format.js'
 import { GroupStrip } from './GroupChips.jsx'
 
 const FAV = '☆'
@@ -154,7 +155,7 @@ export default function MuscleExplorer({ onPick, onDetail, onPlan, onBuild, pick
           // The name is the row's button, stretched over it; Plan is its sibling (card dismiss pass).
           return <div key={e.id} className="item tap-host">
             <Thumb ex={e} />
-            <button type="button" className="grow item-open tap-main" onClick={() => choose(e)}><span className={`tt ${exerciseNameClass(e)}`}>{isFav(S, e.id) && <Icon name="starFill" className="fav-star" />}{exerciseNameFor(e)}</span><span className="ss">{t(primary ? 'Primary target' : 'Also trains')} · <span className="capitalize">{t(MUSCLE_NAME[e.tg] || e.tg || e.bp)} · {t(e.eq)}</span></span></button>
+            <button type="button" className="grow item-open tap-main" onClick={() => choose(e)}><span className={`tt ${exerciseNameClass(e)}`}>{isFav(S, e.id) && <Icon name="starFill" className="fav-star" />}{exerciseNameFor(e)}</span><span className="ss">{t(primary ? 'Primary target' : 'Also trains')} · {sentenceCase(t(MUSCLE_NAME[e.tg] || e.tg || e.bp))} · {sentenceCase(t(e.eq))}</span></button>
             {onPick ? <Icon name={pickIcon} className="chev" /> : <>
               {best > 0 && <span className="tag acc">{fmtNum(best)}</span>}
               <Button size="sm" variant="tinted" icon="plus" aria-label={nameIn(exerciseNameText(e), t('Plan'))} onClick={() => onPlan(e)}>{t('Plan')}</Button>

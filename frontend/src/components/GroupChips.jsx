@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { t } from '../lib/i18n.js'
+import { sentenceCase } from '../lib/format.js'
 import Icon from './Icon.jsx'
 
 /**
@@ -9,7 +10,7 @@ import Icon from './Icon.jsx'
  * (`gv(id)`, read back by `gidOf`); `kindGroup(k)` is a kind's group. A tap on the chosen chip
  * goes back a step: a kind to its group, a group to any.
  */
-export function GroupStrip({ groups, value, onChange, anyLabel, gv, gidOf, kindGroup, kindLabel = k => t(k), style }) {
+export function GroupStrip({ groups, value, onChange, anyLabel, gv, gidOf, kindGroup, kindLabel = k => sentenceCase(t(k)), style }) {
   // A chosen kind's group is open, so the chosen chip is in sight: at first, and whenever the
   // kind lands in a group of several (another body part's list), until the chevron shuts it.
   const kindIn = value && !gidOf(value) ? kindGroup(value) : null
@@ -27,11 +28,11 @@ export function GroupStrip({ groups, value, onChange, anyLabel, gv, gidOf, kindG
           const k = g.kinds[0]
           // The whole group, chosen where it had more kinds, is this one kind here.
           const on = value === k || value === gv(g.id)
-          return <button key={g.id} className={'chip' + (on ? ' on' : '')} aria-pressed={on}
+          return <button key={g.id} className={'chip nocap' + (on ? ' on' : '')} aria-pressed={on}
             onClick={() => onChange(on ? '' : k)}>{kindLabel(k)}</button>
         }
         const v = gv(g.id)
-        const label = t(g.label)
+        const label = sentenceCase(t(g.label))
         const shown = sub?.id === g.id
         return <span key={g.id} className={'chip gchip' + (value === v ? ' on' : holds(g.id) ? ' some' : '')}>
           <button type="button" className="gchip-t" aria-pressed={value === v} onClick={() => onChange(value === v ? '' : v)}>{label}</button>
@@ -42,7 +43,7 @@ export function GroupStrip({ groups, value, onChange, anyLabel, gv, gidOf, kindG
       })}
     </div>
     {sub && <div className="chips gchip-strip" style={{ marginBottom: style?.marginBottom }}>
-      {sub.kinds.map(k => <button key={k} className={'chip' + (value === k ? ' on' : '')} aria-pressed={value === k}
+      {sub.kinds.map(k => <button key={k} className={'chip nocap' + (value === k ? ' on' : '')} aria-pressed={value === k}
         onClick={() => onChange(value === k ? gv(sub.id) : k)}>{kindLabel(k)}</button>)}
     </div>}
   </>
