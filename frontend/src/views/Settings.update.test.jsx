@@ -234,4 +234,11 @@ describe('Settings: support links', () => {
     expect(row('YooMoney')).toBeTruthy()
     expect(row('Rate openGym on Google Play')).toBeUndefined()
   })
+  it('the source code link points at this fork, not upstream', async () => {
+    await mount()
+    const source = [...host.querySelectorAll('a')].find(a => a.textContent.includes('Source code'))
+    expect(source.getAttribute('href')).toBe('https://github.com/dagov42/openGym')
+    const notice = [...host.querySelectorAll('a')].find(a => a.textContent.includes('NOTICE.md'))
+    expect(notice.getAttribute('href')).toBe('https://github.com/dagov42/openGym/blob/main/NOTICE.md')
+  })
 })

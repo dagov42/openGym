@@ -8,7 +8,7 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 - Settings → About now has one donation link, YooMoney. The author's Buy Me a Coffee, Ko-fi and
   GitHub Sponsors buttons are gone. The link is still hidden in the Google Play build, where Play
-  billing rules apply.
+  billing rules apply. Source code and NOTICE.md links point at the fork, not upstream.
 - The workout header has a clock: a Timer that starts a countdown on the rest timer and a
   Stopwatch that only counts. The Timer remembers its last length; the running stopwatch shows in
   the header, and neither writes anything into the workout.

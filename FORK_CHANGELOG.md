@@ -30,6 +30,8 @@
   браузере.
 - В Google Play-сборке ссылка по-прежнему скрыта: правила Play требуют Play Billing для оплаты
   внутри приложения.
+- Ссылки **Source code** и **NOTICE.md** в About теперь ведут на `dagov42/openGym`, а не на
+  upstream.
 - Обновлены `docs/FAQ.md` и `docs/APP_STORES.md`.
 
 ### Проверка
