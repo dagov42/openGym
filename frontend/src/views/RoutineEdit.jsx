@@ -10,7 +10,7 @@ import { t, exerciseNameFor, exerciseNameClass } from '../lib/i18n.js'
 import { nameIn, said } from '../lib/a11y-name.js'
 import { supersetUnits, moveRoutineEntry, cleanupSg, exLine, pickedExerciseConfig, pairAdjacent, canPairSuperset, MAX_SUPERSET } from '../lib/history.js'
 import { Thumb } from '../components/Media.jsx'
-import { glyphPicker, exercisePicker, exConfigSheet, confirmSheet, supersetSheet, printPlanSheet } from '../sheets.jsx'
+import { glyphPicker, exercisePicker, exConfigSheet, confirmSheet, supersetSheet, printPlanSheet, menuSheet } from '../sheets.jsx'
 import { supersetMeta, setSupersetMeta } from '../lib/superset-meta.js'
 import { circuitOf, setCircuit, roundsPerStation, defaultCircuit, rememberRegular, restoreRegular } from '../lib/circuit.js'
 import { circuitLine, modeName, MODE_HINT } from '../lib/circuit-copy.js'
@@ -22,7 +22,7 @@ import { shareRoutineSheet } from '../components/RoutineShare.jsx'
 import SwipeRow from '../components/SwipeRow.jsx'
 import { RoutineFolderRow } from '../components/RoutineFolder.jsx'
 import { workoutControls } from '../lib/workout-controls.js'
-import { copyRoutine, deleteRoutine, replaceSlotExercise, replaceSlotWithConfig } from '../lib/routines.js'
+import { copyRoutine, deleteRoutine, copyExerciseToRoutine, replaceSlotExercise, replaceSlotWithConfig } from '../lib/routines.js'
 import { markEntryUndone } from '../lib/sync-merge.js'
 import { speedUnitOf } from '../lib/speed.js'
 import { POLICIES_FOR, POLICY_NAME, POLICY_DESC, profileRule } from '../lib/progression.js'
@@ -582,6 +582,21 @@ export default function RoutineEdit() {
       const leavesDown = inSS.has(i) && r.ex[i + 1]?.sg !== e.sg
       const isDragging = reorder.drag && i >= reorder.drag.first && i <= reorder.drag.last
       const removeHere = () => removeRoutineExercise(id, i)
+      // #1466: put this slot at the end of another routine. The picker is a plain list of the
+      // other routines; the copied slot keeps its numbers and backups, but not a superset link.
+      const copyTo = () => {
+        const live = useStore.getState().S
+        const others = (live.routines || []).filter(x => x.id !== id)
+        if (!others.length) { toast(t('No routines yet.')); return }
+        menuSheet({
+          title: t('Copy'),
+          items: others.map(x => ({ label: x.name, onClick: () => {
+            let copied = false
+            update(s => { copied = !!copyExerciseToRoutine(s, id, i, x.id) })
+            if (copied) toast(t('Copied as “{0}”.', x.name))
+          } })),
+        })
+      }
       // What the row's buttons are called (P4): the exercise, with its place in the routine when
       // the same exercise is in it twice, so no two rows share a "Move up".
       const rowName = r.ex.filter(x => x.id === e.id).length > 1 ? `${i + 1}. ${exerciseNameText(ex)}` : exerciseNameText(ex)
@@ -591,7 +606,7 @@ export default function RoutineEdit() {
       // (.tap-main, card dismiss pass), with the rail's buttons above it, so pressing Move up
       // neither opens the sheet nor fills the row. The long press treats it as the row
       // (data-row-open, useRoutineReorder).
-      const openEx = () => exConfigSheet(ex, e, cfg => edit(x => { x[i] = { id: x[i].id, sg: x[i].sg, ...(x[i].sg ? { sgName: x[i].sgName, sgRest: x[i].sgRest, ...(x[i].sgCircuit ? { sgCircuit: x[i].sgCircuit } : {}) } : {}), ...cfg }; cleanupSg(x) }), removeHere, r, null, () => replace(i), undefined, { backups: true })
+      const openEx = () => exConfigSheet(ex, e, cfg => edit(x => { x[i] = { id: x[i].id, sg: x[i].sg, ...(x[i].sg ? { sgName: x[i].sgName, sgRest: x[i].sgRest, ...(x[i].sgCircuit ? { sgCircuit: x[i].sgCircuit } : {}) } : {}), ...cfg }; cleanupSg(x) }), removeHere, r, null, () => replace(i), undefined, { backups: true, onCopy: copyTo })
       const item = <div className={'item tap-host' + (inSS.has(i) ? ' in-ss' : '')}>
           {/* Shown on pointer devices only (index.css .routine-grip); the Move buttons and the
               long press stay the way in for a keyboard and a finger. */}

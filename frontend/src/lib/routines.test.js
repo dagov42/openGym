@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { copyRoutine, deleteRoutine } from './routines.js'
+import { copyExerciseToRoutine, copyRoutine, deleteRoutine } from './routines.js'
 
 const routine = {
   id: 'r1',
@@ -117,5 +117,40 @@ describe('deleteRoutine', () => {
     deleteRoutine(s, 'r1')
     expect(s.week[5]).toBeUndefined()
     expect(s.week[1]).toEqual(['r2'])
+  })
+})
+
+
+describe('copyExerciseToRoutine (#1466)', () => {
+  const S = () => ({
+    routines: [
+      { id: 'a', name: 'A', ex: [{ id: 'ex1', sets: 5, reps: 5, weight: 100, note: 'belt' }, { id: 'ex2', sets: 3, reps: 8 }] },
+      { id: 'b', name: 'B', ex: [] },
+    ],
+  })
+
+  it('appends a deep copy to the other routine', () => {
+    const s = S()
+    const target = copyExerciseToRoutine(s, 'a', 0, 'b')
+    expect(target.name).toBe('B')
+    expect(target.ex).toHaveLength(1)
+    expect(target.ex[0]).toEqual({ id: 'ex1', sets: 5, reps: 5, weight: 100, note: 'belt' })
+    expect(target.ex[0]).not.toBe(s.routines[0].ex[0])
+  })
+
+  it('leaves a superset link with the routine it came from', () => {
+    const s = S()
+    s.routines[0].ex[0].sg = 'g1'
+    s.routines[0].ex[1].sg = 'g1'
+    copyExerciseToRoutine(s, 'a', 0, 'b')
+    expect(s.routines[1].ex[0].sg).toBeUndefined()
+    expect(s.routines[0].ex[0].sg).toBe('g1')
+  })
+
+  it('refuses a missing routine or slot, and the same routine', () => {
+    const s = S()
+    expect(copyExerciseToRoutine(s, 'a', 9, 'b')).toBe(null)
+    expect(copyExerciseToRoutine(s, 'a', 0, 'a')).toBe(null)
+    expect(copyExerciseToRoutine(s, 'missing', 0, 'b')).toBe(null)
   })
 })

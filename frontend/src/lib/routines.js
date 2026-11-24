@@ -3,6 +3,7 @@ import { defaultConfig, isBw, modeOf, MAX_PLANNED_WARMUPS, NOTE_MAX } from './hi
 import { isAssisted, isBodyweightEq, isCardio } from './exercises.js'
 import { sessionsFor } from './progression.js'
 import { isWarmupRow } from './workout-model.js'
+import { cleanupSg } from './history.js'
 import { ownExerciseRest } from './supersetFlow.js'
 import { warmupModeOf, ownRowsOf, ownRowsFromSession, sameOwnRows } from './warmup-ramp.js'
 import { isRungRow } from './warmup-snap.js'
@@ -19,6 +20,28 @@ export function copyRoutine(routine, suffix = 'Copy') {
   const m = new RegExp('^(.*) \\(' + esc + '(?: (\\d+))?\\)$').exec(routine.name || '')
   copy.name = m ? m[1] + ' (' + suffix + ' ' + ((Number(m[2]) || 1) + 1) + ')' : routine.name + ' (' + suffix + ')'
   return copy
+}
+
+/**
+ * Put a copy of one routine slot at the end of another routine (#1466). The slot keeps its sets,
+ * reps, rest, note, progression rule and backups; a superset link is cleared because its partner
+ * stays behind, and `cleanupSg` dissolves any group the copy would leave half-formed. Answers the
+ * target routine, or null when either routine or the slot is gone.
+ */
+export function copyExerciseToRoutine(s, fromId, index, toId) {
+  if (!fromId || !toId || fromId === toId) return null
+  const from = (s?.routines || []).find(r => r.id === fromId)
+  const to = (s?.routines || []).find(r => r.id === toId)
+  const slot = from?.ex?.[index]
+  if (!to || !slot || !Array.isArray(to.ex)) return null
+  const copy = structuredClone(slot)
+  delete copy.sg
+  delete copy.sgName
+  delete copy.sgRest
+  delete copy.sgCircuit
+  to.ex.push(copy)
+  cleanupSg(to.ex)
+  return to
 }
 
 /**

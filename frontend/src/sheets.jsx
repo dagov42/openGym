@@ -2503,7 +2503,7 @@ function BackupsSheet({ ex, slot, routine, subs: initial, configs: initialConfig
 // anyway (lib/log-workout.js LOG_LIMITS). Typing more settles on the limit when the field is left.
 const PLAN_MAX_SETS = 50
 const PLAN_MAX_REPS = 1000
-function ExConfig({ ex, existing, onSave, onDelete, onReplace, close, routine, initial, saveLabel, backupsEditable, freestyle, autosave, onReplaceInRoutine }) {
+function ExConfig({ ex, existing, onSave, onDelete, onReplace, onCopy, close, routine, initial, saveLabel, backupsEditable, freestyle, autosave, onReplaceInRoutine }) {
   // Shown and typed in the exercise's own weight unit when it has one (#657, lib/ex-unit.js); the
   // config it opened with and the one it saves are in the profile's.
   const live = useStore(s => s.S)
@@ -3140,12 +3140,13 @@ function ExConfig({ ex, existing, onSave, onDelete, onReplace, close, routine, i
         slot, with the slot's sets, reps, weight, rule and note kept (lib/routines.js). What was
         changed on this sheet and not saved is left behind, as closing it would. */}
     {onReplace && <><div style={{ height: 8 }} /><Button icon="swap" onClick={() => { close(); onReplace() }}>{t('Replace exercise')}</Button></>}
+    {onCopy && <><div style={{ height: 8 }} /><Button variant="ghost" icon="copy" onClick={() => { close(); onCopy() }}>{t('Copy')}</Button></>}
     {onDelete && <><div style={{ height: 8 }} /><Button variant="danger" onClick={() => { close(); onDelete() }}>{t('Remove from routine')}</Button></>}
   </>
 }
 // `opts.backups`: the routine editor's sheet, where the slot's planned substitutes are picked.
 // `opts.autosave`: the live workout's sheet, which keeps its changes however it closes (#1079).
-export const exConfigSheet = (ex, existing, onSave, onDelete, routine, initial, onReplace, saveLabel, opts = {}) => ui().openSheet(close => <ExConfig ex={ex} existing={existing} initial={initial} onSave={onSave} onDelete={onDelete} onReplace={onReplace} routine={routine} saveLabel={saveLabel} backupsEditable={!!opts.backups} freestyle={opts.freestyle === 'add' || opts.freestyle === 'edit' ? opts.freestyle : false} autosave={!!opts.autosave} onReplaceInRoutine={opts.onReplaceInRoutine} close={close} />)
+export const exConfigSheet = (ex, existing, onSave, onDelete, routine, initial, onReplace, saveLabel, opts = {}) => ui().openSheet(close => <ExConfig ex={ex} existing={existing} initial={initial} onSave={onSave} onDelete={onDelete} onReplace={onReplace} onCopy={opts.onCopy} routine={routine} saveLabel={saveLabel} backupsEditable={!!opts.backups} freestyle={opts.freestyle === 'add' || opts.freestyle === 'edit' ? opts.freestyle : false} autosave={!!opts.autosave} onReplaceInRoutine={opts.onReplaceInRoutine} close={close} />)
 
 /* ============================ glyph picker ============================ */
 // Grouped by what the glyph means for a training day, so picking one is a scan
