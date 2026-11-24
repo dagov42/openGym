@@ -119,4 +119,21 @@ describe('the Cloudflare Access token on the phone', () => {
     await pairRedeem(GYM, 'ABCD')
     expect(fetch.mock.calls[0][1].headers['CF-Access-Client-Id']).toBeUndefined()
   })
+
+  it('retries once when the secure store is not ready at start (#1529)', async () => {
+    vi.useFakeTimers()
+    try {
+      backing.delete('cfAccess')
+      expect(await loadCfAccess({ pairedBase: GYM })).toBe(null)
+      // The platform store wakes up a moment after boot, with the token still in it.
+      backing.set('cfAccess', JSON.stringify({ clientId: 'id', clientSecret: 'secret', origin: GYM }))
+      await vi.advanceTimersByTimeAsync(1600)
+      const fetch = ok({ rev: 1 })
+      vi.stubGlobal('fetch', fetch)
+      setRemoteAuth(GYM, 'TOKEN')
+      await api('/api/data/rev')
+      expect(fetch.mock.calls[0][1].headers['CF-Access-Client-Id']).toBe('id')
+    } finally { vi.useRealTimers() }
+  })
+
 })

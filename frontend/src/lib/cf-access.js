@@ -12,6 +12,11 @@ import { secureGet, secureSet, secureRemove } from './coach-secrets.js'
 import { setAccessHeaders } from './api.js'
 
 const KEY = 'cfAccess'
+// A missing read after an app update or a restart can mean the native secure store was not ready
+// yet, not that the token is gone (issue #1529). Retry once in the background instead of clearing
+// the headers until the next time the person re-saves an unchanged token.
+const RETRY_MS = 1500
+let retryTimer = null
 
 const clean = v => String(v || '').trim()
 // Scheme, host and port only, or '' for anything that is not an http(s) URL.
@@ -35,13 +40,28 @@ export function accessHeaders(creds) {
 // server has no origin; it is bound to that server on the first start that has one. Without a
 // pairing it is kept but sent nowhere until it is entered again with its address.
 export async function loadCfAccess({ pairedBase = '' } = {}) {
+  if (retryTimer) { clearTimeout(retryTimer); retryTimer = null }
   let creds = null
   try {
     const raw = await secureGet(KEY)
     const v = raw ? JSON.parse(raw) : null
     if (v && typeof v === 'object') creds = { clientId: clean(v.clientId), clientSecret: clean(v.clientSecret), origin: originOf(v.origin) }
   } catch { /* unreadable: as if never set */ }
-  if (!creds || !creds.clientId || !creds.clientSecret) { setAccessHeaders({}, ''); return null }
+  if (!creds || !creds.clientId || !creds.clientSecret) {
+    // Keep any token already handed to api.js. On a paired phone, try again once the platform
+    // store has had time to wake up; a token that is really gone still sends nothing.
+    if (originOf(pairedBase)) {
+      retryTimer = setTimeout(async () => {
+        retryTimer = null
+        try {
+          const raw = await secureGet(KEY)
+          if (raw) await loadCfAccess({ pairedBase })
+        } catch { /* stay as we are */ }
+      }, RETRY_MS)
+      retryTimer.unref?.()
+    }
+    return null
+  }
   if (!creds.origin && originOf(pairedBase)) {
     creds.origin = originOf(pairedBase)
     try { await secureSet(KEY, JSON.stringify(creds)) } catch { /* bound again on the next start */ }
@@ -53,6 +73,7 @@ export async function loadCfAccess({ pairedBase = '' } = {}) {
 // Empty values clear the token; anything half-filled, or without the server it is for, is
 // refused by the caller (CfAccessSheet), and here as well.
 export async function saveCfAccess({ clientId, clientSecret, server } = {}) {
+  if (retryTimer) { clearTimeout(retryTimer); retryTimer = null }
   const creds = { clientId: clean(clientId), clientSecret: clean(clientSecret), origin: originOf(server) }
   if (!creds.clientId || !creds.clientSecret) {
     await secureRemove(KEY)

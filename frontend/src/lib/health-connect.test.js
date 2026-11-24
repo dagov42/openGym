@@ -296,3 +296,23 @@ describe('imported workouts and the health hub (#881)', async () => {
     expect(plan.remove.sessions).toEqual(['opengym-w-iwabc'])
   })
 })
+
+
+// A set tick changes S.active only; the finished workout objects stay the same, so their Health
+// records and fingerprints must be reused instead of rebuilt for every past workout (#1487).
+describe('finished workout records are kept between saves', () => {
+  const S = { workouts: [workout([strength])], bodyweight: [] }
+  const opts = { nameOf, speedUnit: 'km/h' }
+
+  it('reuses the same record while only the active workout changes', () => {
+    const first = healthRecords(S, opts).sessions[0]
+    const second = healthRecords({ ...S, active: { startedAt: 1 } }, opts).sessions[0]
+    expect(second).toBe(first)
+  })
+
+  it('builds a different record when the workout itself is replaced', () => {
+    const first = healthRecords(S, opts).sessions[0]
+    const changed = { ...S, workouts: [{ ...S.workouts[0], note: 'Felt strong.' }] }
+    expect(healthRecords(changed, opts).sessions[0]).not.toBe(first)
+  })
+})

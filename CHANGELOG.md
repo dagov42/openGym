@@ -6,7 +6,20 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 ## Unreleased
 
-Nothing yet.
+- The profile push during a workout is gzipped, so a three-year profile goes up as about 92 KB
+  instead of 816 KB per set. The server only unzips `PUT /api/data`, after its session check.
+- A workout left quiet for 15 minutes lets the screen lock, and typing counts as activity. A
+  running circuit clock keeps the screen awake as before.
+- The Android rest card steps every 5 seconds while the app is in front instead of every second.
+- A set tick reuses each finished workout's Health record and fingerprint instead of rebuilding
+  the whole history.
+- Signing out also removes this browser's push subscription, and Sign out everywhere clears every
+  browser's.
+- The Android rest countdown service goes foreground before it can stop itself, so a rest that
+  ends during the start no longer kills the app.
+- One profile's stuck webhook no longer holds up other profiles' deliveries.
+- The Cloudflare Access token is retried once if the secure store is not ready at startup, instead
+  of staying unsent until it is saved again.
 
 ## v1.4.10 (2026-11-20)
 
