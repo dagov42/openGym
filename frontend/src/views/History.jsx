@@ -12,6 +12,7 @@ import { fmtMonth } from '../lib/format.js'
 import { reportSheet } from '../components/ReportSheet.jsx'
 import { recoverySheet, RecoveryRow } from '../components/RecoverySheet.jsx'
 import { ActivityRow } from '../components/ActivitySheet.jsx'
+import { quickLogSheet } from '../components/QuickLogSheet.jsx'
 
 export { historyRows }
 
@@ -109,11 +110,14 @@ export default function History() {
       </div>
     </>}
 
-    {rows.length > 0 && <Button icon="plus" data-tour="history-add" onClick={logPastWorkoutSheet} style={{ marginBottom: 12 }}>{t('Log a past workout')}</Button>}
+    {rows.length > 0 && <Button icon="plus" data-tour="history-add" onClick={logPastWorkoutSheet} style={{ marginBottom: 8 }}>{t('Log a past workout')}</Button>}
+    {rows.length > 0 && <Button variant="ghost" icon="pencil" data-quick-log-open onClick={quickLogSheet} style={{ marginBottom: 12 }}>{t('Type a workout')}</Button>}
     {active && <div className="small muted" aria-live="polite" style={{ margin: '0 2px 8px' }}>{tn('{0} match', '{0} matches', listRows.length)}</div>}
     {rows.length === 0
       ? <EmptyState icon="history" text={t('No workouts yet. Your first one will land here.')}>
           <Button variant="tinted" icon="plus" data-tour="history-add" onClick={logPastWorkoutSheet}>{t('Log a past workout')}</Button>
+          <div style={{ height: 8 }} />
+          <Button variant="ghost" icon="pencil" data-quick-log-open onClick={quickLogSheet}>{t('Type a workout')}</Button>
           <div style={{ height: 8 }} />
           <Button variant="ghost" icon="sparkles" onClick={() => recoverySheet()}>{t('Log recovery')}</Button>
         </EmptyState>

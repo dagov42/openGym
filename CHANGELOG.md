@@ -6,6 +6,8 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 ## Unreleased
 
+- History: Type a workout reads a session written as text, one exercise per line, matches names
+  against your own exercises and aliases, and saves it through the same path as a past workout.
 - The profile push during a workout is gzipped, so a three-year profile goes up as about 92 KB
   instead of 816 KB per set. The server only unzips `PUT /api/data`, after its session check.
 - A workout left quiet for 15 minutes lets the screen lock, and typing counts as activity. A
