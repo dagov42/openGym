@@ -35,9 +35,9 @@ ever sees the repo's 180 px media.
   encryption (`ITSAppUsesNonExemptEncryption = NO`, HTTPS only). The Coach asks before anything
   is sent to an AI provider and names it (App Review Guideline 5.1.2(i), November 2025).
 - **Both:** no account, no ads, no analytics in the app, and nothing to buy. Settings → About &
-  updates links to Buy Me a Coffee, Ko-fi and GitHub Sponsors: plain links that open in the
-  browser, unlock nothing, and never pop up on their own. On the iPhone the same section has a
-  link to writing an App Store review (no review prompt, App Review 5.6.1).
+  updates links to YooMoney: a plain link that opens in the browser, unlocks nothing, and never
+  pops up on its own. On the iPhone the same section has a link to writing an App Store review
+  (no review prompt, App Review 5.6.1).
 
 ## Every release
 

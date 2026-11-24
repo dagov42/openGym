@@ -1360,24 +1360,18 @@ export default function Settings({ page = null, find = null, via = null, entryKe
             onClick={() => (useStore.getState().S.active ? toast(t('Finish your workout first, then the tour is all yours.')) : startTour(null, f))} />
         })}
       </Section>
-      {/* Support: the project's own donation pages, and on the iPhone a straight line to writing a
+      {/* Support: the project's own donation page, and on the iPhone a straight line to writing a
           review. Plain links, no pop-up asking for anything (App Store 5.6.1). The Google Play build
           shows only its rating link: Play's payments policy wants Play billing for anything paid
           inside an app, donations to a project that isn't a registered charity included, so the
-          coffee links stay on the APK, the iPhone and the web (docs/APP_STORES.md). */}
+          YooMoney link stays on the APK, the iPhone and the web (docs/APP_STORES.md). */}
       <Section title={t('Support openGym')} footer={play ? undefined : t('openGym is free: no ads, no subscriptions, no tracking. A coffee keeps it that way.')}>
         {MOBILE && ios && <Row icon="star" iconTint="var(--orange)" title={t('Rate openGym on the App Store')} accessory="chevron"
           onClick={() => window.open('https://apps.apple.com/app/id6822275400?action=write-review', '_blank', 'noopener')} />}
         {play && <Row icon="star" iconTint="var(--orange)" title={t('Rate openGym on Google Play')} accessory="chevron"
           onClick={() => window.open('https://play.google.com/store/apps/details?id=ch.duartesantos.opengym', '_blank', 'noopener')} />}
-        {!play && <>
-          <Row icon="heart" iconTint="var(--pink)" title={t('Buy me a coffee')} subtitle="Buy Me a Coffee" accessory="chevron"
-            onClick={() => window.open('https://buymeacoffee.com/duartesantos', '_blank', 'noopener')} />
-          <Row icon="heart" iconTint="var(--blue)" title="Ko-fi" accessory="chevron"
-            onClick={() => window.open('https://ko-fi.com/opengym', '_blank', 'noopener')} />
-          <Row icon="heart" iconTint="var(--purple)" title="GitHub Sponsors" accessory="chevron"
-            onClick={() => window.open('https://github.com/sponsors/DuarteSantos8', '_blank', 'noopener')} />
-        </>}
+        {!play && <Row icon="heart" iconTint="var(--pink)" title="YooMoney" subtitle="yoomoney.ru" accessory="chevron"
+          onClick={() => window.open('https://yoomoney.ru/to/410011458917290', '_blank', 'noopener')} />}
       </Section>
       {/* "Add to Home screen": not inside the phone app, and not once it is installed. Safari's
           Share menu only on Apple (an iPad says Macintosh too); Windows and Linux get Chrome's

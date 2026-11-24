@@ -20,6 +20,26 @@
 
 ---
 
+## 2026-11-24 — Донаты: YooMoney вместо ссылок автора
+
+### Что изменено
+
+- Из Settings → About убраны кнопки **Buy Me a Coffee**, **Ko-fi** и **GitHub Sponsors**.
+- Добавлена одна кнопка **YooMoney** со ссылкой
+  [yoomoney.ru/to/410011458917290](https://yoomoney.ru/to/410011458917290), открывающаяся в
+  браузере.
+- В Google Play-сборке ссылка по-прежнему скрыта: правила Play требуют Play Billing для оплаты
+  внутри приложения.
+- Обновлены `docs/FAQ.md` и `docs/APP_STORES.md`.
+
+### Проверка
+
+- `Settings.update.test.jsx`: APK/web показывают YooMoney, старые ссылки отсутствуют; Play
+  показывает только рейтинг.
+- `settings-pages.test.jsx`: строка YooMoney исключена из поиска настроек как внешняя ссылка.
+
+---
+
 ## 2026-11-24 — Timer и Stopwatch в шапке тренировки
 
 ### Что добавлено
