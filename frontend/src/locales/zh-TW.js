@@ -6032,4 +6032,7 @@ export default {
   "On track": "進度正常",
   "Behind schedule": "落後進度",
   "Past the due date": "已過期限",
+  "Start timer": "啟動定時器",
+  "Timer": "計時器",
+  "Stopwatch": "跑表",
 }

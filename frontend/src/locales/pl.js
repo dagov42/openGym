@@ -6039,4 +6039,7 @@ export default {
   "On track": "W planie",
   "Behind schedule": "Za planem",
   "Past the due date": "Termin minął",
+  "Start timer": "Uruchom minutnik",
+  "Timer": "Regulator czasowy",
+  "Stopwatch": "Stoper",
 }

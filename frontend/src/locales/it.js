@@ -6049,4 +6049,7 @@ export default {
   "On track": "In linea",
   "Behind schedule": "In ritardo",
   "Past the due date": "Scadenza superata",
+  "Start timer": "Avvia il timer",
+  "Timer": "Timer",
+  "Stopwatch": "Cronometro",
 }

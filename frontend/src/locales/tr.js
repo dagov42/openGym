@@ -6039,4 +6039,7 @@ export default {
   "On track": "Yolundasın",
   "Behind schedule": "Planın gerisindesin",
   "Past the due date": "Süre doldu",
+  "Start timer": "Zamanlayıcıyı başlat",
+  "Timer": "Zamanlayıcı",
+  "Stopwatch": "Kronometre",
 }

@@ -6042,4 +6042,7 @@ export default {
   "On track": "Jó úton",
   "Behind schedule": "Lemaradsz a tervtől",
   "Past the due date": "Lejárt a határidő",
+  "Start timer": "Indítsa el az időzítőt",
+  "Timer": "Időzítő",
+  "Stopwatch": "Stopperóra",
 }

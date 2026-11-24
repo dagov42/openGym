@@ -6039,4 +6039,7 @@ export default {
   "On track": "进度正常",
   "Behind schedule": "落后进度",
   "Past the due date": "已过期限",
+  "Start timer": "启动定时器",
+  "Timer": "计时器",
+  "Stopwatch": "跑表",
 }

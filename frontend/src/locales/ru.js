@@ -6036,4 +6036,7 @@ export default {
   "On track": "По плану",
   "Behind schedule": "Отстаёте от плана",
   "Past the due date": "Срок прошёл",
+  "Start timer": "Запустить таймер",
+  "Timer": "Таймер",
+  "Stopwatch": "Секундомер",
 }

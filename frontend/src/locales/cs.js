@@ -6005,4 +6005,7 @@ export default {
   "On track": "Na dobré cestě",
   "Behind schedule": "Za plánem",
   "Past the due date": "Po termínu",
+  "Start timer": "Spustit časovač",
+  "Timer": "Časovač",
+  "Stopwatch": "Stopky",
 }

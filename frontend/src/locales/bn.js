@@ -6118,4 +6118,7 @@ export default {
   "On track": "ঠিক পথে আছেন",
   "Behind schedule": "সময়ের পেছনে আছেন",
   "Past the due date": "নির্ধারিত দিন পেরিয়ে গেছে",
+  "Start timer": "টাইমার শুরু করুন",
+  "Timer": "টাইমার",
+  "Stopwatch": "স্টপওয়াচ",
 }

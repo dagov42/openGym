@@ -6035,4 +6035,7 @@ export default {
   "On track": "Laiku",
   "Behind schedule": "Atsilieki nuo grafiko",
   "Past the due date": "Terminas praėjo",
+  "Start timer": "Pradėti laikmatį",
+  "Timer": "Laikmatis",
+  "Stopwatch": "Chronometras",
 }

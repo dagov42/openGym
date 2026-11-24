@@ -6005,4 +6005,7 @@ export default {
   "On track": "طبق برنامه",
   "Behind schedule": "عقب‌تر از برنامه",
   "Past the due date": "موعد گذشته است",
+  "Start timer": "شروع تایمر",
+  "Timer": "تایمر",
+  "Stopwatch": "کرونومتر",
 }

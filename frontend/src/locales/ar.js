@@ -6094,4 +6094,7 @@ export default {
   "On track": "على المسار",
   "Behind schedule": "متأخر عن الجدول",
   "Past the due date": "تجاوزت الموعد",
+  "Start timer": "بدء الموقت",
+  "Timer": "الموقت",
+  "Stopwatch": "ساعة توقيت",
 }

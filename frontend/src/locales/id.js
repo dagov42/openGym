@@ -6004,4 +6004,7 @@ export default {
   "On track": "Sesuai jalur",
   "Behind schedule": "Tertinggal dari jadwal",
   "Past the due date": "Melewati tenggat",
+  "Start timer": "Mulai pengatur waktu",
+  "Timer": "pengatur waktu",
+  "Stopwatch": "Stopwatch",
 };

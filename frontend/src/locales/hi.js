@@ -6039,4 +6039,7 @@ export default {
   "On track": "सही रास्ते पर",
   "Behind schedule": "योजना से पीछे",
   "Past the due date": "तय तारीख़ निकल गई",
+  "Start timer": "टाइमर प्रारंभ करें",
+  "Timer": "घड़ी",
+  "Stopwatch": "स्टॉपवॉच देखनी",
 }

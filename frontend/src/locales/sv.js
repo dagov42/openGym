@@ -6086,4 +6086,7 @@ export default {
   "On track": "På rätt spår",
   "Behind schedule": "Efter schemat",
   "Past the due date": "Tiden har gått ut",
+  "Start timer": "Starta timer",
+  "Timer": "Timer",
+  "Stopwatch": "Stoppur",
 }

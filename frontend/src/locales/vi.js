@@ -6005,4 +6005,7 @@ export default {
   "On track": "Đúng tiến độ",
   "Behind schedule": "Chậm so với kế hoạch",
   "Past the due date": "Đã quá hạn",
+  "Start timer": "Bắt đầu hẹn giờ",
+  "Timer": "hẹn giờ",
+  "Stopwatch": "Đồng hồ bấm giờ",
 };

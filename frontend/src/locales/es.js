@@ -6039,4 +6039,7 @@ export default {
   "On track": "Vas bien",
   "Behind schedule": "Por detrás del plan",
   "Past the due date": "Fecha superada",
+  "Start timer": "Iniciar temporizador",
+  "Timer": "Minutero",
+  "Stopwatch": "Cronógrafo",
 }

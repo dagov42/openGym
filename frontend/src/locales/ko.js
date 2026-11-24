@@ -6039,4 +6039,7 @@ export default {
   "On track": "순조로워요",
   "Behind schedule": "계획보다 늦어요",
   "Past the due date": "기한이 지났어요",
+  "Start timer": "타이머 시작",
+  "Timer": "시간제 노동자",
+  "Stopwatch": "스톱워치",
 }

@@ -6050,4 +6050,7 @@ export default {
   "On track": "เป็นไปตามแผน",
   "Behind schedule": "ช้ากว่าแผน",
   "Past the due date": "เลยกำหนดแล้ว",
+  "Start timer": "เริ่มจับเวลา",
+  "Timer": "ตัวจับเวลา",
+  "Stopwatch": "นาฬิกาจับเวลา",
 }

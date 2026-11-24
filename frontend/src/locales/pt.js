@@ -6039,4 +6039,7 @@ export default {
   "On track": "No bom caminho",
   "Behind schedule": "Atrás do plano",
   "Past the due date": "Prazo ultrapassado",
+  "Start timer": "Iniciar cronômetro",
+  "Timer": "Temporizador",
+  "Stopwatch": "Cronômetro",
 }

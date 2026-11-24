@@ -5979,4 +5979,7 @@ export default {
   "On track": "På rette spor",
   "Behind schedule": "Bagud",
   "Past the due date": "Fristen er overskredet",
+  "Start timer": "Start timer",
+  "Timer": "Timer",
+  "Stopwatch": "Stopur",
 }

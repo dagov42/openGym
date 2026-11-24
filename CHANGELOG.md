@@ -6,6 +6,9 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 ## Unreleased
 
+- The workout header has a clock: a Timer that starts a countdown on the rest timer and a
+  Stopwatch that only counts. The Timer remembers its last length; the running stopwatch shows in
+  the header, and neither writes anything into the workout.
 - History: Type a workout reads a session written as text, one exercise per line, matches names
   against your own exercises and aliases, and saves it through the same path as a past workout.
 - Routine editor: a slot's Copy action puts the same exercise, with its sets, reps, weight, rest

@@ -4384,4 +4384,8 @@ export default { ...pt, ...PT_BR_OVERRIDES,
   "On track": "No bom caminho",
   "Behind schedule": "Atrás do plano",
   "Past the due date": "Prazo ultrapassado",
+  "Start timer": "Iniciar cronômetro",
+  "Timer": "Temporizador",
+  "Stopwatch": "Cronômetro",
+  "Stop": "Parar",
 }
