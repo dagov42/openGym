@@ -332,6 +332,10 @@ export function GymEditPage() {
   if (!config || !gym) return null
 
   const set = patch => setGym(g => ({ ...g, ...patch }))
+  // The keyboard's Done key: put the field away so the Save button under it is visible.
+  const doneOnEnter = e => {
+    if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur() }
+  }
   // Back to the list: past the search too when the gym came from it.
   const close = () => {
     const idx = window.history.state?.idx || 0
@@ -381,25 +385,26 @@ export function GymEditPage() {
         <span className="lrow-i" style={{ '--tint': 'var(--orange)' }}><Icon name="pencil" /></span>
         <span className="lrow-m"><span className="lrow-t">{t('Name')}</span></span>
         <input className="lrow-in" value={gym.name} maxLength={60} placeholder={t('My gym')} aria-label={t('Name')}
-          enterKeyHint="done" autoComplete="off" onChange={e => set({ name: e.target.value })} />
+          enterKeyHint="done" autoComplete="off" onChange={e => set({ name: e.target.value })} onKeyDown={doneOnEnter} />
       </label>
       <label className="lrow gym-in-row">
         <span className="lrow-i" style={{ '--tint': 'var(--blue)' }}><Icon name="mapPin" /></span>
         <span className="lrow-m"><span className="lrow-t">{t('Address')}</span></span>
         <input className="lrow-in" value={gym.address} maxLength={160} placeholder={t('Address')} aria-label={t('Address')}
-          enterKeyHint="done" autoComplete="off" onChange={e => set({ address: e.target.value })} />
+          enterKeyHint="done" autoComplete="off" onChange={e => set({ address: e.target.value })} onKeyDown={doneOnEnter} />
       </label>
       <label className="lrow gym-in-row">
         <span className="lrow-i" style={{ '--tint': 'var(--green)' }}><Icon name="link" /></span>
         <span className="lrow-m"><span className="lrow-t">{t('Map link')}</span></span>
         <input className="lrow-in" value={gym.mapUrl || ''} maxLength={1000} placeholder="https://2gis.ru/…" aria-label={t('Map link')}
-          inputMode="url" autoComplete="off" spellCheck={false} onChange={e => set({ mapUrl: e.target.value })} />
+          inputMode="url" enterKeyHint="done" autoComplete="off" spellCheck={false}
+          onChange={e => set({ mapUrl: e.target.value })} onKeyDown={doneOnEnter} />
       </label>
       <label className="lrow gym-in-row">
         <span className="lrow-i" style={{ '--tint': 'var(--orange)' }}><Icon name="lock" /></span>
         <span className="lrow-m"><span className="lrow-t">{t('Locker number')}</span></span>
         <input className="lrow-in" value={gym.locker || ''} maxLength={LOCKER_MAX} placeholder={t('e.g. B-42')} aria-label={t('Locker number')}
-          enterKeyHint="done" autoComplete="off" onChange={e => set({ locker: e.target.value })} />
+          enterKeyHint="done" autoComplete="off" onChange={e => set({ locker: e.target.value })} onKeyDown={doneOnEnter} />
       </label>
       <Row icon="bell" iconTint="var(--red)" title={t('Remind me here')}>
         <Switch checked={!gym.off} onChange={v => set({ off: !v })} aria-label={t('Remind me here')} />
@@ -421,7 +426,7 @@ export function GymEditPage() {
     <Section title={t('Notification text')} footer={t('Leave it empty for the default.')}>
       <div className="lrow gym-in-row">
         <input className="lrow-in full" value={gym.text} maxLength={120} placeholder={statusOf(null).body} aria-label={t('Notification text')}
-          enterKeyHint="done" onChange={e => set({ text: e.target.value })} />
+          enterKeyHint="done" onChange={e => set({ text: e.target.value })} onKeyDown={doneOnEnter} />
       </div>
     </Section>
     <div className="gym-actions">
