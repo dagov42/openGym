@@ -1,7 +1,7 @@
 # Challenge medals: bronze, silver and gold per month
 
-Status: **Agreed**, ready for implementation  
-Date: 2026-11-25  
+Status: **Agreed**, ready for implementation
+Date: 2026-11-25
 Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 0
 
 ## Why
@@ -51,8 +51,9 @@ export const tierOf = done =>
 `done` is the number of **distinct completed challenge ids** in the stored month, capped at the
 number of picked challenges. That is already what `done.length` means today.
 
-`isGold(m)` stays as a compatibility helper and becomes `tierOf(m.done.length) === 'gold'` when a
-month has at least one picked challenge. Existing callers do not need to change in this stage.
+`isGold(m)` stays as a compatibility helper: it still means “every picked challenge is done”, so
+an older or imported month with a different `picked` length keeps its meaning. The visible tier
+comes from `tierOf(m.done.length)`; for the normal three picks the two agree.
 
 ### The shelf shows one medal
 

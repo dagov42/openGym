@@ -1,8 +1,8 @@
 # Return mode: a softer challenge month after a break
 
-Status: **Agreed**, ready for implementation  
-Date: 2026-11-25  
-Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 3  
+Status: **Agreed**, ready for implementation
+Date: 2026-11-25
+Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 3
 Depends on: [stage 0 medals](2026-11-25-challenge-tier-medals-design.md), [stage 1 quests](2026-11-25-challenge-quests-design.md)
 
 ## Why

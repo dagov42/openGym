@@ -1,8 +1,8 @@
 # Challenge quests: themes and more interesting monthly goals
 
-Status: **Agreed**, ready for implementation  
-Date: 2026-11-25  
-Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 1  
+Status: **Agreed**, ready for implementation
+Date: 2026-11-25
+Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 1
 Depends on: [stage 0 medals](2026-11-25-challenge-tier-medals-design.md)
 
 ## Why

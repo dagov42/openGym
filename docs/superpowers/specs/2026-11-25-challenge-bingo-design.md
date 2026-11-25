@@ -1,8 +1,8 @@
 # Challenge bingo: a bonus card after two completed quests
 
-Status: **Agreed**, ready for implementation  
-Date: 2026-11-25  
-Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 2  
+Status: **Agreed**, ready for implementation
+Date: 2026-11-25
+Part of: [Challenge system plan](2026-11-16-feature-plan-index.md), stage 2
 Depends on: [stage 0 medals](2026-11-25-challenge-tier-medals-design.md), [stage 1 quests](2026-11-25-challenge-quests-design.md)
 
 ## Why
