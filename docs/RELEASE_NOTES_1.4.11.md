@@ -117,4 +117,4 @@ over them and keeps the data.
 
 - Frontend: 960 test files, 10,637 passed, 11 skipped.
 - API: 1,135 tests, 0 failures (5 skipped).
-- CI on `PENDING`: PENDING.
+- CI on `724c0ad65`: success.
