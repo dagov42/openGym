@@ -50,5 +50,7 @@ One short paragraph about the release.
 - A small patch release still gets a Russian block, even when it has one bullet.
 - Put the Russian block before `## Install`, so it is visible in the GitHub release body before the
   installation instructions.
+- While the work is still in `CHANGELOG.md` under `## Unreleased`, keep the same Russian block
+  there too. When the section becomes `## vX.Y.Z`, it is already bilingual.
 
 The current example is [RELEASE_NOTES_1.4.10.md](RELEASE_NOTES_1.4.10.md).
