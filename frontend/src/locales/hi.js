@@ -6054,4 +6054,7 @@ export default {
   "Great results. You are worthy of praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के पात्र हैं.",
   "Great results. You deserve praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के पात्र हैं.",
   "Locker number": "लॉकर नंबर",
+  "Add a club": "एक क्लब जोड़ें",
+  "Open in 2GIS": "2जीआईएस में खोलें",
+  "Open in Yandex Maps": "यांडेक्स मैप्स में खोलें",
 }

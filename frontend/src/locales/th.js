@@ -6065,4 +6065,7 @@ export default {
   "Great results. You are worthy of praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณสมควรได้รับการยกย่อง",
   "Great results. You deserve praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณสมควรได้รับคำชม",
   "Locker number": "หมายเลขล็อกเกอร์",
+  "Add a club": "เพิ่มสโมสร",
+  "Open in 2GIS": "เปิดใน 2GIS",
+  "Open in Yandex Maps": "เปิดในแผนที่ Yandex",
 }

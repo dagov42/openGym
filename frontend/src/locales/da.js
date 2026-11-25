@@ -5994,4 +5994,7 @@ export default {
   "Great results. You are worthy of praise.": "Fantastiske resultater. Du er ros værd.",
   "Great results. You deserve praise.": "Fantastiske resultater. Du fortjener ros.",
   "Locker number": "Skabsnummer",
+  "Add a club": "Tilføj en klub",
+  "Open in 2GIS": "Åben i 2GIS",
+  "Open in Yandex Maps": "Åbn i Yandex Maps",
 }

@@ -40,6 +40,18 @@ export function mapSearchUrls({ q = '', near = null } = {}) {
   return { dgis: dgis.href, yandex: yandex.href }
 }
 
+/** Which app a saved map card belongs to, for the editor's button label. */
+export function mapAppOf(value) {
+  try {
+    const host = new URL(String(value || '')).hostname.toLowerCase()
+    if (/(^|\.)2gis\.[a-z.]+$/.test(host)) return '2GIS'
+    if (/(^|\.)yandex\.[a-z.]+$/.test(host)) return 'Yandex Maps'
+    if (/(^|\.)google\.[a-z.]+$/.test(host)) return 'Google Maps'
+    if (host === 'maps.apple.com') return 'Apple Maps'
+  } catch { /* not a URL */ }
+  return ''
+}
+
 /**
  * Read a card copied from 2GIS or Yandex Maps. Returns { name, address, lat, lng, source, url };
  * lat/lng are null when the link has no point. The person can edit every field in the gym editor.

@@ -6047,4 +6047,7 @@ export default {
   "Great results. You are worthy of praise.": "很好的結果。你值得讚揚。",
   "Great results. You deserve praise.": "很好的結果。你值得讚揚。",
   "Locker number": "置物櫃號碼",
+  "Add a club": "添加俱樂部",
+  "Open in 2GIS": "在 2GIS 中開啟",
+  "Open in Yandex Maps": "在 Yandex 地圖中打開",
 }

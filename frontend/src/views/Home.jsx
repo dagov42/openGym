@@ -23,7 +23,7 @@ import { WeeklySetsHomeLine } from '../components/WeeklySets.jsx'
 import { RecapHomeCard } from '../components/Recap.jsx'
 import { scheduleModeOf } from '../lib/rotation.js'
 import { useConnectionTrouble } from '../components/SyncBanner.jsx'
-import { Button } from '../components/ui.jsx'
+import { Button, Row } from '../components/ui.jsx'
 import { loadGymConfig, saveGymConfig } from '../lib/gym-reminder.js'
 import { tappable } from '../lib/use-sheet-keyboard.js'
 import { glyphOf } from '../lib/glyphs.js'
@@ -308,10 +308,16 @@ export default function Home() {
       ) },
       // A locker number saved on a gym reminder club. Each club keeps its own card, named after
       // the club, and the locker is editable here as well as in Settings.
-      { id: 'lockers', node: !!gymConfig?.gyms?.length && <>
-        {gymConfig.gyms.map(g => <LockerCard key={g.id} gym={g} onSave={saveLocker}
-          onEdit={() => nav('/settings/gym-edit', { state: { id: g.id } })} />)}
-      </> },
+      { id: 'lockers', node: !!gymConfig && (gymConfig.gyms.length
+        ? gymConfig.gyms.map(g => <LockerCard key={g.id} gym={g} onSave={saveLocker}
+          onEdit={() => nav('/settings/gym-edit', { state: { id: g.id } })} />)
+        : <div className="card">
+          <CardHead icon="lock" tint="var(--orange)" title={t('Your gyms')} />
+          <div className="list">
+            <Row icon="plusCircle" iconTint="var(--acc)" title={t('Add a club')} accessory="chevron"
+              onClick={() => nav('/settings/gym-find')} />
+          </div>
+        </div>) },
       { id: 'bodyweight', node: on('body') && <div className="card">
       {/* one trailing action, Log; the goal lives with the goal line and the weigh-ins below (P2) */}
       <CardHead icon="scale" tint="var(--teal)" title={t('Body weight')} className="bw-head"

@@ -51,7 +51,7 @@ export const PAGES = {
   trainer: { title: 'Trainer & gym', icon: 'personCircle', tint: 'var(--acc)', parent: 'account', kw: 'trainer coach personal trainer gym studio share sharing consent privacy disconnect code qr' },
   // Phone app only (#614): the gyms that get you a nudge when you arrive, the search that adds one
   // and the editor for one of them.
-  gym: { title: 'Gym reminder', icon: 'mapPin', tint: 'var(--green)', parent: 'reminders', kw: 'gym location arrive geofence remind start' },
+  gym: { title: 'Your gyms', icon: 'mapPin', tint: 'var(--green)', kw: 'gym gyms club clubs location arrive geofence remind locker add edit' },
   'gym-find': { title: 'Add a gym', icon: 'plusCircle', tint: 'var(--green)', parent: 'gym' },
   'gym-edit': { title: 'Your gym', icon: 'mapPin', tint: 'var(--orange)', parent: 'gym' },
   // Seasonal themes (lib/seasonal.js), one section per theme.
@@ -65,7 +65,7 @@ export const PAGE_IDS = Object.keys(PAGES)
 // The root, top to bottom, under headings (#1105): what you change week to week, what you set once,
 // what openGym talks to, then housekeeping. Whether a row shows is onRoot's call.
 export const ROOT_GROUPS = [
-  { title: 'Training', ids: ['workout', 'alerts', 'plan', 'reminders'] },
+  { title: 'Training', ids: ['workout', 'alerts', 'plan', 'gym', 'reminders'] },
   { title: 'Set once', ids: ['units', 'equipment', 'look', 'modules'] },
   { title: 'Connections', ids: ['watches', 'zepp', 'integrations', 'coach'] },
   { ids: ['data', 'about'] },
@@ -236,7 +236,7 @@ export const SEARCH = [
   { page: 'reminders', title: 'Nudge tone', icon: 'chat', tint: 'var(--blue)', kw: 'nudge tone friendly guilt drill sergeant', opts: ['Friendly', 'Guilt trip', 'Drill sergeant'], when: c => remind(c) && c.reminderOn && c.nudge, via: PUSH },
   { page: 'reminders', title: 'Check-in reminders', icon: 'ruler', tint: 'var(--teal)', kw: 'measurement measure tape photo progress picture weigh weight blood pressure remind every two weeks', when: remind, via: PUSH },
   { page: 'reminders', title: 'Your year in openGym', icon: 'sparkles', tint: 'var(--acc)', mod: 'motivation', kw: 'year recap wrapped review december notification', when: remind, via: PUSH },
-  { page: 'reminders', title: 'Gym reminder', icon: 'mapPin', tint: 'var(--green)', kw: 'gym location arrive arrival geofence place map nearby', when: c => !!c.mobile && c.gymReminder !== false },
+  { page: 'gym', title: 'Gym reminder', icon: 'mapPin', tint: 'var(--green)', kw: 'gym gyms club clubs location arrive arrival geofence place map nearby locker add edit', when: c => !!c.mobile && c.gymReminder !== false },
   { page: 'reminders', title: 'Send test notification', icon: 'bell', tint: 'var(--red)', kw: 'test push notification try', when: c => !c.mobile && c.pushOK, via: PUSH },
   // Plan & schedule
   { page: 'plan', title: 'How you train', icon: 'repeat', tint: 'var(--orange)', kw: 'scheduling schedule rotation fixed week split loop round cycle', opts: ['Fixed Week', 'Rotation'] },

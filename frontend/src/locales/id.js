@@ -6019,4 +6019,7 @@ export default {
   "Great results. You are worthy of praise.": "Hasil yang bagus. Anda layak dipuji.",
   "Great results. You deserve praise.": "Hasil yang bagus. Anda pantas mendapatkan pujian.",
   "Locker number": "Nomor loker",
+  "Add a club": "Tambahkan klub",
+  "Open in 2GIS": "Buka di 2GIS",
+  "Open in Yandex Maps": "Buka di Peta Yandex",
 };

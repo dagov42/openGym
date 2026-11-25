@@ -6057,4 +6057,7 @@ export default {
   "Great results. You are worthy of praise.": "Remek eredmények. Ön dicséretre méltó.",
   "Great results. You deserve praise.": "Remek eredmények. Megérdemled a dicséretet.",
   "Locker number": "Lock száma",
+  "Add a club": "Klub hozzáadása",
+  "Open in 2GIS": "Megnyitás 2GIS-ben",
+  "Open in Yandex Maps": "Nyissa meg a Yandex Maps alkalmazásban",
 }

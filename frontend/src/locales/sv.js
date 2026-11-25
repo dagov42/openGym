@@ -6101,4 +6101,7 @@ export default {
   "Great results. You are worthy of praise.": "Bra resultat. Du är värd beröm.",
   "Great results. You deserve praise.": "Bra resultat. Du förtjänar beröm.",
   "Locker number": "Skåpsnummer",
+  "Add a club": "Lägg till en klubb",
+  "Open in 2GIS": "Öppna i 2GIS",
+  "Open in Yandex Maps": "Öppna i Yandex Maps",
 }

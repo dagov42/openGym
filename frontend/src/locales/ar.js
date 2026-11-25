@@ -6109,4 +6109,7 @@ export default {
   "Great results. You are worthy of praise.": "نتائج عظيمة. أنت تستحق الثناء.",
   "Great results. You deserve praise.": "نتائج عظيمة. أنت تستحق الثناء.",
   "Locker number": "رقم الخزانة",
+  "Add a club": "إضافة نادي",
+  "Open in 2GIS": "فتح في 2GIS",
+  "Open in Yandex Maps": "افتح في خرائط ياندكس",
 }

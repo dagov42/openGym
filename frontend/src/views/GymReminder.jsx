@@ -19,7 +19,7 @@ import { gymPasteSheet } from '../components/GymPasteSheet.jsx'
 import { useOfflineBuild } from '../lib/use-offline-build.js'
 import { confirmSheet } from '../sheets.jsx'
 import { platformNow } from '../lib/platform-now.js'
-import { mapSearchUrls } from '../lib/gym-card.js'
+import { mapSearchUrls, mapAppOf } from '../lib/gym-card.js'
 import { LOCKER_MAX } from '../lib/locker.js'
 import { findPlaces, placeOfPick, addressAt, searchSource, fmtDistance, googleMapsUrl, appleMapsUrl } from '../lib/gym-places.js'
 import {
@@ -369,6 +369,12 @@ export function GymEditPage() {
   const radii = PRESETS.includes(gym.radius) ? PRESETS : [...PRESETS, gym.radius].sort((a, b) => a - b)
   const sizeName = r => r === RADIUS_PRESETS.small ? t('Small') : r === RADIUS_PRESETS.medium ? t('Medium') : r === RADIUS_PRESETS.large ? t('Large') : t('Custom')
   const mapsLink = () => window.open(gym.mapUrl || (ios() ? appleMapsUrl(pos, gym.name) : googleMapsUrl(pos)), '_blank', 'noopener')
+  const mapApp = mapAppOf(gym.mapUrl)
+  const mapsLabel = mapApp === '2GIS' ? t('Open in 2GIS')
+    : mapApp === 'Yandex Maps' ? t('Open in Yandex Maps')
+      : mapApp === 'Google Maps' ? t('Open in Google Maps')
+        : mapApp === 'Apple Maps' || (!mapApp && ios()) ? t('Open in Apple Maps')
+          : t('Open in Google Maps')
 
   return <>
     <div className="gmap">
@@ -433,7 +439,7 @@ export function GymEditPage() {
       <Button variant="primary" onClick={save} disabled={!pos}>{t('Save')}</Button>
     </div>
     <Section>
-      <Row icon="map" iconTint="var(--blue)" title={ios() ? t('Open in Apple Maps') : t('Open in Google Maps')} accessory="chevron" onClick={mapsLink} />
+      <Row icon="map" iconTint="var(--blue)" title={mapsLabel} accessory="chevron" onClick={mapsLink} />
     </Section>
     {gym.id && <Section>
       <Row className="gym-remove" danger title={t('Remove')} onClick={remove} />

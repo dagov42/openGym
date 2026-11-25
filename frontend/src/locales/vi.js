@@ -6020,4 +6020,7 @@ export default {
   "Great results. You are worthy of praise.": "Kết quả tuyệt vời. Bạn thật đáng được khen ngợi.",
   "Great results. You deserve praise.": "Kết quả tuyệt vời. Bạn xứng đáng được khen ngợi.",
   "Locker number": "Số tủ đựng đồ",
+  "Add a club": "Thêm một câu lạc bộ",
+  "Open in 2GIS": "Mở trong 2GIS",
+  "Open in Yandex Maps": "Mở trong Bản đồ Yandex",
 };

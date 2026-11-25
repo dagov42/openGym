@@ -6050,4 +6050,7 @@ export default {
   "Great results. You are worthy of praise.": "Puikūs rezultatai. Esate vertas pagyrimo.",
   "Great results. You deserve praise.": "Puikūs rezultatai. Jūs nusipelnėte pagyrimo.",
   "Locker number": "Spintelės numeris",
+  "Add a club": "Pridėti klubą",
+  "Open in 2GIS": "Atidaryti 2GIS",
+  "Open in Yandex Maps": "Atidaryti „Yandex Maps“.",
 }

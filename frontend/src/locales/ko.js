@@ -6054,4 +6054,7 @@ export default {
   "Great results. You are worthy of praise.": "훌륭한 결과. 당신은 칭찬받을 가치가 있습니다.",
   "Great results. You deserve praise.": "훌륭한 결과. 당신은 칭찬받을 자격이 있습니다.",
   "Locker number": "사물함 번호",
+  "Add a club": "클럽 추가",
+  "Open in 2GIS": "2GIS에서 열기",
+  "Open in Yandex Maps": "Yandex 지도에서 열기",
 }

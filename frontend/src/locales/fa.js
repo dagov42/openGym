@@ -6020,4 +6020,7 @@ export default {
   "Great results. You are worthy of praise.": "نتایج عالی شما شایسته ستایش هستید.",
   "Great results. You deserve praise.": "نتایج عالی شما سزاوار ستایش هستید.",
   "Locker number": "شماره قفسه",
+  "Add a club": "یک باشگاه اضافه کنید",
+  "Open in 2GIS": "در 2GIS باز کنید",
+  "Open in Yandex Maps": "در نقشه های Yandex باز کنید",
 }

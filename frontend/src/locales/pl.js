@@ -6054,4 +6054,7 @@ export default {
   "Great results. You are worthy of praise.": "Świetne wyniki. Jesteś godny pochwały.",
   "Great results. You deserve praise.": "Świetne wyniki. Zasługujesz na pochwałę.",
   "Locker number": "Numer szafki",
+  "Add a club": "Dodaj klub",
+  "Open in 2GIS": "Otwórz w 2GIS",
+  "Open in Yandex Maps": "Otwórz w Yandex Maps",
 }

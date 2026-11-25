@@ -109,7 +109,6 @@ import { reportSheet } from '../components/ReportSheet.jsx'
 import { csvExportSheet } from '../components/CsvExportSheet.jsx'
 import { exportChoiceSheet } from '../components/ExportChoiceSheet.jsx'
 import GymReminderPage, { GymEditPage, GymFindPage } from './GymReminder.jsx'
-import { readGymConfig } from '../lib/gym-reminder.js'
 import { THEMES, shownThemes, inSeason, seasonChoice, activeSeason } from '../lib/seasonal.js'
 import { adventOf, adventOpenable } from '../lib/advent.js'
 import { openSeasonal } from '../components/Seasonal.jsx'
@@ -195,9 +194,6 @@ export default function Settings({ page = null, find = null, via = null, entryKe
   const wakeOK = wakeLockSupported()
   // Per device (lib/orientation.js), so local state and not S.
   const [orient, setOrient] = useState(readOrientation)
-  // The gym reminder's switch lives on its own page and on this device only (lib/gym-reminder.js).
-  const gymOn = MOBILE && readGymConfig().on
-
   // A planner's own queue (no rotationId, or one that doesn't match the saved rotation here) is
   // not this app's to switch off or overwrite. The Scheduling row goes read-only for it.
   const liveQ = queueOf(S)
@@ -934,9 +930,6 @@ export default function Settings({ page = null, find = null, via = null, entryKe
 
     reminders: () => <>
       <NotificationsCard S={S} update={update} toast={toast} />
-      {MOBILE && gymReminder && <Section footer={t('A nudge when you walk into your gym.')}>
-        <Row icon="mapPin" iconTint="var(--green)" title={t('Gym reminder')} value={gymOn ? t('On') : t('Off')} accessory="chevron" onClick={() => nav('/settings/gym')} />
-      </Section>}
        {/* Settings → Reminders → Sounds (components/ReminderSounds.jsx): the Android app only. */}
       {MOBILE && android && <ReminderSounds gym={!!gymReminder} />}
     </>,

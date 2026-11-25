@@ -6133,4 +6133,7 @@ export default {
   "Great results. You are worthy of praise.": "দারুণ ফলাফল। আপনি প্রশংসার যোগ্য।",
   "Great results. You deserve praise.": "দারুণ ফলাফল। আপনি প্রশংসা প্রাপ্য.",
   "Locker number": "লকার নম্বর",
+  "Add a club": "একটি ক্লাব যোগ করুন",
+  "Open in 2GIS": "2GIS-এ খুলুন",
+  "Open in Yandex Maps": "ইয়ানডেক্স ম্যাপে খুলুন",
 }

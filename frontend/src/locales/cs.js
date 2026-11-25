@@ -6020,4 +6020,7 @@ export default {
   "Great results. You are worthy of praise.": "Skvělé výsledky. Jste hoden chvály.",
   "Great results. You deserve praise.": "Skvělé výsledky. Zasloužíte si pochvalu.",
   "Locker number": "Číslo skříňky",
+  "Add a club": "Přidat klub",
+  "Open in 2GIS": "Otevřít v 2GIS",
+  "Open in Yandex Maps": "Otevřete v Mapách Yandex",
 }

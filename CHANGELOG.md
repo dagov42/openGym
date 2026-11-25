@@ -13,6 +13,10 @@ tag. Write it for the people using the app: what changed for them, short, no em 
   club, titled with the club's own name. The locker row says just “Locker number”, carries one
   lock icon, and is editable directly on Home; that saves to the phone's gym config. The Check-in
   card keeps its own locker field as before. A pencil opens the club editor to correct its name.
+- Home shows an “Add a club” card while no club is saved, and Settings now has “Your gyms” in the
+  main Training list rather than hiding the club list inside Reminders.
+- A saved 2GIS or Yandex card labels the editor's map button with that app (“Open in 2GIS”,
+  “Open in Yandex Maps”); Google Maps and Apple Maps remain the fallback.
 - A 2GIS or Yandex card with a bare link leaves the gym name empty instead of borrowing another
   club's name; the editor opens fresh for each card, so a previous club's name cannot stick.
 - Gym reminder: 2GIS and Yandex Maps buttons open the installed map app or its website at the

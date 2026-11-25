@@ -6051,4 +6051,7 @@ export default {
   "Great results. You are worthy of praise.": "Чудові результати. Ти гідний похвали.",
   "Great results. You deserve praise.": "Чудові результати. Ти гідна похвали.",
   "Locker number": "Номер шафчика",
+  "Add a club": "Додати клуб",
+  "Open in 2GIS": "Відкрити в 2ГІС",
+  "Open in Yandex Maps": "Відкрити в Яндекс.Картах",
 }

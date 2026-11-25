@@ -4400,4 +4400,7 @@ export default { ...pt, ...PT_BR_OVERRIDES,
   "Great results. You are worthy of praise.": "Ótimos resultados. Você é digno de elogios.",
   "Great results. You deserve praise.": "Ótimos resultados. Você merece elogios.",
   "Locker number": "Número do armário",
+  "Add a club": "Adicionar um clube",
+  "Open in 2GIS": "Abrir em 2GIS",
+  "Open in Yandex Maps": "Abrir no Yandex Maps",
 }

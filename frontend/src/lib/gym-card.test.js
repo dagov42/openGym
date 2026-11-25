@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { mapSearchUrls, parseGymCard } from './gym-card.js'
+import { mapSearchUrls, parseGymCard, mapAppOf } from './gym-card.js'
 
 describe('map search links', () => {
   it('opens the public search, with the point that keeps it near the phone', () => {
@@ -10,6 +10,15 @@ describe('map search links', () => {
 
   it('just opens the maps when there is no query yet', () => {
     expect(mapSearchUrls()).toEqual({ dgis: 'https://2gis.ru/', yandex: 'https://yandex.ru/maps/' })
+  })
+
+  it('names the app a saved card will open', () => {
+    expect(mapAppOf('https://2gis.ru/moscow/firm/1')).toBe('2GIS')
+    expect(mapAppOf('https://yandex.ru/maps/org/x/1')).toBe('Yandex Maps')
+    expect(mapAppOf('https://www.google.com/maps/place/x')).toBe('Google Maps')
+    expect(mapAppOf('https://maps.apple.com/?ll=1,2')).toBe('Apple Maps')
+    expect(mapAppOf('https://example.com/x')).toBe('')
+    expect(mapAppOf('')).toBe('')
   })
 })
 

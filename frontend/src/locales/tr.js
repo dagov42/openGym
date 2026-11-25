@@ -6054,4 +6054,7 @@ export default {
   "Great results. You are worthy of praise.": "Harika sonuçlar. Sen övgüye layıksın.",
   "Great results. You deserve praise.": "Harika sonuçlar. Övgüyü hak ediyorsun.",
   "Locker number": "Soyunma numarası",
+  "Add a club": "Kulüp ekle",
+  "Open in 2GIS": "2GIS'te aç",
+  "Open in Yandex Maps": "Yandex Haritalar'da aç",
 }
