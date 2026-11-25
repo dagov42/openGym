@@ -6064,4 +6064,5 @@ export default {
   "worthy (unspecified)": "สมควร (ไม่ระบุ)",
   "Great results. You are worthy of praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณสมควรได้รับการยกย่อง",
   "Great results. You deserve praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณสมควรได้รับคำชม",
+  "Locker number": "หมายเลขล็อกเกอร์",
 }

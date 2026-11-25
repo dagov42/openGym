@@ -6053,4 +6053,5 @@ export default {
   "worthy (unspecified)": "योग्य (अनिर्दिष्ट)",
   "Great results. You are worthy of praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के पात्र हैं.",
   "Great results. You deserve praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के पात्र हैं.",
+  "Locker number": "लॉकर नंबर",
 }

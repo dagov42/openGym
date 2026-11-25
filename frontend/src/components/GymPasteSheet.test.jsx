@@ -57,6 +57,14 @@ describe('GymPaste', () => {
     expect(host.textContent).toContain('no coordinates')
   })
 
+  it('a bare map link continues with no name, never another club name', () => {
+    const onUse = vi.fn()
+    mount({ close: vi.fn(), onUse, near: { lat: 55.75, lng: 37.62 } })
+    type('https://2gis.ru/moscow/geo/70000001044039175')
+    act(() => button('Continue').click())
+    expect(onUse).toHaveBeenCalledWith(expect.objectContaining({ name: '', lat: 55.75, lng: 37.62 }))
+  })
+
   it('reads the clipboard on request', async () => {
     const onUse = vi.fn()
     Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { readText: async () => 'DDX Fitness https://2gis.ru/moscow/geo/70000001000000000' } })

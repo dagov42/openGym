@@ -6050,4 +6050,5 @@ export default {
   "worthy (unspecified)": "достоин(на)",
   "Great results. You are worthy of praise.": "Отличные результаты. Ты достоен похвалы.",
   "Great results. You deserve praise.": "Отличные результаты. Ты достойна похвалы.",
+  "Locker number": "Номер шкафчика",
 }

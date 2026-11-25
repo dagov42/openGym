@@ -6050,4 +6050,5 @@ export default {
   "worthy (unspecified)": "гідний(на)",
   "Great results. You are worthy of praise.": "Чудові результати. Ти гідний похвали.",
   "Great results. You deserve praise.": "Чудові результати. Ти гідна похвали.",
+  "Locker number": "Номер шафчика",
 }

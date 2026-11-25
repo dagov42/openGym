@@ -6132,4 +6132,5 @@ export default {
   "worthy (unspecified)": "যোগ্য (অনির্দিষ্ট)",
   "Great results. You are worthy of praise.": "দারুণ ফলাফল। আপনি প্রশংসার যোগ্য।",
   "Great results. You deserve praise.": "দারুণ ফলাফল। আপনি প্রশংসা প্রাপ্য.",
+  "Locker number": "লকার নম্বর",
 }

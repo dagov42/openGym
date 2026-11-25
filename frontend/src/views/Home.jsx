@@ -43,7 +43,7 @@ import { Arranged, CustomizeLink } from '../components/PageLayout.jsx'
 
 // A club's locker number, editable where the person sees it: Home. The name in the card head is
 // the club's own, and the field saves to the native gym config when it loses focus or Enter.
-function LockerCard({ gym, onSave }) {
+function LockerCard({ gym, onSave, onEdit }) {
   const [value, setValue] = useState(gym.locker || '')
   useEffect(() => setValue(gym.locker || ''), [gym.id, gym.locker])
   const commit = () => {
@@ -51,13 +51,13 @@ function LockerCard({ gym, onSave }) {
     if (next !== (gym.locker || '')) onSave(gym, next)
   }
   return <div className="card">
-    <CardHead icon="lock" tint="var(--orange)" title={gym.name || t('My gym')} />
+    <CardHead icon="lock" tint="var(--orange)" title={gym.name || t('My gym')}
+      action={<button type="button" className="iconbtn" aria-label={t('Rename “{0}”', gym.name || t('My gym'))} onClick={onEdit}><Icon name="pencil" /></button>} />
     <div className="list">
       <label className="lrow gym-in-row">
-        <span className="lrow-i" style={{ '--tint': 'var(--orange)' }}><Icon name="lock" /></span>
-        <span className="lrow-m"><span className="lrow-t">{t('Locker number (optional)')}</span></span>
+        <span className="lrow-m"><span className="lrow-t">{t('Locker number')}</span></span>
         <input className="lrow-in" value={value} maxLength={LOCKER_MAX} placeholder={t('e.g. B-42')}
-          aria-label={t('Locker number (optional)')} enterKeyHint="done" autoComplete="off"
+          aria-label={t('Locker number')} enterKeyHint="done" autoComplete="off"
           onChange={e => setValue(e.target.value)} onBlur={commit}
           onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }} />
       </label>
@@ -309,7 +309,8 @@ export default function Home() {
       // A locker number saved on a gym reminder club. Each club keeps its own card, named after
       // the club, and the locker is editable here as well as in Settings.
       { id: 'lockers', node: !!gymConfig?.gyms?.length && <>
-        {gymConfig.gyms.map(g => <LockerCard key={g.id} gym={g} onSave={saveLocker} />)}
+        {gymConfig.gyms.map(g => <LockerCard key={g.id} gym={g} onSave={saveLocker}
+          onEdit={() => nav('/settings/gym-edit', { state: { id: g.id } })} />)}
       </> },
       { id: 'bodyweight', node: on('body') && <div className="card">
       {/* one trailing action, Log; the goal lives with the goal line and the weigh-ins below (P2) */}

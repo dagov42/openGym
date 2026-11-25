@@ -287,9 +287,9 @@ function CardSheet({ close, card }) {
     <label className="sect-t">{t('Label')}</label>
     <TextField value={label} onChange={e => setLabel(e.target.value)} placeholder={t('e.g. FitZone downtown')} style={{ marginBottom: 16 }} />
 
-    <label className="sect-t">{t('Locker number (optional)')}</label>
+    <label className="sect-t">{t('Locker number')}</label>
     <TextField value={locker} onChange={e => setLocker(e.target.value)} maxLength={LOCKER_MAX}
-      placeholder={t('e.g. B-42')} aria-label={t('Locker number (optional)')} style={{ marginBottom: 16 }} />
+      placeholder={t('e.g. B-42')} aria-label={t('Locker number')} style={{ marginBottom: 16 }} />
 
     {value.trim() && <div className="ci-qr-plate" style={{ alignSelf: 'center', marginBottom: 16 }}><QrCanvas value={value.trim()} fmt={fmt} size={150} /></div>}
 

@@ -6073,4 +6073,5 @@ export default {
   "worthy (unspecified)": "würdig (nicht näher bezeichnet)",
   "Great results. You are worthy of praise.": "Tolle Ergebnisse. Du bist lobenswert.",
   "Great results. You deserve praise.": "Tolle Ergebnisse. Du verdienst Lob.",
+  "Locker number": "Schließfachnummer",
 }

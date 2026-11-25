@@ -5993,4 +5993,5 @@ export default {
   "worthy (unspecified)": "værdig (uspecificeret)",
   "Great results. You are worthy of praise.": "Fantastiske resultater. Du er ros værd.",
   "Great results. You deserve praise.": "Fantastiske resultater. Du fortjener ros.",
+  "Locker number": "Skabsnummer",
 }

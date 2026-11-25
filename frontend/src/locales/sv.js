@@ -6100,4 +6100,5 @@ export default {
   "worthy (unspecified)": "värdig (ospecificerad)",
   "Great results. You are worthy of praise.": "Bra resultat. Du är värd beröm.",
   "Great results. You deserve praise.": "Bra resultat. Du förtjänar beröm.",
+  "Locker number": "Skåpsnummer",
 }

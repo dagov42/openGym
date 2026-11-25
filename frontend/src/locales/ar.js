@@ -6108,4 +6108,5 @@ export default {
   "worthy (unspecified)": "يستحق (غير محدد)",
   "Great results. You are worthy of praise.": "نتائج عظيمة. أنت تستحق الثناء.",
   "Great results. You deserve praise.": "نتائج عظيمة. أنت تستحق الثناء.",
+  "Locker number": "رقم الخزانة",
 }

@@ -6053,4 +6053,5 @@ export default {
   "worthy (unspecified)": "layık (belirtilmemiş)",
   "Great results. You are worthy of praise.": "Harika sonuçlar. Sen övgüye layıksın.",
   "Great results. You deserve praise.": "Harika sonuçlar. Övgüyü hak ediyorsun.",
+  "Locker number": "Soyunma numarası",
 }

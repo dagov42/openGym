@@ -6056,4 +6056,5 @@ export default {
   "worthy (unspecified)": "méltó (meghatározatlan)",
   "Great results. You are worthy of praise.": "Remek eredmények. Ön dicséretre méltó.",
   "Great results. You deserve praise.": "Remek eredmények. Megérdemled a dicséretet.",
+  "Locker number": "Lock száma",
 }

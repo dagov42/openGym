@@ -6049,4 +6049,5 @@ export default {
   "worthy (unspecified)": "vertas (nenurodyta)",
   "Great results. You are worthy of praise.": "Puikūs rezultatai. Esate vertas pagyrimo.",
   "Great results. You deserve praise.": "Puikūs rezultatai. Jūs nusipelnėte pagyrimo.",
+  "Locker number": "Spintelės numeris",
 }

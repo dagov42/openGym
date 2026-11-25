@@ -600,7 +600,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
     live: () => <LiveWidgetSettings />,
     'live-custom': () => <LiveWidgetCustomise />,
     'gym-find': () => <GymFindPage />,
-    'gym-edit': () => <GymEditPage />,
+    'gym-edit': () => <GymEditPage key={entryKey || ''} />,
     workout: () => <>
       {/* Warm-ups that build themselves from the work weight (#156, lib/warmup-ramp.js). Off by
           default, so nothing changes until someone asks; an exercise can still pick Auto, its own

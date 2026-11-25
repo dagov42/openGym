@@ -10,8 +10,11 @@ tag. Write it for the people using the app: what changed for them, short, no em 
   “Ты достойна похвалы” for a female one, using Settings → About you. The old “Золотой месяц.
   Можно и поклониться” line is gone from the Home card and the widget.
 - Gym reminder: a club can keep an optional locker number, and Home shows one card per saved
-  club, titled with the club's own name. The locker number is editable directly on Home and is
-  saved to the phone's gym config; the Check-in card keeps its own locker field as before.
+  club, titled with the club's own name. The locker row says just “Locker number”, carries one
+  lock icon, and is editable directly on Home; that saves to the phone's gym config. The Check-in
+  card keeps its own locker field as before. A pencil opens the club editor to correct its name.
+- A 2GIS or Yandex card with a bare link leaves the gym name empty instead of borrowing another
+  club's name; the editor opens fresh for each card, so a previous club's name cannot stick.
 - Gym reminder: 2GIS and Yandex Maps buttons open the installed map app or its website at the
   current search. After copying a gym card there, Paste a gym card reads the name, address and
   point from the clipboard and opens the gym editor. No map API key is used. The editor now has an

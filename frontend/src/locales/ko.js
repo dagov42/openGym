@@ -6053,4 +6053,5 @@ export default {
   "worthy (unspecified)": "가치 있는 (불특정)",
   "Great results. You are worthy of praise.": "훌륭한 결과. 당신은 칭찬받을 가치가 있습니다.",
   "Great results. You deserve praise.": "훌륭한 결과. 당신은 칭찬받을 자격이 있습니다.",
+  "Locker number": "사물함 번호",
 }

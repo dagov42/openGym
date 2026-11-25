@@ -6019,4 +6019,5 @@ export default {
   "worthy (unspecified)": "xứng đáng (không xác định)",
   "Great results. You are worthy of praise.": "Kết quả tuyệt vời. Bạn thật đáng được khen ngợi.",
   "Great results. You deserve praise.": "Kết quả tuyệt vời. Bạn xứng đáng được khen ngợi.",
+  "Locker number": "Số tủ đựng đồ",
 };

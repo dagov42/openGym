@@ -6019,4 +6019,5 @@ export default {
   "worthy (unspecified)": "شایسته (نامشخص)",
   "Great results. You are worthy of praise.": "نتایج عالی شما شایسته ستایش هستید.",
   "Great results. You deserve praise.": "نتایج عالی شما سزاوار ستایش هستید.",
+  "Locker number": "شماره قفسه",
 }

@@ -397,8 +397,8 @@ export function GymEditPage() {
       </label>
       <label className="lrow gym-in-row">
         <span className="lrow-i" style={{ '--tint': 'var(--orange)' }}><Icon name="lock" /></span>
-        <span className="lrow-m"><span className="lrow-t">{t('Locker number (optional)')}</span></span>
-        <input className="lrow-in" value={gym.locker || ''} maxLength={LOCKER_MAX} placeholder={t('e.g. B-42')} aria-label={t('Locker number (optional)')}
+        <span className="lrow-m"><span className="lrow-t">{t('Locker number')}</span></span>
+        <input className="lrow-in" value={gym.locker || ''} maxLength={LOCKER_MAX} placeholder={t('e.g. B-42')} aria-label={t('Locker number')}
           enterKeyHint="done" autoComplete="off" onChange={e => set({ locker: e.target.value })} />
       </label>
       <Row icon="bell" iconTint="var(--red)" title={t('Remind me here')}>

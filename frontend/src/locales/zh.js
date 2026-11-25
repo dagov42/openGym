@@ -6053,4 +6053,5 @@ export default {
   "worthy (unspecified)": "值得（未指定）",
   "Great results. You are worthy of praise.": "很好的结果。你值得赞扬。",
   "Great results. You deserve praise.": "很好的结果。你值得赞扬。",
+  "Locker number": "储物柜号码",
 }

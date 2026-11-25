@@ -6053,4 +6053,5 @@ export default {
   "worthy (unspecified)": "godny (nieokreślony)",
   "Great results. You are worthy of praise.": "Świetne wyniki. Jesteś godny pochwały.",
   "Great results. You deserve praise.": "Świetne wyniki. Zasługujesz na pochwałę.",
+  "Locker number": "Numer szafki",
 }

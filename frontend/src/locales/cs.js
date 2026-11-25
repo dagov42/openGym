@@ -6019,4 +6019,5 @@ export default {
   "worthy (unspecified)": "hodný (nespecifikováno)",
   "Great results. You are worthy of praise.": "Skvělé výsledky. Jste hoden chvály.",
   "Great results. You deserve praise.": "Skvělé výsledky. Zasloužíte si pochvalu.",
+  "Locker number": "Číslo skříňky",
 }

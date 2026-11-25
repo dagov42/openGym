@@ -6063,4 +6063,5 @@ export default {
   "worthy (unspecified)": "degno (non specificato)",
   "Great results. You are worthy of praise.": "Grandi risultati. Sei degno di lode.",
   "Great results. You deserve praise.": "Grandi risultati. Meriti un elogio.",
+  "Locker number": "Numero dell'armadietto",
 }

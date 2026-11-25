@@ -6053,4 +6053,5 @@ export default {
   "worthy (unspecified)": "digne (non spécifié)",
   "Great results. You are worthy of praise.": "Excellents résultats. Vous êtes digne d'éloges.",
   "Great results. You deserve praise.": "Excellents résultats. Vous méritez des éloges.",
+  "Locker number": "Numéro de casier",
 }

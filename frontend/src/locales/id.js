@@ -6018,4 +6018,5 @@ export default {
   "worthy (unspecified)": "layak (tidak ditentukan)",
   "Great results. You are worthy of praise.": "Hasil yang bagus. Anda layak dipuji.",
   "Great results. You deserve praise.": "Hasil yang bagus. Anda pantas mendapatkan pujian.",
+  "Locker number": "Nomor loker",
 };
