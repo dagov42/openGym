@@ -1,14 +1,15 @@
 # Feature specs, 2026-11-16
 
 Status: index for the fork's planned work ([`FORK_ROADMAP.md`](../../../FORK_ROADMAP.md) → "План фич"). The
-fork-operations spec (test hygiene, `fork-status`, sync checklist) landed on 2026-11-17; the other specs are
-not implemented. Eight specs are agreed and ready for an implementation plan; the rest are candidates or tasks
-with a proposed design and explicit open questions. A candidate is not a promise: read its "Open questions"
-before starting, and get the same sign-off the agreed ones got.
+fork-operations spec (test hygiene, `fork-status`, sync checklist) landed on 2026-11-17; the other
+implemented specs are marked below. The four challenge specs from 2026-11-25 are agreed and ready
+for an implementation plan. A candidate is not a promise: read its "Open questions" before
+starting, and get the same sign-off the agreed ones got.
 
-Written for the fork (`dagov42/openGym`) but shaped to be upstreamable: pure logic in `frontend/src/lib`
-with tests beside it, no new dependency, no telemetry, no server call unless the feature is about the
-server, strings through `t()`/`tn()`, and new profile fields only where the value cannot be derived.
+Written for the fork (`dagov42/openGym`) but shaped to be upstreamable: pure logic in
+`frontend/src/lib` with tests beside it, no new dependency, no telemetry, no server call unless the
+feature is about the server, strings through `t()`/`tn()`, and new profile fields only where the
+value cannot be derived.
 
 ## The set
 
@@ -45,6 +46,10 @@ improvements done while the larger one runs).
 | [`2026-11-18-finish-exercise-design.md`](2026-11-18-finish-exercise-design.md) | Collapse a finished exercise so the card swipe can no longer reach its sets | **Done 2026-11-18** | 16 |
 | [`2026-11-18-replace-in-routine-design.md`](2026-11-18-replace-in-routine-design.md) | Replace the routine's exercise, not just today's, from the swap sheet | **Done 2026-11-18** | 17 |
 | [`2026-11-18-superset-up-to-four-design.md`](2026-11-18-superset-up-to-four-design.md) | Supersets of up to four exercises, built from the group itself | **Done 2026-11-19** | 18 |
+| [`2026-11-25-challenge-tier-medals-design.md`](2026-11-25-challenge-tier-medals-design.md) | One monthly medal: 1 challenge bronze, 2 silver, 3 gold | **Agreed** | 19a |
+| [`2026-11-25-challenge-quests-design.md`](2026-11-25-challenge-quests-design.md) | Five new quests from existing facts, refreshed copy, monthly themes | **Agreed** | 19b |
+| [`2026-11-25-challenge-bingo-design.md`](2026-11-25-challenge-bingo-design.md) | A bonus 3×3 bingo card after two completed quests | **Agreed** | 19c |
+| [`2026-11-25-challenge-return-design.md`](2026-11-25-challenge-return-design.md) | A softer three-goal month after a 14-day break | **Agreed** | 19d |
 | [`2026-11-19-upstream-p1-specs.md`](2026-11-19-upstream-p1-specs.md) | Upstream P1 batch: fifteen reviewed ports with acceptance tests | **Planned** | 19 |
 
 ## Decisions already made (do not re-open without a reason)

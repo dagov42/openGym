@@ -8,10 +8,9 @@ own order and version policy.
 - Fork versioning: [FORK_VERSIONING.md](FORK_VERSIONING.md)
 - Specs index: `docs/superpowers/specs/2026-11-16-feature-plan-index.md`
 
-Current release: **v1.4.8.1**, tagged `v1.4.8.1` (no `fork-` prefix) and published as a GitHub
-release. Versions are aligned everywhere; `tests-ok` and Release check are green. The APK/AAB
-assets are not uploaded yet, so the `Release files` check is red; build them on the release
-machine and run `scripts/android/upload-release.sh v1.4.8.1 <out>`.
+Current release: **v1.4.11**, tagged `v1.4.11` and published as a GitHub release. Versions are
+aligned everywhere; Tests and Release check are green, and the Standard APK, checksums and GPG
+signature are attached. The unreleased challenge work below is next, not part of 1.4.11.
 
 ## План фич
 
@@ -66,6 +65,30 @@ machine and run `scripts/android/upload-release.sh v1.4.8.1 <out>`.
 18. **Суперсеты до 4 упражнений** — рост группы из неё самой (⋯ меню и кнопки по настройке), предел
     4 с тостом, «Unpair» распускает группу, «Remove from superset» вынимает одного. Реализовано
     2026-11-19; спека: `docs/superpowers/specs/2026-11-18-superset-up-to-four-design.md`.
+19. **Челленджи: месячные медали и новые задания** — четыре этапа: медали месяца, тематические
+    задания, бонусное бинго и режим возвращения. Спеки:
+    `2026-11-25-challenge-tier-medals-design.md`,
+    `2026-11-25-challenge-quests-design.md`,
+    `2026-11-25-challenge-bingo-design.md`,
+    `2026-11-25-challenge-return-design.md`.
+
+### Готово к реализации
+
+- [ ] **Челленджи: месячные медали и новые задания** — полный пакет из четырёх независимых
+      этапов, чтобы выпускать по одному PR:
+  - [ ] **Этап 0. Медали месяца.** 1 выполненный челлендж = бронза, 2 = серебро, 3 = золото.
+        Одна медаль на месяц на полке, без изменения `S.challenges`. Спека:
+        `docs/superpowers/specs/2026-11-25-challenge-tier-medals-design.md`.
+  - [ ] **Этап 1. Тематические задания.** Пять новых челленджей из уже считаемых фактов
+        (утро, выходные, разнообразие, рабочие подходы, кардио-сессии), новые формулировки и
+        детерминированная тема месяца. Спека:
+        `docs/superpowers/specs/2026-11-25-challenge-quests-design.md`.
+  - [ ] **Этап 2. Бонусное бинго.** Сетка 3×3 после двух выполненных челленджей, искры за линии,
+        без влияния на медаль. Спека:
+        `docs/superpowers/specs/2026-11-25-challenge-bingo-design.md`.
+  - [ ] **Этап 3. Возвращение.** После 14+ дней без тренировок первый месяц снова начинается с
+        трёх мягких целей, медаль остаётся бронза/серебро/золото. Спека:
+        `docs/superpowers/specs/2026-11-25-challenge-return-design.md`.
 
 ### Согласовано, следующая реализация
 
