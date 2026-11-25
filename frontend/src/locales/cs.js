@@ -6023,4 +6023,5 @@ export default {
   "Add a club": "Přidat klub",
   "Open in 2GIS": "Otevřít v 2GIS",
   "Open in Yandex Maps": "Otevřete v Mapách Yandex",
+  "Find the address on the map": "Najděte adresu na mapě",
 }

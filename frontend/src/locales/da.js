@@ -5997,4 +5997,5 @@ export default {
   "Add a club": "Tilføj en klub",
   "Open in 2GIS": "Åben i 2GIS",
   "Open in Yandex Maps": "Åbn i Yandex Maps",
+  "Find the address on the map": "Find adressen på kortet",
 }

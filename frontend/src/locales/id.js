@@ -6022,4 +6022,5 @@ export default {
   "Add a club": "Tambahkan klub",
   "Open in 2GIS": "Buka di 2GIS",
   "Open in Yandex Maps": "Buka di Peta Yandex",
+  "Find the address on the map": "Temukan alamatnya di peta",
 };

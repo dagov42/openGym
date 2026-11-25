@@ -4403,4 +4403,5 @@ export default { ...pt, ...PT_BR_OVERRIDES,
   "Add a club": "Adicionar um clube",
   "Open in 2GIS": "Abrir em 2GIS",
   "Open in Yandex Maps": "Abrir no Yandex Maps",
+  "Find the address on the map": "Encontre o endereço no mapa",
 }

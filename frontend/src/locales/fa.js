@@ -6023,4 +6023,5 @@ export default {
   "Add a club": "یک باشگاه اضافه کنید",
   "Open in 2GIS": "در 2GIS باز کنید",
   "Open in Yandex Maps": "در نقشه های Yandex باز کنید",
+  "Find the address on the map": "آدرس را روی نقشه پیدا کنید",
 }

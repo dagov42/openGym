@@ -6104,4 +6104,5 @@ export default {
   "Add a club": "Lägg till en klubb",
   "Open in 2GIS": "Öppna i 2GIS",
   "Open in Yandex Maps": "Öppna i Yandex Maps",
+  "Find the address on the map": "Hitta adressen på kartan",
 }

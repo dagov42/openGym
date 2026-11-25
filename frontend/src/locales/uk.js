@@ -6054,4 +6054,5 @@ export default {
   "Add a club": "Додати клуб",
   "Open in 2GIS": "Відкрити в 2ГІС",
   "Open in Yandex Maps": "Відкрити в Яндекс.Картах",
+  "Find the address on the map": "Знайти адресу на карті",
 }

@@ -6112,4 +6112,5 @@ export default {
   "Add a club": "إضافة نادي",
   "Open in 2GIS": "فتح في 2GIS",
   "Open in Yandex Maps": "افتح في خرائط ياندكس",
+  "Find the address on the map": "ابحث عن العنوان على الخريطة",
 }

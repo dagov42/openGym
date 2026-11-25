@@ -251,6 +251,24 @@ export function GymFindPage({ find = findPlaces }) {
 
   const mapLinks = mapSearchUrls({ q: query, near })
   const openMap = which => window.open(mapLinks[which], '_blank', 'noopener')
+  const locatePoint = async () => {
+    if (!(await mayLocate())) { toast(noLocation()); return null }
+    const h = await currentPosition()
+    if (!h) { toast(t('Couldn’t find where you are. Try the search instead.')); return null }
+    return { lat: h.lat, lng: h.lng }
+  }
+  // The Yandex share text has the address but often no point. Ask OSM where that address is,
+  // biased to the phone when it already has a position, before falling back to the current place.
+  const geocodeAddress = async address => {
+    if (!address) return null
+    try {
+      const hits = await find(address, { near })
+      const hit = (hits || []).find(h => Number.isFinite(h.lat) && Number.isFinite(h.lng))
+      if (!hit) return null
+      const p = await placeOfPick(hit)
+      return p && Number.isFinite(p.lat) && Number.isFinite(p.lng) ? { lat: p.lat, lng: p.lng } : null
+    } catch { return null }
+  }
   const pasteCard = async () => {
     // A 2GIS card often carries only its name and link. Start from where the phone is, then let
     // the person drag the pin on the gym editor; a Yandex card can also supply its own point.
@@ -258,6 +276,8 @@ export function GymFindPage({ find = findPlaces }) {
     if (!at) { try { at = await currentPosition() } catch { at = null } }
     gymPasteSheet(openSheet, {
       near: at,
+      onLocate: locatePoint,
+      onAddress: geocodeAddress,
       onUse: card => open({ name: card.name || '', address: card.address || '', mapUrl: card.url || '', lat: card.lat, lng: card.lng }),
     })
   }

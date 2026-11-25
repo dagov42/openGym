@@ -6053,4 +6053,5 @@ export default {
   "Add a club": "Pridėti klubą",
   "Open in 2GIS": "Atidaryti 2GIS",
   "Open in Yandex Maps": "Atidaryti „Yandex Maps“.",
+  "Find the address on the map": "Raskite adresą žemėlapyje",
 }

@@ -6023,4 +6023,5 @@ export default {
   "Add a club": "Thêm một câu lạc bộ",
   "Open in 2GIS": "Mở trong 2GIS",
   "Open in Yandex Maps": "Mở trong Bản đồ Yandex",
+  "Find the address on the map": "Tìm địa chỉ trên bản đồ",
 };

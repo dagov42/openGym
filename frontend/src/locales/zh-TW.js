@@ -6050,4 +6050,5 @@ export default {
   "Add a club": "添加俱樂部",
   "Open in 2GIS": "在 2GIS 中開啟",
   "Open in Yandex Maps": "在 Yandex 地圖中打開",
+  "Find the address on the map": "在地圖上找到地址",
 }

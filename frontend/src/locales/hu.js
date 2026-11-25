@@ -6060,4 +6060,5 @@ export default {
   "Add a club": "Klub hozzáadása",
   "Open in 2GIS": "Megnyitás 2GIS-ben",
   "Open in Yandex Maps": "Nyissa meg a Yandex Maps alkalmazásban",
+  "Find the address on the map": "Keresse meg a címet a térképen",
 }

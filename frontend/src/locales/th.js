@@ -6068,4 +6068,5 @@ export default {
   "Add a club": "เพิ่มสโมสร",
   "Open in 2GIS": "เปิดใน 2GIS",
   "Open in Yandex Maps": "เปิดในแผนที่ Yandex",
+  "Find the address on the map": "ค้นหาที่อยู่บนแผนที่",
 }

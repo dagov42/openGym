@@ -6057,4 +6057,5 @@ export default {
   "Add a club": "클럽 추가",
   "Open in 2GIS": "2GIS에서 열기",
   "Open in Yandex Maps": "Yandex 지도에서 열기",
+  "Find the address on the map": "지도에서 주소를 찾아보세요",
 }

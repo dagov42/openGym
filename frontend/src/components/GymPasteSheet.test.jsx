@@ -48,13 +48,35 @@ describe('GymPaste', () => {
     expect(onUse).toHaveBeenCalledWith(expect.objectContaining({ name: 'DDX Fitness', lat: 55.75, lng: 37.62 }))
   })
 
-  it('refuses a card with no point and no current area', () => {
+  it('refuses a card with no point and no current area, with one message', async () => {
     const onUse = vi.fn()
     mount({ close: vi.fn(), onUse, near: null })
     type('DDX Fitness https://2gis.ru/moscow/geo/70000001000000000')
-    act(() => button('Continue').click())
+    await act(async () => { button('Continue').click() })
     expect(onUse).not.toHaveBeenCalled()
-    expect(host.textContent).toContain('no coordinates')
+    expect(host.textContent.match(/no coordinates/g)).toHaveLength(1)
+  })
+
+  it('uses the address for a Yandex card before asking for the current position', async () => {
+    const onUse = vi.fn()
+    const onAddress = vi.fn(async () => ({ lat: 55.91, lng: 37.73 }))
+    const onLocate = vi.fn(async () => ({ lat: 1, lng: 2 }))
+    mount({ close: vi.fn(), onUse, near: null, onAddress, onLocate })
+    type('Ohana\nОлимпийский просп., 29А\nhttps://yandex.ru/maps/org/ohana/183020741516?si=qphejhmeke8ka9bgdzg884n208')
+    await act(async () => { button('Continue').click() })
+    expect(onAddress).toHaveBeenCalledWith('Олимпийский просп., 29А')
+    expect(onLocate).not.toHaveBeenCalled()
+    expect(onUse).toHaveBeenCalledWith(expect.objectContaining({ name: 'Ohana', address: 'Олимпийский просп., 29А', lat: 55.91, lng: 37.73 }))
+  })
+
+  it('uses the phone position for a Yandex card that only has si', async () => {
+    const onUse = vi.fn()
+    const onLocate = vi.fn(async () => ({ lat: 55.75, lng: 37.62 }))
+    mount({ close: vi.fn(), onUse, near: null, onLocate })
+    type('Ohana\nОлимпийский просп., 29А\nhttps://yandex.ru/maps/org/ohana/183020741516?si=qphejhmeke8ka9bgdzg884n208')
+    await act(async () => { button('Continue').click() })
+    expect(onLocate).toHaveBeenCalled()
+    expect(onUse).toHaveBeenCalledWith(expect.objectContaining({ name: 'Ohana', lat: 55.75, lng: 37.62 }))
   })
 
   it('a bare map link continues with no name, never another club name', () => {

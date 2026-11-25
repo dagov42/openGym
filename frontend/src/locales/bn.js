@@ -6136,4 +6136,5 @@ export default {
   "Add a club": "একটি ক্লাব যোগ করুন",
   "Open in 2GIS": "2GIS-এ খুলুন",
   "Open in Yandex Maps": "ইয়ানডেক্স ম্যাপে খুলুন",
+  "Find the address on the map": "মানচিত্রে ঠিকানা খুঁজুন",
 }

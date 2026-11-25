@@ -6067,4 +6067,5 @@ export default {
   "Add a club": "Aggiungi un club",
   "Open in 2GIS": "Apri in 2GIS",
   "Open in Yandex Maps": "Apri in Yandex Maps",
+  "Find the address on the map": "Trova l'indirizzo sulla mappa",
 }

@@ -6,6 +6,19 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 Fork sections also carry a Russian `### По-русски` duplicate of the feature bullets; see
 `docs/RELEASE_NOTES_TEMPLATE.md`.
 
+## Unreleased
+
+- A Yandex card that carries only `?si=...` now geocodes the address through OpenStreetMap
+  first and uses the current position only as a fallback. The paste sheet offers “Find the
+  address on the map” and “Current location”, and shows one message instead of the same error
+  twice.
+
+### По-русски
+
+- Карточка Яндекса без координат (только `?si=...`) теперь сначала ищет адрес через
+  OpenStreetMap, а текущее положение использует как запасной вариант. В листе вставки есть
+  «Найти адрес на карте» и «Текущее место», ошибка показывается один раз, а не дважды.
+
 ## v1.4.11 (2026-11-25)
 
 - A gold challenge month now says “Отличные результаты. Ты достоен похвалы” for a male profile and

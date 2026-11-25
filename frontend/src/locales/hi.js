@@ -6057,4 +6057,5 @@ export default {
   "Add a club": "एक क्लब जोड़ें",
   "Open in 2GIS": "2जीआईएस में खोलें",
   "Open in Yandex Maps": "यांडेक्स मैप्स में खोलें",
+  "Find the address on the map": "मानचित्र पर पता ढूंढें",
 }
