@@ -1,5 +1,5 @@
 import TrainerNotice from '../components/TrainerNotice.jsx'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
 import { effectiveRoutines, effectiveRoutineIds, nextTrainingDay, lastBW, setsDoneActive } from '../lib/history.js'
@@ -24,7 +24,7 @@ import { RecapHomeCard } from '../components/Recap.jsx'
 import { scheduleModeOf } from '../lib/rotation.js'
 import { useConnectionTrouble } from '../components/SyncBanner.jsx'
 import { Button, Row } from '../components/ui.jsx'
-import { readGymConfig } from '../lib/gym-reminder.js'
+import { loadGymConfig } from '../lib/gym-reminder.js'
 import { tappable } from '../lib/use-sheet-keyboard.js'
 import { glyphOf } from '../lib/glyphs.js'
 import { dayNoteOf } from '../lib/day-notes.js'
@@ -58,9 +58,16 @@ export default function Home() {
   // The card the Check in tile opens; its optional locker number is useful before the rail opens.
   const checkInCard = (S.gymCards || []).find(c => c.id === S.lastGymCardId) || null
   const checkInLocker = lockerOf(checkInCard)
-  // A club from Settings → Gym reminder may carry its own locker number. It lives in the native
-  // gym config, not in S, so Home reads the same local mirror the reminder itself does.
-  const gymLockers = useMemo(() => (readGymConfig().gyms || []).filter(g => String(g.locker || '').trim()), [])
+  // A club from Settings → Gym reminder may carry its own locker number. The native side keeps
+  // the places, so Home asks it once on mount; the web mirror has only the on/off flag.
+  const [gymLockers, setGymLockers] = useState([])
+  useEffect(() => {
+    let gone = false
+    loadGymConfig()
+      .then(({ config }) => { if (!gone) setGymLockers((config.gyms || []).filter(g => String(g.locker || '').trim())) })
+      .catch(() => {})
+    return () => { gone = true }
+  }, [])
   const todayName = todayRoutines.map(r => r.name).join(' + ')
   // A fulfilled pin (a coach session pinned to today and since done) reads as no override.
   const todayOvr = S.dayPlan[todayISO()] !== undefined && pinState(S, S.dayPlan[todayISO()], todayISO(), todayISO()) !== 'done'
