@@ -163,6 +163,7 @@ describe('Gym reminder page', () => {
     await render(<GymReminderPage />)
     const rows = host.querySelectorAll('.gym-list .gym-row')
     expect(rows).toHaveLength(2)
+    expect(rows[0].closest('.swrow')).toBeTruthy()
     expect(rows[0].tagName).toBe('BUTTON')
     expect(rows[0].textContent).toContain('Downtown')
     expect(rows[0].textContent).toContain('Main St 1, 8000 Zürich · 150 m')

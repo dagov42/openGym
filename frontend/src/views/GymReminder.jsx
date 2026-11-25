@@ -21,6 +21,7 @@ import { confirmSheet } from '../sheets.jsx'
 import { platformNow } from '../lib/platform-now.js'
 import { mapSearchUrls, mapAppOf } from '../lib/gym-card.js'
 import { LOCKER_MAX } from '../lib/locker.js'
+import SwipeRow from '../components/SwipeRow.jsx'
 import { findPlaces, placeOfPick, addressAt, searchSource, fmtDistance, googleMapsUrl, appleMapsUrl } from '../lib/gym-places.js'
 import {
   RADIUS_PRESETS, MAX_GYMS, DEFAULT_WINDOW, normConfig, normGym, statusOf,
@@ -125,6 +126,13 @@ export default function GymReminderPage() {
   const full = config.gyms.length >= MAX_GYMS
   const edit = g => nav('/settings/gym-edit', { state: { id: g.id } })
   const add = () => nav('/settings/gym-find')
+  const removeGym = g => confirmSheet({
+    title: t('Remove this gym?'),
+    message: t('No more nudges when you arrive here.'),
+    confirmText: t('Remove'),
+    danger: true,
+    onConfirm: () => save({ ...config, gyms: config.gyms.filter(x => x.id !== g.id) }),
+  })
 
   const win = config.window
   const setWin = patch => save({ ...config, window: { ...(win || DEFAULT_WINDOW), ...patch } })
@@ -138,9 +146,12 @@ export default function GymReminderPage() {
     {/* A plain grouped list like the rest of Settings: tap a gym to change it, the last row adds one. */}
     <Section title={t('Your gyms')} className="gym-list" footer={full ? t('That’s 20 gyms, the most a phone can watch.')
       : config.gyms.length ? null : t('No gyms yet.') + ' ' + t('Add the one you keep meaning to go to.')}>
-      {config.gyms.map(g => <Row key={g.id} icon="mapPin" iconTint="var(--orange)" className={'gym-row' + (g.off ? ' off' : '')}
-        title={g.name || t('My gym')} subtitle={[g.address, t('{0} m', g.radius)].filter(Boolean).join(' · ')}
-        value={g.off ? t('Off') : null} accessory="chevron" onClick={() => edit(g)} />)}
+      {config.gyms.map(g => <SwipeRow key={g.id} deleteLabel={t('Remove')} deleteName={t('Remove {0}', g.name || t('My gym'))}
+        className="gym-swipe" onDelete={() => removeGym(g)}>
+        <Row icon="mapPin" iconTint="var(--orange)" className={'gym-row' + (g.off ? ' off' : '')}
+          title={g.name || t('My gym')} subtitle={[g.address, t('{0} m', g.radius)].filter(Boolean).join(' · ')}
+          value={g.off ? t('Off') : null} accessory="chevron" onClick={() => edit(g)} />
+      </SwipeRow>)}
       {!full && <Row icon="plusCircle" iconTint="var(--acc)" className="gym-add-row" title={t('Add a gym')} onClick={add} />}
     </Section>
     <Section footer={win ? t('Outside these hours the phone stays quiet, even at the gym.') : null}>
