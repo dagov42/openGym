@@ -6,7 +6,7 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 Fork sections also carry a Russian `### По-русски` duplicate of the feature bullets; see
 `docs/RELEASE_NOTES_TEMPLATE.md`.
 
-## Unreleased
+## v1.4.11 (2026-11-25)
 
 - A gold challenge month now says “Отличные результаты. Ты достоен похвалы” for a male profile and
   “Ты достойна похвалы” for a female one, using Settings → About you. The old “Золотой месяц.
