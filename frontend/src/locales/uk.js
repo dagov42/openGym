@@ -6044,4 +6044,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Відкрийте 2GIS або Яндекс.Карти, скопіюйте посилання на картку залу й поверніться сюди, щоб вставити його.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "У картці немає координат. Скопіюйте посилання ще раз або додайте зал вручну.",
   "Map link": "Посилання на карту",
+  "Great results. You are {0} of praise.": "Чудові результати. Ти {0} похвали.",
+  "worthy (male)": "гідний",
+  "worthy (female)": "гідна",
+  "worthy (unspecified)": "гідний(на)",
+  "Great results. You are worthy of praise.": "Чудові результати. Ти гідний похвали.",
+  "Great results. You deserve praise.": "Чудові результати. Ти гідна похвали.",
 }

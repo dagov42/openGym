@@ -6047,4 +6047,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2जीआईएस या यांडेक्स मैप्स खोलें, जिम कार्ड लिंक कॉपी करें, फिर वापस आएं और यहां पेस्ट करें।",
   "That card has no coordinates. Copy its link again or add the gym manually.": "उस कार्ड में कोई निर्देशांक नहीं है. इसके लिंक को दोबारा कॉपी करें या मैन्युअल रूप से जिम जोड़ें।",
   "Map link": "मानचित्र लिंक",
+  "Great results. You are {0} of praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के {0} हैं।",
+  "worthy (male)": "योग्य (पुरुष)",
+  "worthy (female)": "योग्य (स्त्री.)",
+  "worthy (unspecified)": "योग्य (अनिर्दिष्ट)",
+  "Great results. You are worthy of praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के पात्र हैं.",
+  "Great results. You deserve praise.": "बहुत बढ़िया परिणाम. आप प्रशंसा के पात्र हैं.",
 }

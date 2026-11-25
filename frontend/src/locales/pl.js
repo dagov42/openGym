@@ -6047,4 +6047,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Otwórz 2GIS lub Yandex Maps, skopiuj link do karty siłowni, a następnie wróć i wklej go tutaj.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Ta karta nie ma współrzędnych. Skopiuj link ponownie lub dodaj siłownię ręcznie.",
   "Map link": "Link do mapy",
+  "Great results. You are {0} of praise.": "Świetne wyniki. Jesteś {0} godny pochwały.",
+  "worthy (male)": "godny (mężczyzna)",
+  "worthy (female)": "godny (kobieta)",
+  "worthy (unspecified)": "godny (nieokreślony)",
+  "Great results. You are worthy of praise.": "Świetne wyniki. Jesteś godny pochwały.",
+  "Great results. You deserve praise.": "Świetne wyniki. Zasługujesz na pochwałę.",
 }

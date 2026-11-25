@@ -6,6 +6,9 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 ## Unreleased
 
+- A gold challenge month now says “Отличные результаты. Ты достоен похвалы” for a male profile and
+  “Ты достойна похвалы” for a female one, using Settings → About you. The old “Золотой месяц.
+  Можно и поклониться” line is gone from the Home card and the widget.
 - Gym reminder: a club can keep an optional locker number, and Home shows a Gym card with each
   saved club's locker. The Check-in card keeps its own locker field as before.
 - Gym reminder: 2GIS and Yandex Maps buttons open the installed map app or its website at the

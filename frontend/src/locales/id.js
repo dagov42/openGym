@@ -6012,4 +6012,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Buka 2GIS atau Yandex Maps, salin tautan kartu gym, lalu kembali dan tempel di sini.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Kartu itu tidak memiliki koordinat. Salin lagi tautannya atau tambahkan gym secara manual.",
   "Map link": "Tautan peta",
+  "Great results. You are {0} of praise.": "Hasil yang bagus. Anda {0} dipuji.",
+  "worthy (male)": "layak (pria)",
+  "worthy (female)": "layak (perempuan)",
+  "worthy (unspecified)": "layak (tidak ditentukan)",
+  "Great results. You are worthy of praise.": "Hasil yang bagus. Anda layak dipuji.",
+  "Great results. You deserve praise.": "Hasil yang bagus. Anda pantas mendapatkan pujian.",
 };

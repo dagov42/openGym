@@ -5987,4 +5987,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Åbn 2GIS- eller Yandex-kort, kopier linket til gymnastikkort, og kom derefter tilbage og indsæt det her.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Det kort har ingen koordinater. Kopier dets link igen, eller tilføj fitnesscenteret manuelt.",
   "Map link": "Kort link",
+  "Great results. You are {0} of praise.": "Fantastiske resultater. Du er {0} af ros.",
+  "worthy (male)": "værdig (mandlig)",
+  "worthy (female)": "værdig (kvinde)",
+  "worthy (unspecified)": "værdig (uspecificeret)",
+  "Great results. You are worthy of praise.": "Fantastiske resultater. Du er ros værd.",
+  "Great results. You deserve praise.": "Fantastiske resultater. Du fortjener ros.",
 }

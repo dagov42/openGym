@@ -30,7 +30,8 @@ import { effectiveRoutines, exLine, bestWeightForEntry, sessionVolume, lastBW } 
 import { streakInfo } from './streak.js'
 import { levelOf } from './levels.js'
 import { challengesOn, monthChallenges, progressOf } from './challenges.js'
-import { challengeTitle, challengeCount, doneLine } from './challenge-copy.js'
+import { challengeTitle, challengeCount, doneLine, praiseFor } from './challenge-copy.js'
+import { sexOf } from './strength-level.js'
 import { deriveSessionName } from './session-merge.js'
 import { queueOf, weekTally } from './queue.js'
 import { workoutsLeft } from './week-left.js'
@@ -206,7 +207,7 @@ function challengesOfWidget (S, today) {
       total: items.length,
       items,
       line: doneLine(done, items.length),
-      next: open ? `${open.title} · ${open.count}` : t('Gold month. Take a bow.'),
+      next: open ? `${open.title} · ${open.count}` : praiseFor(sexOf(S)),
     }
   } catch { return null }
 }

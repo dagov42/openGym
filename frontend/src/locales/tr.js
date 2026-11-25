@@ -6047,4 +6047,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2GIS veya Yandex Haritalar'ı açın, spor salonu kartı bağlantısını kopyalayın, ardından geri gelip buraya yapıştırın.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "O kartın koordinatları yok. Bağlantısını tekrar kopyalayın veya spor salonunu manuel olarak ekleyin.",
   "Map link": "Harita bağlantısı",
+  "Great results. You are {0} of praise.": "Harika sonuçlar. {0} övgü dolusun.",
+  "worthy (male)": "layık (erkek)",
+  "worthy (female)": "layık (kadın)",
+  "worthy (unspecified)": "layık (belirtilmemiş)",
+  "Great results. You are worthy of praise.": "Harika sonuçlar. Sen övgüye layıksın.",
+  "Great results. You deserve praise.": "Harika sonuçlar. Övgüyü hak ediyorsun.",
 }

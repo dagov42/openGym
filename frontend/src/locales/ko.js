@@ -6047,4 +6047,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2GIS 또는 Yandex 지도를 열고 체육관 카드 링크를 복사한 다음 돌아와서 여기에 붙여넣으세요.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "그 카드에는 좌표가 없습니다. 링크를 다시 복사하거나 체육관을 수동으로 추가하세요.",
   "Map link": "지도 링크",
+  "Great results. You are {0} of praise.": "훌륭한 결과. 당신은 칭찬의 {0}입니다.",
+  "worthy (male)": "가치있는 (남성)",
+  "worthy (female)": "가치있는 (여성)",
+  "worthy (unspecified)": "가치 있는 (불특정)",
+  "Great results. You are worthy of praise.": "훌륭한 결과. 당신은 칭찬받을 가치가 있습니다.",
+  "Great results. You deserve praise.": "훌륭한 결과. 당신은 칭찬받을 자격이 있습니다.",
 }

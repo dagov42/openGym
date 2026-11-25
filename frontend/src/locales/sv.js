@@ -6094,4 +6094,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Öppna 2GIS eller Yandex Maps, kopiera gymkortlänken och kom sedan tillbaka och klistra in den här.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Det kortet har inga koordinater. Kopiera länken igen eller lägg till gymmet manuellt.",
   "Map link": "Kartlänk",
+  "Great results. You are {0} of praise.": "Bra resultat. Du är {0} av beröm.",
+  "worthy (male)": "värdig (man)",
+  "worthy (female)": "värdig (kvinna)",
+  "worthy (unspecified)": "värdig (ospecificerad)",
+  "Great results. You are worthy of praise.": "Bra resultat. Du är värd beröm.",
+  "Great results. You deserve praise.": "Bra resultat. Du förtjänar beröm.",
 }

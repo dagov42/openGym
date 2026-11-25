@@ -77,7 +77,22 @@ describe('Home card', () => {
     expect(party.textContent).toContain('All three done. Gold month!')
     expect(party.classList.contains('still')).toBe(true)
     expect(party.querySelector('.sparks')).toBeNull()
-    expect(el.textContent).toContain('Gold month. Take a bow.')
+    expect(el.textContent).toContain('Great results. You are worthy of praise.')
+  })
+
+  it('uses достоен/достойна from the profile sex', async () => {
+    const { _setLangState } = await import('../lib/i18n-core.js')
+    const { default: ru } = await import('../locales/ru.js')
+    _setLangState('ru', ru, null, null)
+    try {
+      const gold = { picked: [{ id: 'workouts', n: 3 }, { id: 'weeks', n: 1 }, { id: 'newex', n: 1 }], done: ['weeks', 'newex'], at: 1 }
+      for (const [sex, phrase] of [['male', 'Ты достоен похвалы.'], ['female', 'Ты достойна похвалы.'], ['', 'Ты достоен похвалы.']]) {
+        setS({ sex: sex || undefined, challenges: { [KEY]: gold } })
+        const el = render()
+        act(() => { useStore.getState().update(s => { if (!s.workouts.some(w => w.id === 'w9')) s.workouts.push(wo(9)) }) })
+        expect(el.textContent).toContain(phrase)
+      }
+    } finally { _setLangState('en', null, null, null) }
   })
 
   it('folds to a line, and the × hides it until next month', () => {

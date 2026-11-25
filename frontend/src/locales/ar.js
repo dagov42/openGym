@@ -6102,4 +6102,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "افتح 2GIS أو Yandex Maps، وانسخ رابط بطاقة الصالة الرياضية، ثم عد وألصقه هنا.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "هذه البطاقة ليس لها إحداثيات. انسخ الرابط الخاص به مرة أخرى أو أضف الصالة الرياضية يدويًا.",
   "Map link": "رابط الخريطة",
+  "Great results. You are {0} of praise.": "نتائج عظيمة. أنت {0} من الثناء.",
+  "worthy (male)": "يستحق (ذكر)",
+  "worthy (female)": "تستحق (أنثى)",
+  "worthy (unspecified)": "يستحق (غير محدد)",
+  "Great results. You are worthy of praise.": "نتائج عظيمة. أنت تستحق الثناء.",
+  "Great results. You deserve praise.": "نتائج عظيمة. أنت تستحق الثناء.",
 }

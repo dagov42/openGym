@@ -6013,4 +6013,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Otevřete 2GIS nebo Yandex Maps, zkopírujte odkaz na kartu tělocvičny, pak se vraťte a vložte jej sem.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Ta karta nemá souřadnice. Znovu zkopírujte jeho odkaz nebo přidejte tělocvičnu ručně.",
   "Map link": "Odkaz na mapu",
+  "Great results. You are {0} of praise.": "Skvělé výsledky. Jste {0} chvály.",
+  "worthy (male)": "hodný (muž)",
+  "worthy (female)": "hodný (žena)",
+  "worthy (unspecified)": "hodný (nespecifikováno)",
+  "Great results. You are worthy of praise.": "Skvělé výsledky. Jste hoden chvály.",
+  "Great results. You deserve praise.": "Skvělé výsledky. Zasloužíte si pochvalu.",
 }

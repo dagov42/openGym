@@ -50,3 +50,6 @@ export function monthLabel(key, { short = false } = {}) {
 
 /** "2 of 3 done". */
 export const doneLine = (done, total) => t('{0} of {1} done', done, total)
+
+/** The gold-month line. A female profile gets the feminine form; unset keeps the male default. */
+export const praiseFor = sex => t(sex === 'female' ? 'Great results. You deserve praise.' : 'Great results. You are worthy of praise.')

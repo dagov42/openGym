@@ -6013,4 +6013,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Mở 2GIS hoặc Yandex Maps, copy link thẻ gym rồi quay lại dán vào đây.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Thẻ đó không có tọa độ. Sao chép lại liên kết của nó hoặc thêm phòng tập thể dục theo cách thủ công.",
   "Map link": "Liên kết bản đồ",
+  "Great results. You are {0} of praise.": "Kết quả tuyệt vời. Bạn được {0} khen ngợi.",
+  "worthy (male)": "xứng đáng (nam)",
+  "worthy (female)": "xứng đáng (nữ)",
+  "worthy (unspecified)": "xứng đáng (không xác định)",
+  "Great results. You are worthy of praise.": "Kết quả tuyệt vời. Bạn thật đáng được khen ngợi.",
+  "Great results. You deserve praise.": "Kết quả tuyệt vời. Bạn xứng đáng được khen ngợi.",
 };

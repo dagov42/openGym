@@ -6058,4 +6058,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "เปิด 2GIS หรือ Yandex Maps คัดลอกลิงก์การ์ดยิม จากนั้นกลับมาวางที่นี่",
   "That card has no coordinates. Copy its link again or add the gym manually.": "การ์ดใบนั้นไม่มีพิกัด คัดลอกลิงก์อีกครั้งหรือเพิ่มยิมด้วยตนเอง",
   "Map link": "ลิงค์แผนที่",
+  "Great results. You are {0} of praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณเป็นที่สรรเสริญ {0}",
+  "worthy (male)": "สมควร (ชาย)",
+  "worthy (female)": "สมควร (หญิง)",
+  "worthy (unspecified)": "สมควร (ไม่ระบุ)",
+  "Great results. You are worthy of praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณสมควรได้รับการยกย่อง",
+  "Great results. You deserve praise.": "ผลลัพธ์ที่ยอดเยี่ยม คุณสมควรได้รับคำชม",
 }

@@ -6013,4 +6013,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "نقشه های 2GIS یا Yandex را باز کنید، پیوند کارت ورزشگاه را کپی کنید، سپس برگردید و آن را در اینجا بچسبانید.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "آن کارت هیچ مختصاتی ندارد. پیوند آن را دوباره کپی کنید یا ورزشگاه را به صورت دستی اضافه کنید.",
   "Map link": "لینک نقشه",
+  "Great results. You are {0} of praise.": "نتایج عالی شما {0} مورد ستایش هستید.",
+  "worthy (male)": "شایسته (مرد)",
+  "worthy (female)": "شایسته (زن)",
+  "worthy (unspecified)": "شایسته (نامشخص)",
+  "Great results. You are worthy of praise.": "نتایج عالی شما شایسته ستایش هستید.",
+  "Great results. You deserve praise.": "نتایج عالی شما سزاوار ستایش هستید.",
 }

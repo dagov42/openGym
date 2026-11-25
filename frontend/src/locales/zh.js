@@ -6047,4 +6047,10 @@ export default {
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "打开 2GIS 或 Yandex Maps，复制健身卡链接，然后返回并将其粘贴到此处。",
   "That card has no coordinates. Copy its link again or add the gym manually.": "该卡没有坐标。再次复制其链接或手动添加健身房。",
   "Map link": "地图链接",
+  "Great results. You are {0} of praise.": "很好的结果。您受到了{0}的赞扬。",
+  "worthy (male)": "值得（男）",
+  "worthy (female)": "值得（女）",
+  "worthy (unspecified)": "值得（未指定）",
+  "Great results. You are worthy of praise.": "很好的结果。你值得赞扬。",
+  "Great results. You deserve praise.": "很好的结果。你值得赞扬。",
 }

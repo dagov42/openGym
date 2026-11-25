@@ -8,7 +8,8 @@ import {
   monthKeyOf, shiftMonth, monthChallenges, progressOf, newlyDone, savePicks, markDone, isGold,
   cleanChallenges, storedMonth, shelfOf, challengesOn, hiddenFor, factsFor,
 } from '../lib/challenges.js'
-import { challengeTitle, challengeCount, monthLabel, doneLine } from '../lib/challenge-copy.js'
+import { challengeTitle, challengeCount, monthLabel, doneLine, praiseFor } from '../lib/challenge-copy.js'
+import { sexOf } from '../lib/strength-level.js'
 
 /* The monthly challenges (lib/challenges.js): Home's card with the month's three and their
    progress, a small party when one is done, and Stats' card with the trophy shelf. */
@@ -88,6 +89,8 @@ export function ChallengesCard({ S, now = new Date() }) {
   const prevMonth = storedMonth(S, shiftMonth(key, -1))
   const newMonth = now.getDate() <= NEW_MONTH_DAYS && !!prevMonth && !isGold(prevMonth)
   const update = fn => useStore.getState().update(fn)
+  // The profile already stores sex for the strength standards.
+  const praise = praiseFor(sexOf(S))
   return <div className={'card challenges' + (gold ? ' gold' : '')} data-challenges>
     <CardHead icon={gold ? 'crown' : 'target'} tint={gold ? 'var(--yellow)' : 'var(--orange)'}
       eyebrow={<>{monthLabel(key)} · {doneLine(done, progress.length)}</>} title={t('This month’s challenges')}
@@ -96,7 +99,7 @@ export function ChallengesCard({ S, now = new Date() }) {
     {folded
       ? <div className="ch-mini" aria-hidden="true">{progress.map(p => <span key={p.id} className={'pbar' + (p.done ? ' done' : '')}><i style={{ '--p': Math.min(1, Math.max(0, p.pct)) }} /></span>)}</div>
       : <ChallengeRows progress={progress} unit={S.unit} />}
-    {!folded && gold && <div className="ch-note small"><Icon name="crown" className="ch-crown" /> {t('Gold month. Take a bow.')}</div>}
+    {!folded && gold && <div className="ch-note small"><Icon name="crown" className="ch-crown" /> {praise}</div>}
     {!folded && !gold && newMonth && <div className="ch-note small muted">{t('New month, new challenges.')}</div>}
     {party && <ChallengeParty party={party} onClose={closeParty} />}
   </div>
