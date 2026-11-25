@@ -5,6 +5,7 @@
 // the server; the tick in server.js adds what only it knows (the push subscription, a session
 // on screen right now, the once-a-day mark in db.json).
 import { effectiveRoutineId, queueLiveOn } from './queue.js';
+import { pausedOn } from './coach/core/plan-pause.js';
 
 export const NUDGE_TONES = ['friendly', 'guilt', 'drill'];
 export const NUDGE_MAX_MISSES = 3;
@@ -46,7 +47,7 @@ export function excusedOn(S, iso) {
 }
 
 function missed(S, iso) {
-  if (logged(S, iso) || excusedOn(S, iso)) return null;
+  if (logged(S, iso) || excusedOn(S, iso) || pausedOn(S, iso)) return null;
   const rid = effectiveRoutineId(S, iso);
   if (!rid) return null;
   if (queueLiveOn(S, iso) && logged(S, dayBefore(iso))) return null;

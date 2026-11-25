@@ -25,6 +25,7 @@ import { isoOf } from './format.js'
 import { effectiveRoutineIds } from './history.js'
 import { queueLiveOn } from './queue.js'
 import { excusedOn } from './day-notes.js'
+import { pausedOn } from './plan-pause.js'
 
 export const NUDGE_TONES = ['friendly', 'guilt', 'drill']
 export const NUDGE_MAX_MISSES = 3
@@ -87,7 +88,7 @@ const norm = S => ({
 // The routine ids `iso` missed, or [] when it is not a missed day. Each date is asked as if it
 // were today, as the reminder does: a coach week's session is due every day until it is done.
 function missed(S, iso) {
-  if (logged(S, iso) || excusedOn(S, iso)) return []
+  if (logged(S, iso) || excusedOn(S, iso) || pausedOn(S, iso)) return []
   const ids = effectiveRoutineIds(S, iso, iso)
   if (!ids.length) return []
   if (queueLiveOn(S, iso, iso) && logged(S, dayBefore(iso))) return []

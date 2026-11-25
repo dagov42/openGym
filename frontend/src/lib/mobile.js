@@ -14,6 +14,7 @@ import { isoOf, todayISO } from './format.js'
 import { effectiveRoutineIds } from './history.js'
 import { NUDGE_COPY, lineIndex, nudgeFor, nudgeMinute, toneOf } from './nudge.js'
 import { excusedOn } from './day-notes.js'
+import { pausedOn } from './plan-pause.js'
 import { stateJson } from './state-json.js'
 import { AUTO_BACKUP_KEEP, autoBackupKeepOf } from './backup-keep.js'
 import { buildCheckinNotifications, checkinNames, reminderOf, CHECKIN_WINDOW_DAYS, CHECKIN_ID_BASE } from './checkin-reminder.js'
@@ -172,7 +173,7 @@ export function buildReminderNotifications(S, now = new Date()) {
     day.setDate(date.getDate() + offset)
     const iso = isoOf(day)
     // A day you noted as sick or away (lib/day-notes.js) is off the hook, reminder included.
-    if (completed.has(iso) || excusedOn(S, iso)) continue
+    if (completed.has(iso) || excusedOn(S, iso) || pausedOn(S, iso)) continue
     // A weekday can hold several routines; name them all, or fall back to a count. Each day is
     // asked as if it were today: a coach week's next session is due every day until it is done,
     // so it is reminded every day (the app re-syncs these after every workout and on open).

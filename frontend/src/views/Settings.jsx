@@ -11,7 +11,7 @@ import { copyText } from '../lib/clipboard.js'
 import { useUI } from '../store/useUI.js'
 import { activeGym, gymLabel, switchGym } from '../lib/gym-inventory.js'
 import { startTour, TUTORIALS, TUTORIAL_COPY, tutorialDone } from '../lib/tour.js'
-import { ACCENTS, ACCENT_NAMES, todayISO, localTZ, weekStartOf, MONDAY, SUNDAY, SATURDAY, DAYN, fmtPlate } from '../lib/format.js'
+import { ACCENTS, ACCENT_NAMES, todayISO, localTZ, weekStartOf, MONDAY, SUNDAY, SATURDAY, DAYN, fmtPlate, fmtDate } from '../lib/format.js'
 import { inventoryFor, ownsPlates } from '../lib/plates.js'
 import { BAR_TYPES, ownBarDefault } from '../lib/bar.js'
 import { dumbbellsOf, ownsNoDumbbells } from '../lib/dumbbells.js'
@@ -32,6 +32,8 @@ import { StreakRuleRow, StreakExcuseRow } from '../components/StreakRule.jsx'
 import { DeloadRows } from '../components/DeloadCard.jsx'
 import { deleteWorkoutsSheet } from '../components/DeleteWorkouts.jsx'
 import { CheckinReminderRow } from '../components/CheckinReminder.jsx'
+import { planPauseSheet } from '../components/PlanPauseSheet.jsx'
+import { pausesOf } from '../lib/plan-pause.js'
 import { scheduleModeOf, chooseFixedWeek, chooseRotation } from '../lib/rotation.js'
 import { queueOf } from '../lib/queue.js'
 import { weekTargetOf } from '../lib/week-left.js'
@@ -936,8 +938,10 @@ export default function Settings({ page = null, find = null, via = null, entryKe
 
     plan: () => <>
       <Section>
-        {/* Fixed Week (S.week) or Rotation (the live queue, lib/queue.js + lib/rotation.js).
-            Derived from the queue, never stored. */}
+        {/* Fixed Week (S.week) or Rotation (the live queue, lib/queue.js + lib/rotation.js). */}
+        <Row icon="pause" iconTint="var(--purple)" title={t('Pause the plan')}
+          subtitle={(() => { const p = pausesOf(S).find(x => x.from <= todayISO() && (x.to == null || x.to >= todayISO())); return p ? (p.to ? t('Plan paused until {0}', fmtDate(p.to, true)) : t('Until I’m back')) : undefined })()}
+          accessory="chevron" onClick={() => planPauseSheet()} />
         <Row icon="repeat" iconTint="var(--orange)" title={t('How you train')}>
           {externalQ
             ? <span className="small dim">{t('Rotation')} · {t('Externally managed')}</span>

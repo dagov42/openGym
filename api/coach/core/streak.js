@@ -15,6 +15,8 @@
  * Past the cap the week falls back to the freezes. A note says the week was out of your hands,
  * so it is read for every week, including the ones before this version. */
 
+import { pausedWeekKeys } from './plan-pause.js';
+
 export const FREEZE_EVERY = 4;
 export const FREEZE_MAX = 2;
 export const STREAK_BADGES = [4, 12, 26, 52, 104];
@@ -132,11 +134,13 @@ export function streakWalk(S, today, { log = null, weekKey = weekKeyOf } = {}) {
   }
   const excuseCap = excuseCapOf(S);
   const usedIn = new Map();
+  // Weeks a plan pause covered: they carry the run without a freeze, a note or an excuse cap.
+  const pausedWeeks = pausedWeekKeys(S, ws, today);
   // The rules and the weeks they start, in this profile's weeks.
   const timeline = ruleTimeline(S).map(e => ({ rule: e.rule, since: e.since === null ? null : weekKey(e.since, ws) }));
   const nowRule = ruleAt(timeline, cur);
   const max = STREAK_RULES[nowRule].max;
-  const empty = { current: 0, best: 0, freezes: 0, frozen: [], excused: [], excuseCap, excuseLeft: excuseCap, thisWeekDone: false, badges: [], next: STREAK_BADGES[0], toNextFreeze: max ? FREEZE_EVERY : 0, weekKey: cur, rule: nowRule, max };
+  const empty = { current: 0, best: 0, freezes: 0, frozen: [], excused: [], paused: [], excuseCap, excuseLeft: excuseCap, thisWeekDone: false, badges: [], next: STREAK_BADGES[0], toNextFreeze: max ? FREEZE_EVERY : 0, weekKey: cur, rule: nowRule, max };
   if (!trained.size) return empty;
   let wk = [...trained].sort()[0];
   const floor = plusWeek(cur, -MAX_WEEKS);
@@ -154,7 +158,10 @@ export function streakWalk(S, today, { log = null, weekKey = weekKeyOf } = {}) {
       s = 'on';
     } else if (wk !== cur) {
       const year = wk.slice(0, 4), used = usedIn.get(year) || 0;
-      if (run > 0 && excusable.has(wk) && used < excuseCap) {
+      if (run > 0 && pausedWeeks.has(wk)) {
+        // A plan pause is not a missed week: nothing added, nothing spent.
+        s = 'paused';
+      } else if (run > 0 && excusable.has(wk) && used < excuseCap) {
         // Out of your hands: carried, nothing spent, nothing added.
         usedIn.set(year, used + 1); excused.push(wk); s = 'excused'; why = excusable.get(wk);
       } else if (freezes > 0) { freezes--; frozen.push(wk); s = 'frozen'; } else { s = run > 0 ? 'broke' : 'missed'; run = 0; earned = 0; freezes = 0; frozen = []; excused = []; }
@@ -168,6 +175,7 @@ export function streakWalk(S, today, { log = null, weekKey = weekKeyOf } = {}) {
     freezes,
     frozen,
     excused,
+    paused: [...pausedWeeks].filter(k => k <= cur).sort(),
     excuseCap,
     excuseLeft: Math.max(0, excuseCap - (usedIn.get(cur.slice(0, 4)) || 0)),
     thisWeekDone: trained.has(cur),

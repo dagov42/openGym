@@ -18,6 +18,7 @@ import { weekTally, queueOf } from './queue.js'
 import { scheduleModeOf } from './rotation.js'
 import { weekKey, weekStartOf, todayISO } from './format.js'
 import { effectiveRoutineIds } from './history.js'
+import { pausedWeekKeys } from './plan-pause.js'
 
 export const WEEK_TARGET_MAX = 7
 
@@ -31,6 +32,9 @@ export function weekTargetOf(S) {
 export function workoutsLeft(S, today = todayISO()) {
   if (!S) return null
   const st = { ...S, routines: S.routines || [], workouts: S.workouts || [], week: S.week || {} }
+  // A pause touches this week: do not count down a week nobody intended to train. The next week
+  // starts normally.
+  if (pausedWeekKeys(st, weekStartOf(st), today).has(weekKey(today, weekStartOf(st)))) return null
   const q = queueOf(st)
   const managed = !!q && !!st.rotation && q.rotationId === st.rotation.id
   if (scheduleModeOf(st) === 'rotation' && (managed || !q)) {

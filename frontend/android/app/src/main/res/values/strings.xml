@@ -10,4 +10,9 @@
     <string name="rest_channel_desc">Rest between sets, in the notification shade. The lock screen shows it only when notifications are allowed there.</string>
     <string name="workout_channel_name">Workout in progress</string>
     <string name="workout_channel_desc">The workout you are doing right now: the next set, the rest and Log set, without opening the app.</string>
+    <string name="cardio_timer_title">Cardio timer</string>
+    <string name="cardio_timer_running">Cardio is running</string>
+    <string name="cardio_timer_stopped">Cardio stopped</string>
+    <string name="cardio_timer_stop">Stop</string>
+    <string name="cardio_timer_stopped_at">Stopped at %1$s</string>
 </resources>

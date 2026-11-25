@@ -27,6 +27,8 @@ import { queueOf, queueView } from '../lib/queue.js'
 import { deriveSessionName } from '../lib/session-merge.js'
 import { programmeChip } from '../lib/programmes.js'
 import { markUndone, undoMarks } from '../lib/sync-merge.js'
+import { planPauseSheet } from '../components/PlanPauseSheet.jsx'
+import { pausesOf, resumePlanPause } from '../lib/plan-pause.js'
 import {
   scheduleModeOf, queueRecovery, rotationIds, saveRotation, startNewPass, startPass, stopPass,
   chooseRotation, chooseFixedWeek, sequenceOf, isSimpleSequence, segmentAt, REST,
@@ -307,6 +309,14 @@ function Schedule({ S, update, nav, mode }) {
 
   const ws = weekStartOf(S)
   const todayDow = new Date().getDay()
+  const today = todayISO()
+  const pauses = pausesOf(S)
+  const pausedNow = pauses.find(p => p.from <= today && (p.to == null || p.to >= today)) || null
+  const futurePause = !pausedNow ? pauses.find(p => p.from > today) || null : null
+  const resumePause = () => {
+    if (!pausedNow) return
+    update(s => { s.planPauses = resumePlanPause(s.planPauses, pausedNow.from, today) })
+  }
   const routineOf = id => S.routines.find(x => x.id === id)
   const dayRoutines = d => [].concat(S.week[d] || []).map(routineOf).filter(Boolean)
   // One weekday: what is on it at a glance, and a tap to change it (dayAssignSheet picks one
@@ -345,6 +355,19 @@ function Schedule({ S, update, nav, mode }) {
       </Row>
       {/* a cobweb in the card's empty top corner, in season (components/Seasonal.jsx) */}
       <SeasonDeco spot="plan-card" />
+    </Section>
+
+    <Section title={t('Plan pause')}>
+      {pausedNow ? <>
+        <Row icon="pause" iconTint="var(--purple)" title={t('Plan paused')}
+          subtitle={pausedNow.to ? t('Plan paused until {0}', fmtDate(pausedNow.to, true)) : t('Until I’m back')} />
+        <Row icon="pencil" iconTint="var(--grey)" title={t('Edit pause')} accessory="chevron" onClick={() => planPauseSheet(pausedNow.from)} />
+        <Row icon="play" iconTint="var(--green)" title={t('Resume now')} accessory="chevron" onClick={resumePause} />
+      </> : futurePause ? <Row icon="pause" iconTint="var(--purple)" title={t('Paused from {0}', fmtDate(futurePause.from, true))}
+        accessory="chevron" onClick={() => planPauseSheet(futurePause.from)} />
+        : <Row icon="pause" iconTint="var(--purple)" title={t('Pause the plan')}
+          subtitle={t('The workout reminder and the missed-day nudge go quiet. Nothing else changes, and a workout is never blocked.')}
+          accessory="chevron" onClick={() => planPauseSheet()} />}
     </Section>
 
     {!S.routines.length && <EmptyState className="plan-empty" icon="clipboard" title={t('No routines yet.')} text={t('Make one, or grab the starter plan to get going.')}>

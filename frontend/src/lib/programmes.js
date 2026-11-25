@@ -31,6 +31,7 @@
 // weight down by the usual deload factor, and none of its sessions count for progression.
 import { isoOf, todayISO, uid, weekKey, weekStartOf } from './format.js'
 import { queueOf } from './queue.js'
+import { heldWeeksBetween } from './plan-pause.js'
 import { REST, saveRotation, startPass, stopPass, chooseFixedWeek } from './rotation.js'
 import { best1RM } from './onerm.js'
 import { t } from './i18n-core.js'
@@ -199,12 +200,14 @@ export function programmeStatus(S, today = todayISO()) {
   if (!p) return null
   const ws = weekStartOf(S)
   const at = isISO(run.pausedOn) && run.pausedOn < today ? run.pausedOn : today
-  const week = Math.max(1, weeksBetween(run.startedOn, at, ws) + 1)
+  const held = isISO(run.pausedOn) ? 0 : heldWeeksBetween(S, run.startedOn, at, ws)
+  const week = Math.max(1, weeksBetween(run.startedOn, at, ws) + 1 - held)
   const weeks = p.weeks.length
   const done = week > weeks
   return {
     programme: p, run, week: Math.min(week, weeks), weeks, done,
-    paused: isISO(run.pausedOn), cycle: Math.max(1, Math.round(Number(run.cycle) || 1)),
+    paused: isISO(run.pausedOn), heldByPlanPause: held > 0,
+    cycle: Math.max(1, Math.round(Number(run.cycle) || 1)),
     current: done || isISO(run.pausedOn) ? null : p.weeks[week - 1],
   }
 }

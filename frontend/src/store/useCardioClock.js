@@ -7,6 +7,7 @@ import { create } from 'zustand'
 import { useStore } from './useStore.js'
 import { minutesFor, parseRun, runAt, runSec } from '../lib/cardio-clock.js'
 import { settleSpeed } from '../lib/distance.js'
+import { startCardioNotification, stopCardioNotification, consumeCardioStop } from '../lib/cardio-notification.js'
 
 export const CARDIO_CLOCK_KEY = 'gym_cardio_clock'
 const store = () => { try { return typeof localStorage === 'undefined' ? null : localStorage } catch { return null } }
@@ -22,6 +23,7 @@ export const useCardioClock = create((set, get) => ({
     if (!e || !e.sets?.[i] || e.sets[i].done) return
     get().stop(now)
     set({ run: { wid: A.id, idx, i, id: e.id, startedAt: now } })
+    void startCardioNotification({ startedAt: now, label: e.name || '' })
   },
   // Stopped (■, a tick, Finish): the minutes go to the row, as if typed there. `now` is when it
   // stopped, for a stop heard of late (a Log set on the Lock Screen, a Finish on the watch).
@@ -30,6 +32,7 @@ export const useCardioClock = create((set, get) => ({
     const run = get().run
     if (!run) return null
     set({ run: null })
+    void stopCardioNotification()
     const min = minutesFor(runSec(run, useStore.getState().S?.active, now))
     if (min == null) return null
     let wrote = false
@@ -45,8 +48,24 @@ export const useCardioClock = create((set, get) => ({
     return wrote ? now : null
   },
   // Gone with its set, its exercise or its workout: nothing to write.
-  drop() { if (get().run) set({ run: null }) },
+  drop() { if (get().run) { set({ run: null }); void stopCardioNotification() } },
 }))
+
+/** Apply a Stop tapped from the Lock Screen notification. The native side stores the exact
+ *  instant, so the minutes match when the finger stopped, not when the phone was unlocked. */
+export async function applyNativeCardioStop() {
+  const run = useCardioClock.getState().run
+  if (!run || !useStore.getState().S?.active) return false
+  const stop = await consumeCardioStop()
+  if (!stop || Number(stop.startedAt) !== Number(run.startedAt)) return false
+  useCardioClock.getState().stop(stop.stopAt)
+  return true
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') void applyNativeCardioStop() })
+  void applyNativeCardioStop()
+}
 useCardioClock.subscribe((s, prev) => { if (s.run !== prev.run) save(s.run) })
 
 /** The run kept from before a reload. Whether it still belongs to the workout on screen is the

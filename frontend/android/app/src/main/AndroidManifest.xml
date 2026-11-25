@@ -243,6 +243,12 @@
             android:name=".RestAlertReceiver"
             android:exported="false" />
 
+        <!-- The Lock Screen Stop action for a running cardio set (CardioTimer.java). It only
+             records the stop instant; the page writes the minutes when it comes back. -->
+        <receiver
+            android:name=".CardioTimerReceiver"
+            android:exported="false" />
+
         <!-- Reposts the rest countdown every second so the notification shade keeps the
              clock and a shrinking bar after the WebView is frozen. The lock screen shows
              it only when the user allows notifications there. specialUse: this is a timer,

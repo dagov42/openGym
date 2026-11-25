@@ -1,0 +1,44 @@
+# Cardio timer: stop from the Lock Screen
+
+Status: implemented 2026-11-25. Android only for now; the web and iOS keep the in-app stop.
+
+## Why
+
+The cardio set counts up while the phone is in a pocket or the screen is locked. A runner who
+stops has to unlock the phone, open openGym and hit the square, and the seconds spent doing that
+land in the set. The stop itself should be one tap on the Lock Screen, and the recorded time
+should be when the finger stopped, not when the phone was unlocked.
+
+## Behaviour
+
+- Starting a cardio clock posts an ongoing notification on the `cardio-timer` channel: title
+  "Cardio timer", the exercise name, and one **Stop** action.
+- The notification is visible on the Lock Screen (`VISIBILITY_PUBLIC`), has no sound and no
+  vibration, and opens the app when its body is tapped.
+- Tapping **Stop** does not open the app. It stores `startedAt` and `stopAt` in a small
+  device-only preference, and replaces the notification with "Cardio stopped" at that time.
+- The page checks `consumeStop` when it comes back to the foreground (and on a cold start once the
+  workout is loaded). When the stored `startedAt` matches the clock's run, it calls the normal
+  `useCardioClock.stop(stopAt)`, so the minutes come from the exact stop instant and the usual
+  rounding and speed settle apply. A mismatch is left for the in-app clock and consumes nothing.
+- Stopping in the app, dropping the run or finishing the workout clears the notification and the
+  stored stop.
+- The web and iOS call the same JS functions, which fall back to a no-op when the native plugin
+  is not there; their cardio clock is unchanged.
+
+## Native files
+
+- `frontend/android/app/src/main/java/ch/duartesantos/opengym/CardioTimer.java` — preferences,
+  channel, notification and actions.
+- `CardioTimerReceiver.java` — the Lock Screen **Stop** broadcast.
+- `CardioTimerPlugin.java` — `start({ startedAt, label })`, `stop()`, `consumeStop()`.
+- `MainActivity` registers the plugin; the manifest declares the receiver.
+
+## Limits
+
+- No foreground service: the ongoing notification is enough for the stop action, and the page
+  already keeps the run in `localStorage` across a reload.
+- A stop tapped while the app process is dead is saved by the receiver and applied at the next
+  cold start.
+- The notification uses the app's existing notification permission; if notifications are off,
+  the in-app stop is unchanged.

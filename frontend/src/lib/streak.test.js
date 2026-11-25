@@ -34,6 +34,14 @@ describe('streakInfo: the run', () => {
   it('streakWeeks is the current run', () => {
     expect(streakWeeks(S(weeks(0, 1, 2, 3, 4)), TODAY)).toBe(5)
   })
+
+  it('carries a paused week without spending a freeze', () => {
+    const info = streakInfo(S(weeks(0, 1, 3), {
+      planPauses: { '2026-10-12': { to: '2026-10-18', reason: 'holiday', _ts: 1 } },
+    }), TODAY)
+    expect(info).toMatchObject({ current: 3, freezes: 0, frozen: [] })
+    expect(info.paused).toEqual(['2026-10-12'])
+  })
 })
 
 describe('streakInfo: freezes', () => {

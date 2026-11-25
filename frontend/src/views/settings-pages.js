@@ -239,6 +239,7 @@ export const SEARCH = [
   { page: 'gym', title: 'Gym reminder', icon: 'mapPin', tint: 'var(--green)', kw: 'gym gyms club clubs location arrive arrival geofence place map nearby locker add edit', when: c => !!c.mobile && c.gymReminder !== false },
   { page: 'reminders', title: 'Send test notification', icon: 'bell', tint: 'var(--red)', kw: 'test push notification try', when: c => !c.mobile && c.pushOK, via: PUSH },
   // Plan & schedule
+  { page: 'plan', title: 'Pause the plan', icon: 'pause', tint: 'var(--purple)', kw: 'pause holiday sick travel away break vacation' },
   { page: 'plan', title: 'How you train', icon: 'repeat', tint: 'var(--orange)', kw: 'scheduling schedule rotation fixed week split loop round cycle', opts: ['Fixed Week', 'Rotation'] },
   { page: 'plan', title: 'Workouts per week', icon: 'target', tint: 'var(--green)', kw: 'target goal sessions per week rotation left countdown remaining', when: c => c.rotation },
   { page: 'plan', title: 'Week starts on', icon: 'calendar', tint: 'var(--orange)', kw: 'monday sunday saturday first day week', opts: ['Monday', 'Sunday', 'Saturday'], tkw: () => t('week start') },

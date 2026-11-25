@@ -45,6 +45,11 @@ describe('nudgeFor', () => {
     expect(['2026-09-09', '2026-09-11', '2026-09-14', '2026-09-16'].map(d => !!nudgeFor(s, d))).toEqual([true, true, true, false])
   })
 
+  it('leaves a paused day alone like a noted one', () => {
+    const pauses = { '2026-09-07': { to: null, reason: 'holiday', _ts: 1 } }
+    expect(nudgeFor(S({ workouts: [w('2026-09-04')], planPauses: pauses }), '2026-09-07')).toBeNull()
+  })
+
   it('times the evening and reads the tone tolerantly', () => {
     expect(nudgeMinute('08:00')).toBe(1200)
     expect(nudgeMinute('19:15')).toBe(1275)

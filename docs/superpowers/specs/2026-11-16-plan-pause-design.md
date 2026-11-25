@@ -1,9 +1,10 @@
 # Plan pause
 
-Status: agreed 2026-11-16 (the lifter's calls: no catching up; the streak is preserved without spending
+Status: agreed 2026-11-16, implemented 2026-11-25 (the lifter's calls: no catching up; the streak is preserved without spending
 anything; a running programme is held only when the sheet's switch is on; workout reminder and nudge go
 quiet, nothing else; the pause may be open-ended; a workout during the pause is allowed and offers to end it).
-Nothing implemented yet.
+Implemented: `S.planPauses`, `api/coach/core/plan-pause.js`, Plan/Home/Settings sheet. The post-workout
+offer to end the pause is still a follow-up; the pause itself never blocks a workout.
 
 ## Why
 

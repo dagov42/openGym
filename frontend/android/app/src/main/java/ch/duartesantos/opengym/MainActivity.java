@@ -32,6 +32,7 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(SaveImagePlugin.class);
         registerPlugin(SaveFilePlugin.class);
         registerPlugin(RestAlertPlugin.class);
+        registerPlugin(CardioTimerPlugin.class);
         registerPlugin(LiveActivityPlugin.class);
         registerPlugin(BackupFolderPlugin.class);
         registerPlugin(BarIconsPlugin.class);

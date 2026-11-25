@@ -51,6 +51,7 @@ import { integrationRoutes } from './integrations/routes.js';
 import { buildIcs } from './integrations/calendar.js';
 import { deriveKey, seal as sealText } from './integrations/crypto.js';
 import { excusedOn, nudgeFor, nudgeWindowOpen, toneOf } from './nudge.js';
+import { pausedOn } from './coach/core/plan-pause.js';
 import { wrappedPushYear, wrappedSummary, wrappedPushOwed, wrappedPush } from './wrapped.js';
 import { createOrgStore } from './trainers/org-store.js';
 import { trainerRoutes } from './trainers/routes.js';
@@ -686,7 +687,7 @@ setInterval(() => {
       // Nothing below depends on anything but the file, so an answer of "nothing owed today"
       // holds until the file changes (which drops the summary) or the date does.
       if ((S.workouts || []).some(w => w?.d === now.date)) { sum.settled = now.date; continue; }
-      if (excusedOn(S, now.date)) { sum.settled = now.date; continue; } // noted as sick, away, … (nudge.js excusedOn)
+      if (excusedOn(S, now.date) || pausedOn(S, now.date)) { sum.settled = now.date; continue; } // noted as sick, away, … or the plan is paused
       const rid = effectiveRoutineId(S, now.date);
       if (!rid) { sum.settled = now.date; continue; } // rest day — nothing planned
       const routine = (S.routines || []).find(r => r?.id === rid);
@@ -3035,7 +3036,7 @@ const routes = {
     }
     const doc = readStateCached(user.id) || {};
     const workouts = Array.isArray(doc.workouts) ? doc.workouts : [];
-    const done = workouts.some(w => w && w.d === date) || excusedOn(doc, date);
+    const done = !!(workouts.some(w => w && w.d === date) || excusedOn(doc, date) || pausedOn(doc, date));
     let nudge = false;
     try { nudge = !done && !!nudgeFor(doc, date); } catch { nudge = true; }   // unreadable: keep what the phone planned
     json(res, 200, { date, done, nudge, rev: doc._rev || 0 });

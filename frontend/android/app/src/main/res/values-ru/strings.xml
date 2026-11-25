@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="cardio_timer_title">Кардио-таймер</string>
+    <string name="cardio_timer_running">Кардио идёт</string>
+    <string name="cardio_timer_stopped">Кардио остановлено</string>
+    <string name="cardio_timer_stop">Стоп</string>
+    <string name="cardio_timer_stopped_at">Остановлено в %1$s</string>
+</resources>

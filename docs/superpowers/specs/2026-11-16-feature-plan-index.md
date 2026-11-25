@@ -34,7 +34,8 @@ improvements done while the larger one runs).
 | [`2026-11-16-checkin-locker-design.md`](2026-11-16-checkin-locker-design.md) | Locker number on the gym check-in card (#1096) | **Done 2026-11-19** | 7 |
 | [`2026-11-16-single-set-weight-design.md`](2026-11-16-single-set-weight-design.md) | Change one working set's weight without the cascade (#1166) | **Done 2026-11-19** | 7 |
 | [`2026-11-16-injury-mode-design.md`](2026-11-16-injury-mode-design.md) | Flag an exercise that hurts, warn, offer the backup, pause progression | Candidate | 8 |
-| [`2026-11-16-plan-pause-design.md`](2026-11-16-plan-pause-design.md) | A holiday/illness pause that nags nobody and keeps the streak | **Agreed** | 9 |
+| [`2026-11-16-plan-pause-design.md`](2026-11-16-plan-pause-design.md) | A holiday/illness pause that nags nobody and keeps the streak | **Done 2026-11-25** | 9 |
+| [`2026-11-25-cardio-lockscreen-stop-design.md`](2026-11-25-cardio-lockscreen-stop-design.md) | Stop a running cardio set from the Android Lock Screen, with the exact stop time | **Done 2026-11-25** | 19e |
 | [`2026-11-16-backup-preview-design.md`](2026-11-16-backup-preview-design.md) | Say what is inside a backup before it replaces the profile, plus a data health report | Candidate | 10 |
 | [`2026-11-16-catalogue-quality-design.md`](2026-11-16-catalogue-quality-design.md) | A semantic catalogue audit, Russian name casing, and regression invariants | Candidate | 11 |
 | [`2026-11-16-fork-operations-design.md`](2026-11-16-fork-operations-design.md) | Test hygiene, a fork-status script, and a sync checklist | **Done 2026-11-17** | 12 |

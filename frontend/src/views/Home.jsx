@@ -19,6 +19,8 @@ import QueueRow from '../components/QueueRow.jsx'
 import MiniBodyMap from '../components/MiniBodyMap.jsx'
 import { queueOf, queueView, weekTally, pinState } from '../lib/queue.js'
 import { workoutsLeft } from '../lib/week-left.js'
+import { pauseOn, resumePlanPause } from '../lib/plan-pause.js'
+import { planPauseSheet } from '../components/PlanPauseSheet.jsx'
 import { WeeklySetsHomeLine } from '../components/WeeklySets.jsx'
 import { RecapHomeCard } from '../components/Recap.jsx'
 import { scheduleModeOf } from '../lib/rotation.js'
@@ -100,6 +102,8 @@ export default function Home() {
     await saveGymConfig(next, S).catch(() => {})
   }
   const todayName = todayRoutines.map(r => r.name).join(' + ')
+  const planPause = pauseOn(S, todayISO())
+  const endPlanPause = () => useStore.getState().update(s => { s.planPauses = resumePlanPause(s.planPauses, planPause.from, todayISO()) })
   // A fulfilled pin (a coach session pinned to today and since done) reads as no override.
   const todayOvr = S.dayPlan[todayISO()] !== undefined && pinState(S, S.dayPlan[todayISO()], todayISO(), todayISO()) !== 'done'
   // An open editor on a saved workout (lib/session-edit.js) holds S.active too, but it is not a
@@ -188,6 +192,14 @@ export default function Home() {
       <button className="iconbtn" data-tour="settings-gear" onClick={() => nav('/settings')} aria-label={trouble ? t('Settings') + ', ' + t('Connection problem') : t('Settings')}><Icon name="gear" />{trouble && <span className="tab-dot" aria-hidden="true" />}</button>
     </div>
     <TrainerNotice />
+    {planPause && <div className="card">
+      <CardHead icon="pause" tint="var(--purple)" title={t('Plan paused')}
+        sub={planPause.to ? t('Plan paused until {0}', fmtDate(planPause.to, true)) : t('Until I’m back')} />
+      <div className="list">
+        <Row icon="pencil" iconTint="var(--grey)" title={t('Edit pause')} accessory="chevron" onClick={() => planPauseSheet(planPause.from)} />
+        <Row icon="play" iconTint="var(--green)" title={t('Resume now')} accessory="chevron" onClick={endPlanPause} />
+      </div>
+    </div>}
 
     <div className="card">
       {/* A running programme (lib/programmes.js) wrote this week's plan: where it stands, one tap from its screen. */}
