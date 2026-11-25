@@ -251,14 +251,8 @@ export function GymFindPage({ find = findPlaces }) {
 
   const mapLinks = mapSearchUrls({ q: query, near })
   const openMap = which => window.open(mapLinks[which], '_blank', 'noopener')
-  const locatePoint = async () => {
-    if (!(await mayLocate())) { toast(noLocation()); return null }
-    const h = await currentPosition()
-    if (!h) { toast(t('Couldn’t find where you are. Try the search instead.')); return null }
-    return { lat: h.lat, lng: h.lng }
-  }
   // The Yandex share text has the address but often no point. Ask OSM where that address is,
-  // biased to the phone when it already has a position, before falling back to the current place.
+  // biased to the phone when it already has a position. The map editor is the confirmation step.
   const geocodeAddress = async address => {
     if (!address) return null
     try {
@@ -269,18 +263,11 @@ export function GymFindPage({ find = findPlaces }) {
       return p && Number.isFinite(p.lat) && Number.isFinite(p.lng) ? { lat: p.lat, lng: p.lng } : null
     } catch { return null }
   }
-  const pasteCard = async () => {
-    // A 2GIS card often carries only its name and link. Start from where the phone is, then let
-    // the person drag the pin on the gym editor; a Yandex card can also supply its own point.
-    let at = near
-    if (!at) { try { at = await currentPosition() } catch { at = null } }
-    gymPasteSheet(openSheet, {
-      near: at,
-      onLocate: locatePoint,
-      onAddress: geocodeAddress,
-      onUse: card => open({ name: card.name || '', address: card.address || '', mapUrl: card.url || '', lat: card.lat, lng: card.lng }),
-    })
-  }
+  const pasteCard = () => gymPasteSheet(openSheet, {
+    near,
+    onAddress: geocodeAddress,
+    onUse: card => open({ name: card.name || '', address: card.address || '', mapUrl: card.url || '', lat: card.lat, lng: card.lng }),
+  })
 
   const results = query.length < 2 ? null
     : status === 'error' && !hits?.length ? <Row className="gym-hit-none" title={t('The search didn’t answer. Try again in a moment.')} />

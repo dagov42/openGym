@@ -57,25 +57,25 @@ describe('GymPaste', () => {
     expect(host.textContent.match(/no coordinates/g)).toHaveLength(1)
   })
 
-  it('uses the address for a Yandex card before asking for the current position', async () => {
+  it('uses the address for a Yandex card before any area fallback', async () => {
     const onUse = vi.fn()
     const onAddress = vi.fn(async () => ({ lat: 55.91, lng: 37.73 }))
-    const onLocate = vi.fn(async () => ({ lat: 1, lng: 2 }))
-    mount({ close: vi.fn(), onUse, near: null, onAddress, onLocate })
+    mount({ close: vi.fn(), onUse, near: { lat: 1, lng: 2 }, onAddress })
     type('Ohana\nОлимпийский просп., 29А\nhttps://yandex.ru/maps/org/ohana/183020741516?si=qphejhmeke8ka9bgdzg884n208')
     await act(async () => { button('Continue').click() })
     expect(onAddress).toHaveBeenCalledWith('Олимпийский просп., 29А')
-    expect(onLocate).not.toHaveBeenCalled()
     expect(onUse).toHaveBeenCalledWith(expect.objectContaining({ name: 'Ohana', address: 'Олимпийский просп., 29А', lat: 55.91, lng: 37.73 }))
+    expect(host.textContent).not.toContain('Find the address on the map')
+    expect(host.textContent).not.toContain('Current location')
   })
 
-  it('uses the phone position for a Yandex card that only has si', async () => {
+  it('falls back to the known area when the address cannot be found', async () => {
     const onUse = vi.fn()
-    const onLocate = vi.fn(async () => ({ lat: 55.75, lng: 37.62 }))
-    mount({ close: vi.fn(), onUse, near: null, onLocate })
+    const onAddress = vi.fn(async () => null)
+    mount({ close: vi.fn(), onUse, near: { lat: 55.75, lng: 37.62 }, onAddress })
     type('Ohana\nОлимпийский просп., 29А\nhttps://yandex.ru/maps/org/ohana/183020741516?si=qphejhmeke8ka9bgdzg884n208')
     await act(async () => { button('Continue').click() })
-    expect(onLocate).toHaveBeenCalled()
+    expect(onAddress).toHaveBeenCalled()
     expect(onUse).toHaveBeenCalledWith(expect.objectContaining({ name: 'Ohana', lat: 55.75, lng: 37.62 }))
   })
 

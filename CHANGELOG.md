@@ -9,15 +9,14 @@ Fork sections also carry a Russian `### По-русски` duplicate of the feat
 ## Unreleased
 
 - A Yandex card that carries only `?si=...` now geocodes the address through OpenStreetMap
-  first and uses the current position only as a fallback. The paste sheet offers “Find the
-  address on the map” and “Current location”, and shows one message instead of the same error
-  twice.
+  automatically when you tap Continue and opens that point on the map. The paste sheet has no
+  “find” or “current location” buttons and shows one error instead of the same one twice.
 
 ### По-русски
 
-- Карточка Яндекса без координат (только `?si=...`) теперь сначала ищет адрес через
-  OpenStreetMap, а текущее положение использует как запасной вариант. В листе вставки есть
-  «Найти адрес на карте» и «Текущее место», ошибка показывается один раз, а не дважды.
+- Карточка Яндекса без координат (только `?si=...`) теперь при нажатии «Продолжить» сама ищет
+  адрес через OpenStreetMap и открывает найденную точку на карте. В листе вставки нет отдельных
+  кнопок поиска и текущего места, ошибка показывается один раз.
 
 ## v1.4.11 (2026-11-25)
 
