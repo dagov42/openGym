@@ -76,7 +76,8 @@ To try packs on an emulator: `make-asset-packs.mjs --px 240 --builtin 180 --limi
 `./gradlew bundlePlayDebug` and `bundletool build-apks --local-testing` + `install-apks`.
 
 Upload the `.aab` in Play Console → Test and release → Production (or a testing track first),
-with the release notes from the changelog.
+with the release notes from the changelog. Fork releases also include the Russian duplicate of every
+feature section; follow [RELEASE_NOTES_TEMPLATE.md](RELEASE_NOTES_TEMPLATE.md).
 
 ### F-Droid
 
