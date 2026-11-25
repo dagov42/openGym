@@ -111,7 +111,10 @@ over them and keeps the data.
   signing key differs. Export a backup, uninstall the official app, install this APK and restore
   the backup.
 - The APK has 180 px animations built in. Plus/HD variants are not part of this release.
-- SHA-256: `d734b7a540fdeed978a01bc82d1cae9c7499fd616cef2a90ea449e281d9e027d`
+- SHA-256: `9747f767e1af99ae00e9d5657ed6016d61e3b1b17905f91577989a89cf7541a6`
+
+> **Updated 25 November 2026:** the APK and its checksums were replaced to include the fix for a
+> Yandex card that has an address but no coordinates. The version stays 1.4.11.
 
 ## Verification
 
