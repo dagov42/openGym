@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GymPaste } from './GymPasteSheet.jsx'
 
+vi.mock('@capacitor/core', () => ({ Capacitor: { isNativePlatform: () => false } }))
+
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 let root, host
 

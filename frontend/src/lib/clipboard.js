@@ -30,6 +30,16 @@ export async function copyText(text) {
 // Browsers only allow this from a user gesture; a refusal is an empty string, never an error.
 export async function readClipboard() {
   try {
+    // The WebView's own clipboard-read permission is denied on Android. The native plugin reads
+    // the system clipboard on both phone platforms; the browser API remains the web fallback.
+    const { Capacitor } = await import('@capacitor/core')
+    if (Capacitor.isNativePlatform()) {
+      const { Clipboard } = await import('@capacitor/clipboard')
+      const { value } = await Clipboard.read()
+      if (value) return String(value)
+    }
+  } catch { /* plugin unavailable: try the browser below */ }
+  try {
     if (navigator.clipboard?.readText) return String(await navigator.clipboard.readText() || '')
   } catch { /* permission, focus or an insecure page */ }
   return ''
