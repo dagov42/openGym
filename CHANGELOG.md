@@ -15,6 +15,8 @@ tag. Write it for the people using the app: what changed for them, short, no em 
   card keeps its own locker field as before. A pencil opens the club editor to correct its name.
 - Gym reminder: a saved club can be removed by swiping its row in Settings → Your gyms, the same
   gesture as a workout set, with the usual confirmation.
+- After saving a club added from Home, the editor returns to Home; added from Settings, it returns
+  to Your gyms. It no longer drops back on the search page.
 - Home shows an “Add a club” card while no club is saved, and Settings now has “Your gyms” in the
   main Training list rather than hiding the club list inside Reminders.
 - A saved 2GIS or Yandex card labels the editor's map button with that app (“Open in 2GIS”,

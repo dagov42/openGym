@@ -125,7 +125,7 @@ export default function GymReminderPage() {
 
   const full = config.gyms.length >= MAX_GYMS
   const edit = g => nav('/settings/gym-edit', { state: { id: g.id } })
-  const add = () => nav('/settings/gym-find')
+  const add = () => nav('/settings/gym-find', { state: { origin: 'gyms' } })
   const removeGym = g => confirmSheet({
     title: t('Remove this gym?'),
     message: t('No more nudges when you arrive here.'),
@@ -195,6 +195,8 @@ const hintOf = kind => kind === 'gym' ? t('Gym') : kind === 'sport' ? t('Sports 
  */
 export function GymFindPage({ find = findPlaces }) {
   const nav = useNavigate()
+  const loc = useLocation()
+  const origin = loc.state?.origin
   const offline = useOfflineBuild()
   const toast = useUI(s => s.toast)
   const openSheet = useUI(s => s.openSheet)
@@ -227,7 +229,7 @@ export function GymFindPage({ find = findPlaces }) {
     return () => clearTimeout(timer)
   }, [query, near?.lat, near?.lng])
 
-  const open = draft => nav('/settings/gym-edit', { state: { draft, from: 'find' } })
+  const open = draft => nav('/settings/gym-edit', { state: { draft, from: 'find', ...(origin ? { origin } : {}) } })
   const pick = async h => {
     if (picking) return
     setPicking(h.id)
@@ -369,7 +371,12 @@ export function GymEditPage() {
     if (!g) return
     const gyms = gym.id ? config.gyms.map(x => (x.id === gym.id ? g : x)) : [...config.gyms, g]
     await saveGymConfig({ ...config, gyms }, S)
-    close()
+    // Adding from Home goes back Home; adding from Settings goes back to the club list, never to
+    // the search the person has just finished with.
+    const origin = loc.state?.origin
+    if (origin === 'home') nav('/home', { replace: true })
+    else if (origin === 'gyms') nav('/settings/gym', { replace: true })
+    else close()
   }
   const remove = () => confirmSheet({
     title: t('Remove this gym?'),

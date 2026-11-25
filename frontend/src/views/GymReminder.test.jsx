@@ -180,7 +180,7 @@ describe('Gym reminder page', () => {
     const rows = [...host.querySelectorAll('.gym-list .lrow')]
     expect(rows.at(-1).textContent).toBe('Add a gym')
     await click(rows.at(-1))
-    expect(mocks.nav).toHaveBeenCalledWith('/settings/gym-find')
+    expect(mocks.nav).toHaveBeenCalledWith('/settings/gym-find', { state: { origin: 'gyms' } })
   })
 
   it('20 gyms: no Add row, the reason instead', async () => {
@@ -371,6 +371,16 @@ describe('one gym: confirm or change it', () => {
     await click(btn('Save'))
     expect(mocks.saved.at(-1).gyms[0]).toMatchObject({ name: 'Basement', address: 'Gym St 1', lat: 47.38, lng: 8.54, radius: 200, text: 'Legs!' })
     expect(mocks.nav).toHaveBeenCalledWith(-2)
+  })
+
+  it('after adding from Home, Save returns Home; from Settings, it returns to the club list', async () => {
+    for (const [origin, target] of [['home', '/home'], ['gyms', '/settings/gym']]) {
+      mocks.location = { state: { from: 'find', origin, draft: { name: 'Iron Temple', address: 'Gym St 1', lat: 47.38, lng: 8.54 } } }
+      mocks.nav.mockClear()
+      await render(<GymEditPage />)
+      await click(btn('Save'))
+      expect(mocks.nav).toHaveBeenCalledWith(target, { replace: true })
+    }
   })
 
   it('dragging the map moves the gym (the pin stays put) and looks up the new address', async () => {

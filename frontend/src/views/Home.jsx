@@ -315,7 +315,7 @@ export default function Home() {
           <CardHead icon="lock" tint="var(--orange)" title={t('Your gyms')} />
           <div className="list">
             <Row icon="plusCircle" iconTint="var(--acc)" title={t('Add a club')} accessory="chevron"
-              onClick={() => nav('/settings/gym-find')} />
+              onClick={() => nav('/settings/gym-find', { state: { origin: 'home' } })} />
           </div>
         </div>) },
       { id: 'bodyweight', node: on('body') && <div className="card">
