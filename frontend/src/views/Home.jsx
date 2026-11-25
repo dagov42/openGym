@@ -23,8 +23,8 @@ import { WeeklySetsHomeLine } from '../components/WeeklySets.jsx'
 import { RecapHomeCard } from '../components/Recap.jsx'
 import { scheduleModeOf } from '../lib/rotation.js'
 import { useConnectionTrouble } from '../components/SyncBanner.jsx'
-import { Button, Row } from '../components/ui.jsx'
-import { loadGymConfig } from '../lib/gym-reminder.js'
+import { Button } from '../components/ui.jsx'
+import { loadGymConfig, saveGymConfig } from '../lib/gym-reminder.js'
 import { tappable } from '../lib/use-sheet-keyboard.js'
 import { glyphOf } from '../lib/glyphs.js'
 import { dayNoteOf } from '../lib/day-notes.js'
@@ -38,8 +38,33 @@ import RecoveryHint from '../components/RecoveryHint.jsx'
 import { FastingLine } from '../components/SisterApps.jsx'
 import { ChallengesCard } from '../components/Challenges.jsx'
 import { isOn } from '../lib/modules.js'
-import { lockerOf } from '../lib/locker.js'
+import { lockerOf, LOCKER_MAX } from '../lib/locker.js'
 import { Arranged, CustomizeLink } from '../components/PageLayout.jsx'
+
+// A club's locker number, editable where the person sees it: Home. The name in the card head is
+// the club's own, and the field saves to the native gym config when it loses focus or Enter.
+function LockerCard({ gym, onSave }) {
+  const [value, setValue] = useState(gym.locker || '')
+  useEffect(() => setValue(gym.locker || ''), [gym.id, gym.locker])
+  const commit = () => {
+    const next = value.trim()
+    if (next !== (gym.locker || '')) onSave(gym, next)
+  }
+  return <div className="card">
+    <CardHead icon="lock" tint="var(--orange)" title={gym.name || t('My gym')} />
+    <div className="list">
+      <label className="lrow gym-in-row">
+        <span className="lrow-i" style={{ '--tint': 'var(--orange)' }}><Icon name="lock" /></span>
+        <span className="lrow-m"><span className="lrow-t">{t('Locker number (optional)')}</span></span>
+        <input className="lrow-in" value={value} maxLength={LOCKER_MAX} placeholder={t('e.g. B-42')}
+          aria-label={t('Locker number (optional)')} enterKeyHint="done" autoComplete="off"
+          onChange={e => setValue(e.target.value)} onBlur={commit}
+          onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }} />
+      </label>
+    </div>
+  </div>
+}
+
 
 // Home = what to do now + a quick glance. Deep charts & history live in Stats.
 export default function Home() {
@@ -60,14 +85,20 @@ export default function Home() {
   const checkInLocker = lockerOf(checkInCard)
   // A club from Settings → Gym reminder may carry its own locker number. The native side keeps
   // the places, so Home asks it once on mount; the web mirror has only the on/off flag.
-  const [gymLockers, setGymLockers] = useState([])
+  const [gymConfig, setGymConfig] = useState(null)
   useEffect(() => {
     let gone = false
     loadGymConfig()
-      .then(({ config }) => { if (!gone) setGymLockers((config.gyms || []).filter(g => String(g.locker || '').trim())) })
+      .then(({ config }) => { if (!gone) setGymConfig(config) })
       .catch(() => {})
     return () => { gone = true }
   }, [])
+  const saveLocker = async (gym, locker) => {
+    if (!gymConfig) return
+    const next = { ...gymConfig, gyms: gymConfig.gyms.map(g => g.id === gym.id ? { ...g, locker } : g) }
+    setGymConfig(next)
+    await saveGymConfig(next, S).catch(() => {})
+  }
   const todayName = todayRoutines.map(r => r.name).join(' + ')
   // A fulfilled pin (a coach session pinned to today and since done) reads as no override.
   const todayOvr = S.dayPlan[todayISO()] !== undefined && pinState(S, S.dayPlan[todayISO()], todayISO(), todayISO()) !== 'done'
@@ -275,14 +306,11 @@ export default function Home() {
             action={<Icon name="chevronRight" className="chev" />} />
         </div>
       ) },
-      // A locker number saved on a gym reminder club (Settings → Reminders → Gym reminder).
-      { id: 'lockers', node: gymLockers.length > 0 && <div className="card">
-        <CardHead icon="lock" tint="var(--orange)" title={t('Gym')} />
-        <div className="list">
-          {gymLockers.map(g => <Row key={g.id} icon="lock" iconTint="var(--orange)"
-            title={g.name || t('My gym')} subtitle={t('Locker {0}', g.locker)} />)}
-        </div>
-      </div> },
+      // A locker number saved on a gym reminder club. Each club keeps its own card, named after
+      // the club, and the locker is editable here as well as in Settings.
+      { id: 'lockers', node: !!gymConfig?.gyms?.length && <>
+        {gymConfig.gyms.map(g => <LockerCard key={g.id} gym={g} onSave={saveLocker} />)}
+      </> },
       { id: 'bodyweight', node: on('body') && <div className="card">
       {/* one trailing action, Log; the goal lives with the goal line and the weigh-ins below (P2) */}
       <CardHead icon="scale" tint="var(--teal)" title={t('Body weight')} className="bw-head"
