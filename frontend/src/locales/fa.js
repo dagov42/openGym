@@ -6008,4 +6008,8 @@ export default {
   "Start timer": "شروع تایمر",
   "Timer": "تایمر",
   "Stopwatch": "کرونومتر",
+  "Paste a gym card": "کارت ورزشگاه را بچسبانید",
+  "Paste from clipboard": "چسباندن از کلیپ بورد",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "نقشه های 2GIS یا Yandex را باز کنید، پیوند کارت ورزشگاه را کپی کنید، سپس برگردید و آن را در اینجا بچسبانید.",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "آن کارت هیچ مختصاتی ندارد. پیوند آن را دوباره کپی کنید یا ورزشگاه را به صورت دستی اضافه کنید.",
 }

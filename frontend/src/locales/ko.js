@@ -6042,4 +6042,8 @@ export default {
   "Start timer": "타이머 시작",
   "Timer": "시간제 노동자",
   "Stopwatch": "스톱워치",
+  "Paste a gym card": "체육관 카드 붙여넣기",
+  "Paste from clipboard": "클립보드에서 붙여넣기",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2GIS 또는 Yandex 지도를 열고 체육관 카드 링크를 복사한 다음 돌아와서 여기에 붙여넣으세요.",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "그 카드에는 좌표가 없습니다. 링크를 다시 복사하거나 체육관을 수동으로 추가하세요.",
 }

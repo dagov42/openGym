@@ -6042,4 +6042,8 @@ export default {
   "Start timer": "टाइमर प्रारंभ करें",
   "Timer": "घड़ी",
   "Stopwatch": "स्टॉपवॉच देखनी",
+  "Paste a gym card": "जिम कार्ड चिपकाएँ",
+  "Paste from clipboard": "क्लिपबोर्ड से चिपकाएँ",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2जीआईएस या यांडेक्स मैप्स खोलें, जिम कार्ड लिंक कॉपी करें, फिर वापस आएं और यहां पेस्ट करें।",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "उस कार्ड में कोई निर्देशांक नहीं है. इसके लिंक को दोबारा कॉपी करें या मैन्युअल रूप से जिम जोड़ें।",
 }

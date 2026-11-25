@@ -6121,4 +6121,8 @@ export default {
   "Start timer": "টাইমার শুরু করুন",
   "Timer": "টাইমার",
   "Stopwatch": "স্টপওয়াচ",
+  "Paste a gym card": "একটি জিম কার্ড আটকান",
+  "Paste from clipboard": "ক্লিপবোর্ড থেকে পেস্ট করুন",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2GIS বা Yandex Maps খুলুন, জিম কার্ডের লিঙ্কটি অনুলিপি করুন, তারপরে ফিরে এসে এখানে পেস্ট করুন।",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "সেই কার্ডের কোন স্থানাঙ্ক নেই। এর লিঙ্কটি আবার কপি করুন বা ম্যানুয়ালি জিম যোগ করুন।",
 }

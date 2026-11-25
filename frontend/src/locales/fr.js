@@ -6042,4 +6042,8 @@ export default {
   "Start timer": "Démarrer la minuterie",
   "Timer": "Minuteur",
   "Stopwatch": "Chronomètre",
+  "Paste a gym card": "Coller une carte de gym",
+  "Paste from clipboard": "Coller depuis le presse-papiers",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Ouvrez 2GIS ou Yandex Maps, copiez le lien de la carte de gym, puis revenez et collez-le ici.",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "Cette carte n'a pas de coordonnées. Copiez à nouveau son lien ou ajoutez la salle de sport manuellement.",
 }

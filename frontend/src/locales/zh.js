@@ -6042,4 +6042,8 @@ export default {
   "Start timer": "启动定时器",
   "Timer": "计时器",
   "Stopwatch": "跑表",
+  "Paste a gym card": "贴一张健身卡",
+  "Paste from clipboard": "从剪贴板粘贴",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "打开 2GIS 或 Yandex Maps，复制健身卡链接，然后返回并将其粘贴到此处。",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "该卡没有坐标。再次复制其链接或手动添加健身房。",
 }

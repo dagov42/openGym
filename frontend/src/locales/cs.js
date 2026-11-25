@@ -6008,4 +6008,8 @@ export default {
   "Start timer": "Spustit časovač",
   "Timer": "Časovač",
   "Stopwatch": "Stopky",
+  "Paste a gym card": "Vložte kartu tělocvičny",
+  "Paste from clipboard": "Vložit ze schránky",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Otevřete 2GIS nebo Yandex Maps, zkopírujte odkaz na kartu tělocvičny, pak se vraťte a vložte jej sem.",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "Ta karta nemá souřadnice. Znovu zkopírujte jeho odkaz nebo přidejte tělocvičnu ručně.",
 }

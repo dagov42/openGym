@@ -15,9 +15,11 @@ import { Section, Row, Switch, SearchField, Segmented, Button, SelectRow } from 
 import { gymsOf, gymLabel } from '../lib/gym-inventory.js'
 import Icon from '../components/Icon.jsx'
 import GymMap from '../components/GymMap.jsx'
+import { gymPasteSheet } from '../components/GymPasteSheet.jsx'
 import { useOfflineBuild } from '../lib/use-offline-build.js'
 import { confirmSheet } from '../sheets.jsx'
 import { platformNow } from '../lib/platform-now.js'
+import { mapSearchUrls } from '../lib/gym-card.js'
 import { findPlaces, placeOfPick, addressAt, searchSource, fmtDistance, googleMapsUrl, appleMapsUrl } from '../lib/gym-places.js'
 import {
   RADIUS_PRESETS, MAX_GYMS, DEFAULT_WINDOW, normConfig, normGym, statusOf,
@@ -183,6 +185,7 @@ export function GymFindPage({ find = findPlaces }) {
   const nav = useNavigate()
   const offline = useOfflineBuild()
   const toast = useUI(s => s.toast)
+  const openSheet = useUI(s => s.openSheet)
   const [q, setQ] = useState('')
   const [hits, setHits] = useState(null)
   const [status, setStatus] = useState('idle')
@@ -232,6 +235,13 @@ export function GymFindPage({ find = findPlaces }) {
     else toast(t('Couldn’t find where you are. Try the search instead.'))
   }
 
+  const mapLinks = mapSearchUrls({ q: query, near })
+  const openMap = which => window.open(mapLinks[which], '_blank', 'noopener')
+  const pasteCard = () => gymPasteSheet(openSheet, {
+    near,
+    onUse: card => open({ name: card.name || '', address: card.address || '', lat: card.lat, lng: card.lng }),
+  })
+
   const results = query.length < 2 ? null
     : status === 'error' && !hits?.length ? <Row className="gym-hit-none" title={t('The search didn’t answer. Try again in a moment.')} />
       : hits === null ? <Row className="gym-hit-none" title={t('Searching…')} />
@@ -259,6 +269,9 @@ export function GymFindPage({ find = findPlaces }) {
     <Section>
       <Row icon="location" iconTint="var(--blue)" className="gym-here" title={t('Current location')}
         subtitle={locating ? t('Finding you…') : null} onClick={here} />
+      <Row icon="mapPin" iconTint="var(--green)" title="2GIS" onClick={() => openMap('dgis')} />
+      <Row icon="mapPin" iconTint="var(--red)" title="Yandex Maps" onClick={() => openMap('yandex')} />
+      <Row icon="clipboard" iconTint="var(--orange)" title={t('Paste a gym card')} onClick={pasteCard} />
     </Section>
     {results && <Section className="gym-hits" footer={source === 'osm' && hits?.length ? '© OpenStreetMap' : null}>
       <div aria-live="polite" aria-busy={status === 'busy'}>{results}</div>

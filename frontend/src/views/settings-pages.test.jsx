@@ -306,6 +306,7 @@ describe('the search lands on a row', () => {
     'account: Passkeys not supported in this browser.', 'reminders: Not supported in this browser.', // a note, not a row to change
     'equipment: Home', // the name of this test's equipment profile
     'about: Rate openGym on the App Store', 'about: YooMoney', // links out of the app
+    'gym-find: 2GIS', 'gym-find: Yandex Maps', 'gym-find: Paste a gym card', // map searches, not settings
     'gym: Checking…', // the page loading
     'gym-find: Current location', // a search result, not a setting
     'voice: Try it', // plays a sample

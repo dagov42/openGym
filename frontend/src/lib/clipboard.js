@@ -25,3 +25,12 @@ export async function copyText(text) {
     return false
   }
 }
+
+// Reads what the person copied in another app (a gym card link from 2GIS or Yandex Maps).
+// Browsers only allow this from a user gesture; a refusal is an empty string, never an error.
+export async function readClipboard() {
+  try {
+    if (navigator.clipboard?.readText) return String(await navigator.clipboard.readText() || '')
+  } catch { /* permission, focus or an insecure page */ }
+  return ''
+}

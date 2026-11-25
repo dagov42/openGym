@@ -6089,4 +6089,8 @@ export default {
   "Start timer": "Starta timer",
   "Timer": "Timer",
   "Stopwatch": "Stoppur",
+  "Paste a gym card": "Klistra in ett gymkort",
+  "Paste from clipboard": "Klistra in från urklipp",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Öppna 2GIS eller Yandex Maps, kopiera gymkortlänken och kom sedan tillbaka och klistra in den här.",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "Det kortet har inga koordinater. Kopiera länken igen eller lägg till gymmet manuellt.",
 }

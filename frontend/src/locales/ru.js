@@ -6039,4 +6039,8 @@ export default {
   "Start timer": "Запустить таймер",
   "Timer": "Таймер",
   "Stopwatch": "Секундомер",
+  "Paste a gym card": "Вставить карточку зала",
+  "Paste from clipboard": "Вставить из буфера",
+  "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Откройте 2GIS или Яндекс.Карты, скопируйте ссылку на карточку зала и вернитесь сюда, чтобы вставить её.",
+  "That card has no coordinates. Copy its link again or add the gym manually.": "В карточке нет координат. Скопируйте ссылку ещё раз или добавьте зал вручную.",
 }
