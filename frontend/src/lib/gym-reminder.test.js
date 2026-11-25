@@ -83,6 +83,11 @@ describe('settings', () => {
     expect(normGym({ id: 'b', lat: 47.1, lng: 8.1, mapUrl: 'https://example.com/firm/1' }).mapUrl).toBeUndefined()
     expect(mapUrlOf('javascript:alert(1)')).toBe('')
   })
+  it('keeps an optional club locker, trimmed and capped', () => {
+    expect(normGym({ id: 'a', lat: 47.1, lng: 8.1, locker: '  B-42  ' }).locker).toBe('B-42')
+    expect(normGym({ id: 'b', lat: 47.1, lng: 8.1, locker: 'x'.repeat(40) }).locker).toHaveLength(12)
+    expect(normGym({ id: 'c', lat: 47.1, lng: 8.1 }).locker).toBeUndefined()
+  })
   it('off by default, several gyms, duplicates dropped, at most 20 (iOS watches 20 regions)', () => {
     expect(normConfig(undefined)).toEqual({ on: false, gyms: [], window: null })
     const many = Array.from({ length: 25 }, (_, i) => gym({ id: 'g' + i, lat: 47 + i / 100 }))

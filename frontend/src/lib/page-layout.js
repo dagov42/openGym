@@ -19,6 +19,7 @@ export const PAGES = {
     { id: 'deload', label: 'Deload week' },
     { id: 'challenges', label: 'Challenges' },
     { id: 'checkin', label: 'Check in', needs: 'checkin' },
+    { id: 'lockers', label: 'Gym' },
     // Settings → Look & Home has had a switch for this card since v1.3: it stays the one truth.
     { id: 'bodyweight', label: 'Body weight', legacy: 'showWeightCard', needs: 'body' },
     { id: 'streak', label: 'Streak' },

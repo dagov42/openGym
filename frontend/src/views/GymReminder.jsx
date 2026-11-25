@@ -20,6 +20,7 @@ import { useOfflineBuild } from '../lib/use-offline-build.js'
 import { confirmSheet } from '../sheets.jsx'
 import { platformNow } from '../lib/platform-now.js'
 import { mapSearchUrls } from '../lib/gym-card.js'
+import { LOCKER_MAX } from '../lib/locker.js'
 import { findPlaces, placeOfPick, addressAt, searchSource, fmtDistance, googleMapsUrl, appleMapsUrl } from '../lib/gym-places.js'
 import {
   RADIUS_PRESETS, MAX_GYMS, DEFAULT_WINDOW, normConfig, normGym, statusOf,
@@ -307,7 +308,7 @@ export function GymEditPage() {
       const have = editId && c.gyms.find(g => g.id === editId)
       const d = loc.state?.draft || {}
       setGym(have ? { ...have } : validPos(d)
-        ? { id: null, name: String(d.name || '').slice(0, 60), address: d.address || '', mapUrl: d.mapUrl || '', lat: d.lat, lng: d.lng, radius: d.radius || RADIUS_PRESETS.medium, text: '' }
+        ? { id: null, name: String(d.name || '').slice(0, 60), address: d.address || '', mapUrl: d.mapUrl || '', locker: d.locker || '', lat: d.lat, lng: d.lng, radius: d.radius || RADIUS_PRESETS.medium, text: '' }
         : false)
     })
     return () => { gone = true }
@@ -393,6 +394,12 @@ export function GymEditPage() {
         <span className="lrow-m"><span className="lrow-t">{t('Map link')}</span></span>
         <input className="lrow-in" value={gym.mapUrl || ''} maxLength={1000} placeholder="https://2gis.ru/…" aria-label={t('Map link')}
           inputMode="url" autoComplete="off" spellCheck={false} onChange={e => set({ mapUrl: e.target.value })} />
+      </label>
+      <label className="lrow gym-in-row">
+        <span className="lrow-i" style={{ '--tint': 'var(--orange)' }}><Icon name="lock" /></span>
+        <span className="lrow-m"><span className="lrow-t">{t('Locker number (optional)')}</span></span>
+        <input className="lrow-in" value={gym.locker || ''} maxLength={LOCKER_MAX} placeholder={t('e.g. B-42')} aria-label={t('Locker number (optional)')}
+          enterKeyHint="done" autoComplete="off" onChange={e => set({ locker: e.target.value })} />
       </label>
       <Row icon="bell" iconTint="var(--red)" title={t('Remind me here')}>
         <Switch checked={!gym.off} onChange={v => set({ off: !v })} aria-label={t('Remind me here')} />

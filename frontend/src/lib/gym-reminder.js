@@ -17,6 +17,7 @@ import { isoOf } from './format.js'
 import { excusedOn } from './day-notes.js'
 import { remoteAuth } from './api.js'
 import { readForgottenPrefs } from './forgotten-workout.js'
+import { cleanLocker } from './locker.js'
 
 export const GYM_KEY = 'gym_reminder_v1'
 export const RADIUS = Object.freeze({ min: 50, max: 500, def: 100, step: 10 })
@@ -75,6 +76,8 @@ export function normGym(g) {
   if (!validLatLng(lat, lng)) return null
   const id = str(g.id, 40) || 'g' + Math.random().toString(36).slice(2, 10)
   const out = { id, name: str(g.name, 60), address: str(g.address, 160), lat: round6(lat), lng: round6(lng), radius: clampRadius(g.radius ?? RADIUS.def), text: str(g.text, 120) }
+  const locker = cleanLocker(g.locker)
+  if (locker) out.locker = locker
   const mapUrl = mapUrlOf(g.mapUrl)
   if (mapUrl) out.mapUrl = mapUrl
   if (g.off === true) out.off = true
