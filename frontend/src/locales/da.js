@@ -5986,4 +5986,5 @@ export default {
   "Paste from clipboard": "Indsæt fra udklipsholder",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Åbn 2GIS- eller Yandex-kort, kopier linket til gymnastikkort, og kom derefter tilbage og indsæt det her.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Det kort har ingen koordinater. Kopier dets link igen, eller tilføj fitnesscenteret manuelt.",
+  "Map link": "Kort link",
 }

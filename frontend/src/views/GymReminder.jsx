@@ -244,7 +244,7 @@ export function GymFindPage({ find = findPlaces }) {
     if (!at) { try { at = await currentPosition() } catch { at = null } }
     gymPasteSheet(openSheet, {
       near: at,
-      onUse: card => open({ name: card.name || '', address: card.address || '', lat: card.lat, lng: card.lng }),
+      onUse: card => open({ name: card.name || '', address: card.address || '', mapUrl: card.url || '', lat: card.lat, lng: card.lng }),
     })
   }
 
@@ -307,7 +307,7 @@ export function GymEditPage() {
       const have = editId && c.gyms.find(g => g.id === editId)
       const d = loc.state?.draft || {}
       setGym(have ? { ...have } : validPos(d)
-        ? { id: null, name: String(d.name || '').slice(0, 60), address: d.address || '', lat: d.lat, lng: d.lng, radius: d.radius || RADIUS_PRESETS.medium, text: '' }
+        ? { id: null, name: String(d.name || '').slice(0, 60), address: d.address || '', mapUrl: d.mapUrl || '', lat: d.lat, lng: d.lng, radius: d.radius || RADIUS_PRESETS.medium, text: '' }
         : false)
     })
     return () => { gone = true }
@@ -363,7 +363,7 @@ export function GymEditPage() {
   })
   const radii = PRESETS.includes(gym.radius) ? PRESETS : [...PRESETS, gym.radius].sort((a, b) => a - b)
   const sizeName = r => r === RADIUS_PRESETS.small ? t('Small') : r === RADIUS_PRESETS.medium ? t('Medium') : r === RADIUS_PRESETS.large ? t('Large') : t('Custom')
-  const mapsLink = () => window.open(ios() ? appleMapsUrl(pos, gym.name) : googleMapsUrl(pos), '_blank', 'noopener')
+  const mapsLink = () => window.open(gym.mapUrl || (ios() ? appleMapsUrl(pos, gym.name) : googleMapsUrl(pos)), '_blank', 'noopener')
 
   return <>
     <div className="gmap">
@@ -381,6 +381,18 @@ export function GymEditPage() {
         <span className="lrow-m"><span className="lrow-t">{t('Name')}</span></span>
         <input className="lrow-in" value={gym.name} maxLength={60} placeholder={t('My gym')} aria-label={t('Name')}
           enterKeyHint="done" autoComplete="off" onChange={e => set({ name: e.target.value })} />
+      </label>
+      <label className="lrow gym-in-row">
+        <span className="lrow-i" style={{ '--tint': 'var(--blue)' }}><Icon name="mapPin" /></span>
+        <span className="lrow-m"><span className="lrow-t">{t('Address')}</span></span>
+        <input className="lrow-in" value={gym.address} maxLength={160} placeholder={t('Address')} aria-label={t('Address')}
+          enterKeyHint="done" autoComplete="off" onChange={e => set({ address: e.target.value })} />
+      </label>
+      <label className="lrow gym-in-row">
+        <span className="lrow-i" style={{ '--tint': 'var(--green)' }}><Icon name="link" /></span>
+        <span className="lrow-m"><span className="lrow-t">{t('Map link')}</span></span>
+        <input className="lrow-in" value={gym.mapUrl || ''} maxLength={1000} placeholder="https://2gis.ru/…" aria-label={t('Map link')}
+          inputMode="url" autoComplete="off" spellCheck={false} onChange={e => set({ mapUrl: e.target.value })} />
       </label>
       <Row icon="bell" iconTint="var(--red)" title={t('Remind me here')}>
         <Switch checked={!gym.off} onChange={v => set({ off: !v })} aria-label={t('Remind me here')} />

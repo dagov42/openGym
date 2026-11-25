@@ -6043,4 +6043,5 @@ export default {
   "Paste from clipboard": "Вставити з буфера",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Відкрийте 2GIS або Яндекс.Карти, скопіюйте посилання на картку залу й поверніться сюди, щоб вставити його.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "У картці немає координат. Скопіюйте посилання ще раз або додайте зал вручну.",
+  "Map link": "Посилання на карту",
 }

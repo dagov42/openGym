@@ -6056,4 +6056,5 @@ export default {
   "Paste from clipboard": "Incolla dagli appunti",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Apri 2GIS o Yandex Maps, copia il link della scheda della palestra, poi torna indietro e incollalo qui.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Quella carta non ha coordinate. Copia nuovamente il collegamento o aggiungi la palestra manualmente.",
+  "Map link": "Collegamento alla mappa",
 }

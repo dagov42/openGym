@@ -6042,4 +6042,5 @@ export default {
   "Paste from clipboard": "Įklijuoti iš mainų srities",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Atidarykite 2GIS arba Yandex žemėlapius, nukopijuokite sporto salės kortelės nuorodą, tada grįžkite ir įklijuokite ją čia.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Ta kortelė neturi koordinačių. Dar kartą nukopijuokite jo nuorodą arba pridėkite sporto salę rankiniu būdu.",
+  "Map link": "Žemėlapio nuoroda",
 }

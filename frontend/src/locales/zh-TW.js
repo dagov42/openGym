@@ -6039,4 +6039,5 @@ export default {
   "Paste from clipboard": "從剪貼簿貼上",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "打開 2GIS 或 Yandex Maps，複製健身卡鏈接，然後返回並將其貼上到此處。",
   "That card has no coordinates. Copy its link again or add the gym manually.": "該卡沒有座標。再次複製其連結或手動添加健身房。",
+  "Map link": "地圖連結",
 }

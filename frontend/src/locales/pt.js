@@ -6046,4 +6046,5 @@ export default {
   "Paste from clipboard": "Colar da área de transferência",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Abra 2GIS ou Yandex Maps, copie o link do cartão da academia, volte e cole-o aqui.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Esse cartão não tem coordenadas. Copie o link novamente ou adicione a academia manualmente.",
+  "Map link": "Link do mapa",
 }

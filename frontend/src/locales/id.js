@@ -6011,4 +6011,5 @@ export default {
   "Paste from clipboard": "Tempel dari papan klip",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Buka 2GIS atau Yandex Maps, salin tautan kartu gym, lalu kembali dan tempel di sini.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Kartu itu tidak memiliki koordinat. Salin lagi tautannya atau tambahkan gym secara manual.",
+  "Map link": "Tautan peta",
 };

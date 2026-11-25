@@ -36,7 +36,7 @@ vi.mock('@capacitor/local-notifications', () => ({
 import {
   clampRadius, normGym, normConfig, normWindow, inWindow, skipReason, statusOf, copyFor, distanceM,
   readGymConfig, saveGymConfig, loadGymConfig, pushGymStatus, onGymReminderOpen, _resetGymReminder,
-  GYM_KEY, RADIUS, MAX_GYMS, NOTIFICATION_ID,
+  GYM_KEY, RADIUS, MAX_GYMS, NOTIFICATION_ID, mapUrlOf,
 } from './gym-reminder.js'
 
 const at = (iso, hhmm) => new Date(`${iso}T${hhmm}:00`)
@@ -76,6 +76,12 @@ describe('settings', () => {
     expect(normGym({ id: 'b', lat: 47.1, lng: 8.1, address: 'y'.repeat(400) }).address).toHaveLength(160)
     // only `true` switches one off; on is the shape a 1.4.3 gym already has (no key)
     expect('off' in normGym({ id: 'c', lat: 47.1, lng: 8.1, off: 'yes' })).toBe(false)
+  })
+  it('keeps a map card link only for a maps host, and drops anything else', () => {
+    const g = normGym({ id: 'a', lat: 47.1, lng: 8.1, mapUrl: ' https://2gis.ru/moscow/firm/123?m=37.6,55.7/15 ' })
+    expect(g.mapUrl).toBe('https://2gis.ru/moscow/firm/123?m=37.6,55.7/15')
+    expect(normGym({ id: 'b', lat: 47.1, lng: 8.1, mapUrl: 'https://example.com/firm/1' }).mapUrl).toBeUndefined()
+    expect(mapUrlOf('javascript:alert(1)')).toBe('')
   })
   it('off by default, several gyms, duplicates dropped, at most 20 (iOS watches 20 regions)', () => {
     expect(normConfig(undefined)).toEqual({ on: false, gyms: [], window: null })

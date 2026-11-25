@@ -8,7 +8,8 @@ tag. Write it for the people using the app: what changed for them, short, no em 
 
 - Gym reminder: 2GIS and Yandex Maps buttons open the installed map app or its website at the
   current search. After copying a gym card there, Paste a gym card reads the name, address and
-  point from the clipboard and opens the gym editor. No map API key is used.
+  point from the clipboard and opens the gym editor. No map API key is used. The editor now has an
+  editable optional address and a map link, and keeps the link with the gym.
 - Settings → About now has one donation link, YooMoney. The author's Buy Me a Coffee, Ko-fi and
   GitHub Sponsors buttons are gone. The link is still hidden in the Google Play build, where Play
   billing rules apply. Source code and NOTICE.md links point at the fork, not upstream.

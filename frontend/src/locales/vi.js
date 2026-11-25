@@ -6012,4 +6012,5 @@ export default {
   "Paste from clipboard": "Dán từ clipboard",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Mở 2GIS hoặc Yandex Maps, copy link thẻ gym rồi quay lại dán vào đây.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Thẻ đó không có tọa độ. Sao chép lại liên kết của nó hoặc thêm phòng tập thể dục theo cách thủ công.",
+  "Map link": "Liên kết bản đồ",
 };

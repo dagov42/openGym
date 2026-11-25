@@ -6057,4 +6057,5 @@ export default {
   "Paste from clipboard": "วางจากคลิปบอร์ด",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "เปิด 2GIS หรือ Yandex Maps คัดลอกลิงก์การ์ดยิม จากนั้นกลับมาวางที่นี่",
   "That card has no coordinates. Copy its link again or add the gym manually.": "การ์ดใบนั้นไม่มีพิกัด คัดลอกลิงก์อีกครั้งหรือเพิ่มยิมด้วยตนเอง",
+  "Map link": "ลิงค์แผนที่",
 }

@@ -6046,4 +6046,5 @@ export default {
   "Paste from clipboard": "Panodan yapıştır",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "2GIS veya Yandex Haritalar'ı açın, spor salonu kartı bağlantısını kopyalayın, ardından geri gelip buraya yapıştırın.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "O kartın koordinatları yok. Bağlantısını tekrar kopyalayın veya spor salonunu manuel olarak ekleyin.",
+  "Map link": "Harita bağlantısı",
 }

@@ -51,6 +51,19 @@ export const minuteOf = hhmm => {
 const str = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 const round6 = n => Math.round(n * 1e6) / 1e6
 
+// A map card link the person chose to keep (2GIS, Yandex Maps, Google Maps, Apple Maps). Only
+// these hosts are stored: the editor opens the link later, so it must not become a way to launch
+// an arbitrary site from a gym row.
+const MAP_HOST = /(^|\.)(?:2gis\.[a-z.]+|yandex\.[a-z.]+|google\.[a-z.]+|maps\.apple\.com)$/i
+export function mapUrlOf(value) {
+  const url = str(value, 1000)
+  if (!url) return ''
+  try {
+    const u = new URL(url)
+    return /^https?:$/.test(u.protocol) && MAP_HOST.test(u.hostname) ? u.href : ''
+  } catch { return '' }
+}
+
 /**
  * One gym as kept: a name, an address (as the map search found it, for the list), a place, a
  * radius in metres and an optional text. `off: true` keeps a gym on the list that the phone does
@@ -62,6 +75,8 @@ export function normGym(g) {
   if (!validLatLng(lat, lng)) return null
   const id = str(g.id, 40) || 'g' + Math.random().toString(36).slice(2, 10)
   const out = { id, name: str(g.name, 60), address: str(g.address, 160), lat: round6(lat), lng: round6(lng), radius: clampRadius(g.radius ?? RADIUS.def), text: str(g.text, 120) }
+  const mapUrl = mapUrlOf(g.mapUrl)
+  if (mapUrl) out.mapUrl = mapUrl
   if (g.off === true) out.off = true
   // The equipment profile to use here (#808, lib/gym-inventory.js): arriving, a check-in sticker or
   // a workout started inside the radius makes it the active gym. Absent: this place switches nothing.

@@ -6049,4 +6049,5 @@ export default {
   "Paste from clipboard": "Beillesztés a vágólapról",
   "Open 2GIS or Yandex Maps, copy the gym card link, then come back and paste it here.": "Nyissa meg a 2GIS vagy a Yandex Maps alkalmazást, másolja ki az edzőterem kártya linkjét, majd térjen vissza, és illessze be ide.",
   "That card has no coordinates. Copy its link again or add the gym manually.": "Ennek a kártyának nincsenek koordinátái. Másolja ki újra a linkjét, vagy adja hozzá az edzőtermet manuálisan.",
+  "Map link": "Térkép link",
 }
