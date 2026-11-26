@@ -83,7 +83,15 @@ final class CardioTimer {
         // is visible wherever the card is.
         RemoteViews rv = new RemoteViews(ctx.getPackageName(), R.layout.cardio_timer_notification);
         rv.setTextViewText(R.id.cardio_title, stopAt > 0 ? ctx.getString(R.string.cardio_timer_stopped) : ctx.getString(R.string.cardio_timer_title));
-        rv.setTextViewText(R.id.cardio_text, text);
+        if (stopAt <= 0) {
+            // The system chronometer ticks on the Lock Screen without the page having to post
+            // every second. Its base is elapsedRealtime, not the wall-clock start.
+            long base = android.os.SystemClock.elapsedRealtime() - Math.max(0, System.currentTimeMillis() - startedAt);
+            rv.setChronometer(R.id.cardio_elapsed, base, null, true);
+            rv.setViewVisibility(R.id.cardio_elapsed, android.view.View.VISIBLE);
+        } else {
+            rv.setViewVisibility(R.id.cardio_elapsed, android.view.View.GONE);
+        }
         rv.setViewVisibility(R.id.cardio_stop, stopAt > 0 ? android.view.View.GONE : android.view.View.VISIBLE);
         if (stopAt <= 0) rv.setOnClickPendingIntent(R.id.cardio_stop, stop(ctx));
         if (Build.VERSION.SDK_INT >= 24) {

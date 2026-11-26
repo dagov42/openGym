@@ -3,31 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="10dp"
+    android:paddingTop="6dp"
     android:paddingBottom="2dp">
 
     <TextView
         android:id="@+id/cardio_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary" />
+        android:textColor="#FFFFFFFF" />
 
-    <TextView
-        android:id="@+id/cardio_text"
+    <Chronometer
+        android:id="@+id/cardio_elapsed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
-        android:textSize="14sp"
-        android:textColor="?android:attr/textColorSecondary" />
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFFFF" />
 
     <Button
         android:id="@+id/cardio_stop"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="6dp"
+        android:backgroundTint="#30D158"
         android:text="@string/cardio_timer_stop"
         android:textAllCaps="false"
+        android:textColor="#101010"
         android:textSize="15sp" />
 </LinearLayout>

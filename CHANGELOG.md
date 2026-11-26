@@ -13,9 +13,9 @@ Fork sections also carry a Russian `### По-русски` duplicate of the feat
   weekly countdown is hidden, the streak neither breaks nor spends a freeze, and a running
   programme's week is held when its switch is on. Workouts are never blocked, and Resume now
   ends the pause.
-- Cardio timer: while a cardio set is counting, an ongoing Android notification keeps a Stop
-  button on the Lock Screen. Tapping it records the exact stop time without unlocking the phone;
-  openGym writes those minutes to the row the next time it is opened.
+- Cardio timer: while a cardio set is counting, an ongoing Android notification keeps the
+  elapsed time and a Stop button on the Lock Screen. Tapping it records the exact stop time
+  without unlocking the phone; openGym writes those minutes to the row the next time it is opened.
 - A Yandex card that carries only `?si=...` now geocodes the address through OpenStreetMap
   automatically when you tap Continue and opens that point on the map. The paste sheet has no
   “find” or “current location” buttons and shows one error instead of the same one twice.
@@ -26,9 +26,9 @@ Fork sections also carry a Russian `### По-русски` duplicate of the feat
   дат или до возвращения. Напоминание о тренировке и уведомление о пропуске молчат, недельный
   счётчик скрыт, серия не рвётся и не тратит заморозку, а неделя программы держится, если включён
   переключатель. Тренировку пауза не блокирует; «Продолжить сейчас» снимает паузу.
-- Кардио-таймер: пока идёт кардио-подход, в шторке Android висит уведомление с кнопкой «Стоп».
-  Нажатие на локскрине записывает точное время остановки без разблокировки; openGym запишет эти
-  минуты в подход при следующем открытии.
+- Кардио-таймер: пока идёт кардио-подход, в шторке Android висит уведомление с прошедшим
+  временем и кнопкой «Стоп». Нажатие на локскрине записывает точное время остановки без
+  разблокировки; openGym запишет эти минуты в подход при следующем открытии.
 - Карточка Яндекса без координат (только `?si=...`) теперь при нажатии «Продолжить» сама ищет
   адрес через OpenStreetMap и открывает найденную точку на карте. В листе вставки нет отдельных
   кнопок поиска и текущего места, ошибка показывается один раз.

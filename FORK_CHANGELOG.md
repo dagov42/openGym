@@ -46,8 +46,17 @@
   thenable, и `await` пытался вызвать `CardioTimer.then()`. Плагин теперь лежит в обёртке
   `{ instance }`; ошибка из консоли тестовой сборки устранена.
 - На MIUI стандартный `addAction` не показывался в ongoing-уведомлении. Уведомление переведено
-  на `RemoteViews`-карточку с собственной кнопкой «Стоп», канал `cardio-timer-v2` с importance
-  DEFAULT. Кнопка остаётся частью карточки, а не отдельным action.
+  на `RemoteViews`-карточку с живым `Chronometer` и собственной кнопкой «Стоп», канал
+  `cardio-timer-v2` с importance DEFAULT. Кнопка остаётся частью карточки, а не отдельным action.
+
+### GIF/анимации в release
+
+- Первый release после фикса плагинов собрали из `vite build` без
+  `node scripts/catalogue/stage-media.mjs dist`, поэтому в APK не было каталога
+  `exercise-media` (0 файлов), и вместо GIF были пустые блоки.
+- Release пересобран с `stage-media` (13 109 файлов в
+  `android/app/src/main/assets/public/exercise-media`), подписан и установлен; на экране
+  «Упражнения» превью и анимация отображаются.
 
 ### Проверка
 
