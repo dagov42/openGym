@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.widget.RemoteViews;
 
 /**
  * A stop action for the cardio count-up clock (store/useCardioClock.js). The page starts this
@@ -25,7 +26,7 @@ final class CardioTimer {
     private static final String STOPPED = "stopAt";
     private static final String LABEL = "label";
     private static final int NOTIFICATION_ID = 3100;
-    private static final String CHANNEL_ID = "cardio-timer";
+    private static final String CHANNEL_ID = "cardio-timer-v2";
     static final String ACTION_STOP = "ch.duartesantos.opengym.cardio.STOP";
     private static final int FLAGS = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
 
@@ -37,7 +38,7 @@ final class CardioTimer {
         if (Build.VERSION.SDK_INT < 26) return;
         NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         if (nm.getNotificationChannel(CHANNEL_ID) != null) return;
-        NotificationChannel ch = new NotificationChannel(CHANNEL_ID, "Cardio timer", NotificationManager.IMPORTANCE_LOW);
+        NotificationChannel ch = new NotificationChannel(CHANNEL_ID, "Cardio timer", NotificationManager.IMPORTANCE_DEFAULT);
         ch.setDescription("Stop a running cardio set from the Lock Screen");
         ch.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
         ch.setSound(null, null);
@@ -76,7 +77,19 @@ final class CardioTimer {
                 .setCategory(Notification.CATEGORY_PROGRESS)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setContentIntent(open(ctx));
-        if (stopAt <= 0) b.addAction(android.R.drawable.ic_media_pause, ctx.getString(R.string.cardio_timer_stop), stop(ctx));
+
+        // A custom content view: some OEM lock screens (MIUI here) hid the standard notification
+        // action on a low-importance ongoing card. The button is part of the card itself, so it
+        // is visible wherever the card is.
+        RemoteViews rv = new RemoteViews(ctx.getPackageName(), R.layout.cardio_timer_notification);
+        rv.setTextViewText(R.id.cardio_title, stopAt > 0 ? ctx.getString(R.string.cardio_timer_stopped) : ctx.getString(R.string.cardio_timer_title));
+        rv.setTextViewText(R.id.cardio_text, text);
+        rv.setViewVisibility(R.id.cardio_stop, stopAt > 0 ? android.view.View.GONE : android.view.View.VISIBLE);
+        if (stopAt <= 0) rv.setOnClickPendingIntent(R.id.cardio_stop, stop(ctx));
+        if (Build.VERSION.SDK_INT >= 24) {
+            b.setCustomContentView(rv);
+            b.setCustomBigContentView(rv);
+        }
         NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(NOTIFICATION_ID, b.build());
     }

@@ -14,7 +14,9 @@ should be when the finger stopped, not when the phone was unlocked.
 - Starting a cardio clock posts an ongoing notification on the `cardio-timer` channel: title
   "Cardio timer", the exercise name, and one **Stop** action.
 - The notification is visible on the Lock Screen (`VISIBILITY_PUBLIC`), has no sound and no
-  vibration, and opens the app when its body is tapped.
+  vibration, and opens the app when its body is tapped. It uses an `IMPORTANCE_DEFAULT` channel
+  (`cardio-timer-v2`) and a `RemoteViews` card with its own Stop button: MIUI hid a standard
+  notification action on the earlier low-importance ongoing card.
 - Tapping **Stop** does not open the app. It stores `startedAt` and `stopAt` in a small
   device-only preference, and replaces the notification with "Cardio stopped" at that time.
 - The page checks `consumeStop` when it comes back to the foreground (and on a cold start once the

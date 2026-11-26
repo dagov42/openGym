@@ -20,6 +20,47 @@
 
 ---
 
+## 2026-11-26 — релиз завис на логотипе; кардио-стоп на локскрине
+
+### Причина
+
+- В релизном APK `capacitor.plugins.json` перечислял `ClipboardPlugin` и `SplashScreenPlugin`,
+  но Gradle-модули `capacitor-clipboard`/`capacitor-splash-screen` в этой сборке отсутствовали:
+  релиз собрали после `git checkout` сгенерированных `capacitor.build.gradle` и
+  `capacitor.settings.gradle`, без повторного `cap sync`.
+- `BridgeActivity` падал с `PluginLoadException: Could not find class by class path:
+  com.capacitorjs.plugins.clipboard.ClipboardPlugin` до запуска WebView, поэтому оставался
+  системный splash.
+
+### Исправление
+
+- Сгенерированные `frontend/android/app/capacitor.build.gradle` и
+  `frontend/android/capacitor.settings.gradle` приведены в соответствие с установленными
+  плагинами (`clipboard`, `splash-screen`) и закоммичены.
+- Пересобран подписанный release с `cap sync`; APK установлен поверх `ch.duartesantos.opengym`,
+  приложение открывается на Home.
+
+### Кардио-стоп
+
+- `cardio-notification.js` больше не возвращает сам Capacitor-proxy из async-загрузчика: proxy
+  thenable, и `await` пытался вызвать `CardioTimer.then()`. Плагин теперь лежит в обёртке
+  `{ instance }`; ошибка из консоли тестовой сборки устранена.
+- На MIUI стандартный `addAction` не показывался в ongoing-уведомлении. Уведомление переведено
+  на `RemoteViews`-карточку с собственной кнопкой «Стоп», канал `cardio-timer-v2` с importance
+  DEFAULT. Кнопка остаётся частью карточки, а не отдельным action.
+
+### Проверка
+
+- Тестовая сборка: `CardioTimer.start` создаёт уведомление; кнопка «Стоп» в custom-карточке
+  видна, нажатие на неё записывает `stopAt`, `consumeStop` возвращает `{ startedAt, stopAt, label }`,
+  `CardioTimer.stop` убирает уведомление. Проверено на `ch.duartesantos.opengym.test`.
+- `frontend/src/lib/cardio-notification.test.js` — proxy не await-ится, web остаётся no-op.
+- Frontend: 963 файла, 10 652 теста, 11 skip; coverage 91.65 / 84 / 92.32 / 95.27.
+- Android `assembleSideloadDebug` — BUILD SUCCESSFUL; финальная no-style карточка установлена
+  и проверена на телефоне.
+
+---
+
 ## 2026-11-25 — Пауза плана и стоп кардио с локскрина
 
 ### Что добавлено
