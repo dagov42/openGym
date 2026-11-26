@@ -2385,7 +2385,7 @@ function ActiveWorkout() {
     // Spoken cues (Settings → Timer alerts → Voice): the style's line for a record, or a clip.
     cues.record()
   }
-  const toggle = (idx, i, side, { quiet = false, onFocusProgress, at } = {}) => {
+  const toggle = (idx, i, side, { quiet = false, onFocusProgress, at, min } = {}) => {
     // Ticking a set ends the typing in that row: drop the keyboard before the rest timer, the
     // effort sheet or the next exercise moves in. WebKit keeps the input focused across the
     // button tap, and a focused input with its keyboard gone is what leaves the tab bar
@@ -2409,6 +2409,8 @@ function ActiveWorkout() {
       if (!editing && (side ? e.sets[i].sides[side].done : checked)) e.sets[i].at = Date.now()
       // A finished row has no use for a plan set aside by a hold that did not finish.
       if (checked && e.sets[i].planSec != null) delete e.sets[i].planSec
+      // A cardio tick heard from the workout card: the native clock's minutes ride on the event.
+      if (checked && !side && min != null) e.sets[i].min = Math.max(0, Math.min(1440, Math.round(Number(min) || 0)))
       if (e.sets[i].done && !editing) {
         // A set logged while paused (#976): you are back, and so is the clock.
         if (isPaused(s.active)) resumeWorkout(s.active)
@@ -2691,22 +2693,22 @@ function ActiveWorkout() {
   // Log set on the Home Screen widget: the same tick, once the widget's numbers are in the row
   // (lib/widget-logger.js puts them there first).
   useEffect(() => bindWidgetActions({
-    setDone: (idx, i, { at }) => {
+    setDone: (idx, i, { at, min }) => {
       const A = useStore.getState().S.active
       if (!A || A.editingWorkoutId || A.entries?.[idx]?.sets?.[i]?.done) return
-      tickRowRef.current(idx, i, { quiet: true, at })
+      tickRowRef.current(idx, i, { quiet: true, at, min })
       if (at) mutEntry(idx, en => { const set = en.sets[i]; if (set?.done) set.at = at })
     },
   }), [])
   useEffect(() => bindLiveActions({
-    setDone: (idx, i, { at }) => {
+    setDone: (idx, i, { at, min }) => {
       const A = useStore.getState().S.active
       if (!A || A.editingWorkoutId || A.entries?.[idx]?.sets?.[i]?.done) return
       const restBefore = useUI.getState().timer
       // Log set on a hold that is running: the hold ends there, with what was held up to the tap.
       const wk = useUI.getState().work
       if (wk?.owner && wk.owner.idx === idx && wk.owner.i === i && useUI.getState().finishWorkEarly) { useUI.getState().finishWorkEarly(at || Date.now()); return }
-      tickRowRef.current(idx, i, { quiet: true, at })
+      tickRowRef.current(idx, i, { quiet: true, at, min })
       if (!at) return
       mutEntry(idx, en => { const set = en.sets[i]; if (set?.done) set.at = at })
       // The rest this tick started began at the tap, which the Lock Screen has been counting

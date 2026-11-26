@@ -126,7 +126,7 @@ export function liveNeeds (S) {
   return { G, sx: sessionDetails(G), room: detailRoom(G) }
 }
 
-const secText = sec => { const n = Math.max(0, Math.round(num(Number(sec)) || 0)); return n < 60 ? `${n} s` : fmtSec(n) }
+const secText = sec => { const n = Math.max(0, Math.round(num(Number(sec)) || 0)); return n < 60 ? t('{0} s', n) : fmtSec(n) }
 function setView (S, A, { entryIdx, setIdx, restAfter, unit }, needs = null, withAdj = false) {
   const e = A.entries[entryIdx]
   const s = e.sets[setIdx]
@@ -208,10 +208,10 @@ function setExtras (S, A, entryIdx, setIdx, needs, withAdj) {
     // Minutes and speed (or distance) as the big line; incline and level as details, so a long
     // treadmill line is not cut off on a small screen.
     const min = num(Number(row.min)) ?? num(Number(e.target?.min))
-    if (min != null) out.sh = `${fmtNum(min)} min`
+    if (min != null) out.sh = t('{0} min', fmtNum(min))
     const km = num(Number(row.km))
     const speed = num(Number(row.speed)) ?? num(Number(e.target?.speed))
-    const parts = [min != null ? `${fmtNum(min)} min` : '', km > 0 ? fmtDist(km, distUnitOf(S)) : speed > 0 ? fmtSpeed(speed, speedUnitOf(S)) : '']
+    const parts = [min != null ? t('{0} min', fmtNum(min)) : '', km > 0 ? fmtDist(km, distUnitOf(S)) : speed > 0 ? fmtSpeed(speed, speedUnitOf(S)) : '']
     if (parts.some(Boolean)) out.bg = parts.filter(Boolean).join(' · ')
     const extra = {}
     if (hasIncline(row)) extra.incline = t('{0}% incline', fmtNum(Number(row.incline)))
@@ -488,7 +488,7 @@ export function applyLiveEvents (events, getState) {
       if (!handlers) break
       const idx = entryIndexOf(A, ev)
       const set = idx >= 0 ? A.entries[idx].sets?.[ev.setIdx] : null
-      if (set && !set.done) handlers.setDone(idx, ev.setIdx, { at: num(ev.at) })
+      if (set && !set.done) handlers.setDone(idx, ev.setIdx, { at: num(ev.at), ...(num(ev.min) != null ? { min: num(ev.min) } : {}) })
     } else if (ev.type === 'next' && ours) {
       if (!handlers) break
       const to = nextExerciseTarget(A, ev.fromEntryIdx)

@@ -150,6 +150,14 @@ describe('the Done taps', () => {
     expect(L.applyLiveEvents([ev('e1')], getState)).toEqual(['e1'])
     expect(calls).toEqual([[0, 0, { at: 1234 }]])
   })
+  it('carries the cardio minutes from a Log set on the workout card', () => {
+    bind()
+    expect(L.applyLiveEvents([ev('e1', { min: 2 })], getState)).toEqual(['e1'])
+    expect(calls).toEqual([[0, 0, { at: 1234, min: 2 }]])
+    expect(L.applyLiveEvents([ev('e2', { setIdx: 1 })], getState)).toEqual(['e2'])
+    expect(calls[1]).toEqual([0, 1, { at: 1234 }])
+  })
+
   it('finds the exercise when the list moved, and leaves a set already ticked alone', () => {
     bind()
     L.applyLiveEvents([ev('e1', { exId: '0043', entryIdx: 0 })], getState)

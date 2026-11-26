@@ -46,8 +46,13 @@
   thenable, и `await` пытался вызвать `CardioTimer.then()`. Плагин теперь лежит в обёртке
   `{ instance }`; ошибка из консоли тестовой сборки устранена.
 - На MIUI стандартный `addAction` не показывался в ongoing-уведомлении. Уведомление переведено
-  на `RemoteViews`-карточку с живым `Chronometer` и собственной кнопкой «Стоп», канал
-  `cardio-timer-v2` с importance DEFAULT. Кнопка остаётся частью карточки, а не отдельным action.
+  на компактную `RemoteViews`-карточку с живым `Chronometer` и кнопкой «Стоп» в одной строке,
+  канал `cardio-timer-v2` с importance DEFAULT. Карточка не выше обычного виджета.
+- `Log set` на workout-карточке для кардио-подхода берёт минуты из нативного `CardioTimer`
+  (`startedAt`/`stopAt`), кладёт `min` в событие и очищает таймер. JS `toggle` пишет эти минуты
+  в подход. Раньше подход закрывался без времени, хотя таймер шёл.
+- `sh`/`bg` кардио-строки теперь проходят через `t('{0} min')`, а не шаблон с английским `min`;
+  в русской шторке «1 мин».
 
 ### GIF/анимации в release
 
@@ -64,7 +69,7 @@
   видна, нажатие на неё записывает `stopAt`, `consumeStop` возвращает `{ startedAt, stopAt, label }`,
   `CardioTimer.stop` убирает уведомление. Проверено на `ch.duartesantos.opengym.test`.
 - `frontend/src/lib/cardio-notification.test.js` — proxy не await-ится, web остаётся no-op.
-- Frontend: 963 файла, 10 652 теста, 11 skip; coverage 91.65 / 84 / 92.32 / 95.27.
+- Frontend: 963 файла, 10 653 теста, 11 skip; coverage 91.66 / 84 / 92.32 / 95.27.
 - Android `assembleSideloadDebug` — BUILD SUCCESSFUL; финальная no-style карточка установлена
   и проверена на телефоне.
 

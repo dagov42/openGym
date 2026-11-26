@@ -25,6 +25,10 @@ should be when the finger stopped, not when the phone was unlocked.
   rounding and speed settle apply. A mismatch is left for the in-app clock and consumes nothing.
 - Stopping in the app, dropping the run or finishing the workout clears the notification and the
   stored stop.
+- Logging the current cardio set from the workout card while its timer runs carries the elapsed
+  minutes into the `setDone` event (`min`), so the row is not saved with no time. The workout
+  card's `min`/seconds text goes through the page language (`{0} min`, `{0} s`), not a hardcoded
+  English `min`.
 - The web and iOS call the same JS functions, which fall back to a no-op when the native plugin
   is not there; their cardio clock is unchanged.
 

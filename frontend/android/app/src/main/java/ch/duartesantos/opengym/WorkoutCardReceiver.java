@@ -52,6 +52,24 @@ public class WorkoutCardReceiver extends BroadcastReceiver {
                 default: return;
             }
             if (move == null) return;
+            // Logging a cardio set from the card while its clock is running: the card does not
+            // own the clock, but the native cardio timer does. Take the minutes there before the
+            // page hears the tick, so the set is not saved with no time.
+            if (LOG.equals(intent.getAction())) {
+                JSONObject cur = WorkoutCard.cur(state);
+                if (cur != null && "cardio".equals(cur.optString("kd"))) {
+                    long started = CardioTimer.startedAt(ctx);
+                    if (started > 0) {
+                        long stop = CardioTimer.stopAt(ctx);
+                        long sec = Math.max(0, (Math.min(stop > 0 ? stop : now, now) - started) / 1000);
+                        int min = sec < 30 ? 0 : (int) Math.max(1, Math.round(sec / 60.0));
+                        if (min > 0) {
+                            try { move.event.put("min", min); } catch (org.json.JSONException ignored) { }
+                        }
+                        CardioTimer.clear(ctx);
+                    }
+                }
+            }
             // Settings' "Try it" (attributes "pv"): the card moves along right here, but nothing is
             // queued for the page (no history) and no rest alarm or rest service starts.
             boolean preview = attrs.optBoolean("pv", false);
