@@ -1,6 +1,8 @@
 # Cardio timer: stop from the Lock Screen
 
-Status: implemented 2026-11-25. Android only for now; the web and iOS keep the in-app stop.
+Status: superseded 2026-11-26 by `2026-11-26-cardio-block-design.md` (A1: one cardio block
+inside the existing workout notification). The separate cardio notification described here was
+removed from the product direction; the file remains as history of the rejected approach.
 
 ## Why
 
